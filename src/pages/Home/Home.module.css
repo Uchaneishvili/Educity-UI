@@ -1,0 +1,144 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.innerContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoriesSectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 10%;
+}
+
+.ourCoursesHeaderContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ourCoursesHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ourCoursesTitle {
+  font-size: 32px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.ourCoursesDescription {
+  font-weight: 400;
+  font-size: 18px;
+  color: #555555;
+}
+
+.allCategories {
+  color: #3561fe;
+  font-size: 18px;
+}
+
+.categoriesContainer {
+  padding: 16px 0px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 41.04px;
+  width: 100%;
+  color: #010101;
+}
+
+.description {
+  font-size: 14px;
+  color: #00000099;
+  width: 60%;
+  line-height: 16.9px;
+}
+
+.textSide {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  gap: 32px;
+}
+
+.ourCoursesTitleMobile,
+.allCategoriesMobile {
+  display: none;
+}
+@media (max-width: 768px) {
+  .bannerSide {
+    display: none;
+  }
+  .textSide,
+  .description {
+    width: 100%;
+    text-align: center;
+  }
+  .textSide {
+    gap: 24px;
+  }
+  .title {
+    font-size: 20px;
+    line-height: 24.14px;
+  }
+
+  .description {
+    font-size: 12px;
+    line-height: 14.48px;
+  }
+
+  .container {
+    padding-top: 34px;
+  }
+  .ourCoursesHeaderContainer {
+    display: none;
+  }
+  .ourCoursesTitleMobile,
+  .allCategoriesMobile {
+    display: block;
+    padding: 10px 0px;
+  }
+
+  .ourCoursesTitleMobile {
+    font-weight: 700;
+    font-size: 18px;
+    color: #000000;
+  }
+
+  .allCategoriesMobile {
+    color: #3561fe;
+    font-size: 18px;
+  }
+  .categoriesContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 15%;
+  }
+}

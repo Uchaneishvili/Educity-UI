@@ -10,6 +10,9 @@ import {
   DigitalMarketingIcon,
   SalesManagementIcon,
   EduSchoolIcon,
+  VideoPauseIcon,
+  VideoLiveIcon,
+  VideoSoundIcon,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
 export function Home() {
@@ -56,6 +59,8 @@ export function Home() {
     },
   ];
 
+  const videoLessonsBannerPhoto = "/assets/videoLessonsBanner.png";
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
@@ -99,6 +104,43 @@ export function Home() {
               />
             ))}
             <div className={styles.allCategoriesMobile}>ყველას ნახვა</div>
+          </div>
+        </div>
+      </div>
+      <div className={styles.videoLessonsSectionContainer}>
+        <div className={styles.videoLessonsTitle}>
+          მაღალი ხარისხის ვიდეო გაკვეთილები
+        </div>
+
+        <div className={styles.videoLessonsInnerContainer}>
+          <div className={styles.videoLessonsButtonsContainer}>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoPauseIconBg}>
+                <VideoPauseIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                ჩაწერილი ვიდეო ლექციები
+              </div>
+            </div>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoLiveIconBg}>
+                <VideoLiveIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                LIVE გაკვეთილები
+              </div>
+            </div>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoSoundIconBg}>
+                <VideoSoundIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                მუდმივი წვდომა ვიდეო ლექციებზე
+              </div>
+            </div>
+          </div>
+          <div className={styles.bannerSide}>
+            <img src={videoLessonsBannerPhoto} alt="videoLessonsTeamImage" />
           </div>
         </div>
       </div>

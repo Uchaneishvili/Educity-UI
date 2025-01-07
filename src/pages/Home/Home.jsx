@@ -13,6 +13,8 @@ import {
   VideoPauseIcon,
   VideoLiveIcon,
   VideoSoundIcon,
+  CommentsButtonArrow,
+  CourseGraduateStar,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
 export function Home() {
@@ -60,6 +62,7 @@ export function Home() {
   ];
 
   const videoLessonsBannerPhoto = "/assets/videoLessonsBanner.png";
+  const courseGraduateGirlPhoto = "/assets/courseGraduateGirlPhoto.png";
 
   return (
     <div className={styles.container}>
@@ -141,6 +144,59 @@ export function Home() {
           </div>
           <div className={styles.bannerSide}>
             <img src={videoLessonsBannerPhoto} alt="videoLessonsTeamImage" />
+          </div>
+        </div>
+      </div>
+      <div className={styles.courseGraduateSectionContainer}>
+        <div className={styles.courseGraduateInnerContainer}>
+          <div className={styles.courseGraduateTextsContainer}>
+            <div className={styles.courseGraduateTitle}>
+              რას ამბობენ კურსდამთავრებულები?
+            </div>
+
+            <div className={styles.courseGraduateDescription}>
+              Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est.
+              Egestas purus at egestas nulla tellus. Egestas proin erat fusce
+              turpis. Eu viverra mauris tellus aliquam. Lorem ipsum dolor sit
+              amet consectetur. Id id sed est magnis est. Egestas purus at
+              egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra
+              mauris tellus aliquam.
+            </div>
+
+            <button className={styles.courseGraduateButton}>
+              დაგვიტოვე კომენტარი
+              <div className={styles.courseGraduateButtonArrow}>
+                <CommentsButtonArrow />
+              </div>
+            </button>
+          </div>
+
+          <div className={styles.courseGraduatePersonContainer}>
+            <img src={courseGraduateGirlPhoto} alt="courseGraduateGirlImage" />
+            <div className={styles.courseGraduateCommentFullContainer}>
+              <div className={styles.courseGraduateCommentLeftShadow}></div>
+              <div className={styles.courseGraduateCommentContainer}>
+                <div className={styles.courseGraduateGrayLine}></div>
+                <div>
+                  <div className={styles.courseGraduateText}>
+                    "Thank you so much for your help. It's exactly what I've
+                    been looking for. You won't regret it. It really saves me
+                    time and effort. TOTC is exactly what our business has been
+                    lacking."
+                  </div>
+                  <div className={styles.courseGraduatePersonInfo}>
+                    <div className={styles.courseGraduateName}>Gloria Rose</div>
+                    <div className={styles.courseGraduateStars}>
+                      <CourseGraduateStar />
+                      <CourseGraduateStar />
+                      <CourseGraduateStar />
+                      <CourseGraduateStar />
+                      <CourseGraduateStar />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

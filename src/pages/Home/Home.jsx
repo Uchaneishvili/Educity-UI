@@ -15,6 +15,7 @@ import {
   VideoSoundIcon,
   CommentsButtonArrow,
   CourseGraduateStar,
+  OnlineChatIcon,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
 import { SubscribeInput } from "../../components/UI/SubscribeInput/SubscribeInput";
@@ -245,6 +246,12 @@ export function Home() {
             alt="Subscribe Person"
           />
           <img src={subscribePhoto6} alt="Subscribe Person" />
+        </div>
+      </div>
+
+      <div className={styles.chatIconContainer}>
+        <div className={styles.chatIcon}>
+          <OnlineChatIcon />
         </div>
       </div>
     </div>

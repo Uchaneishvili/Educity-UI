@@ -867,3 +867,53 @@ export const CourseGraduateStar = () => {
     </svg>
   );
 };
+
+export const OnlineChatIcon = () => {
+  return (
+    <svg
+      width="54"
+      height="54"
+      viewBox="0 0 54 54"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M40.455 24.2775V33.2775C40.455 33.8625 40.4325 34.425 40.365 34.965C39.8475 41.04 36.27 44.055 29.6775 44.055H28.7775C28.215 44.055 27.675 44.325 27.3375 44.775L24.6375 48.375C23.445 49.9725 21.51 49.9725 20.3175 48.375L17.6175 44.775C17.325 44.3925 16.6725 44.055 16.1775 44.055H15.2775C8.10002 44.055 4.5 42.2775 4.5 33.2775V24.2775C4.5 17.685 7.53752 14.1075 13.59 13.59C14.13 13.5225 14.6925 13.5 15.2775 13.5H29.6775C36.855 13.5 40.455 17.1 40.455 24.2775Z"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M49.455 15.2775V24.2775C49.455 30.8925 46.4175 34.4475 40.365 34.965C40.4325 34.425 40.455 33.8625 40.455 33.2775V24.2775C40.455 17.1 36.855 13.5 29.6775 13.5H15.2775C14.6925 13.5 14.13 13.5225 13.59 13.59C14.1075 7.53752 17.685 4.5 24.2775 4.5H38.6775C45.855 4.5 49.455 8.10002 49.455 15.2775Z"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-miterlimit="10"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M30.3649 29.8125H30.3851"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M22.4899 29.8125H22.5101"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M14.6149 29.8125H14.6351"
+        stroke="white"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};

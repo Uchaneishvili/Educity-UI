@@ -283,6 +283,62 @@
   gap: 3px;
 }
 
+.subscribeSectionContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10%;
+  background-color: #eff2fa;
+  padding: 61px 25px 65px 43px;
+}
+
+.subscribePhotosContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 68px;
+}
+
+.subscribeInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscribePhoto2 {
+  transform: translateX(127px);
+}
+
+.subscribePhoto3 {
+  transform: translateX(30px);
+}
+
+.subscribePhoto4 {
+  transform: translateX(-30px);
+}
+
+.subscribePhoto5 {
+  transform: translateX(-127px);
+}
+
+.subscribeTitle {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 55px;
+  color: #000000cc;
+  text-align: center;
+}
+
+.subscribeDescription {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  color: #00000099;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
 @media (max-width: 768px) {
   .bannerSide {
     display: none;

@@ -17,6 +17,8 @@ import {
   CourseGraduateStar,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
+import { SubscribeInput } from "../../components/UI/SubscribeInput/SubscribeInput";
+
 export function Home() {
   const categories = [
     {
@@ -63,6 +65,12 @@ export function Home() {
 
   const videoLessonsBannerPhoto = "/assets/videoLessonsBanner.png";
   const courseGraduateGirlPhoto = "/assets/courseGraduateGirlPhoto.png";
+  const subscribePhoto1 = "/assets/subscribePhoto1.png";
+  const subscribePhoto2 = "/assets/subscribePhoto2.png";
+  const subscribePhoto3 = "/assets/subscribePhoto3.png";
+  const subscribePhoto4 = "/assets/subscribePhoto4.png";
+  const subscribePhoto5 = "/assets/subscribePhoto5.png";
+  const subscribePhoto6 = "/assets/subscribePhoto6.png";
 
   return (
     <div className={styles.container}>
@@ -143,7 +151,7 @@ export function Home() {
             </div>
           </div>
           <div className={styles.bannerSide}>
-            <img src={videoLessonsBannerPhoto} alt="videoLessonsTeamImage" />
+            <img src={videoLessonsBannerPhoto} alt="videoLessonsTeam" />
           </div>
         </div>
       </div>
@@ -172,7 +180,7 @@ export function Home() {
           </div>
 
           <div className={styles.courseGraduatePersonContainer}>
-            <img src={courseGraduateGirlPhoto} alt="courseGraduateGirlImage" />
+            <img src={courseGraduateGirlPhoto} alt="courseGraduateGirl" />
             <div className={styles.courseGraduateCommentFullContainer}>
               <div className={styles.courseGraduateCommentLeftShadow}></div>
               <div className={styles.courseGraduateCommentContainer}>
@@ -198,6 +206,45 @@ export function Home() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div className={styles.subscribeSectionContainer}>
+        <div className={styles.subscribePhotosContainer}>
+          <img src={subscribePhoto1} alt="Subscribe Person" />
+          <img
+            src={subscribePhoto2}
+            className={styles.subscribePhoto2}
+            alt="Subscribe Person"
+          />
+          <img
+            src={subscribePhoto3}
+            className={styles.subscribePhoto3}
+            alt="Subscribe Person"
+          />
+        </div>
+        <div className={styles.subscribeInfoContainer}>
+          <div className={styles.subscribeTitle}>
+            SUBSCRIBE FOR GET UPDATE
+            <br /> EVERY NEW COURSES
+          </div>
+          <div className={styles.subscribeDescription}>
+            20k+ students daily learn with Eduvi. Subscribe for new courses.
+          </div>
+          <SubscribeInput />
+        </div>
+        <div className={styles.subscribePhotosContainer}>
+          <img
+            src={subscribePhoto4}
+            className={styles.subscribePhoto4}
+            alt="Subscribe Person"
+          />
+          <img
+            src={subscribePhoto5}
+            className={styles.subscribePhoto5}
+            alt="Subscribe Person"
+          />
+          <img src={subscribePhoto6} alt="Subscribe Person" />
         </div>
       </div>
     </div>

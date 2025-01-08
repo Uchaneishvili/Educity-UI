@@ -411,4 +411,83 @@
     width: 100%;
     padding-top: 15%;
   }
+
+  .videoLessonsTitle {
+    font-size: 18px;
+    text-align: center;
+    line-height: 21.6px;
+  }
+
+  .videoLessonsButtonsContainer {
+    width: 100%;
+    padding: 0;
+    gap: 30px;
+  }
+
+  .videoLessonsButtonContainer {
+    padding: 15px 16px;
+    border: 1px solid #d3dce6;
+    border-radius: 10px;
+  }
+
+  .videoPauseIconBg,
+  .videoLiveIconBg,
+  .videoSoundIconBg {
+    width: 55px;
+    height: 55px;
+  }
+
+  .videoLessonsButtonText {
+    font-size: 16px;
+    line-height: 16.9px;
+  }
+
+  .courseGraduateInnerContainer {
+    flex-direction: column-reverse;
+    padding: 54px 7%;
+  }
+
+  .courseGraduatePersonContainer img {
+    align-self: center;
+    max-width: 280px;
+    margin-left: 10px;
+  }
+
+  .courseGraduateCommentFullContainer {
+    margin-left: 10px;
+  }
+
+  .courseGraduateCommentContainer {
+    margin-right: 20px;
+  }
+
+  .courseGraduateCommentLeftShadow {
+    min-width: 9px;
+  }
+
+  .courseGraduateTextsContainer {
+    gap: 16px;
+  }
+
+  .courseGraduateTitle {
+    font-size: 18px;
+    line-height: 21.73px;
+  }
+
+  .courseGraduateDescription {
+    font-size: 14px;
+  }
+
+  .courseGraduateButton {
+    max-width: 300px;
+    height: 58px;
+    font-size: 16px;
+    line-height: 25.6px;
+    gap: 70px;
+  }
+
+  .courseGraduateButtonArrow {
+    width: 58px;
+    height: 56px;
+  }
 }

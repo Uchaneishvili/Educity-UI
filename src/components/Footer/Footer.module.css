@@ -83,3 +83,28 @@
   border: 1.5px solid #ffffff3f;
   border-radius: 50%;
 }
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 54px 7%;
+  }
+
+  .footerInfoContainer {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .footerMediaContainer {
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .footerMediaInnerContainer {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .footerRightsText {
+    font-size: 12px;
+  }
+}

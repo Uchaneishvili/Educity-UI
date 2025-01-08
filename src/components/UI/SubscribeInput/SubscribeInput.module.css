@@ -28,3 +28,15 @@
   line-height: 19.36px;
   color: #ffffff;
 }
+
+@media (max-width: 768px) {
+  .subscribeInputContainer {
+    height: 60px;
+  }
+
+  #subscribeInput {
+    max-width: 367px;
+    width: 100%;
+    font-size: 14px;
+  }
+}

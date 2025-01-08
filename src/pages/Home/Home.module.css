@@ -442,6 +442,10 @@
     line-height: 16.9px;
   }
 
+  .courseGraduateSectionContainer {
+    width: 100vw;
+  }
+
   .courseGraduateInnerContainer {
     flex-direction: column-reverse;
     padding: 54px 7%;
@@ -489,5 +493,47 @@
   .courseGraduateButtonArrow {
     width: 58px;
     height: 56px;
+  }
+
+  .subscribeSectionContainer {
+    width: 100vw;
+    padding: 54px 16px;
+    border-radius: 0;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .subscribeTitle {
+    font-size: 18px;
+    line-height: 21.73px;
+  }
+
+  .subscribeDescription {
+    font-size: 14px;
+    margin: 25px 0;
+    line-height: 19.31px;
+  }
+
+  .subscribePhotosContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .subscribePhotosContainer:nth-child(3) {
+    display: none;
+  }
+
+  .subscribePhotosContainer img {
+    width: 60px;
+    height: 60px;
+    transform: translateX(0);
+  }
+
+  .subscribePhoto2 {
+    margin-top: 46px;
+  }
+
+  .chatIconContainer {
+    margin-top: -58px;
   }
 }

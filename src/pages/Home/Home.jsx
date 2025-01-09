@@ -14,11 +14,16 @@ import {
   VideoLiveIcon,
   VideoSoundIcon,
   CommentsButtonArrow,
-  CourseGraduateStar,
-  OnlineChatIcon,
+  SubscribePhoto1,
+  SubscribePhoto2,
+  SubscribePhoto3,
+  SubscribePhoto4,
+  SubscribePhoto5,
+  SubscribePhoto6,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
 import { SubscribeInput } from "../../components/UI/SubscribeInput/SubscribeInput";
+import { Feedback } from "../../components/UI/Feedback/Feedback";
 
 export function Home() {
   const categories = [
@@ -63,15 +68,6 @@ export function Home() {
       coursesCount: 38,
     },
   ];
-
-  const videoLessonsBannerPhoto = "/assets/videoLessonsBanner.png";
-  const courseGraduateGirlPhoto = "/assets/courseGraduateGirlPhoto.png";
-  const subscribePhoto1 = "/assets/subscribePhoto1.png";
-  const subscribePhoto2 = "/assets/subscribePhoto2.png";
-  const subscribePhoto3 = "/assets/subscribePhoto3.png";
-  const subscribePhoto4 = "/assets/subscribePhoto4.png";
-  const subscribePhoto5 = "/assets/subscribePhoto5.png";
-  const subscribePhoto6 = "/assets/subscribePhoto6.png";
 
   return (
     <div className={styles.container}>
@@ -152,7 +148,7 @@ export function Home() {
             </div>
           </div>
           <div className={styles.bannerSide}>
-            <img src={videoLessonsBannerPhoto} alt="videoLessonsTeam" />
+            <img src="/assets/videoLessonsBanner.png" alt="videoLessonsTeam" />
           </div>
         </div>
       </div>
@@ -181,7 +177,10 @@ export function Home() {
           </div>
 
           <div className={styles.courseGraduatePersonContainer}>
-            <img src={courseGraduateGirlPhoto} alt="courseGraduateGirl" />
+            <img
+              src="/assets/courseGraduateGirlPhoto.png"
+              alt="courseGraduateGirl"
+            />
             <div className={styles.courseGraduateCommentFullContainer}>
               <div className={styles.courseGraduateCommentLeftShadow}></div>
               <div className={styles.courseGraduateCommentContainer}>
@@ -195,13 +194,7 @@ export function Home() {
                   </div>
                   <div className={styles.courseGraduatePersonInfo}>
                     <div className={styles.courseGraduateName}>Gloria Rose</div>
-                    <div className={styles.courseGraduateStars}>
-                      <CourseGraduateStar />
-                      <CourseGraduateStar />
-                      <CourseGraduateStar />
-                      <CourseGraduateStar />
-                      <CourseGraduateStar />
-                    </div>
+                    <Feedback starsAmount={3} />
                   </div>
                 </div>
               </div>
@@ -212,48 +205,34 @@ export function Home() {
 
       <div className={styles.subscribeSectionContainer}>
         <div className={styles.subscribePhotosContainer}>
-          <img src={subscribePhoto1} alt="Subscribe Person" />
-          <img
-            src={subscribePhoto2}
-            className={styles.subscribePhoto2}
-            alt="Subscribe Person"
-          />
-          <img
-            src={subscribePhoto3}
-            className={styles.subscribePhoto3}
-            alt="Subscribe Person"
-          />
+          <SubscribePhoto1 />
+          <SubscribePhoto2 />
+          <SubscribePhoto3 />
         </div>
         <div className={styles.subscribeInfoContainer}>
           <div className={styles.subscribeTitle}>
-            SUBSCRIBE FOR GET UPDATE
-            <br /> EVERY NEW COURSES
+            SUBSCRIBE FOR GET UPDATE EVERY NEW COURSES
           </div>
           <div className={styles.subscribeDescription}>
             20k+ students daily learn with Eduvi. Subscribe for new courses.
           </div>
-          <SubscribeInput />
+          <SubscribeInput
+            inputPlaceholder="enter your email"
+            buttonName="Subscribe"
+          />
         </div>
         <div className={styles.subscribePhotosContainer}>
-          <img
-            src={subscribePhoto4}
-            className={styles.subscribePhoto4}
-            alt="Subscribe Person"
-          />
-          <img
-            src={subscribePhoto5}
-            className={styles.subscribePhoto5}
-            alt="Subscribe Person"
-          />
-          <img src={subscribePhoto6} alt="Subscribe Person" />
+          <SubscribePhoto4 />
+          <SubscribePhoto5 />
+          <SubscribePhoto6 />
         </div>
       </div>
 
-      <div className={styles.chatIconContainer}>
+      {/* <div className={styles.chatIconContainer}>
         <div className={styles.chatIcon}>
           <OnlineChatIcon />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

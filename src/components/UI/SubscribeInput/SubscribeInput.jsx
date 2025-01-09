@@ -1,16 +1,16 @@
 import React from "react";
 import styles from "./SubscribeInput.module.css";
 
-export function SubscribeInput() {
+export function SubscribeInput({ inputPlaceholder, buttonName }) {
   return (
     <div className={styles.subscribeInputContainer}>
       <input
         type="email"
-        placeholder="enter your email"
+        placeholder={inputPlaceholder}
         name="subscribe-email"
-        id={styles.subscribeInput}
+        className={styles.subscribeInput}
       />
-      <button className={styles.subscribeButton}>Subscribe</button>
+      <button className={styles.subscribeButton}>{buttonName}</button>
     </div>
   );
 }

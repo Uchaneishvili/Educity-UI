@@ -3,7 +3,7 @@
   display: flex;
 }
 
-#subscribeInput {
+.subscribeInput {
   width: 367px;
   border: 0;
   outline: none;
@@ -34,7 +34,7 @@
     height: 60px;
   }
 
-  #subscribeInput {
+  .subscribeInput {
     max-width: 367px;
     width: 100%;
     font-size: 14px;

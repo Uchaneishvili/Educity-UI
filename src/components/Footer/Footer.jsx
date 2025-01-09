@@ -1,12 +1,12 @@
 import styles from "./Footer.module.css";
 import { SubscribeInput } from "../UI/SubscribeInput/SubscribeInput";
 import {
-  FooterFacebookIcon,
-  FooterInstagramIcon,
-  FooterLinkedinIcon,
-  FooterLocationIcon,
-  FooterMessageIcon,
-  FooterPhoneIcon,
+  FacebookIcon,
+  InstagramIcon,
+  LinkedinIcon,
+  LocationIcon,
+  MessageIcon,
+  PhoneIcon,
 } from "../UI/icons";
 
 export function Footer() {
@@ -25,20 +25,22 @@ export function Footer() {
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>
           <a>
-            <FooterLocationIcon /> თბილისი ალ. ყაზბეგის გამზ.
-            <br />
-            30ა / კ. ქუთათელაძის კვეთა
+            <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის
+            კვეთა
           </a>
           <a>
-            <FooterPhoneIcon />
+            <PhoneIcon />
             +995 599 200 944
           </a>
           <a>
-            <FooterMessageIcon />
+            <MessageIcon />
             info@educity.ge
           </a>
         </div>
-        <SubscribeInput />
+        <SubscribeInput
+          inputPlaceholder="enter your email"
+          buttonName="Subscribe"
+        />
       </div>
 
       <div className={styles.footerMediaContainer}>
@@ -48,13 +50,13 @@ export function Footer() {
           </div>
           <div className={styles.footerMediaIcons}>
             <a>
-              <FooterLinkedinIcon />
+              <LinkedinIcon />
             </a>
             <a>
-              <FooterFacebookIcon />
+              <FacebookIcon />
             </a>
             <a>
-              <FooterInstagramIcon />
+              <InstagramIcon />
             </a>
           </div>
         </div>

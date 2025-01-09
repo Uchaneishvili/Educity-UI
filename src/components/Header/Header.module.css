@@ -31,13 +31,14 @@
   padding: 0;
 }
 
-.navList li a {
+.navList li {
   text-decoration: none;
   font-size: 16px;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 
-.navList li a:hover {
+.navList li:hover {
   color: #4169e1;
 }
 

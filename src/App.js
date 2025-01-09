@@ -5,7 +5,7 @@ import {
   HeaderBackground,
   HeaderMobileBackground,
 } from "./components/UI/icons";
-import { Home } from "./pages/Home/Home";
+import { AppRoutes } from "./routes/AppRoutes";
 function App() {
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
       <div className="innerContainer">
         <Header />
         <div className="container">
-          <Home />
+          <AppRoutes />
         </div>
         <Footer />
       </div>

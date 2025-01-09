@@ -1,0 +1,87 @@
+.container {
+  width: 100%;
+  padding-top: 55px;
+}
+
+.contactsContainer {
+  max-width: 1248px;
+  box-shadow: 0px 25px 51px 0px #0000001c;
+  border-radius: 16px;
+  padding: 10px;
+  padding-right: 67px;
+  display: flex;
+  justify-content: space-between;
+  gap: 67px;
+  margin: 0 auto;
+}
+
+.contactsInfoContainer {
+  max-width: 491px;
+  width: 100%;
+  background-color: #0a033c;
+  border-radius: 10px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contactsTitle {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38.08px;
+  color: #ffffff;
+}
+
+.contactsInfo {
+  max-width: 328px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.contactInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  line-height: 21.76px;
+  color: #ffffff;
+}
+
+.contactInfo svg {
+  flex-shrink: 0;
+}
+
+.contactsFormContainer {
+  width: 100%;
+  max-width: 612px;
+  margin-top: 41px;
+  margin-bottom: 47px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.twoInputsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nameInputContainer,
+.lastNameInputContainer,
+.emailInputContainer,
+.phoneNumberInputContainer {
+  max-width: 290px;
+  width: 100%;
+}
+
+.contactsButtonContainer {
+  margin-top: 4px;
+}
+
+.contactsButtonContainer > button {
+  padding: 14.5px 32px !important;
+}

@@ -1,0 +1,15 @@
+.SocialMediaIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.SocialMediaIcons > a {
+  text-decoration: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #ffffff3f;
+  border-radius: 50%;
+}

@@ -74,22 +74,6 @@
   opacity: 75%;
 }
 
-.footerMediaIcons {
-  display: flex;
-  gap: 15px;
-}
-
-.footerMediaIcons > a {
-  text-decoration: none;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1.5px solid #ffffff3f;
-  border-radius: 50%;
-}
-
 @media (max-width: 768px) {
   .footer {
     padding: 54px 7%;

@@ -1,13 +1,7 @@
 import styles from "./Footer.module.css";
 import { SubscribeInput } from "../UI/SubscribeInput/SubscribeInput";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  LocationIcon,
-  MessageIcon,
-  PhoneIcon,
-} from "../UI/icons";
+import { LocationIcon, MessageIcon, PhoneIcon } from "../UI/icons";
+import SocialMedia from "../SocialMedia/SocialMedia";
 
 export function Footer() {
   return (
@@ -48,17 +42,7 @@ export function Footer() {
           <div className={styles.footerRightsText}>
             © 2024 Lift Media | All Rights Reserved
           </div>
-          <div className={styles.footerMediaIcons}>
-            <a>
-              <LinkedinIcon />
-            </a>
-            <a>
-              <FacebookIcon />
-            </a>
-            <a>
-              <InstagramIcon />
-            </a>
-          </div>
+          <SocialMedia />
         </div>
       </div>
     </footer>

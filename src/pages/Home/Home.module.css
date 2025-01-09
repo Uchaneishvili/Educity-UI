@@ -91,6 +91,272 @@
 .allCategoriesMobile {
   display: none;
 }
+
+.videoLessonsSectionContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding-top: 10%;
+}
+
+.videoLessonsTitle {
+  font-size: 32px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.videoLessonsInnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 150px;
+}
+
+.videoLessonsButtonsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  padding: 15px 0;
+  padding-left: 15px;
+}
+
+.videoLessonsButtonContainer {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.videoPauseIconBg,
+.videoLiveIconBg,
+.videoSoundIconBg {
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.videoPauseIconBg {
+  background-color: #3561fe29;
+}
+
+.videoLiveIconBg {
+  background-color: #f8f2ff;
+}
+
+.videoSoundIconBg {
+  background-color: #fff4f2;
+}
+
+.videoLessonsButtonText {
+  color: #0a033c;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 26.55px;
+}
+
+.courseGraduateSectionContainer {
+  width: calc(100vw - 1.1%);
+  margin-top: 10%;
+  background-color: #0a033c;
+}
+
+.courseGraduateInnerContainer {
+  padding: 0 10%;
+  padding-top: 82px;
+  padding-bottom: 32px;
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+}
+
+.courseGraduateTextsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.courseGraduateTitle {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 38.62px;
+  color: #ffffff;
+}
+
+.courseGraduateDescription {
+  max-width: 570px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 21.73px;
+  color: #ffffff99;
+}
+
+.courseGraduateButton {
+  max-width: 323px;
+  height: 70px;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 35.2px;
+  letter-spacing: 2%;
+  border: 1px solid #ffffff;
+  border-right: none;
+  border-radius: 80px 0 0 80px;
+  background: transparent;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.courseGraduateButtonArrow {
+  width: 70px;
+  height: 68px;
+  border: 1px solid #ffffff;
+  border-radius: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: -38px;
+}
+
+.courseGraduatePersonContainer {
+  margin-right: 110px;
+}
+
+.courseGraduateCommentFullContainer {
+  position: absolute;
+  margin-top: -150px;
+  margin-left: 50px;
+  display: flex;
+}
+
+.courseGraduateCommentLeftShadow {
+  width: 9px;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+  background-color: #3561fe;
+}
+
+.courseGraduateCommentContainer {
+  max-width: 350px;
+  background-color: white;
+  padding: 29px;
+  display: flex;
+  gap: 20px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+  box-shadow: 1.38px 2.75px 33.29px 0px #292c7c5e;
+}
+
+.courseGraduateGrayLine {
+  width: 1px;
+  height: 95px;
+  background-color: #bdbdd1;
+}
+
+.courseGraduateText {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28.8px;
+  letter-spacing: 2%;
+  color: #5f5f7e;
+}
+
+.courseGraduatePersonInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.courseGraduateName {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 28.8px;
+  color: #5f5f7e;
+}
+
+.subscribeSectionContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10%;
+  background-color: #eff2fa;
+  padding: 61px 25px 65px 43px;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+.subscribePhotosContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 68px;
+}
+
+.subscribeInfoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.subscribePhotosContainer:nth-child(1) > svg:nth-child(2) {
+  transform: translateX(127px);
+}
+
+.subscribePhotosContainer:nth-child(1) > svg:nth-child(3) {
+  transform: translateX(30px);
+}
+
+.subscribePhotosContainer:nth-child(3) > svg:nth-child(1) {
+  transform: translateX(-30px);
+}
+
+.subscribePhotosContainer:nth-child(3) > svg:nth-child(2) {
+  transform: translateX(-127px);
+}
+
+.subscribeTitle {
+  max-width: 503px;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 55px;
+  color: #000000cc;
+  text-align: center;
+}
+
+.subscribeDescription {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  color: #00000099;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.chatIconContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+  margin-bottom: 23px;
+}
+
+.chatIcon {
+  width: 91px;
+  height: 91px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3561fe;
+  border-radius: 50%;
+  box-shadow: 0px 7px 22px 0px #3561feb0, 0px 2px 32px 0px #3561fe29;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .bannerSide {
     display: none;
@@ -140,5 +406,125 @@
     flex-direction: column;
     width: 100%;
     padding-top: 15%;
+  }
+
+  .videoLessonsTitle {
+    font-size: 18px;
+    text-align: center;
+    line-height: 21.6px;
+  }
+
+  .videoLessonsButtonsContainer {
+    width: 100%;
+    padding: 0;
+    gap: 30px;
+  }
+
+  .videoLessonsButtonContainer {
+    padding: 15px 16px;
+    border: 1px solid #d3dce6;
+    border-radius: 10px;
+  }
+
+  .videoPauseIconBg,
+  .videoLiveIconBg,
+  .videoSoundIconBg {
+    width: 55px;
+    height: 55px;
+  }
+
+  .videoLessonsButtonText {
+    font-size: 16px;
+    line-height: 16.9px;
+  }
+
+  .courseGraduateSectionContainer {
+    width: 100vw;
+  }
+
+  .courseGraduateInnerContainer {
+    flex-direction: column-reverse;
+    padding: 54px 7%;
+  }
+
+  .courseGraduatePersonContainer > img {
+    align-self: center;
+    max-width: 280px;
+    margin-left: 10px;
+  }
+
+  .courseGraduateCommentFullContainer {
+    margin-left: 10px;
+  }
+
+  .courseGraduateCommentContainer {
+    margin-right: 20px;
+  }
+
+  .courseGraduateCommentLeftShadow {
+    min-width: 9px;
+  }
+
+  .courseGraduateTextsContainer {
+    gap: 16px;
+  }
+
+  .courseGraduateTitle {
+    font-size: 18px;
+    line-height: 21.73px;
+  }
+
+  .courseGraduateDescription {
+    font-size: 14px;
+  }
+
+  .courseGraduateButton {
+    max-width: 300px;
+    height: 58px;
+    font-size: 16px;
+    line-height: 25.6px;
+    gap: 70px;
+  }
+
+  .courseGraduateButtonArrow {
+    width: 58px;
+    height: 56px;
+  }
+
+  .subscribeSectionContainer {
+    width: 100vw;
+    padding: 54px 16px;
+    border-radius: 0;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .subscribeTitle {
+    max-width: 267px;
+    font-size: 18px;
+    line-height: 21.73px;
+  }
+
+  .subscribeDescription {
+    font-size: 14px;
+    margin: 25px 0;
+    line-height: 19.31px;
+  }
+
+  .subscribePhotosContainer {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .subscribePhotosContainer:nth-child(3) {
+    display: none;
+  }
+
+  .subscribePhotosContainer > svg {
+    transform: translateX(0) !important;
+  }
+
+  .subscribePhotosContainer:nth-child(1) > svg:nth-child(2) {
+    margin-top: 46px;
   }
 }

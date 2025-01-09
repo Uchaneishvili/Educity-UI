@@ -10,8 +10,21 @@ import {
   DigitalMarketingIcon,
   SalesManagementIcon,
   EduSchoolIcon,
+  VideoPauseIcon,
+  VideoLiveIcon,
+  VideoSoundIcon,
+  CommentsButtonArrow,
+  SubscribePhoto1,
+  SubscribePhoto2,
+  SubscribePhoto3,
+  SubscribePhoto4,
+  SubscribePhoto5,
+  SubscribePhoto6,
 } from "../../components/UI/icons";
 import Card from "../../components/Card/Card";
+import { SubscribeInput } from "../../components/UI/SubscribeInput/SubscribeInput";
+import { Feedback } from "../../components/UI/Feedback/Feedback";
+
 export function Home() {
   const categories = [
     {
@@ -102,6 +115,124 @@ export function Home() {
           </div>
         </div>
       </div>
+      <div className={styles.videoLessonsSectionContainer}>
+        <div className={styles.videoLessonsTitle}>
+          მაღალი ხარისხის ვიდეო გაკვეთილები
+        </div>
+
+        <div className={styles.videoLessonsInnerContainer}>
+          <div className={styles.videoLessonsButtonsContainer}>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoPauseIconBg}>
+                <VideoPauseIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                ჩაწერილი ვიდეო ლექციები
+              </div>
+            </div>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoLiveIconBg}>
+                <VideoLiveIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                LIVE გაკვეთილები
+              </div>
+            </div>
+            <div className={styles.videoLessonsButtonContainer}>
+              <div className={styles.videoSoundIconBg}>
+                <VideoSoundIcon />
+              </div>
+              <div className={styles.videoLessonsButtonText}>
+                მუდმივი წვდომა ვიდეო ლექციებზე
+              </div>
+            </div>
+          </div>
+          <div className={styles.bannerSide}>
+            <img src="/assets/videoLessonsBanner.png" alt="videoLessonsTeam" />
+          </div>
+        </div>
+      </div>
+      <div className={styles.courseGraduateSectionContainer}>
+        <div className={styles.courseGraduateInnerContainer}>
+          <div className={styles.courseGraduateTextsContainer}>
+            <div className={styles.courseGraduateTitle}>
+              რას ამბობენ კურსდამთავრებულები?
+            </div>
+
+            <div className={styles.courseGraduateDescription}>
+              Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est.
+              Egestas purus at egestas nulla tellus. Egestas proin erat fusce
+              turpis. Eu viverra mauris tellus aliquam. Lorem ipsum dolor sit
+              amet consectetur. Id id sed est magnis est. Egestas purus at
+              egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra
+              mauris tellus aliquam.
+            </div>
+
+            <button className={styles.courseGraduateButton}>
+              დაგვიტოვე კომენტარი
+              <div className={styles.courseGraduateButtonArrow}>
+                <CommentsButtonArrow />
+              </div>
+            </button>
+          </div>
+
+          <div className={styles.courseGraduatePersonContainer}>
+            <img
+              src="/assets/courseGraduateGirlPhoto.png"
+              alt="courseGraduateGirl"
+            />
+            <div className={styles.courseGraduateCommentFullContainer}>
+              <div className={styles.courseGraduateCommentLeftShadow}></div>
+              <div className={styles.courseGraduateCommentContainer}>
+                <div className={styles.courseGraduateGrayLine}></div>
+                <div>
+                  <div className={styles.courseGraduateText}>
+                    "Thank you so much for your help. It's exactly what I've
+                    been looking for. You won't regret it. It really saves me
+                    time and effort. TOTC is exactly what our business has been
+                    lacking."
+                  </div>
+                  <div className={styles.courseGraduatePersonInfo}>
+                    <div className={styles.courseGraduateName}>Gloria Rose</div>
+                    <Feedback starsAmount={3} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.subscribeSectionContainer}>
+        <div className={styles.subscribePhotosContainer}>
+          <SubscribePhoto1 />
+          <SubscribePhoto2 />
+          <SubscribePhoto3 />
+        </div>
+        <div className={styles.subscribeInfoContainer}>
+          <div className={styles.subscribeTitle}>
+            SUBSCRIBE FOR GET UPDATE EVERY NEW COURSES
+          </div>
+          <div className={styles.subscribeDescription}>
+            20k+ students daily learn with Eduvi. Subscribe for new courses.
+          </div>
+          <SubscribeInput
+            inputPlaceholder="enter your email"
+            buttonName="Subscribe"
+          />
+        </div>
+        <div className={styles.subscribePhotosContainer}>
+          <SubscribePhoto4 />
+          <SubscribePhoto5 />
+          <SubscribePhoto6 />
+        </div>
+      </div>
+
+      {/* <div className={styles.chatIconContainer}>
+        <div className={styles.chatIcon}>
+          <OnlineChatIcon />
+        </div>
+      </div> */}
     </div>
   );
 }

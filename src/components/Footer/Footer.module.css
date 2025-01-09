@@ -1,0 +1,116 @@
+@font-face {
+  font-family: "Abhaya Libre";
+  src: url("../../fonts/AbhayaLibre-SemiBold.ttf") format("opentype");
+  font-style: normal;
+  font-display: swap;
+}
+
+.footer {
+  width: 100%;
+  padding: 54px 10%;
+  margin-top: 10%;
+  background-color: #0a033c;
+  box-sizing: border-box;
+}
+
+.logo {
+  color: #3561fe;
+  font-size: 30px;
+  text-decoration: none;
+  line-height: 35.39px;
+  font-family: "Abhaya Libre";
+}
+
+.footerInfoContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerSectionContainer {
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footerSectionTitle {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 21.73px;
+  color: #ffffff;
+}
+
+.footerSectionContainer > a {
+  text-decoration: none;
+  color: #ffffff99;
+  font-size: 14px;
+  line-height: 16.9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.8;
+}
+
+.footerSectionContainer > a > svg {
+  flex-shrink: 0;
+}
+
+.footerMediaContainer {
+  padding-top: 32px;
+  border-top: 1px solid #ffffff2a;
+  margin-top: 54px;
+}
+
+.footerMediaInnerContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footerRightsText {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.04px;
+  color: #ffffff;
+  opacity: 75%;
+}
+
+.footerMediaIcons {
+  display: flex;
+  gap: 15px;
+}
+
+.footerMediaIcons > a {
+  text-decoration: none;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1.5px solid #ffffff3f;
+  border-radius: 50%;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 54px 7%;
+  }
+
+  .footerInfoContainer {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .footerMediaContainer {
+    margin-top: 24px;
+    padding-top: 24px;
+  }
+
+  .footerMediaInnerContainer {
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+
+  .footerRightsText {
+    font-size: 12px;
+  }
+}

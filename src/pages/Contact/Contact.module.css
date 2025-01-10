@@ -24,6 +24,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .contactsTitle {
@@ -84,4 +85,56 @@
 
 .contactsButtonContainer > button {
   padding: 14.5px 32px !important;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 43px;
+  }
+
+  .contactsContainer {
+    flex-direction: column;
+    gap: 34px;
+    padding: 0;
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  .contactsInfoContainer {
+    max-width: 100%;
+    height: 312px;
+    padding: 30px 24px;
+  }
+
+  .contactsTitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24.48px;
+    text-align: center;
+  }
+
+  .contactInfo {
+    font-size: 14px;
+    line-height: 19.04px;
+  }
+
+  .contactsFormContainer {
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .twoInputsContainer {
+    flex-direction: column;
+  }
+
+  .nameInputContainer,
+  .lastNameInputContainer,
+  .emailInputContainer,
+  .phoneNumberInputContainer {
+    max-width: 100%;
+  }
+
+  .contactsButtonContainer > button {
+    width: 100%;
+  }
 }

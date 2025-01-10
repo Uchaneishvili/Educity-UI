@@ -6,7 +6,8 @@ import {
   LocationIcon,
 } from "../../components/UI/icons";
 import SocialMedia from "../../components/SocialMedia/SocialMedia";
-import ContactsInput from "../../components/UI/ContactsInput/ContactsInput";
+import Input from "../../components/UI/Input/Input";
+import Textarea from "../../components/UI/Textarea/Textarea";
 import { Button } from "../../components/UI/Button/Button";
 
 function Contact() {
@@ -37,15 +38,10 @@ function Contact() {
         <form className={styles.contactsFormContainer}>
           <div className={styles.twoInputsContainer}>
             <div className={styles.nameInputContainer}>
-              <ContactsInput
-                type="text"
-                id="name"
-                name="სახელი"
-                placeholder="სახელი"
-              />
+              <Input type="text" id="name" name="სახელი" placeholder="სახელი" />
             </div>
             <div className={styles.lastNameInputContainer}>
-              <ContactsInput
+              <Input
                 type="text"
                 id="lastName"
                 name="გვარი"
@@ -55,7 +51,7 @@ function Contact() {
           </div>
           <div className={styles.twoInputsContainer}>
             <div className={styles.emailInputContainer}>
-              <ContactsInput
+              <Input
                 type="text"
                 id="email"
                 name="ელ-ფოსტა"
@@ -63,7 +59,7 @@ function Contact() {
               />
             </div>
             <div className={styles.phoneNumberInputContainer}>
-              <ContactsInput
+              <Input
                 type="text"
                 id="phoneNumber"
                 name="ტელეფონის ნომერი"
@@ -72,7 +68,7 @@ function Contact() {
             </div>
           </div>
           <div>
-            <ContactsInput
+            <Input
               type="text"
               id="title"
               name="სათაური"
@@ -80,8 +76,7 @@ function Contact() {
             />
           </div>
           <div>
-            <ContactsInput
-              input="textarea"
+            <Textarea
               id="message"
               name="შეტყობინება"
               placeholder="დაწერეთ თქვენი შეტყობინება.."

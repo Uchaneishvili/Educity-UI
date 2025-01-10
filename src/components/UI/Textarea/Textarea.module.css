@@ -1,4 +1,4 @@
-.contactsInputContainer {
+.textareaContainer {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -9,17 +9,6 @@ label {
   font-weight: 500;
   line-height: 20px;
   color: #000000cc;
-}
-
-.input {
-  height: 56px;
-  border: 1px solid #d3dce6;
-  padding: 0 16px;
-  border-radius: 8px;
-  font-size: 15px;
-  line-height: 18.11px;
-  color: #00000099;
-  outline: none;
 }
 
 .textarea {

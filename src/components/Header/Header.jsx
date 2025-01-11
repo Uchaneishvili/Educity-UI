@@ -10,7 +10,9 @@ export function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <div>
-          <div className={styles.logo}>Educity</div>
+          <div className={styles.logo} onClick={() => navigate("/")}>
+            Educity
+          </div>
         </div>
 
         <nav className={styles.nav}>

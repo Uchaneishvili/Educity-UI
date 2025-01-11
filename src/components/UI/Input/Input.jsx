@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Input.module.css";
 
-const ContactsInput = ({ type, id, name, placeholder }) => {
+const Input = ({ type, id, name, placeholder }) => {
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{name}</label>
@@ -16,4 +16,4 @@ const ContactsInput = ({ type, id, name, placeholder }) => {
   );
 };
 
-export default ContactsInput;
+export default Input;

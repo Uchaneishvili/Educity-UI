@@ -1,6 +1,10 @@
 import styles from "./Home.module.css";
 import { Button } from "../../components/UI/Button/Button";
 import {
+  HeaderBackground,
+  HeaderMobileBackground,
+} from "../../components/UI/icons";
+import {
   GraphicDesignIcon,
   MainPageGirlPhoto,
   FrontendDevelopmentIcon,
@@ -70,169 +74,188 @@ export function Home() {
   ];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.innerContainer}>
-        <div className={styles.textSide}>
-          <div className={styles.title}>
-            ისწავლე, განვითარდი და მიაღწიე ჩვენთან ერთად!
-          </div>
-          <div className={styles.description}>
-            დაეუფლე ციფრულ ტექნოლოგიებს 0-დან, ისარგებლე დაფინანსებული კურსებით
-            და რაც მთავარია, ისწავლე ნებისმიერი ადგილიდან. ჩვენთან მიიღებ
-            სრულყოფილ განათლებას და დასაქმების შანსს.
-          </div>
-          <div className={styles.registrationButton}>
-            <Button type="primary">კურსზე რეგისტრაცია</Button>
-          </div>
-        </div>
-        <div className={styles.bannerSide}>
-          <MainPageGirlPhoto />
-        </div>
+    <>
+      <div className="header-background">
+        <HeaderBackground />
       </div>
-      <div className={` ${styles.categoriesSectionContainer}`}>
-        <div className={styles.ourCoursesHeaderContainer}>
-          <div className={styles.ourCoursesHeader}>
-            <div className={styles.ourCoursesTitle}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
-            <div className={styles.ourCoursesDescription}>
-              Explore our Popular Categories
-            </div>
-          </div>
-          <div className={styles.allCategories}>ყველას ნახვა</div>
-        </div>
+
+      <div className="header-mobile-background">
+        <HeaderMobileBackground />
+      </div>
+
+      <div className={styles.container}>
         <div className={styles.innerContainer}>
-          <div className={styles.categoriesContainer}>
-            <div className={styles.ourCoursesTitleMobile}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
-
-            {categories.map((category, index) => (
-              <Card
-                key={index}
-                icon={category.icon}
-                title={category.title}
-                coursesCount={category.coursesCount}
-              />
-            ))}
-            <div className={styles.allCategoriesMobile}>ყველას ნახვა</div>
-          </div>
-        </div>
-      </div>
-      <div className={styles.videoLessonsSectionContainer}>
-        <div className={styles.videoLessonsTitle}>
-          მაღალი ხარისხის ვიდეო გაკვეთილები
-        </div>
-
-        <div className={styles.videoLessonsInnerContainer}>
-          <div className={styles.videoLessonsButtonsContainer}>
-            <div className={styles.videoLessonsButtonContainer}>
-              <div className={styles.videoPauseIconBg}>
-                <VideoPauseIcon />
-              </div>
-              <div className={styles.videoLessonsButtonText}>
-                ჩაწერილი ვიდეო ლექციები
-              </div>
+          <div className={styles.textSide}>
+            <div className={styles.title}>
+              ისწავლე, განვითარდი და მიაღწიე ჩვენთან ერთად!
             </div>
-            <div className={styles.videoLessonsButtonContainer}>
-              <div className={styles.videoLiveIconBg}>
-                <VideoLiveIcon />
-              </div>
-              <div className={styles.videoLessonsButtonText}>
-                LIVE გაკვეთილები
-              </div>
+            <div className={styles.description}>
+              დაეუფლე ციფრულ ტექნოლოგიებს 0-დან, ისარგებლე დაფინანსებული
+              კურსებით და რაც მთავარია, ისწავლე ნებისმიერი ადგილიდან. ჩვენთან
+              მიიღებ სრულყოფილ განათლებას და დასაქმების შანსს.
             </div>
-            <div className={styles.videoLessonsButtonContainer}>
-              <div className={styles.videoSoundIconBg}>
-                <VideoSoundIcon />
-              </div>
-              <div className={styles.videoLessonsButtonText}>
-                მუდმივი წვდომა ვიდეო ლექციებზე
-              </div>
+            <div className={styles.registrationButton}>
+              <Button type="primary">კურსზე რეგისტრაცია</Button>
             </div>
           </div>
           <div className={styles.bannerSide}>
-            <img src="/assets/videoLessonsBanner.png" alt="videoLessonsTeam" />
+            <MainPageGirlPhoto />
           </div>
         </div>
-      </div>
-      <div className={styles.courseGraduateSectionContainer}>
-        <div className={styles.courseGraduateInnerContainer}>
-          <div className={styles.courseGraduateTextsContainer}>
-            <div className={styles.courseGraduateTitle}>
-              რას ამბობენ კურსდამთავრებულები?
-            </div>
-
-            <div className={styles.courseGraduateDescription}>
-              Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est.
-              Egestas purus at egestas nulla tellus. Egestas proin erat fusce
-              turpis. Eu viverra mauris tellus aliquam. Lorem ipsum dolor sit
-              amet consectetur. Id id sed est magnis est. Egestas purus at
-              egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra
-              mauris tellus aliquam.
-            </div>
-
-            <button className={styles.courseGraduateButton}>
-              დაგვიტოვე კომენტარი
-              <div className={styles.courseGraduateButtonArrow}>
-                <CommentsButtonArrow />
+        <div className={` ${styles.categoriesSectionContainer}`}>
+          <div className={styles.ourCoursesHeaderContainer}>
+            <div className={styles.ourCoursesHeader}>
+              <div className={styles.ourCoursesTitle}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
+              <div className={styles.ourCoursesDescription}>
+                Explore our Popular Categories
               </div>
-            </button>
+            </div>
+            <div className={styles.allCategories}>ყველას ნახვა</div>
+          </div>
+          <div className={styles.innerContainer}>
+            <div className={styles.categoriesContainer}>
+              <div className={styles.ourCoursesTitleMobile}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
+
+              {categories.map((category, index) => (
+                <Card
+                  key={index}
+                  icon={category.icon}
+                  title={category.title}
+                  coursesCount={category.coursesCount}
+                />
+              ))}
+              <div className={styles.allCategoriesMobile}>ყველას ნახვა</div>
+            </div>
+          </div>
+        </div>
+        <div className={styles.videoLessonsSectionContainer}>
+          <div className={styles.videoLessonsTitle}>
+            მაღალი ხარისხის ვიდეო გაკვეთილები
           </div>
 
-          <div className={styles.courseGraduatePersonContainer}>
-            <img
-              src="/assets/courseGraduateGirlPhoto.png"
-              alt="courseGraduateGirl"
-            />
-            <div className={styles.courseGraduateCommentFullContainer}>
-              <div className={styles.courseGraduateCommentLeftShadow}></div>
-              <div className={styles.courseGraduateCommentContainer}>
-                <div className={styles.courseGraduateGrayLine}></div>
-                <div>
-                  <div className={styles.courseGraduateText}>
-                    "Thank you so much for your help. It's exactly what I've
-                    been looking for. You won't regret it. It really saves me
-                    time and effort. TOTC is exactly what our business has been
-                    lacking."
+          <div className={styles.videoLessonsInnerContainer}>
+            <div className={styles.videoLessonsButtonsContainer}>
+              <div className={styles.videoLessonsButtonContainer}>
+                <div className={styles.videoPauseIconBg}>
+                  <VideoPauseIcon />
+                </div>
+                <div className={styles.videoLessonsButtonText}>
+                  ჩაწერილი ვიდეო ლექციები
+                </div>
+              </div>
+              <div className={styles.videoLessonsButtonContainer}>
+                <div className={styles.videoLiveIconBg}>
+                  <VideoLiveIcon />
+                </div>
+                <div className={styles.videoLessonsButtonText}>
+                  LIVE გაკვეთილები
+                </div>
+              </div>
+              <div className={styles.videoLessonsButtonContainer}>
+                <div className={styles.videoSoundIconBg}>
+                  <VideoSoundIcon />
+                </div>
+                <div className={styles.videoLessonsButtonText}>
+                  მუდმივი წვდომა ვიდეო ლექციებზე
+                </div>
+              </div>
+            </div>
+            <div className={styles.bannerSide}>
+              <img
+                src="/assets/videoLessonsBanner.png"
+                alt="videoLessonsTeam"
+              />
+            </div>
+          </div>
+        </div>
+        <div className={styles.courseGraduateSectionContainer}>
+          <div className={styles.courseGraduateInnerContainer}>
+            <div className={styles.courseGraduateTextsContainer}>
+              <div className={styles.courseGraduateTitle}>
+                რას ამბობენ კურსდამთავრებულები?
+              </div>
+
+              <div className={styles.courseGraduateDescription}>
+                Lorem ipsum dolor sit amet consectetur. Id id sed est magnis
+                est. Egestas purus at egestas nulla tellus. Egestas proin erat
+                fusce turpis. Eu viverra mauris tellus aliquam. Lorem ipsum
+                dolor sit amet consectetur. Id id sed est magnis est. Egestas
+                purus at egestas nulla tellus. Egestas proin erat fusce turpis.
+                Eu viverra mauris tellus aliquam.
+              </div>
+
+              <div className={styles.courseGraduateButtonContainer}>
+                <button className={styles.courseGraduateButton}>
+                  <div className={styles.courseGraduateButtonTitle}>
+                    დაგვიტოვე კომენტარი
                   </div>
-                  <div className={styles.courseGraduatePersonInfo}>
-                    <div className={styles.courseGraduateName}>Gloria Rose</div>
-                    <Feedback starsAmount={3} />
+                  <div className={styles.courseGraduateButtonArrow}>
+                    <CommentsButtonArrow />
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.courseGraduatePersonContainer}>
+              <img
+                src="/assets/courseGraduateGirlPhoto.png"
+                alt="courseGraduateGirl"
+              />
+              <div className={styles.courseGraduateCommentFullContainer}>
+                <div className={styles.courseGraduateCommentLeftShadow}></div>
+                <div className={styles.courseGraduateCommentContainer}>
+                  <div className={styles.courseGraduateGrayLine}></div>
+                  <div>
+                    <div className={styles.courseGraduateText}>
+                      "Thank you so much for your help. It's exactly what I've
+                      been looking for. You won't regret it. It really saves me
+                      time and effort. TOTC is exactly what our business has
+                      been lacking."
+                    </div>
+                    <div className={styles.courseGraduatePersonInfo}>
+                      <div className={styles.courseGraduateName}>
+                        Gloria Rose
+                      </div>
+                      <Feedback starsAmount={3} />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className={styles.subscribeSectionContainer}>
-        <div className={styles.subscribePhotosContainer}>
-          <SubscribePhoto1 />
-          <SubscribePhoto2 />
-          <SubscribePhoto3 />
-        </div>
-        <div className={styles.subscribeInfoContainer}>
-          <div className={styles.subscribeTitle}>
-            SUBSCRIBE FOR GET UPDATE EVERY NEW COURSES
+        <div className={styles.subscribeSectionContainer}>
+          <div className={styles.subscribePhotosContainer}>
+            <SubscribePhoto1 />
+            <SubscribePhoto2 />
+            <SubscribePhoto3 />
           </div>
-          <div className={styles.subscribeDescription}>
-            20k+ students daily learn with Eduvi. Subscribe for new courses.
+          <div className={styles.subscribeInfoContainer}>
+            <div className={styles.subscribeTitle}>
+              SUBSCRIBE FOR GET UPDATE EVERY NEW COURSES
+            </div>
+            <div className={styles.subscribeDescription}>
+              20k+ students daily learn with Eduvi. Subscribe for new courses.
+            </div>
+            <SubscribeInput
+              inputPlaceholder="enter your email"
+              buttonName="Subscribe"
+            />
           </div>
-          <SubscribeInput
-            inputPlaceholder="enter your email"
-            buttonName="Subscribe"
-          />
+          <div className={styles.subscribePhotosContainer}>
+            <SubscribePhoto4 />
+            <SubscribePhoto5 />
+            <SubscribePhoto6 />
+          </div>
         </div>
-        <div className={styles.subscribePhotosContainer}>
-          <SubscribePhoto4 />
-          <SubscribePhoto5 />
-          <SubscribePhoto6 />
-        </div>
-      </div>
 
-      {/* <div className={styles.chatIconContainer}>
+        {/* <div className={styles.chatIconContainer}>
         <div className={styles.chatIcon}>
           <OnlineChatIcon />
         </div>
       </div> */}
-    </div>
+      </div>
+    </>
   );
 }

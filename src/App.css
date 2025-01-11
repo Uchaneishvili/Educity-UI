@@ -10,12 +10,16 @@ body {
   font-family: "Helvetica Neue";
   margin: 0;
 }
+
+button {
+  padding: 0;
+}
 .container {
   height: 100%;
-  padding: 0px 10%;
+  padding: 0px 10% 80px 10%;
 }
 
-.innerContainer {
+.outerContainer {
   display: flex;
   flex-direction: column;
 }
@@ -35,6 +39,7 @@ body {
 @media (max-width: 768px) {
   .container {
     padding: 0px 16px;
+    padding: 0px 60px 10%;
   }
 
   .header-background {

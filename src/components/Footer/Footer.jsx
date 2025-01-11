@@ -1,41 +1,48 @@
 import styles from "./Footer.module.css";
 import { SubscribeInput } from "../UI/SubscribeInput/SubscribeInput";
-import {
-  FacebookIcon,
-  InstagramIcon,
-  LinkedinIcon,
-  LocationIcon,
-  MessageIcon,
-  PhoneIcon,
-} from "../UI/icons";
+import { LocationIcon, MessageIcon, PhoneIcon } from "../UI/icons";
+import SocialMedia from "../SocialMedia/SocialMedia";
+import { useNavigate } from "react-router-dom";
 
 export function Footer() {
+  const navigate = useNavigate();
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerInfoContainer}>
         <div className={styles.logo}>Educity</div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კომპანია</div>
-          <a>მთავარი</a>
-          <a>კურსები</a>
-          <a>ჩვენს შესახებ</a>
-          <a>კონტაქტი</a>
-          <a>გახდი პარტნიორი</a>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/")}
+          >
+            მთავარი
+          </div>
+          <div className={styles.footerSectionText}>კურსები</div>
+          <div className={styles.footerSectionText}>ჩვენს შესახებ</div>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/contacts")}
+          >
+            კონტაქტი
+          </div>
+          <div className={styles.footerSectionText}>გახდი პარტნიორი</div>
         </div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>
-          <a>
+          <div className={styles.footerSectionText}>
             <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის
             კვეთა
-          </a>
-          <a>
+          </div>
+          <div className={styles.footerSectionText}>
             <PhoneIcon />
             +995 599 200 944
-          </a>
-          <a>
+          </div>
+          <div className={styles.footerSectionText}>
             <MessageIcon />
             info@educity.ge
-          </a>
+          </div>
         </div>
         <SubscribeInput
           inputPlaceholder="enter your email"
@@ -48,17 +55,7 @@ export function Footer() {
           <div className={styles.footerRightsText}>
             © 2024 Lift Media | All Rights Reserved
           </div>
-          <div className={styles.footerMediaIcons}>
-            <a>
-              <LinkedinIcon />
-            </a>
-            <a>
-              <FacebookIcon />
-            </a>
-            <a>
-              <InstagramIcon />
-            </a>
-          </div>
+          <SocialMedia />
         </div>
       </div>
     </footer>

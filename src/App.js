@@ -6,6 +6,7 @@ import {
   HeaderMobileBackground,
 } from "./components/UI/icons";
 import { AppRoutes } from "./routes/AppRoutes";
+
 function App() {
   return (
     <>
@@ -16,6 +17,7 @@ function App() {
       <div className="header-mobile-background">
         <HeaderMobileBackground />
       </div>
+
       <div className="innerContainer">
         <Header />
         <div className="container">

@@ -40,7 +40,12 @@
   color: #ffffff;
 }
 
-.footerSectionContainer > a {
+.footerSectionContainer:nth-child(2) > .footerSectionText {
+  align-self: flex-start;
+  cursor: pointer;
+}
+
+.footerSectionText {
   text-decoration: none;
   color: #ffffff99;
   font-size: 14px;
@@ -51,7 +56,7 @@
   opacity: 0.8;
 }
 
-.footerSectionContainer > a > svg {
+.footerSectionText > svg {
   flex-shrink: 0;
 }
 
@@ -72,22 +77,6 @@
   line-height: 19.04px;
   color: #ffffff;
   opacity: 75%;
-}
-
-.footerMediaIcons {
-  display: flex;
-  gap: 15px;
-}
-
-.footerMediaIcons > a {
-  text-decoration: none;
-  width: 35px;
-  height: 35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1.5px solid #ffffff3f;
-  border-radius: 50%;
 }
 
 @media (max-width: 768px) {

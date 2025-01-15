@@ -238,8 +238,7 @@
 
 .courseGraduateCommentFullContainer {
   position: absolute;
-  /* TODO: negative values should be deleted*/
-  margin-top: -150px;
+  transform: translateY(-150px);
   margin-left: 50px;
   display: flex;
 }

@@ -7,11 +7,11 @@ export function Feedback({ starsAmount }) {
   const emptyStars = 5 - starsAmount;
 
   for (let i = 0; i < starsAmount; i++) {
-    stars.push(<ColoredStar key={i} />);
+    stars.push(<ColoredStar key={`colored-${i}`} />);
   }
 
   for (let k = 0; k < emptyStars; k++) {
-    stars.push(<UncoloredStar key={k} />);
+    stars.push(<UncoloredStar key={`uncolored-${k}`} />);
   }
 
   return <div className={styles.feedbackStars}>{stars}</div>;

@@ -38,8 +38,7 @@ button {
 }
 @media (max-width: 768px) {
   .container {
-    padding: 0px 16px;
-    padding: 0px 60px 10%;
+    padding: 0px 16px 10%;
   }
 
   .header-background {

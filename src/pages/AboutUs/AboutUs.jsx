@@ -39,7 +39,10 @@ function AboutUs() {
             მრავალწლიანი გამოცდილების მქონე, Senior პოზიციებზე მყოფი მენტორები.
           </div>
         </div>
-        <img src="/assets/aboutUsDescBanner.png" alt="educity team banner" />
+
+        <div className={styles.aboutUsDescBannerContainer}>
+          <img src="/assets/aboutUsDescBanner.png" alt="educity team banner" />
+        </div>
       </div>
 
       <div className={styles.aboutUsDataContainer}>
@@ -53,7 +56,9 @@ function AboutUs() {
       </div>
 
       <div className={styles.aboutUsGoalContainer}>
-        <img src="/assets/aboutUsGoalBanner.png" alt="educity team" />
+        <div className={styles.aboutUsGoalBannerContainer}>
+          <img src="/assets/aboutUsGoalBanner.png" alt="educity team" />
+        </div>
 
         <div className={styles.aboutUsGoalTextsContainer}>
           <div className={styles.aboutUsGoalTextContainer}>

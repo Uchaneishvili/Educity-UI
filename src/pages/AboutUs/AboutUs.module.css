@@ -1,0 +1,184 @@
+.container {
+  width: 100%;
+  padding-top: 55px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 80px;
+}
+
+.aboutUsDescContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.aboutUsTextsContainer {
+  max-width: 590px;
+}
+
+.aboutUsTextsTitle {
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  color: #3561fe;
+}
+
+.aboutUsTextsDesc {
+  text-align: center;
+  line-height: 23px;
+  color: #00000099;
+  margin-top: 40px;
+}
+
+.aboutUsDataContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+  box-sizing: border-box;
+  width: calc(100vw - 1.1%);
+  padding: 55px 10%;
+  background-color: #0a033c;
+}
+
+.aboutUsDataCard {
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.aboutUsDataNumber {
+  width: 220px;
+  height: 100px;
+  font-size: 96px;
+  line-height: 96px;
+  background: linear-gradient(90deg, #3561fe 0%, #49bbbd 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
+}
+
+.aboutUsDataTitle {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 41.6px;
+  color: #3561fe;
+  text-align: center;
+}
+
+.aboutUsDataDesc {
+  max-width: 290px;
+  font-size: 14px;
+  line-height: 18.2px;
+  text-align: center;
+  color: #ffffffcc;
+}
+
+.aboutUsGoalContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.aboutUsGoalTextsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.aboutUsGoalTextContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.aboutUsGoalTitle {
+  font-size: 32px;
+  line-height: 38.62px;
+  font-weight: 700;
+  text-align: center;
+  color: #3561fe;
+}
+
+.aboutUsGoalDescription {
+  max-width: 510px;
+  font-size: 14px;
+  line-height: 16.9px;
+  text-align: center;
+  color: #00000099;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-top: 32px;
+    gap: 54px;
+  }
+
+  .aboutUsDescContainer {
+    flex-direction: column;
+    gap: 23px;
+  }
+
+  .aboutUsTextsTitle {
+    font-size: 19px;
+    line-height: 21.6px;
+  }
+
+  .aboutUsTextsDesc {
+    font-size: 12px;
+    line-height: 23px;
+    margin-top: 16px;
+  }
+
+  .aboutUsDescBannerContainer > img {
+    width: 100%;
+    height: auto;
+  }
+
+  .aboutUsDataContainer {
+    width: 100vw;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .aboutUsDataNumber {
+    font-size: 54px;
+    line-height: 54px;
+    height: auto;
+  }
+
+  .aboutUsDataTitle {
+    font-size: 24px;
+    line-height: 31.2px;
+  }
+
+  .aboutUsDataDesc {
+    font-size: 12px;
+    line-height: 15.6px;
+  }
+
+  .aboutUsGoalContainer {
+    flex-direction: column-reverse;
+    gap: 54px;
+  }
+
+  .aboutUsGoalTitle {
+    font-size: 24px;
+    line-height: 23.88px;
+  }
+
+  .aboutUsGoalDescription {
+    font-size: 12px;
+    line-height: 14.48px;
+  }
+
+  .aboutUsGoalBannerContainer > img {
+    width: 100%;
+  }
+}

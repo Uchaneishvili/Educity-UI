@@ -7,7 +7,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 16px;
-  font-family: "Helvetica Neue";
+  font-family: 'Helvetica Neue';
   box-shadow: 0px 4px 12px 0px #3561fe8a;
 }
 
@@ -24,7 +24,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 16px;
-  font-family: "Helvetica Neue";
+  font-family: 'Helvetica Neue';
 }
 
 .secondary:hover {

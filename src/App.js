@@ -4,17 +4,7 @@ import { Header } from "./components/Header/Header";
 import { AppRoutes } from "./routes/AppRoutes";
 
 function App() {
-  return (
-    <>
-      <div className="outerContainer">
-        <Header />
-        <div className="container">
-          <AppRoutes />
-        </div>
-        <Footer />
-      </div>
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

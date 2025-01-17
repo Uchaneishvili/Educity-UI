@@ -1,0 +1,53 @@
+.card {
+  background: #ffffff;
+  border-radius: 24px;
+  width: 234px;
+  height: 234px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #d3dce6;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #007aff;
+  color: #007aff; /* Change to your desired hover color */
+}
+
+.iconContainer {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  text-align: center;
+}
+
+.card:hover .title {
+  color: #007aff; /* Change to your desired hover color for the title */
+}
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #000000;
+}
+
+.courseCount {
+  font-size: 18px;
+  color: #555555;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+}

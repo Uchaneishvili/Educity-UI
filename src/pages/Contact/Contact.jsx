@@ -1,16 +1,12 @@
-import React from "react";
-import styles from "./Contact.module.css";
-import {
-  PhoneIcon,
-  MessageIcon,
-  LocationIcon,
-} from "../../components/UI/icons";
-import SocialMedia from "../../components/SocialMedia/SocialMedia";
-import Input from "../../components/UI/Input/Input";
-import Textarea from "../../components/UI/Textarea/Textarea";
-import { Button } from "../../components/UI/Button/Button";
+import React from 'react'
+import styles from './Contact.module.css'
+import { PhoneIcon, MessageIcon, LocationIcon } from '../../components/UI/icons'
+import SocialMedia from '../../components/SocialMedia/SocialMedia'
+import Input from '../../components/UI/Input/Input'
+import Textarea from '../../components/UI/Textarea/Textarea'
+import { Button } from '../../components/UI/Button/Button'
 
-function Contact() {
+export function Contact() {
   return (
     <div className={styles.container}>
       <div className={styles.contactsContainer}>
@@ -26,8 +22,7 @@ function Contact() {
                 <MessageIcon /> customerservice@spacecargo.ge
               </div>
               <div className={styles.contactInfo}>
-                <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის
-                კვეთა
+                <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის კვეთა
               </div>
             </div>
           </div>
@@ -41,22 +36,12 @@ function Contact() {
               <Input type="text" id="name" name="სახელი" placeholder="სახელი" />
             </div>
             <div className={styles.lastNameInputContainer}>
-              <Input
-                type="text"
-                id="lastName"
-                name="გვარი"
-                placeholder="გვარი"
-              />
+              <Input type="text" id="lastName" name="გვარი" placeholder="გვარი" />
             </div>
           </div>
           <div className={styles.twoInputsContainer}>
             <div className={styles.emailInputContainer}>
-              <Input
-                type="text"
-                id="email"
-                name="ელ-ფოსტა"
-                placeholder="ელ-ფოსტა"
-              />
+              <Input type="text" id="email" name="ელ-ფოსტა" placeholder="ელ-ფოსტა" />
             </div>
             <div className={styles.phoneNumberInputContainer}>
               <Input
@@ -68,19 +53,10 @@ function Contact() {
             </div>
           </div>
           <div>
-            <Input
-              type="text"
-              id="title"
-              name="სათაური"
-              placeholder="შეტყობინების სათაური"
-            />
+            <Input type="text" id="title" name="სათაური" placeholder="შეტყობინების სათაური" />
           </div>
           <div>
-            <Textarea
-              id="message"
-              name="შეტყობინება"
-              placeholder="დაწერეთ თქვენი შეტყობინება.."
-            />
+            <Textarea id="message" name="შეტყობინება" placeholder="დაწერეთ თქვენი შეტყობინება.." />
           </div>
 
           <div className={styles.contactsButtonContainer}>
@@ -89,7 +65,5 @@ function Contact() {
         </form>
       </div>
     </div>
-  );
+  )
 }
-
-export default Contact;

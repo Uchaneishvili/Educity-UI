@@ -10,7 +10,6 @@ export const MainLayout = () => {
         <Outlet />
       </main>
       <Footer />
-      {/*  */}
     </div>
   )
 }

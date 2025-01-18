@@ -1,13 +1,21 @@
+import { useState } from "react";
 import styles from "./Header.module.css";
 import { Button } from "../UI/Button/Button";
 import { BurgerMenuIcon } from "../UI/icons";
 import { useNavigate } from "react-router-dom";
+import SideBar from "../SideBar/SideBar";
 
 export function Header() {
+  const [sideBarActive, setSideBarActive] = useState(false);
+
   const navigate = useNavigate();
 
   return (
     <header className={styles.header}>
+      <SideBar
+        sideBarActive={sideBarActive}
+        setSideBarActive={setSideBarActive}
+      />
       <div className={styles.container}>
         <div>
           <div className={styles.logo} onClick={() => navigate("/")}>
@@ -23,7 +31,10 @@ export function Header() {
             <li onClick={() => navigate("/contacts")}>კონტაქტი</li>
             <li onClick={() => navigate("/business")}>ბიზნესისთვის</li>
           </ul>
-          <div className={styles.burgerMenu}>
+          <div
+            className={styles.burgerMenu}
+            onClick={() => setSideBarActive(true)}
+          >
             <BurgerMenuIcon />
           </div>
         </nav>

@@ -12,13 +12,15 @@ const TabSelector = () => {
   return (
     <div className={styles.tabContainer}>
       {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => setActiveTab(tab.id)}
-          className={`${styles.tab} ${activeTab === tab.id ? styles.active : ''}`}
-        >
-          {tab.label}
-        </button>
+        <>
+          <div
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={`${styles.tab} ${activeTab === tab.id ? styles.active : ''}`}
+          >
+            {tab.label}
+          </div>
+        </>
       ))}
     </div>
   )

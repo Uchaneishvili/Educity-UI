@@ -2,7 +2,7 @@ import { Header } from "../components/Header/Header";
 import { Footer } from "../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
 
-export const MainLayout = ({ children }) => {
+export const MainLayout = () => {
   return (
     <div className="outerContainer">
       <Header />

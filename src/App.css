@@ -1,19 +1,20 @@
 @font-face {
-  font-family: 'Helvetica Neue';
-  src: url('./fonts/Helvetica\ Neue\ LT\ GEO\ 65\ Medium.ttf') format('opentype');
+  font-family: "Helvetica Neue";
+  src: url("./fonts/Helvetica\ Neue\ LT\ GEO\ 65\ Medium.ttf")
+    format("opentype");
   font-style: normal;
   font-display: swap;
 }
 
 body {
-  font-family: 'Helvetica Neue';
+  font-family: "Helvetica Neue";
   margin: 0;
 }
 
 button {
   padding: 0;
 }
-.container {
+.mainContainer {
   height: 100%;
   padding: 0px 10% 80px 10%;
 }
@@ -35,12 +36,12 @@ button {
 .header-mobile-background {
   display: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html,
   body {
     overflow-x: hidden;
   }
-  .container {
+  .mainContainer {
     padding: 0px 16px 10%;
   }
 

@@ -1,10 +1,11 @@
-import { Route, Routes } from 'react-router-dom'
-import { Home } from '../pages/Home/Home'
-import { Contact } from '../pages/Contact/Contact'
-import { AboutUs } from '../pages/AboutUs/AboutUs'
-import { Courses } from '../pages/Courses/Courses'
-import { Login } from '../pages/Login/Login'
-import { MainLayout } from '../layouts/MainLayout'
+import { Route, Routes } from "react-router-dom";
+import { Home } from "../pages/Home/Home";
+import { Contact } from "../pages/Contact/Contact";
+import { AboutUs } from "../pages/AboutUs/AboutUs";
+import { Courses } from "../pages/Courses/Courses";
+import { Login } from "../pages/Login/Login";
+import { MainLayout } from "../layouts/MainLayout";
+import { CourseDetails } from "../pages/Courses/Details/CourseDetails";
 
 export const AppRoutes = () => {
   return (
@@ -13,11 +14,12 @@ export const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="/contacts" element={<Contact />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/aboutus" element={<AboutUs />} />
       </Route>
 
       <Route path="/login" element={<Login />} />
       {/* <Route path="/register" element={<Register />} /> */}
     </Routes>
-  )
-}
+  );
+};

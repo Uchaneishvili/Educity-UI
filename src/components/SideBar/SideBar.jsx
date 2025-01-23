@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./SideBar.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../UI/Button/Button";
-import { XIcon } from "../UI/icons";
+import { CloseIcon } from "../UI/icons";
 
 function SideBar({ sideBarActive, setSideBarActive }) {
   const location = useLocation();
@@ -45,8 +45,11 @@ function SideBar({ sideBarActive, setSideBarActive }) {
           Educity
         </div>
 
-        <div className={styles.xIcon} onClick={() => setSideBarActive(false)}>
-          <XIcon />
+        <div
+          className={styles.closeIcon}
+          onClick={() => setSideBarActive(false)}
+        >
+          <CloseIcon />
         </div>
       </div>
 

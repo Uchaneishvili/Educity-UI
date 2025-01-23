@@ -1,10 +1,13 @@
 .container {
   border-radius: 20px;
-  border: 1px solid #eaeaea;
   display: flex;
   flex-direction: column;
   background-color: #fff;
   width: 480px;
+}
+
+.borderedContainer {
+  border: 1px solid #eaeaea;
 }
 
 .innerContainer {
@@ -117,7 +120,15 @@
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+.discountedPriceDetails {
+  font-size: 32px;
+}
+
+.priceDetails {
+  font-size: 24px;
+}
+
+@media (max-width: 1024px) {
   .container {
     width: 358px;
   }
@@ -139,5 +150,13 @@
 
   .info {
     width: 95%;
+  }
+
+  .discountedPriceDetails {
+    font-size: 20px;
+  }
+
+  .priceDetails {
+    font-size: 12px;
   }
 }

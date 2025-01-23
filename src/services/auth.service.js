@@ -1,66 +1,118 @@
-export const authService = {
-  async login(email, password) {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      })
+import axios from "axios";
 
-      const data = await response.json()
+class AuthService {
+  constructor(options = {}) {
+    const baseURL = process.env.REACT_APP_API_URL;
 
-      if (response.ok) {
-        return { success: true, data }
-      } else {
-        throw new Error(data.message)
+    const defaultOptions = {
+      tokenKey: "authToken",
+      userKey: "userData",
+      loginEndpoint: "/auth/login",
+      logoutEndpoint: "/auth/logout",
+      currentUserEndpoint: "/auth/me",
+      checkAuthEndpoint: "/auth/check",
+    };
+
+    this.config = { ...defaultOptions, ...options };
+
+    this.api = axios.create({
+      baseURL,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    this._setupInterceptors();
+  }
+
+  _setupInterceptors() {
+    this.api.interceptors.request.use(
+      (config) => {
+        const token = this.getToken();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => Promise.reject(error)
+    );
+
+    this.api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401) {
+          this.handleUnauthorized();
+        }
+        return Promise.reject(error);
       }
+    );
+  }
+
+  getToken() {
+    return localStorage.getItem(this.config.tokenKey);
+  }
+
+  setToken(token) {
+    localStorage.setItem(this.config.tokenKey, token);
+  }
+
+  removeToken() {
+    localStorage.removeItem(this.config.tokenKey);
+  }
+
+  handleUnauthorized() {
+    this.logout();
+    this.redirectToLogin();
+  }
+
+  redirectToLogin() {
+    window.location.href = "/login";
+  }
+
+  async login(credentials) {
+    try {
+      const { data } = await this.api.post(
+        this.config.loginEndpoint,
+        credentials
+      );
+
+      this.setToken(data.token);
+      localStorage.setItem(this.config.userKey, JSON.stringify(data.user));
+
+      return { success: true, data };
     } catch (error) {
-      return { success: false, error: error.message }
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message,
+      };
     }
-  },
+  }
 
   async logout() {
-    try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/logout`, {
-        method: 'POST',
-        credentials: 'include' // Important for cookies
-      })
-
-      if (response.ok) {
-        window.location.href = '/login' // Force a page refresh to clear any state
-      }
-    } catch (error) {
-      console.error('Logout failed:', error)
-    }
-  },
+    // Remove token and user data from local storage
+    this.removeToken();
+    localStorage.removeItem(this.config.userKey);
+    // this.redirectToLogin() // Redirect to login page
+  }
 
   async getCurrentUser() {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/me`, {
-        credentials: 'include' // Important for cookies
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        return data.user
-      }
-      return null
+      const { data } = await this.api.get(this.config.currentUserEndpoint);
+      return data.user;
     } catch (error) {
-      console.error('Error fetching current user:', error)
-      return null
+      console.error("Error fetching current user:", error);
+      return null;
     }
-  },
+  }
 
   async checkAuth() {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/check`, {
-        credentials: 'include' // Important for cookies
-      })
-      return response.ok
+      await this.api.get(this.config.checkAuthEndpoint);
+      return true;
     } catch {
-      return false
+      return false;
     }
   }
 }
+
+export default AuthService;

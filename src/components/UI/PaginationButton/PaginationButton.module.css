@@ -1,0 +1,14 @@
+.paginationButton {
+  border: 1px solid #eaeaea;
+  border-radius: 24px;
+  padding: 10px;
+  color: #000000;
+  font-size: 18px;
+  width: 48px;
+  height: 48px;
+}
+
+.isActive {
+  background-color: #3561fe;
+  color: #fff;
+}

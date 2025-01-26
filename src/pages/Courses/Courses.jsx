@@ -1,6 +1,9 @@
 import { Card } from "../../components/UI/Card/Card";
 import SearchInput from "../../components/UI/SearchInput/SearchInput";
 import styles from "./Courses.module.css";
+import Pagination from "../../components/UI/Pagination/Pagination";
+import { useEffect } from "react";
+import { getCourses } from "../../services/courses.service";
 
 export function Courses() {
   const cards = [
@@ -47,6 +50,20 @@ export function Courses() {
       duration: 2,
     },
   ];
+
+  const loadData = async () => {
+    try {
+      const res = await getCourses();
+
+      console.log("ress", res);
+    } catch (err) {
+      console.log(err, "error while load courses");
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -69,6 +86,20 @@ export function Courses() {
                 bordered={true}
               />
             ))}
+          </div>
+
+          <div className={styles.paginationContainer}>
+            <Pagination
+              totalItems={100}
+              pageSize={10}
+              currentPage={1}
+              pathPrefix="/courses"
+              onPageChange={(page, url) => {
+                // getCourses();
+                // Fetch data or update state
+                console.log(url);
+              }}
+            />
           </div>
         </div>
       </div>

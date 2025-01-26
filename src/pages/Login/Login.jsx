@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Card } from "../../components/UI/Card/Card";
 import Checkbox from "../../components/UI/Checkbox/Checkbox";
 import Input from "../../components/UI/Input/Input";
 import styles from "./Login.module.css";
@@ -79,7 +78,7 @@ export function Login() {
           </div>
         </div>
         <div className={styles.imageContainer}>
-          <img src="./assets/loginBanner.png" />{" "}
+          <img src="./assets/loginBanner.png" alt="banner" />
         </div>
       </div>
     </div>

@@ -39,6 +39,11 @@
   width: 25%;
 }
 
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 1024px) {
   .content {
     display: flex;

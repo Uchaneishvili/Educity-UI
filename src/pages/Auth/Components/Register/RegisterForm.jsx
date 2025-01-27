@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Auth.module.css";
-import Checkbox from "../../components/UI/Checkbox/Checkbox";
-import { Button } from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
+import styles from "./RegisterForm.module.css";
+import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
+import { Button } from "../../../../components/UI/Button/Button";
+import Input from "../../../../components/UI/Input/Input";
 
 function RegisterForm() {
   return (
@@ -16,19 +16,19 @@ function RegisterForm() {
       <Input name="repeatPassword" placeholder={"გაიმეორე პაროლი"} />
 
       <div className={styles.inputContainerFooter}>
-        <div className={styles.saveUserContainer}>
+        <div className={styles.acceptRulesContainer}>
           <Checkbox
             name="rememberMe"
             // checked={isChecked}
             // onChange={() => setIsChecked(!isChecked)}
           />
-          <span className={styles.saveUser}>
+          <span className={styles.acceptRules}>
             {" "}
             გავეცანი და ვეთანხმები წესებსა და პირობებს
           </span>
         </div>
       </div>
-      <div className={styles.loginBtnContainer}>
+      <div className={styles.registerBtnContainer}>
         <Button width="70%" type="primary">
           რეგისტრაცია
         </Button>

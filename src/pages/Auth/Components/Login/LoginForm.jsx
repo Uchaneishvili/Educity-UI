@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import styles from "./Auth.module.css";
-import { Button } from "../../components/UI/Button/Button";
-import Checkbox from "../../components/UI/Checkbox/Checkbox";
-import Input from "../../components/UI/Input/Input";
-import AuthService from "../../services/auth.service";
+import styles from "./LoginForm.module.css";
+import { Button } from "../../../../components/UI/Button/Button";
+import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
+import Input from "../../../../components/UI/Input/Input";
+import AuthService from "../../../../services/auth.service";
 
 const authService = new AuthService();
 

@@ -60,36 +60,6 @@
   font-size: 15px;
 }
 
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.saveUser {
-  color: #575e73;
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.forgotPassword {
-  color: #3561fe;
-  font-size: 14px;
-}
-
-.inputContainerFooter {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-}
-
-.loginBtnContainer {
-  display: flex;
-  justify-content: center;
-  padding: 16px 0px;
-}
-
 .tabSelectorContainer {
   display: flex;
   justify-content: center;
@@ -119,21 +89,5 @@
   .content {
     align-items: center;
     width: 100%;
-  }
-
-  .loginBtnContainer {
-    width: 100%;
-  }
-  .inputContainer {
-    width: 90%;
-  }
-
-  .saveUser,
-  .forgotPassword {
-    font-size: 10px;
-  }
-
-  .inputContainerFooter {
-    font-size: 10px;
   }
 }

@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./Auth.module.css";
 import { Divider } from "../../components/UI/icons";
 import TabSelector from "../../components/UI/TabSelector/TabSelector";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "./Components/Login/LoginForm";
+import RegisterForm from "./Components/Register/RegisterForm";
 
 export function Auth() {
   return (

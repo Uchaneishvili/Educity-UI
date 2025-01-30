@@ -1,69 +1,32 @@
-import { Card } from "../../components/UI/Card/Card";
-import SearchInput from "../../components/UI/SearchInput/SearchInput";
-import styles from "./Courses.module.css";
-import Pagination from "../../components/UI/Pagination/Pagination";
-import { useEffect } from "react";
-import { getCourses } from "../../services/courses.service";
+import { Card } from '../../components/UI/Card/Card'
+import SearchInput from '../../components/UI/SearchInput/SearchInput'
+import styles from './Courses.module.css'
+import Pagination from '../../components/UI/Pagination/Pagination'
+import { useEffect, useState } from 'react'
+import { getCourses } from '../../services/courses.service'
 
 export function Courses() {
-  const cards = [
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-    {
-      title: "UI/UX დიზაინის კურსი",
-      review: 9.8,
-      studentsQuantity: 20,
-      duration: 2,
-    },
-  ];
+  const [courses, setCourses] = useState([])
+  const [totalItems, setTotalItems] = useState(0)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 10
 
-  const loadData = async () => {
+  const loadData = async (page = 1) => {
     try {
-      const res = await getCourses();
+      const res = await getCourses({ page, pageSize, staticFilter: { isPublished: true } })
+      // Assuming your API returns { data: [...], total: number }
+      setCourses(res.data.items)
 
-      console.log("ress", res);
+      setTotalItems(res.data.total)
     } catch (err) {
-      console.log(err, "error while load courses");
+      console.log(err, 'error while load courses')
     }
-  };
+  }
 
   useEffect(() => {
-    loadData();
-  }, []);
+    loadData()
+  }, [])
+
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -76,33 +39,33 @@ export function Courses() {
             </div>
           </div>
           <div className={styles.content}>
-            {cards.map((card, index) => (
+            {courses.map((course, index) => (
               <Card
-                key={index}
-                title={card.title}
-                review={card.review}
-                studentsQuantity={card.studentsQuantity}
-                duration={card.duration}
+                key={course.id || index}
+                title={course.title}
+                review={course.review}
+                studentsQuantity={course.studentsQuantity}
+                duration={course.duration}
                 bordered={true}
+                id={course._id}
               />
             ))}
           </div>
 
           <div className={styles.paginationContainer}>
             <Pagination
-              totalItems={100}
-              pageSize={10}
-              currentPage={1}
+              totalItems={totalItems}
+              pageSize={pageSize}
+              currentPage={currentPage}
               pathPrefix="/courses"
-              onPageChange={(page, url) => {
-                // getCourses();
-                // Fetch data or update state
-                console.log(url);
+              onPageChange={(page) => {
+                setCurrentPage(page)
+                loadData(page)
               }}
             />
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }

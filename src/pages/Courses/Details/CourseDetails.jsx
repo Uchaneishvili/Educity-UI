@@ -1,14 +1,27 @@
-import styles from "./CourseDetails.module.css";
-import {
-  ClockIcon,
-  StudentIcon,
-  LectureIcon,
-  LevelIcon,
-} from "../../../components/UI/icons";
-import { Card } from "../../../components/UI/Card/Card";
-import TabSections from "./components/TabSections/TabSections";
+import styles from './CourseDetails.module.css'
+import { ClockIcon, StudentIcon, LectureIcon, LevelIcon } from '../../../components/UI/icons'
+import { Card } from '../../../components/UI/Card/Card'
+import TabSections from './components/TabSections/TabSections'
+import { getCourseDetails } from '../../../services/courses.service'
+import { useParams } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 export function CourseDetails() {
+  const { id } = useParams()
+
+  const [data, setData] = useState(null)
+
+  const loadData = async () => {
+    try {
+      const res = await getCourseDetails(id)
+      setData(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    loadData()
+  }, [id])
   return (
     <>
       <div className={`${styles.container} mainContainer`}>
@@ -40,19 +53,19 @@ export function CourseDetails() {
       </div>
       <div className={`${styles.descriptionContainer} mainContainer`}>
         <div className={styles.cardContainer}>
-          <Card showBuy={true} buttonName={"კურსზე რეგისტრაცია"} />
+          <Card showBuy={true} buttonName={'კურსზე რეგისტრაცია'} />
         </div>
         <div className={styles.description}>
           <TabSections
             tabs={[
-              { id: 0, label: "კურსის შესახებ" },
-              { id: 1, label: "სილაბუსი" },
-              { id: 2, label: "შეფასება" },
-              { id: 3, label: "დაგვიკავშირდით" },
+              { id: 0, label: 'კურსის შესახებ' },
+              { id: 1, label: 'სილაბუსი' },
+              { id: 2, label: 'შეფასება' },
+              { id: 3, label: 'დაგვიკავშირდით' }
             ]}
           />
         </div>
       </div>
     </>
-  );
+  )
 }

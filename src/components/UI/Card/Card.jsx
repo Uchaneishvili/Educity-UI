@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import styles from "./Card.module.css";
-import { Divider } from "../icons";
-import {
-  ClockIcon,
-  StudentIcon,
-  NarrowColoredStar,
-  WishlistIcon,
-} from "../icons";
-import { Button } from "../Button/Button";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import styles from './Card.module.css'
+import { Divider } from '../icons'
+import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icons'
+import { Button } from '../Button/Button'
+import { useNavigate } from 'react-router-dom'
 export function Card({
   title,
   duration,
@@ -19,14 +14,13 @@ export function Card({
   showBuy,
   buttonName,
   bordered,
+  id
 }) {
-  const [isActive, setIsActive] = useState(false);
-  const navigate = useNavigate();
+  const [isActive, setIsActive] = useState(false)
+  const navigate = useNavigate()
 
   return (
-    <div
-      className={`${styles.container} ${bordered && styles.borderedContainer}`}
-    >
+    <div className={`${styles.container} ${bordered && styles.borderedContainer}`}>
       <div className={styles.imageContainer}>
         <img
           className={styles.cardImageWeb}
@@ -79,10 +73,7 @@ export function Card({
 
           {showWishlist && (
             <div className={styles.wishListButtonContainer}>
-              <button
-                className={styles.wishListButton}
-                onClick={() => setIsActive(!isActive)}
-              >
+              <button className={styles.wishListButton} onClick={() => setIsActive(!isActive)}>
                 <WishlistIcon isActive={isActive} />
               </button>
             </div>
@@ -94,12 +85,8 @@ export function Card({
         {showBuy ? (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={`${styles.price} ${styles.priceDetails}`}>
-                200₾
-              </div>
-              <div
-                className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}
-              >
+              <div className={`${styles.price} ${styles.priceDetails}`}>200₾</div>
+              <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
                 200₾
               </div>
             </div>
@@ -116,10 +103,7 @@ export function Card({
             </div>
 
             <div className={styles.detailsContainer}>
-              <div
-                className={styles.details}
-                onClick={() => navigate(`/courses/1`)}
-              >
+              <div className={styles.details} onClick={() => navigate(`/courses/${id}`)}>
                 დეტალები
               </div>
             </div>
@@ -127,5 +111,5 @@ export function Card({
         )}
       </div>
     </div>
-  );
+  )
 }

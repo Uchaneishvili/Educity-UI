@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from "react";
-import styles from "./Pagination.module.css";
-import FormatData from "../../../utils/FormatData";
-import { PaginationButton } from "../PaginationButton/PaginationButton";
+import React, { useState, useMemo } from 'react'
+import styles from './Pagination.module.css'
+import FormatData from '../../../utils/FormatData'
+import { PaginationButton } from '../PaginationButton/PaginationButton'
 
 const Pagination = ({
   totalItems,
@@ -13,9 +13,9 @@ const Pagination = ({
   filters = {},
   customSearch = {},
   staticFilter = {},
-  onPageChange,
+  onPageChange
 }) => {
-  const totalPages = Math.ceil(totalItems / pageSize);
+  const totalPages = Math.ceil(totalItems / pageSize)
 
   const generatePageURL = (page) => {
     return FormatData.generatePaginationURLPath({
@@ -26,41 +26,40 @@ const Pagination = ({
       sortOrder,
       filters,
       customSearch,
-      staticFilter,
-    });
-  };
+      staticFilter
+    })
+  }
 
   const handlePageChange = (page) => {
-    console.log("222");
     if (page >= 1 && page <= totalPages) {
-      const pageURL = generatePageURL(page);
+      const pageURL = generatePageURL(page)
 
-      window.history.pushState({}, "", pageURL);
+      window.history.pushState({}, '', pageURL)
 
       if (onPageChange) {
-        onPageChange(page, pageURL);
+        onPageChange(page, pageURL)
       }
     }
-  };
+  }
 
   const pageNumbers = useMemo(() => {
-    const pages = [];
+    const pages = []
     for (let i = 1; i <= totalPages; i++) {
       pages.push(
         <PaginationButton
           key={i}
           href={generatePageURL(i)}
           onClick={(e) => {
-            e.preventDefault();
-            handlePageChange(i);
+            e.preventDefault()
+            handlePageChange(i)
           }}
           label={i}
           isActive={Boolean(currentPage === i)}
         />
-      );
+      )
     }
-    return pages;
-  }, [totalPages, currentPage]);
+    return pages
+  }, [totalPages, currentPage])
 
   return (
     <div className={styles.pagination}>
@@ -68,11 +67,11 @@ const Pagination = ({
         href={generatePageURL(currentPage - 1)}
         className={styles.navButton}
         onClick={(e) => {
-          e.preventDefault();
-          handlePageChange(currentPage - 1);
+          e.preventDefault()
+          handlePageChange(currentPage - 1)
         }}
         disabled={currentPage === 1}
-        label={"<"}
+        label={'<'}
       />
 
       {pageNumbers}
@@ -81,14 +80,14 @@ const Pagination = ({
         href={generatePageURL(currentPage - 1)}
         className={styles.navButton}
         onClick={(e) => {
-          e.preventDefault();
-          handlePageChange(currentPage - 1);
+          e.preventDefault()
+          handlePageChange(currentPage - 1)
         }}
         disabled={currentPage === 1}
-        label={">"}
+        label={'>'}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Pagination;
+export default Pagination

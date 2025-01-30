@@ -1,12 +1,12 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "../pages/Home/Home";
-import { Contact } from "../pages/Contact/Contact";
-import { AboutUs } from "../pages/AboutUs/AboutUs";
-import { Courses } from "../pages/Courses/Courses";
-import { Auth } from "../pages/Auth/Auth";
-import { MainLayout } from "../layouts/MainLayout";
-import { CourseDetails } from "../pages/Courses/Details/CourseDetails";
-import ForgetPass from "../pages/ForgetPass/ForgetPass";
+import { Route, Routes } from 'react-router-dom'
+import { Home } from '../pages/Home/Home'
+import { Contact } from '../pages/Contact/Contact'
+import { AboutUs } from '../pages/AboutUs/AboutUs'
+import { Courses } from '../pages/Courses/Courses'
+import { Auth } from '../pages/Auth/Auth'
+import { MainLayout } from '../layouts/MainLayout'
+import { CourseDetails } from '../pages/Courses/Details/CourseDetails'
+import ForgetPass from '../pages/ForgetPass/ForgetPass'
 
 export const AppRoutes = () => {
   return (
@@ -23,5 +23,5 @@ export const AppRoutes = () => {
       {/* <Route path="/register" element={<Register />} /> */}
       <Route path="/forget-pass" element={<ForgetPass />} />
     </Routes>
-  );
-};
+  )
+}

@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import styles from "./LoginForm.module.css";
-import { Button } from "../../../../components/UI/Button/Button";
-import Checkbox from "../../../../components/UI/Checkbox/Checkbox";
-import Input from "../../../../components/UI/Input/Input";
-import AuthService from "../../../../services/auth.service";
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import styles from './LoginForm.module.css'
+import { Button } from '../../../../components/UI/Button/Button'
+import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
+import Input from '../../../../components/UI/Input/Input'
+import AuthService from '../../../../services/auth.service'
 
-const authService = new AuthService();
+const authService = new AuthService()
 
 function LoginForm() {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const values = Object.fromEntries(formData.entries());
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const values = Object.fromEntries(formData.entries())
 
-    const res = await authService.login(values);
+    const res = await authService.login(values)
     if (res.success) {
-      console.log("Login successful:", res.data);
-      // Redirect or update UI as needed
+      navigate('/')
     } else {
-      console.error("Login failed:", res.error);
-      // Handle login failure (e.g., show error message)
+      console.error('Login failed:', res.error)
     }
-  };
+  }
 
   return (
     <form onSubmit={handleSubmit} className={styles.inputContainer}>
-      <Input name="email" placeholder={"ელ.ფოსტა"} />
-      <Input name="password" placeholder={"პაროლი"} />
+      <Input name="email" placeholder={'ელ.ფოსტა'} />
+      <Input name="password" placeholder={'პაროლი'} />
 
       <div className={styles.inputContainerFooter}>
         <div className={styles.saveUserContainer}>
@@ -48,7 +48,7 @@ function LoginForm() {
         </Button>
       </div>
     </form>
-  );
+  )
 }
 
-export default LoginForm;
+export default LoginForm

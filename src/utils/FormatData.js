@@ -1,34 +1,42 @@
 export default class FormatData {
-  static generatePaginationURLPath(query) {
-    let path = `${query.pathPrefix}?page=${query.page}&pageSize=${query.pageSize}`;
-    if (query.sortField && query.sortOrder)
-      path += `&sortField=${query.sortField}&sortOrder=${query.sortOrder}`;
+  static generatePaginationURLPath(query = {}) {
+    const params = new URLSearchParams()
 
+    // Add basic pagination params if they exist
+    if (query.page) params.append('page', query.page)
+    if (query.pageSize) params.append('pageSize', query.pageSize)
+
+    // Add sorting params
+    if (query.sortField && query.sortOrder) {
+      params.append('sortField', query.sortField)
+      params.append('sortOrder', query.sortOrder)
+    }
+
+    // Add filters
     if (query.filters) {
-      for (let key in query.filters) {
-        let value = query.filters[key];
+      Object.entries(query.filters).forEach(([key, value]) => {
         if (value) {
-          if (Array.isArray(value)) {
-            value.join(",");
-          }
-          path += `&${key}=${query.filters[key]}`;
+          const finalValue = Array.isArray(value) ? value.join(',') : value
+          params.append(key, finalValue)
         }
-      }
+      })
     }
+
+    // Add custom search params
     if (query.customSearch) {
-      for (let key in query.customSearch) {
-        if (query.customSearch[key]) {
-          path += `&${key}=${encodeURIComponent(query.customSearch[key])}`;
-        }
-      }
+      Object.entries(query.customSearch).forEach(([key, value]) => {
+        if (value) params.append(key, value)
+      })
     }
+
+    // Add static filters
     if (query.staticFilter) {
-      for (let key in query.staticFilter) {
-        if (query.staticFilter[key]) {
-          path += `&${key}=${encodeURIComponent(query.staticFilter[key])}`;
-        }
-      }
+      Object.entries(query.staticFilter).forEach(([key, value]) => {
+        if (value) params.append(key, value)
+      })
     }
-    return path;
+
+    const queryString = params.toString()
+    return queryString ? `${query.pathPrefix || ''}?${queryString}` : query.pathPrefix || ''
   }
 }

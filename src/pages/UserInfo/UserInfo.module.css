@@ -1,0 +1,148 @@
+.container {
+  width: 100%;
+  padding-top: 32px;
+}
+
+.userNavigationContainer {
+  width: 100%;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  gap: 24px;
+  border: 1px solid #3561fe29;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.userName {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.userProfession {
+  color: #6e7485;
+  line-height: 24px;
+}
+
+.userNavigation {
+  border: 1px solid #3561fe29;
+  border-top: 0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.userNavigationButton {
+  width: 168px;
+  padding: 20px 0;
+  color: #4e5566;
+  font-size: 16px;
+  line-height: 22px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.active {
+  color: #3561fe;
+  box-shadow: 0px -3px 0px 0px #3561fe inset;
+  font-weight: 700;
+}
+
+.dashboardContainer {
+  margin-top: 40px;
+}
+
+.dashboardTitle {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+.dashboardCards {
+  margin-top: 24px;
+  display: flex;
+  gap: 32px;
+}
+
+.dashboardCard {
+  max-width: 312px;
+  width: 100%;
+  background-color: #3561fe29;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.dashboardCardIconContainer {
+  padding: 14px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboardCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboardCardInfoAmount {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.dashboardCardTitle {
+  font-size: 14px;
+  line-height: 22px;
+  color: #4e5566;
+}
+
+.coursesContainer {
+  margin-top: 85px;
+}
+
+.coursesTitle {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+.courseCards {
+  margin-top: 24px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.courseCard > div {
+  max-width: 404px;
+  width: 100%;
+}
+
+.courseCard img {
+  max-width: 404px;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+}

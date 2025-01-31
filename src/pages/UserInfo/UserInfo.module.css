@@ -130,6 +130,7 @@
   margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
   gap: 24px;
 }
 
@@ -145,4 +146,66 @@
 .paginationContainer {
   display: flex;
   justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .userPhoto {
+    min-width: 54px;
+    width: 54px;
+    min-height: 54px;
+    height: 54px;
+  }
+
+  .userPhoto > img {
+    width: 100%;
+  }
+
+  .userName {
+    font-size: 18px;
+  }
+
+  .userProfession {
+    font-size: 12px;
+  }
+
+  .userNavigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .userNavigationButton {
+    width: auto;
+    font-size: 12px;
+    padding: 20px 12px;
+  }
+
+  .dashboardContainer {
+    margin-top: 24px;
+  }
+
+  .dashboardTitle {
+    display: none;
+  }
+
+  .dashboardCards {
+    flex-direction: column;
+  }
+
+  .dashboardCard {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .coursesContainer {
+    margin-top: 54px;
+  }
+
+  .coursesTitle {
+    font-size: 16px;
+  }
+
+  .courseCards {
+    justify-content: center;
+  }
 }

@@ -23,22 +23,42 @@ function UserInfo() {
           </div>
           <div className={styles.userNavigation}>
             <button
-              className={`${styles.userNavigationButton} ${styles.active}`}
+              className={`${styles.userNavigationButton} ${
+                page === "dashboard" && styles.active
+              }`}
               onClick={() => setPage("dashboard")}
             >
               DASHBOARD
             </button>
             <button
-              className={`${styles.userNavigationButton}`}
+              className={`${styles.userNavigationButton} ${
+                page === "courses" && styles.active
+              }`}
               onClick={() => setPage("courses")}
             >
               COURSES
             </button>
-            <button className={styles.userNavigationButton}>WISHLIST</button>
-            <button className={styles.userNavigationButton}>
+            <button
+              className={`${styles.userNavigationButton} ${
+                page === "wishlist" && styles.active
+              }`}
+            >
+              WISHLIST
+            </button>
+            <button
+              className={`${styles.userNavigationButton} ${
+                page === "purchaseHistory" && styles.active
+              }`}
+            >
               PURCHASE HISTORY
             </button>
-            <button className={styles.userNavigationButton}>SETTINGS</button>
+            <button
+              className={`${styles.userNavigationButton} ${
+                page === "settings" && styles.active
+              }`}
+            >
+              SETTINGS
+            </button>
           </div>
         </div>
 

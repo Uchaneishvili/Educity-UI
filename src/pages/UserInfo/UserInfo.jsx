@@ -1,31 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./UserInfo.module.css";
-import {
-  ActiveCoursesIcon,
-  CompletedCoursesIcon,
-  EnrolledCoursesIcon,
-} from "../../components/UI/icons";
-import Pagination from "../../components/UI/Pagination/Pagination";
-import { Card } from "../../components/UI/Card/Card";
+import Dashboard from "./Components/Dashboard/Dashboard";
+import Courses from "./Components/Courses/Courses";
 
 function UserInfo() {
-  const dashboardInfo = [
-    {
-      title: "Enrolled Courses",
-      amount: "957",
-      icon: <EnrolledCoursesIcon />,
-    },
-    {
-      title: "Active Courses",
-      amount: "6",
-      icon: <ActiveCoursesIcon />,
-    },
-    {
-      title: "Completed Courses",
-      amount: "951",
-      icon: <CompletedCoursesIcon />,
-    },
-  ];
+  const [page, setPage] = useState("dashboard");
 
   return (
     <div className="mainContainer">
@@ -45,10 +24,14 @@ function UserInfo() {
           <div className={styles.userNavigation}>
             <button
               className={`${styles.userNavigationButton} ${styles.active}`}
+              onClick={() => setPage("dashboard")}
             >
               DASHBOARD
             </button>
-            <button className={`${styles.userNavigationButton}`}>
+            <button
+              className={`${styles.userNavigationButton}`}
+              onClick={() => setPage("courses")}
+            >
               COURSES
             </button>
             <button className={styles.userNavigationButton}>WISHLIST</button>
@@ -59,45 +42,13 @@ function UserInfo() {
           </div>
         </div>
 
-        <div className={styles.dashboardContainer}>
-          <div className={styles.dashboardTitle}>Dashboard</div>
-
-          <div className={styles.dashboardCards}>
-            {dashboardInfo.map((card, index) => (
-              <div className={styles.dashboardCard} key={index}>
-                <div className={styles.dashboardCardIconContainer}>
-                  {card.icon}
-                </div>
-                <div className={styles.dashboardCardInfo}>
-                  <div className={styles.dashboardCardInfoAmount}>
-                    {card.amount}
-                  </div>
-                  <div className={styles.dashboardCardTitle}>{card.title}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.coursesContainer}>
-          <div className={styles.coursesTitle}>Let's start learning, Kevin</div>
-
-          <div className={styles.courseCards}>
-            <div className={styles.courseCard}>
-              <Card />
-            </div>
-            <div className={styles.courseCard}>
-              <Card />
-            </div>
-            <div className={styles.courseCard}>
-              <Card />
-            </div>
-          </div>
-
-          <div className={styles.paginationContainer}>
-            <Pagination totalItems="9" pageSize="3" currentPage="1" />
-          </div>
-        </div>
+        {page === "dashboard" && (
+          <>
+            <Dashboard />
+            <Courses />
+          </>
+        )}
+        {page === "courses" && <Courses hideTitle={true} />}
       </div>
     </div>
   );

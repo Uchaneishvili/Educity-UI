@@ -11,7 +11,8 @@ class AuthService {
       loginEndpoint: '/auth/login',
       logoutEndpoint: '/auth/logout',
       currentUserEndpoint: '/auth/me',
-      checkAuthEndpoint: '/auth/check'
+      checkAuthEndpoint: '/auth/check',
+      registerEndpoint: '/auth/register'
     }
 
     this.config = { ...defaultOptions, ...options }
@@ -126,6 +127,34 @@ class AuthService {
       return true
     } catch {
       return false
+    }
+  }
+
+  async register(userData) {
+    try {
+      const { data } = await this.api.post(this.config.registerEndpoint, userData)
+
+      if (!data.access_token) {
+        console.error('No token received in register response')
+        return {
+          success: false,
+          error: 'No authentication token received'
+        }
+      }
+
+      this.setToken(data.access_token)
+      if (data.refresh_token) {
+        RequestHelper.setRefreshToken(data.refresh_token)
+      }
+      localStorage.setItem(this.config.userKey, JSON.stringify(data.user))
+
+      return { success: true, data }
+    } catch (error) {
+      console.error('Registration error:', error)
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message
+      }
     }
   }
 }

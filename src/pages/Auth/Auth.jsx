@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './Auth.module.css'
 import { Divider } from '../../components/UI/icons'
 import TabSelector from '../../components/UI/TabSelector/TabSelector'
 import LoginForm from './Components/Login/LoginForm'
+import RegisterForm from './Components/Register/RegisterForm'
 
 export function Auth() {
+  const [activeTab, setActiveTab] = useState(0)
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
@@ -24,10 +27,12 @@ export function Auth() {
                   { id: 0, label: 'ავტორიზაცია' },
                   { id: 1, label: 'რეგისტრაცია' }
                 ]}
+                onTabChange={setActiveTab}
+                activeTab={activeTab}
               />
             </div>
 
-            <LoginForm />
+            {activeTab === 0 ? <LoginForm /> : <RegisterForm setActiveTab={setActiveTab} />}
 
             <Divider />
           </div>

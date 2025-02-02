@@ -5,12 +5,13 @@ import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
 
 const Reviews = ({ onReviewChange }) => {
   const [selectedReviews, setSelectedReviews] = useState([])
+
   const reviews = [
-    { id: 5, stars: 5, count: 1025 },
-    { id: 4, stars: 4, count: 1025 },
-    { id: 3, stars: 3, count: 1025 },
-    { id: 2, stars: 2, count: 1025 },
-    { id: 1, stars: 1, count: 1025 }
+    { id: 5, stars: 5 },
+    { id: 4, stars: 4 },
+    { id: 3, stars: 3 },
+    { id: 2, stars: 2 },
+    { id: 1, stars: 1 }
   ]
 
   const handleCheckboxChange = (reviewId) => {

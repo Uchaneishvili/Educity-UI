@@ -80,7 +80,6 @@ const Pagination = ({
         href={generatePageURL(currentPage + 1)}
         className={styles.navButton}
         onClick={(e) => {
-          console.log('****')
           e.preventDefault()
           handlePageChange(currentPage + 1)
         }}

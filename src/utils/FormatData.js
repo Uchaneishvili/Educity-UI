@@ -16,8 +16,11 @@ export default class FormatData {
     if (query.filters) {
       Object.entries(query.filters).forEach(([key, value]) => {
         if (value) {
-          const finalValue = Array.isArray(value) ? value.join(',') : value
-          params.append(key, finalValue)
+          if (Array.isArray(value)) {
+            value.forEach((item) => params.append(key, item))
+          } else {
+            params.append(key, value)
+          }
         }
       })
     }

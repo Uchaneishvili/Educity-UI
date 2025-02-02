@@ -21,44 +21,41 @@ export function Courses() {
   const loadData = useCallback(
     async (page = 1) => {
       try {
-        const filters = {
-          categoryIds: selectedCategories
-        }
-
-        const res = await getCourses({
+        const query = {
           page,
           pageSize,
-          staticFilter: { isPublished: true, reviews: selectedReviews },
-          filters,
+          filters: {
+            avgRating: selectedReviews,
+            categoryId: selectedCategories
+          },
           customSearch: searchQuery ? { search: searchQuery } : undefined
-        })
+        }
 
-        setCourses(res.data.items)
-        setTotalItems(res.data.total)
-      } catch (err) {
-        console.log(err, 'error while load courses')
+        const response = await getCourses(query)
+        setCourses(response.data.items)
+        setTotalItems(response.data.totalItems)
+      } catch (error) {
+        console.error('Error loading courses:', error)
       }
     },
     [selectedCategories, pageSize, selectedReviews, searchQuery]
   )
-
-  // Load initial data and categories
   useEffect(() => {
     const loadInitialData = async () => {
       try {
         const categoriesRes = await getCategories()
         setCategories(categoriesRes.data.categories)
       } catch (err) {
-        console.log(err, 'error while loading categories')
+        console.error(err, 'error while loading categories')
       }
     }
     loadInitialData()
     loadData()
-  }, [])
+  }, [loadData])
 
   useEffect(() => {
     loadData(currentPage)
-  }, [selectedCategories, currentPage, searchQuery])
+  }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData])
 
   const handleCategoryChange = (categories) => {
     setSelectedCategories(categories)
@@ -66,12 +63,12 @@ export function Courses() {
 
   const handleReviewChange = (reviews) => {
     setSelectedReviews(reviews)
-    // You can add the review filter to your API call here
+    setCurrentPage(1)
   }
 
   const handleSearch = (value) => {
     setSearchQuery(value)
-    setCurrentPage(1) // Reset to first page when searching
+    setCurrentPage(1)
   }
 
   return (

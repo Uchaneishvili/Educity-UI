@@ -1,0 +1,75 @@
+.container {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+}
+
+.uploadPhotoContainer {
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid #e9eaf0;
+  border-radius: 8px;
+  padding: 44px;
+}
+
+.uploadPhotoImgContainer {
+  max-width: 280px;
+}
+
+.uploadPhotoText {
+  max-width: 280px;
+  color: #6e7485;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: -1%;
+  text-align: center;
+  margin-top: 22px;
+}
+
+.formsContainer {
+  max-width: 800px;
+  width: 100%;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.twoInputContainer {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.inputContainer {
+  width: 100%;
+}
+
+.inputContainer > div {
+  gap: 8px;
+}
+
+.formTitle {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -1%;
+  font-weight: 500;
+  margin-top: 54px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .twoInputContainer {
+    flex-direction: column;
+  }
+}

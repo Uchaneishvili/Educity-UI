@@ -1,9 +1,9 @@
-import React from 'react'
-import styles from './Auth.module.css'
-import { Divider } from '../../components/UI/icons'
-import TabSelector from '../../components/UI/TabSelector/TabSelector'
-import LoginForm from './Components/Login/LoginForm'
-import RegisterForm from './Components/Register/RegisterForm'
+import React from "react";
+import styles from "./Auth.module.css";
+import { Divider } from "../../components/UI/icons";
+import TabSelector from "../../components/UI/TabSelector/TabSelector";
+import LoginForm from "./Components/Login/LoginForm";
+import RegisterForm from "./Components/Register/RegisterForm";
 
 export function Auth() {
   return (
@@ -14,16 +14,16 @@ export function Auth() {
             <div className={styles.welcomeContainer}>
               <div className={styles.title}>მოგესალმებით</div>
               <div className={styles.description}>
-                გთხოვთ გაიაროთ ავტორიზაცია, თუ არ გაქვთ ანგარიში გაიარეთ რეგისრაცია, რათა ისარგებლოთ
-                ჩვენი სერვისებით
+                გთხოვთ გაიაროთ ავტორიზაცია, თუ არ გაქვთ ანგარიში გაიარეთ
+                რეგისრაცია, რათა ისარგებლოთ ჩვენი სერვისებით
               </div>
             </div>
 
             <div className={styles.tabSelectorContainer}>
               <TabSelector
                 tabs={[
-                  { id: 0, label: 'ავტორიზაცია' },
-                  { id: 1, label: 'რეგისტრაცია' }
+                  { id: 0, label: "ავტორიზაცია" },
+                  { id: 1, label: "რეგისტრაცია" },
                 ]}
               />
             </div>
@@ -38,5 +38,5 @@ export function Auth() {
         </div>
       </div>
     </div>
-  )
+  );
 }

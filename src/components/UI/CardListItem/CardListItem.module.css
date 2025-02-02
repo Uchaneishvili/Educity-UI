@@ -1,0 +1,170 @@
+.container {
+  width: 100%;
+  border: 1px solid #3561fe29;
+  border-radius: 16px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cardListDescriptionContainer {
+  display: flex;
+  gap: 20px;
+}
+
+.cardListImgContainer {
+  max-width: 160px;
+}
+
+.cardListImgContainer > img {
+  border-radius: 16px;
+}
+
+.cardListTextsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardListTextsInnerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.cardListReviewContainer {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.cardListReviewScore {
+  color: #1d2026;
+  line-height: 20px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.cardListReviewNumber {
+  color: #8c94a3;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+.cardListName {
+  color: #1d2026;
+}
+
+.cardListAuthor {
+  display: flex;
+  gap: 6px;
+}
+
+.cardListAuthor > div:first-child {
+  color: #a1a5b3;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+.cardListAuthor > div:last-child {
+  color: #4e5566;
+  line-height: 22px;
+  font-size: 14px;
+}
+
+.cardListPricesAndButtonsContainer {
+  display: flex;
+  gap: 220px;
+}
+
+.cardListPricesContainer {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cardListPrice {
+  color: #55be24;
+  font-size: 20px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+.cardListOldPrice {
+  color: #8c94a3;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -0.015em;
+  text-decoration-line: line-through;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+  font-weight: 400;
+}
+
+.cardListButtonsContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cardWishListButton {
+  background-color: #3561fe29;
+  border-radius: 8px;
+  padding: 12px;
+  border: none;
+  width: 48px;
+  height: 48px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.cardWishListButton:hover svg {
+  fill: #3561fe;
+  color: #3561fe;
+}
+
+.cardWishListButton:hover {
+  background-color: #3561fe40;
+}
+
+@media (max-width: 1440px) {
+  .cardListPricesAndButtonsContainer {
+    gap: 100px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container {
+    width: fit-content;
+    flex-direction: column;
+    padding: 0;
+    border: 0;
+    gap: 16px;
+  }
+
+  .cardListDescriptionContainer {
+    justify-content: space-between;
+  }
+
+  .cardListImgContainer {
+    max-width: 170px;
+  }
+
+  .cardListPricesAndButtonsContainer {
+    box-sizing: border-box;
+    padding: 24px 16px;
+    border: 1px solid #3561fe29;
+    border-radius: 16px;
+    gap: 0;
+    justify-content: space-between;
+  }
+
+  .cardListPrice {
+    font-size: 16px;
+  }
+
+  .cardListOldPrice {
+    font-size: 12px;
+  }
+}

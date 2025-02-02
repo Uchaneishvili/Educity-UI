@@ -1,0 +1,12 @@
+.container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    align-items: center;
+  }
+}

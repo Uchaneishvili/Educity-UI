@@ -40,7 +40,9 @@ function LoginForm() {
           <span className={styles.saveUser}> მომხმარებლის დამახსოვრება</span>
         </div>
 
-        <div className={styles.forgotPassword}>დაგავიწყდათ პაროლი?</div>
+        <div className={styles.forgotPassword} onClick={() => navigate('/forget-pass')}>
+          დაგავიწყდათ პაროლი?
+        </div>
       </div>
       <div className={styles.loginBtnContainer}>
         <Button width="40%" type="primary">

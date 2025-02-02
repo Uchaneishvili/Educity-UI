@@ -102,6 +102,7 @@ export function Courses() {
                 enrolledStudentsQuantity={course.enrolledStudentsQuantity}
                 totalReviews={course.totalReviews}
                 price={course.price}
+                showWishlist={true}
                 discountedPrice={course.discountedPrice}
               />
             ))}

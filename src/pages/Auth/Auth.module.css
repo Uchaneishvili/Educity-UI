@@ -66,6 +66,28 @@
   align-items: center;
 }
 
+.socialItem {
+  border: 1px solid #d3dce6;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 20px;
+}
+
+.socialItem:hover {
+  cursor: pointer;
+}
+
+.socialContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 @media (max-width: 1024px) {
   .imageContainer {
     display: none;

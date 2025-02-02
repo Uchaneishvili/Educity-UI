@@ -33,7 +33,7 @@ function RegisterForm({ setActiveTab }) {
       <Input name="password" placeholder={'პაროლი'} />
       <Input name="confirmPassword" placeholder={'გაიმეორე პაროლი'} />
 
-      <div className={styles.inputContainerFooter}>
+      <div className={styles.termsAndConditionsContainer}>
         <div className={styles.acceptRulesContainer}>
           <Checkbox
             name="rememberMe"

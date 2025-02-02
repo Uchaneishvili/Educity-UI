@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styles from './Auth.module.css'
-import { Divider } from '../../components/UI/icons'
 import TabSelector from '../../components/UI/TabSelector/TabSelector'
 import LoginForm from './Components/Login/LoginForm'
 import RegisterForm from './Components/Register/RegisterForm'
+import { OrDivider } from '../../components/UI/OrDivider/OrDivider'
+import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons'
 
 export function Auth() {
   const [activeTab, setActiveTab] = useState(0)
@@ -34,7 +35,16 @@ export function Auth() {
 
             {activeTab === 0 ? <LoginForm /> : <RegisterForm setActiveTab={setActiveTab} />}
 
-            <Divider />
+            <OrDivider />
+
+            <div className={styles.socialContainer}>
+              <div className={styles.socialItem}>
+                <FacebookAuthIcon />
+              </div>
+              <div className={styles.socialItem}>
+                <GoogleAuthIcon />
+              </div>
+            </div>
           </div>
         </div>
         <div className={styles.imageContainer}>

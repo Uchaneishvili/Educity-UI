@@ -14,7 +14,6 @@ function PurchaseHistory() {
         author="ვაკო ვაკო"
         price="50$"
         oldPrice="100$"
-        hideButtons={true}
       />
 
       <Pagination />

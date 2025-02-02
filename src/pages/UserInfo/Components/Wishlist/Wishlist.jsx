@@ -14,6 +14,7 @@ function Wishlist() {
         author="ვაკო ვაკო"
         price="50$"
         oldPrice="100$"
+        showBuy={true}
       />
       <CardListItem />
       <CardListItem />

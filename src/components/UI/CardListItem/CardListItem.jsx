@@ -11,7 +11,7 @@ function CardListItem({
   author,
   price,
   oldPrice,
-  hideButtons,
+  showBuy,
 }) {
   return (
     <div className={styles.container}>
@@ -41,18 +41,17 @@ function CardListItem({
           <div className={styles.cardListPrice}>{price}</div>
           <div className={styles.cardListOldPrice}>{oldPrice}</div>
         </div>
-        <div
-          className={styles.cardListButtonsContainer}
-          style={{ display: hideButtons && "none" }}
-        >
-          <Button type="primary" children="კურსის შეძენა" />
+        {showBuy && (
+          <div className={styles.cardListButtonsContainer}>
+            <Button type="primary">კურსის შეძენა</Button>
 
-          <div className={styles.cardWishListButtonContainer}>
-            <button className={styles.cardWishListButton}>
-              <WishlistIcon isActive={true} />
-            </button>
+            <div className={styles.cardWishListButtonContainer}>
+              <button className={styles.cardWishListButton}>
+                <WishlistIcon isActive={true} />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

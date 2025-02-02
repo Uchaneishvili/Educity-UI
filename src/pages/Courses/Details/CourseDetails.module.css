@@ -97,3 +97,10 @@
     width: 100%;
   }
 }
+
+.errorMessage {
+  text-align: center;
+  color: #555555;
+  font-size: 18px;
+  padding: 100px 0;
+}

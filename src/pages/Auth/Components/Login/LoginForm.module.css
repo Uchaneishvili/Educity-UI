@@ -28,6 +28,11 @@
   padding: 16px 0px;
 }
 
+.saveUserContainer{
+  display: flex;
+  flex-direction: row;
+}
+
 @media (max-width: 1024px) {
   .inputContainer {
     width: 90%;

@@ -5,22 +5,24 @@ import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icon
 import { Button } from '../Button/Button'
 import { useNavigate } from 'react-router-dom'
 export function Card({
+  id,
   title,
-  duration,
-  studentsQuantity,
-  review,
+  totalDuration,
+  enrolledStudentsQuantity,
+  totalReviews,
   showWishlist,
   showDivider,
   showBuy,
   buttonName,
   bordered,
-  id
+  price,
+  discountedPrice
 }) {
   const [isActive, setIsActive] = useState(false)
   const navigate = useNavigate()
 
   return (
-    <div className={`${styles.container} ${bordered && styles.borderedContainer}`}>
+    <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
         <img
           className={styles.cardImageWeb}
@@ -39,32 +41,32 @@ export function Card({
           <div className={styles.content}>
             {title && <div className={styles.title}>{title}</div>}
 
-            {(duration || studentsQuantity || review) && (
+            {(totalDuration || enrolledStudentsQuantity || totalReviews) && (
               <div className={styles.info}>
-                {duration && (
+                {totalDuration && (
                   <div className={styles.durationInfo}>
                     <span>
                       <ClockIcon />
                     </span>
-                    {duration} თვე
+                    {totalDuration} თვე
                   </div>
                 )}
 
-                {studentsQuantity && (
+                {enrolledStudentsQuantity && (
                   <div className={styles.studentsInfo}>
                     <span>
                       <StudentIcon />
                     </span>
-                    {studentsQuantity} სტუდენტი
+                    {enrolledStudentsQuantity} სტუდენტი
                   </div>
                 )}
 
-                {review && (
+                {totalReviews && (
                   <div className={styles.reviewInfo}>
                     <span>
                       <NarrowColoredStar />
                     </span>
-                    {review}
+                    {totalReviews}
                   </div>
                 )}
               </div>
@@ -85,9 +87,9 @@ export function Card({
         {showBuy ? (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={`${styles.price} ${styles.priceDetails}`}>200₾</div>
+              <div className={`${styles.price} ${styles.priceDetails}`}>{discountedPrice} ₾</div>
               <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
-                200₾
+                {price} ₾
               </div>
             </div>
 
@@ -98,8 +100,8 @@ export function Card({
         ) : (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={styles.price}>200₾</div>
-              <div className={styles.discountedPrice}>200₾</div>
+              <div className={styles.price}>{price} ₾</div>
+              <div className={styles.discountedPrice}>{discountedPrice} ₾</div>
             </div>
 
             <div className={styles.detailsContainer}>

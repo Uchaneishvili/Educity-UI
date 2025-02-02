@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import styles from "./UserInfo.module.css";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import Courses from "./Components/Courses/Courses";
+import React, { useState } from 'react'
+import styles from './UserInfo.module.css'
+import Dashboard from './Components/Dashboard/Dashboard'
+import CoursesTab from './Components/CoursesTab/CoursesTab'
 
 function UserInfo() {
-  const [page, setPage] = useState("dashboard");
+  const [page, setPage] = useState('dashboard')
 
   return (
     <div className="mainContainer">
@@ -16,62 +16,52 @@ function UserInfo() {
             </div>
             <div className={styles.userInfo}>
               <div className={styles.userName}>Kevin Gilbert</div>
-              <div className={styles.userProfession}>
-                Web Designer & Best-Selling Instructor
-              </div>
+              <div className={styles.userProfession}>Web Designer & Best-Selling Instructor</div>
             </div>
           </div>
           <div className={styles.userNavigation}>
             <button
-              className={`${styles.userNavigationButton} ${
-                page === "dashboard" && styles.active
-              }`}
-              onClick={() => setPage("dashboard")}
+              className={`${styles.userNavigationButton} ${page === 'dashboard' && styles.active}`}
+              onClick={() => setPage('dashboard')}
             >
               DASHBOARD
             </button>
             <button
-              className={`${styles.userNavigationButton} ${
-                page === "courses" && styles.active
-              }`}
-              onClick={() => setPage("courses")}
+              className={`${styles.userNavigationButton} ${page === 'courses' && styles.active}`}
+              onClick={() => setPage('courses')}
             >
               COURSES
             </button>
             <button
-              className={`${styles.userNavigationButton} ${
-                page === "wishlist" && styles.active
-              }`}
+              className={`${styles.userNavigationButton} ${page === 'wishlist' && styles.active}`}
             >
               WISHLIST
             </button>
             <button
               className={`${styles.userNavigationButton} ${
-                page === "purchaseHistory" && styles.active
+                page === 'purchaseHistory' && styles.active
               }`}
             >
               PURCHASE HISTORY
             </button>
             <button
-              className={`${styles.userNavigationButton} ${
-                page === "settings" && styles.active
-              }`}
+              className={`${styles.userNavigationButton} ${page === 'settings' && styles.active}`}
             >
               SETTINGS
             </button>
           </div>
         </div>
 
-        {page === "dashboard" && (
+        {page === 'dashboard' && (
           <>
             <Dashboard />
-            <Courses />
+            <CoursesTab />
           </>
         )}
-        {page === "courses" && <Courses hideTitle={true} />}
+        {page === 'courses' && <CoursesTab hideTitle={true} />}
       </div>
     </div>
-  );
+  )
 }
 
-export default UserInfo;
+export default UserInfo

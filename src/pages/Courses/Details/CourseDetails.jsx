@@ -4,56 +4,82 @@ import { Card } from '../../../components/UI/Card/Card'
 import TabSections from './components/TabSections/TabSections'
 import { getCourseDetails } from '../../../services/courses.service'
 import { useParams } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import { Loader } from '../../../components/UI/Loader/Loader'
 
 export function CourseDetails() {
   const { id } = useParams()
-
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
+      setLoading(true)
       const res = await getCourseDetails(id)
       setData(res.data)
     } catch (error) {
-      console.log(error)
+      console.error('Error loading course details:', error)
+    } finally {
+      setLoading(false)
     }
-  }
+  }, [id])
+
   useEffect(() => {
     loadData()
-  }, [id])
+  }, [loadData])
+
+  if (loading) {
+    return (
+      <div className={`${styles.container} mainContainer`}>
+        <Loader />
+      </div>
+    )
+  }
+
+  if (!data) {
+    return (
+      <div className={`${styles.container} mainContainer`}>
+        <div className={styles.errorMessage}>Course not found</div>
+      </div>
+    )
+  }
+
   return (
     <>
       <div className={`${styles.container} mainContainer`}>
         <div className={styles.innerContainer}>
           <div className={styles.lecturerContainer}>
-            <div className={styles.categoryButton}>დიზაინი</div>
-            ლექტორი: მარიამ რთველაძე
+            <div className={styles.categoryButton}>{data.category?.name || 'დიზაინი'}</div>
+            ლექტორი: {data.lecturer?.fullName || 'მარიამ რთველაძე'}
           </div>
 
-          <div className={styles.titleContainer}>
-            The Ultimate Guide to the best WordPress LMS Plugin
-          </div>
+          <div className={styles.titleContainer}>{data.title}</div>
 
           <div className={styles.shortInfoContainer}>
             <div className={styles.duration}>
-              <ClockIcon /> 3 თვე
+              <ClockIcon /> {data.totalDuration || 0} თვე
             </div>
             <div className={styles.studentsQuantity}>
-              <StudentIcon /> 20 სტუდენტი
+              <StudentIcon /> {data.enrolledStudentsCount || 0} სტუდენტი
             </div>
             <div className={styles.level}>
-              <LevelIcon /> საბაზისო
+              <LevelIcon /> {data.level || 'საბაზისო'}
             </div>
-            <div styles={styles.lecturesQuantity}>
-              <LectureIcon /> ლექცია
+            <div className={styles.lecturesQuantity}>
+              <LectureIcon /> {data.lecturesCount || 0} ლექცია
             </div>
           </div>
         </div>
       </div>
       <div className={`${styles.descriptionContainer} mainContainer`}>
         <div className={styles.cardContainer}>
-          <Card showBuy={true} buttonName={'კურსზე რეგისტრაცია'} />
+          <Card
+            showBuy={true}
+            buttonName={'კურსზე რეგისტრაცია'}
+            title={data.title}
+            discountedPrice={data.discountedPrice}
+            price={data.price}
+          />
         </div>
         <div className={styles.description}>
           <TabSections

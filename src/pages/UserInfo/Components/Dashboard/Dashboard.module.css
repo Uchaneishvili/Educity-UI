@@ -1,0 +1,75 @@
+.dashboardContainer {
+  margin-top: 40px;
+  padding-bottom: 45px;
+}
+
+.dashboardTitle {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+.dashboardCards {
+  margin-top: 24px;
+  display: flex;
+  gap: 32px;
+}
+
+.dashboardCard {
+  max-width: 312px;
+  width: 100%;
+  background-color: #3561fe29;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.dashboardCardIconContainer {
+  padding: 14px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dashboardCardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboardCardInfoAmount {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.dashboardCardTitle {
+  font-size: 14px;
+  line-height: 22px;
+  color: #4e5566;
+}
+
+@media (max-width: 1024px) {
+  .dashboardContainer {
+    margin-top: 24px;
+    padding-bottom: 22px;
+  }
+
+  .dashboardTitle {
+    display: none;
+  }
+
+  .dashboardCards {
+    flex-direction: column;
+  }
+
+  .dashboardCard {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}

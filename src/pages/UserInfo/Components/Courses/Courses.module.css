@@ -1,0 +1,47 @@
+.coursesContainer {
+  margin-top: 40px;
+}
+
+.coursesTitle {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: -0.01em;
+}
+
+.courseCards {
+  margin-top: 24px;
+  margin-bottom: 32px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.courseCard > div {
+  max-width: 404px;
+  width: 100%;
+}
+
+.courseCard img {
+  max-width: 404px;
+}
+
+.paginationContainer {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 1024px) {
+  .coursesContainer {
+    margin-top: 32px;
+  }
+
+  .coursesTitle {
+    font-size: 16px;
+  }
+
+  .courseCards {
+    justify-content: center;
+  }
+}

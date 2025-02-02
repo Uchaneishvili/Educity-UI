@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./PurchaseHistory.module.css";
 import CardListItem from "../../../../components/UI/CardListItem/CardListItem";
+import Pagination from "../../../../components/UI/Pagination/Pagination";
 
 function PurchaseHistory() {
   return (
@@ -15,6 +16,8 @@ function PurchaseHistory() {
         oldPrice="100$"
         hideButtons={true}
       />
+
+      <Pagination />
     </div>
   );
 }

@@ -77,11 +77,12 @@ const Pagination = ({
       {pageNumbers}
 
       <PaginationButton
-        href={generatePageURL(currentPage - 1)}
+        href={generatePageURL(currentPage + 1)}
         className={styles.navButton}
         onClick={(e) => {
+          console.log('****')
           e.preventDefault()
-          handlePageChange(currentPage - 1)
+          handlePageChange(currentPage + 1)
         }}
         disabled={currentPage === 1}
         label={'>'}

@@ -3,39 +3,48 @@ import styles from "./CardListItem.module.css";
 import { ColoredStar, WishlistIcon } from "../../UI/icons";
 import { Button } from "../Button/Button";
 
-function CardListItem() {
+function CardListItem({
+  img,
+  reviewScore,
+  reviewNumber,
+  name,
+  author,
+  price,
+  oldPrice,
+  hideButtons,
+}) {
   return (
     <div className={styles.container}>
       <div className={styles.cardListDescriptionContainer}>
         <div className={styles.cardListImgContainer}>
-          <img
-            src="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-            alt="cardListBanner"
-          />
+          <img src={img} alt="cardListBanner" />
         </div>
         <div className={styles.cardListTextsContainer}>
           <div className={styles.cardListTextsInnerContainer}>
             <div className={styles.cardListReviewContainer}>
               <ColoredStar />
-              <div className={styles.cardListReviewScore}>4.6</div>
+              <div className={styles.cardListReviewScore}>{reviewScore}</div>
               <div className={styles.cardListReviewNumber}>
-                (451,444 Review)
+                ({reviewNumber} Review)
               </div>
             </div>
-            <div className={styles.cardListName}>UI/UX დიზაინის კურსი</div>
+            <div className={styles.cardListName}>{name}</div>
           </div>
           <div className={styles.cardListAuthor}>
             <div>Course by:</div>
-            <div>მარიამ რთველაძე</div>
+            <div>{author}</div>
           </div>
         </div>
       </div>
       <div className={styles.cardListPricesAndButtonsContainer}>
         <div className={styles.cardListPricesContainer}>
-          <div className={styles.cardListPrice}>$37.00</div>
-          <div className={styles.cardListOldPrice}>$49.00</div>
+          <div className={styles.cardListPrice}>{price}</div>
+          <div className={styles.cardListOldPrice}>{oldPrice}</div>
         </div>
-        <div className={styles.cardListButtonsContainer}>
+        <div
+          className={styles.cardListButtonsContainer}
+          style={{ display: hideButtons && "none" }}
+        >
           <Button type="primary" children="კურსის შეძენა" />
 
           <div className={styles.cardWishListButtonContainer}>

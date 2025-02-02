@@ -3,6 +3,7 @@ import styles from "./UserInfo.module.css";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import CoursesTab from "./Components/CoursesTab/CoursesTab";
 import Wishlist from "./Components/Wishlist/Wishlist";
+import PurchaseHistory from "./Components/PurchaseHistory/PurchaseHistory";
 
 function UserInfo() {
   const [page, setPage] = useState("dashboard");
@@ -74,6 +75,7 @@ function UserInfo() {
         )}
         {page === "courses" && <CoursesTab hideTitle={true} />}
         {page === "wishlist" && <Wishlist />}
+        {page === "purchaseHistory" && <PurchaseHistory />}
       </div>
     </div>
   );

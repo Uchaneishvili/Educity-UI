@@ -1,9 +1,8 @@
 import React from "react";
-import styles from "./Wishlist.module.css";
+import styles from "./PurchaseHistory.module.css";
 import CardListItem from "../../../../components/UI/CardListItem/CardListItem";
-import Pagination from "../../../../components/UI/Pagination/Pagination";
 
-function Wishlist() {
+function PurchaseHistory() {
   return (
     <div className={styles.container}>
       <CardListItem
@@ -14,14 +13,10 @@ function Wishlist() {
         author="ვაკო ვაკო"
         price="50$"
         oldPrice="100$"
+        hideButtons={true}
       />
-      <CardListItem />
-      <CardListItem />
-      <CardListItem />
-
-      <Pagination />
     </div>
   );
 }
 
-export default Wishlist;
+export default PurchaseHistory;

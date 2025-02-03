@@ -1,0 +1,122 @@
+.container {
+  width: 100%;
+  padding-top: 67px;
+}
+
+.subscriptionPackTextsContainer {
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+.subscriptionPackTitle {
+  color: #0a033c;
+  font-size: 45px;
+  font-weight: 700;
+  line-height: 55px;
+  text-align: center;
+}
+
+.subscriptionPackDescription {
+  color: #5d5a6f;
+  line-height: 30px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.subscriptionPackCardsContainer {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 67px;
+}
+
+.subscriptionPackCardContainer {
+  height: 480px;
+  padding: 32px;
+  border: 1px solid #d3dce6;
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 60px;
+}
+
+.active {
+  box-shadow: 0px 4px 20px 0px #3561fe47;
+  border: 1px solid #3561fe;
+  margin: 0;
+}
+
+.subscriptionCardTitleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.subscriptionPackCardName {
+  color: #3561fe;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 32px;
+  letter-spacing: 0.2px;
+}
+
+.subscriptionPackCardBestText {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid #6c5ce7;
+  border-radius: 99px;
+  font-size: 12px;
+  line-height: 14.52px;
+  letter-spacing: 2.5px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.subscriptionPackCardPrice {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  color: #2d3436;
+  font-size: 48px;
+  line-height: 56px;
+  letter-spacing: -1px;
+  font-weight: 700;
+  margin-top: 16px;
+}
+
+.subscriptionPackCardDuration {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 14.52px;
+  letter-spacing: 2.5px;
+  margin-bottom: 5px;
+}
+
+.subscriptionPackCardListsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.subscriptionPackCardListContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.subscriptionPackCardCheckIcon {
+  background-color: #c2c2c2;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.subscriptionPackCardListText {
+  color: #2d3436;
+  font-size: 18px;
+  line-height: 32px;
+}

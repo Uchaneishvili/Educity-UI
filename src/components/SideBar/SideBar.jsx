@@ -28,8 +28,8 @@ function SideBar({ sideBarActive, setSideBarActive }) {
       link: "/contacts",
     },
     {
-      name: "ბიზნესისთვის",
-      link: "/business",
+      name: "გახდი პარტნიორი",
+      link: "/become-partner",
     },
   ];
 

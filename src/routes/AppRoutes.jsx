@@ -9,6 +9,7 @@ import { CourseDetails } from "../pages/Courses/Details/CourseDetails";
 import ForgetPass from "../pages/ForgetPass/ForgetPass";
 import UserInfo from "../pages/UserInfo/UserInfo";
 import SubscriptionPack from "../pages/SubscriptionPack/SubscriptionPack";
+import BecomePartner from "../pages/BecomePartner/BecomePartner";
 
 export const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ export const AppRoutes = () => {
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/me" element={<UserInfo />} />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
+        <Route path="/become-partner" element={<BecomePartner />} />
       </Route>
 
       <Route path="/auth" element={<Auth />} />

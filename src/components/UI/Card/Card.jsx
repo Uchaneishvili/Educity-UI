@@ -87,9 +87,9 @@ export function Card({
         {showBuy ? (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={`${styles.price} ${styles.priceDetails}`}>{discountedPrice} ₾</div>
+              <div className={`${styles.price} ${styles.priceDetails}`}>{price} ₾</div>
               <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
-                {price} ₾
+                {discountedPrice} ₾
               </div>
             </div>
 

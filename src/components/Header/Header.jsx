@@ -29,9 +29,11 @@ export function Header() {
         </nav>
 
         <div className={styles.authButtons}>
-          <Button type="secondary">რეგისტრაცია</Button>
-          <Button type="primary" onClick={() => navigate('/login')}>
+          <Button type="secondary" onClick={() => navigate('/auth')}>
             ავტორიზაცია
+          </Button>
+          <Button type="primary" onClick={() => navigate('/auth')}>
+            რეგისტრაცია
           </Button>
         </div>
       </div>

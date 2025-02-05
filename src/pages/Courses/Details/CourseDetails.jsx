@@ -30,7 +30,7 @@ export function CourseDetails() {
 
   if (loading) {
     return (
-      <div className={`${styles.container} mainContainer`}>
+      <div className={styles.loaderContainer}>
         <Loader />
       </div>
     )

@@ -10,6 +10,7 @@ import ForgetPass from "../pages/ForgetPass/ForgetPass";
 import UserInfo from "../pages/UserInfo/UserInfo";
 import SubscriptionPack from "../pages/SubscriptionPack/SubscriptionPack";
 import BecomePartner from "../pages/BecomePartner/BecomePartner";
+import Error from "../components/Error/Error";
 
 export const AppRoutes = () => {
   return (
@@ -28,6 +29,8 @@ export const AppRoutes = () => {
       <Route path="/auth" element={<Auth />} />
       {/* <Route path="/register" element={<Register />} /> */}
       <Route path="/forget-pass" element={<ForgetPass />} />
+
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };

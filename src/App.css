@@ -8,21 +8,31 @@
 body {
   font-family: 'Helvetica Neue';
   margin: 0;
+  overflow-x: hidden;
 }
 
 button {
   padding: 0;
 }
-.container {
+.mainContainer {
   height: 100%;
-  padding: 0px 10% 80px 10%;
+  padding: 0px 10%;
 }
 
+.container {
+  flex: 1 0 auto;
+  padding: 0px 0px 80px 0px;
+  justify-content: center;
+}
+
+html,
+body,
+#root,
 .outerContainer {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
-
 .header-background {
   position: absolute;
   top: 0;
@@ -35,15 +45,18 @@ button {
 .header-mobile-background {
   display: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   html,
   body {
     overflow-x: hidden;
   }
-  .container {
-    padding: 0px 16px 10%;
+  .mainContainer {
+    padding: 0px 16px;
   }
 
+  .container {
+    padding-bottom: 10%;
+  }
   .header-background {
     display: none;
   }

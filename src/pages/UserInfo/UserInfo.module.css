@@ -1,0 +1,93 @@
+.container {
+  width: 100%;
+  padding-top: 32px;
+}
+
+.userNavigationContainer {
+  width: 100%;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  padding: 40px;
+  gap: 24px;
+  border: 1px solid #3561fe29;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.userName {
+  color: #1d2026;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+
+.userProfession {
+  color: #6e7485;
+  line-height: 24px;
+}
+
+.userNavigation {
+  border: 1px solid #3561fe29;
+  border-top: 0;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+.userNavigationButton {
+  width: 168px;
+  padding: 20px 0;
+  color: #4e5566;
+  font-size: 16px;
+  line-height: 22px;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.active {
+  color: #3561fe;
+  box-shadow: 0px -3px 0px 0px #3561fe inset;
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .userPhoto {
+    min-width: 54px;
+    width: 54px;
+    min-height: 54px;
+    height: 54px;
+  }
+
+  .userPhoto > img {
+    width: 100%;
+  }
+
+  .userName {
+    font-size: 18px;
+  }
+
+  .userProfession {
+    font-size: 12px;
+  }
+
+  .userNavigation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .userNavigationButton {
+    width: auto;
+    font-size: 12px;
+    padding: 20px 12px;
+  }
+}

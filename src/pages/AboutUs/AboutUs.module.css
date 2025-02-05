@@ -113,7 +113,7 @@
   color: #00000099;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .container {
     padding-top: 32px;
     gap: 54px;

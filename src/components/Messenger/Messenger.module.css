@@ -1,0 +1,24 @@
+.messengerContainer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Facebook chat widget overrides */
+:global(.fb_dialog) {
+  right: 18pt !important;
+  bottom: 18pt !important;
+}
+
+:global(.fb-customerchat) {
+  right: 18pt;
+  bottom: 18pt;
+}
+
+@media (max-width: 1024px) {
+  .messengerContainer {
+    bottom: 10px;
+    right: 10px;
+  }
+}

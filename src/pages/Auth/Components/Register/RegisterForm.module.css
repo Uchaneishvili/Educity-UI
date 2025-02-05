@@ -1,0 +1,57 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.acceptRules {
+  color: #575e73;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.forgotPassword {
+  color: #3561fe;
+  font-size: 14px;
+}
+
+.termsAndConditionsContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+.registerBtnContainer {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0px;
+}
+
+.acceptRulesContainer {
+  display: flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+@media (max-width: 1024px) {
+  .inputContainer {
+    width: 90%;
+  }
+
+  .acceptRules,
+  .forgotPassword {
+    font-size: 10px;
+  }
+
+  .termsAndConditionsContainer {
+    font-size: 10px;
+  }
+
+  .registerBtnContainer {
+    width: 100%;
+  }
+}

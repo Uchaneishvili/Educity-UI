@@ -371,7 +371,7 @@
   color: #3561fe5c;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .bannerSide {
     display: none;
   }

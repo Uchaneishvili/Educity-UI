@@ -1,0 +1,106 @@
+.container {
+  background-color: black;
+}
+
+.innerContainer {
+  padding: 50px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.lecturerContainer {
+  color: #fff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+.categoryButton {
+  background-color: #555555;
+  color: #fff;
+  border-radius: 8px;
+  padding: 4px 8px;
+  width: 100px;
+  height: 40px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleContainer {
+  width: 40%;
+  color: #fff;
+  font-size: 36px;
+  line-height: 43.45px;
+}
+
+.shortInfoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 16px;
+  color: #ffffff99;
+  font-size: 16px;
+}
+
+.duration,
+.studentsQuantity,
+.level,
+.lecturesQuantity {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 21px;
+  font-weight: 400;
+}
+
+.descriptionContainer {
+  display: flex;
+  min-height: 400px;
+  padding-top: 3%;
+}
+
+.description {
+  width: 60%;
+}
+
+.cardContainer {
+  position: absolute;
+  right: 4%;
+  top: 20%;
+}
+
+@media (max-width: 768px) {
+  .cardContainer {
+    position: relative;
+    right: 0%;
+    top: 0%;
+    display: flex;
+    justify-content: center;
+  }
+  .descriptionContainer {
+    flex-direction: column;
+    padding-top: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+  }
+
+  .description {
+    width: 100%;
+  }
+
+  .titleContainer {
+    width: 100%;
+  }
+}
+
+.errorMessage {
+  text-align: center;
+  color: #555555;
+  font-size: 18px;
+  padding: 100px 0;
+}

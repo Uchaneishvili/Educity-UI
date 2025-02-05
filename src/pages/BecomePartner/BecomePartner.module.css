@@ -1,0 +1,272 @@
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.container {
+  width: 100%;
+  padding-top: 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 70px;
+}
+
+.becomePartnerInfoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+.becomePartnerInfoTexts {
+  max-width: 587px;
+}
+
+.becomePartnerInfoTitle {
+  color: #3561fe;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.becomePartnerInfoDescription {
+  color: #00000099;
+  line-height: 19.31px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.partnerCompaniesContainer {
+  padding: 54px 0;
+  background-color: #0a033c;
+}
+
+.partnerCompaniesTitle {
+  color: #ffffff;
+  font-size: 32px;
+  line-height: 41.6px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.partnerCompanies {
+  display: flex;
+  margin-top: 24px;
+}
+
+.partnerCompaniesLogosContainer {
+  display: flex;
+  animation: slide 15s linear infinite;
+}
+
+.partnerCompanyLogoContainer {
+  width: 224px;
+  height: 224px;
+  margin: 0 12px;
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+}
+
+.partnerCompanyLogoContainer > img {
+  width: 100%;
+}
+
+.partnerCompanies:hover .partnerCompaniesLogosContainer {
+  animation-play-state: paused;
+}
+
+.partnerCompanyLogoContainer:hover {
+  transform: scale(1.05);
+}
+
+.becomePartnerFormContainer {
+  max-width: 1248px;
+  box-shadow: 0px 25px 51px 0px #0000001c;
+  border-radius: 16px;
+  padding: 10px;
+  padding-right: 67px;
+  display: flex;
+  justify-content: space-between;
+  gap: 67px;
+  margin: 0 auto;
+  background-color: white;
+}
+
+.becomePartnerFormInfoContainer {
+  max-width: 491px;
+  width: 100%;
+  background-color: #0a033c;
+  border-radius: 10px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.becomePartnerFormTitle {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 38.08px;
+  color: #ffffff;
+}
+
+.becomePartnerFormDescription {
+  color: #ffffff;
+  line-height: 21.76px;
+  margin-top: 16px;
+}
+
+.becomePartnersInfo {
+  max-width: 328px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 25px;
+}
+
+.becomePartnerInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 16px;
+  line-height: 21.76px;
+  color: #ffffff;
+}
+
+.becomePartnerInfo svg {
+  flex-shrink: 0;
+}
+
+.becomePartnerInputFormContainer {
+  width: 100%;
+  max-width: 612px;
+  margin-top: 41px;
+  margin-bottom: 47px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.twoInputsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.nameInputContainer,
+.lastNameInputContainer,
+.emailInputContainer,
+.phoneNumberInputContainer {
+  max-width: 290px;
+  width: 100%;
+}
+
+.becomePartnerButtonContainer {
+  margin-top: 4px;
+}
+
+.becomePartnerButtonContainer > button {
+  padding: 14.5px 32px !important;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding-top: 32px;
+    gap: 40px;
+  }
+
+  .becomePartnerInfoContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .becomePartnerInfoTitle {
+    font-size: 16px;
+    line-height: 17.5px;
+  }
+
+  .becomePartnerInfoDescription {
+    margin-top: 24px;
+  }
+
+  .partnerCompaniesContainer {
+    width: 100vw;
+    padding: 32px 0;
+  }
+
+  .partnerCompaniesTitle {
+    font-size: 16px;
+    line-height: 20.8px;
+  }
+
+  .partnerCompanyLogoContainer {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+  }
+
+  .becomePartnerFormContainer {
+    flex-direction: column;
+    gap: 34px;
+    padding: 0;
+    box-shadow: none;
+    max-width: 100%;
+  }
+
+  .becomePartnerFormInfoContainer {
+    max-width: 100%;
+    padding: 30px 24px;
+  }
+
+  .becomePartnerFormTitle {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24.48px;
+    text-align: center;
+  }
+
+  .becomePartnerFormDescription {
+    font-size: 12px;
+    line-height: 16.32px;
+  }
+
+  .becomePartnersInfo {
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+  .becomePartnerInfo {
+    font-size: 14px;
+    line-height: 19.04px;
+  }
+
+  .becomePartnerInputFormContainer {
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .twoInputsContainer {
+    flex-direction: column;
+  }
+
+  .nameInputContainer,
+  .lastNameInputContainer,
+  .emailInputContainer,
+  .phoneNumberInputContainer {
+    max-width: 100%;
+  }
+
+  .becomePartnerButtonContainer > button {
+    width: 100%;
+  }
+}

@@ -86,7 +86,7 @@ li {
   background-color: #3555b8;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .nav {
     display: flex;
     justify-content: space-between;

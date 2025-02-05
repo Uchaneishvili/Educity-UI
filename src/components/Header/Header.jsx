@@ -17,10 +17,10 @@ export function Header() {
     return !!authService.getToken()
   }
 
-  const handleLogout = () => {
-    authService.logout()
-    navigate('/auth')
-  }
+  // const handleLogout = () => {
+  // authService.logout()
+  // navigate('/auth')
+  // }
 
   const renderAuthButtons = () => {
     if (isAuthenticated()) {

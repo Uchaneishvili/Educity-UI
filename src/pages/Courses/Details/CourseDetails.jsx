@@ -6,7 +6,7 @@ import { getCourseDetails } from '../../../services/courses.service'
 import { useParams } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import { Loader } from '../../../components/UI/Loader/Loader'
-
+import { Error } from '../../../components/Error/Error'
 export function CourseDetails() {
   const { id } = useParams()
   const [data, setData] = useState(null)
@@ -37,11 +37,7 @@ export function CourseDetails() {
   }
 
   if (!data) {
-    return (
-      <div className={`${styles.container} mainContainer`}>
-        <div className={styles.errorMessage}>Course not found</div>
-      </div>
-    )
+    return <Error />
   }
 
   return (

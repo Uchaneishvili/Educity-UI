@@ -7,7 +7,7 @@ import { getCourses } from '../../services/courses.service'
 import { getCategories } from '../../services/categories.service'
 import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
-
+import { Loader } from '../../components/UI/Loader/Loader'
 export function Courses() {
   const [courses, setCourses] = useState([])
   const [categories, setCategories] = useState([])
@@ -17,10 +17,13 @@ export function Courses() {
   const [selectedReviews, setSelectedReviews] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const pageSize = 10
+  const [loading, setLoading] = useState(true)
 
   const loadData = useCallback(
     async (page = 1) => {
       try {
+        setLoading(true)
+
         const query = {
           page,
           pageSize,
@@ -36,6 +39,8 @@ export function Courses() {
         setTotalItems(response.data.total)
       } catch (error) {
         console.error('Error loading courses:', error)
+      } finally {
+        setLoading(false)
       }
     },
     [selectedCategories, pageSize, selectedReviews, searchQuery]
@@ -49,6 +54,7 @@ export function Courses() {
         console.error(err, 'error while loading categories')
       }
     }
+
     loadInitialData()
     loadData()
   }, [loadData])
@@ -69,6 +75,14 @@ export function Courses() {
   const handleSearch = (value) => {
     setSearchQuery(value)
     setCurrentPage(1)
+  }
+
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    )
   }
 
   return (

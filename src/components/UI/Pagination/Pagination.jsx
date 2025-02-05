@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import styles from './Pagination.module.css'
 import FormatData from '../../../utils/FormatData'
 import { PaginationButton } from '../PaginationButton/PaginationButton'

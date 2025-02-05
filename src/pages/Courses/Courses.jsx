@@ -33,7 +33,7 @@ export function Courses() {
 
         const response = await getCourses(query)
         setCourses(response.data.items)
-        setTotalItems(response.data.totalItems)
+        setTotalItems(response.data.total)
       } catch (error) {
         console.error('Error loading courses:', error)
       }
@@ -97,7 +97,7 @@ export function Courses() {
                 title={course.title}
                 totalDuration={course.totalDuration}
                 enrolledStudentsQuantity={course.enrolledStudentsQuantity}
-                totalReviews={course.totalReviews}
+                totalReviews={course.averageRating}
                 price={course.price}
                 showWishlist={true}
                 discountedPrice={course.discountedPrice}

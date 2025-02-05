@@ -71,3 +71,25 @@
 .authButtons > button {
   width: 100%;
 }
+
+.authenticatedUserContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: max-content;
+  align-content: center;
+  align-items: center;
+}
+
+.userIcon > svg {
+  width: 68px;
+  height: 68px;
+}
+
+.userName {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  color: #0f0f0f;
+}

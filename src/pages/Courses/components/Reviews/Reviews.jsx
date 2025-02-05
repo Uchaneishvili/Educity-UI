@@ -36,7 +36,7 @@ const Reviews = ({ onReviewChange }) => {
             <div className={styles.stars}>
               <Feedback starsAmount={review.stars} />
             </div>
-            <div className={styles.count}>({review.count})</div>
+            <div className={styles.count}>({review.stars})</div>
           </div>
         ))}
       </div>

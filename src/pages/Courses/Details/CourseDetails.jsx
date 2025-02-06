@@ -9,50 +9,36 @@ import { Loader } from '../../../components/UI/Loader/Loader'
 import { Error } from '../../../components/Error/Error'
 export function CourseDetails() {
   const { id } = useParams()
-  // const [data, setData] = useState(null)
+  const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
-  const data = {
-    title: 'გრაფიკული დიზაინი',
-    lecturer: {
-      fullName: 'მარიამ რთველაძე'
-    },
-    category: {
-      name: 'დიზაინი'
-    },
-    totalDuration: 12,
-    enrolledStudentsCount: 100,
-    level: 'საბაზისო',
-    lecturesCount: 10,
-    price: 250,
-    discountedPrice: 200
+
+  const loadData = useCallback(async () => {
+    try {
+      setLoading(true)
+      const res = await getCourseDetails(id)
+      setData(res.data)
+    } catch (error) {
+      console.error('Error loading course details:', error)
+    } finally {
+      setLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
+
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    )
   }
-  // const loadData = useCallback(async () => {
-  //   try {
-  //     setLoading(true)
-  //     const res = await getCourseDetails(id)
-  //     setData(res.data)
-  //   } catch (error) {
-  //     console.error('Error loading course details:', error)
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }, [id])
 
-  // useEffect(() => {
-  //   loadData()
-  // }, [loadData])
-
-  // if (loading) {
-  //   return (
-  //     <div className={styles.loaderContainer}>
-  //       <Loader />
-  //     </div>
-  //   )
-  // }
-
-  // if (!data) {
-  //   return <Error />
-  // }
+  if (!data) {
+    return <Error />
+  }
 
   return (
     <>

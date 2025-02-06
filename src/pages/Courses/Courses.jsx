@@ -8,88 +8,9 @@ import { getCategories } from '../../services/categories.service'
 import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
 import { Loader } from '../../components/UI/Loader/Loader'
-
-const cards = [
-  {
-    _id: 1,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  },
-  {
-    _id: 2,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  },
-  {
-    _id: 3,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  },
-  {
-    _id: 4,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  },
-  {
-    _id: 5,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  },
-  {
-    _id: 6,
-    title: 'UI/UX დიზაინის კურსი',
-    review: 9.8,
-    enrolledStudentsQuantity: 20,
-    totalDuration: 2,
-    discountedPrice: 200,
-    price: 250,
-    averageRating: 5
-  }
-]
-
-const categoriesList = [
-  {
-    _id: 4,
-    name: 'დიზაინი'
-  },
-  {
-    _id: 5,
-    name: 'პროგრამირება'
-  },
-  {
-    _id: 6,
-    name: 'მარკეტინგი'
-  }
-]
-
 export function Courses() {
-  const [courses, setCourses] = useState(cards)
-  const [categories, setCategories] = useState(categoriesList)
+  const [courses, setCourses] = useState([])
+  const [categories, setCategories] = useState([])
   const [totalItems, setTotalItems] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [selectedCategories, setSelectedCategories] = useState([])
@@ -98,49 +19,49 @@ export function Courses() {
   const pageSize = 10
   const [loading, setLoading] = useState(true)
 
-  // const loadData = useCallback(
-  //   async (page = 1) => {
-  //     try {
-  //       setLoading(true)
+  const loadData = useCallback(
+    async (page = 1) => {
+      try {
+        setLoading(true)
 
-  //       const query = {
-  //         page,
-  //         pageSize,
-  //         filters: {
-  //           avgRating: selectedReviews,
-  //           categoryId: selectedCategories
-  //         },
-  //         customSearch: searchQuery ? { search: searchQuery } : undefined
-  //       }
+        const query = {
+          page,
+          pageSize,
+          filters: {
+            avgRating: selectedReviews,
+            categoryId: selectedCategories
+          },
+          customSearch: searchQuery ? { search: searchQuery } : undefined
+        }
 
-  //       const response = await getCourses(query)
-  //       setCourses(response.data.items)
-  //       setTotalItems(response.data.total)
-  //     } catch (error) {
-  //       console.error('Error loading courses:', error)
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   },
-  //   [selectedCategories, pageSize, selectedReviews, searchQuery]
-  // )
-  // useEffect(() => {
-  //   const loadInitialData = async () => {
-  //     try {
-  //       const categoriesRes = await getCategories()
-  //       setCategories(categoriesRes.data.categories)
-  //     } catch (err) {
-  //       console.error(err, 'error while loading categories')
-  //     }
-  //   }
+        const response = await getCourses(query)
+        setCourses(response.data.items)
+        setTotalItems(response.data.total)
+      } catch (error) {
+        console.error('Error loading courses:', error)
+      } finally {
+        setLoading(false)
+      }
+    },
+    [selectedCategories, pageSize, selectedReviews, searchQuery]
+  )
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        const categoriesRes = await getCategories()
+        setCategories(categoriesRes.data.categories)
+      } catch (err) {
+        console.error(err, 'error while loading categories')
+      }
+    }
 
-  //   loadInitialData()
-  //   loadData()
-  // }, [loadData])
+    loadInitialData()
+    loadData()
+  }, [loadData])
 
-  // useEffect(() => {
-  //   loadData(currentPage)
-  // }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData])
+  useEffect(() => {
+    loadData(currentPage)
+  }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData])
 
   const handleCategoryChange = (categories) => {
     setSelectedCategories(categories)
@@ -156,13 +77,13 @@ export function Courses() {
     setCurrentPage(1)
   }
 
-  // if (loading) {
-  //   return (
-  //     <div className={styles.loaderContainer}>
-  //       <Loader />
-  //     </div>
-  //   )
-  // }
+  if (loading) {
+    return (
+      <div className={styles.loaderContainer}>
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <div className="mainContainer">
@@ -206,8 +127,8 @@ export function Courses() {
                 currentPage={currentPage}
                 pathPrefix="/courses"
                 onPageChange={(page) => {
-                  // setCurrentPage(page)
-                  // loadData(page)
+                  setCurrentPage(page)
+                  loadData(page)
                 }}
               />
             )}

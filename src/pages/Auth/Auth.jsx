@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import styles from './Auth.module.css'
 import TabSelector from '../../components/UI/TabSelector/TabSelector'
 import LoginForm from './Components/Login/LoginForm'
@@ -7,7 +8,22 @@ import { OrDivider } from '../../components/UI/OrDivider/OrDivider'
 import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons'
 
 export function Auth() {
+  const location = useLocation()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState(0)
+
+  useEffect(() => {
+    if (location.pathname === '/register') {
+      setActiveTab(1)
+    } else if (location.pathname === '/login') {
+      setActiveTab(0)
+    }
+  }, [location.pathname])
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId)
+    navigate(tabId === 0 ? '/login' : '/register')
+  }
 
   return (
     <div className={styles.container}>
@@ -28,7 +44,7 @@ export function Auth() {
                   { id: 0, label: 'ავტორიზაცია' },
                   { id: 1, label: 'რეგისტრაცია' }
                 ]}
-                onTabChange={setActiveTab}
+                onTabChange={handleTabChange}
                 activeTab={activeTab}
               />
             </div>

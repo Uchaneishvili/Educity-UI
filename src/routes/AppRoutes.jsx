@@ -27,7 +27,8 @@ export const AppRoutes = () => {
         <Route path="*" element={<ErrorPage />} />
       </Route>
 
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/login" element={<Auth />} />
+      <Route path="/register" element={<Auth />} />
       <Route path="/forget-pass" element={<ForgetPass />} />
     </Routes>
   )

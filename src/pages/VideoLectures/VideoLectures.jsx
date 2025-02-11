@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-import styles from "./VideoLectures.module.css";
-import {
-  ArrowBackIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
-  FileIcon,
-  CompleteCheckIcon,
-  BlockIcon,
-} from "../../components/UI/icons";
+import React, { useState } from 'react'
+import styles from './VideoLectures.module.css'
+import { ArrowBackIcon, FileIcon, CompleteCheckIcon } from '../../components/UI/icons'
+import { Accordion } from '../../components/UI/Accordion/Accordion'
+import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar'
 
 function VideoLectures() {
   const data = [
@@ -19,20 +14,20 @@ function VideoLectures() {
       lessons: [
         {
           id: 1,
-          time: "12:30",
-          unlocked: true,
+          time: '12:30',
+          unlocked: true
         },
         {
           id: 2,
-          time: "1:35",
-          unlocked: true,
+          time: '1:35',
+          unlocked: true
         },
         {
           id: 3,
-          time: "8:45",
-          unlocked: false,
-        },
-      ],
+          time: '8:45',
+          unlocked: false
+        }
+      ]
     },
     {
       id: 1,
@@ -42,24 +37,24 @@ function VideoLectures() {
       lessons: [
         {
           id: 1,
-          time: "12:30",
-          unlocked: true,
+          time: '12:30',
+          unlocked: true
         },
         {
           id: 2,
-          time: "1:35",
-          unlocked: true,
+          time: '1:35',
+          unlocked: true
         },
         {
           id: 3,
-          time: "8:45",
-          unlocked: false,
-        },
-      ],
-    },
-  ];
+          time: '8:45',
+          unlocked: false
+        }
+      ]
+    }
+  ]
 
-  const [tabsState, setTabsState] = useState({});
+  const [tabsState, setTabsState] = useState({})
 
   return (
     <div className="mainContainer">
@@ -68,9 +63,7 @@ function VideoLectures() {
           <div className={styles.videoLecturesTitleButton}>
             <ArrowBackIcon />
           </div>
-          <div className={styles.videoLecturesTitle}>
-            ვიდეო ლექციები / UI/UX დიზაინი
-          </div>
+          <div className={styles.videoLecturesTitle}>ვიდეო ლექციები / UI/UX დიზაინი</div>
         </div>
 
         <div className={styles.videoContainer}>
@@ -84,102 +77,88 @@ function VideoLectures() {
 
         <div className={styles.videoLessonsContainer}>
           <div className={styles.videoLessonsCompletionContainer}>
-            <div className={styles.videoLessonsCompletionTitle}>
-              2/5 COMPLETED
-            </div>
-            <div className={styles.videoLessonsCompletionProgressBar}>
-              <div className={styles.videoLessonsCompletionProgressLine}></div>
-              <div className={styles.videoLessonsCompletionProgressLine}></div>
-              <div className={styles.videoLessonsCompletionProgressLine}></div>
-              <div className={styles.videoLessonsCompletionProgressLine}></div>
-              <div className={styles.videoLessonsCompletionProgressLine}></div>
-            </div>
+            <div className={styles.videoLessonsCompletionTitle}>2/5 COMPLETED</div>
+            <ProgressBar percentage={40} totalBars={5} />
           </div>
 
           <div className={styles.videoLessonsAccordionContainer}>
             {data.map((data) => (
-              <div key={data.id}>
-                <div className={styles.videoLessonsAccordionTab}>
-                  <div
-                    className={styles.videoLessonsAccordionTabInnerContainer}
-                  >
-                    <div
-                      onClick={(data) => {
-                        setTabsState((prevState) => ({
-                          ...prevState,
-                          [data.id]: !prevState[data.id],
-                        }));
-                      }}
-                    >
-                      {tabsState[data.id] ? <ArrowDownIcon /> : <ArrowUpIcon />}
+              <Accordion
+                title="Lessons with video content
+"
+              >
+                <div className={styles.syllabusContainer}>
+                  <div className={styles.syllabusItem}>
+                    <div className={styles.syllabusItemInnerContainer}>
+                      <div>
+                        <FileIcon />
+                      </div>
+                      <div>ლექცია 1</div>
                     </div>
 
-                    <div className={styles.videoLessonsAccordionTabTitle}>
-                      Lessons With Video Content
+                    <div className={styles.syllabusInfoContainer}>
+                      <div className={styles.duration}>10:05</div>
+                      <div className={styles.isCompleted}>
+                        <CompleteCheckIcon />
+                      </div>
                     </div>
                   </div>
-                  <div
-                    className={styles.videoLessonsAccordionTabInnerContainer}
-                  >
-                    <div className={styles.videoLessonsAmount}>
-                      {data.lessonsAmount} Lessons
+                  <div className={styles.syllabusItem}>
+                    <div className={styles.syllabusItemInnerContainer}>
+                      <div>
+                        <FileIcon />
+                      </div>
+                      <div>ლექცია 1</div>
                     </div>
-                    <div className={styles.videoLessonsDuration}>
-                      {data.mins} Mins
+
+                    <div className={styles.syllabusInfoContainer}>
+                      <div className={styles.duration}>10:05</div>
+                      <div className={styles.isCompleted}>
+                        <CompleteCheckIcon />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.syllabusItem}>
+                    <div className={styles.syllabusItemInnerContainer}>
+                      <div>
+                        <FileIcon />
+                      </div>
+                      <div>ლექცია 1</div>
+                    </div>
+
+                    <div className={styles.syllabusInfoContainer}>
+                      <div className={styles.duration}>10:05</div>
+                      <div className={styles.isCompleted}>
+                        <CompleteCheckIcon />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={styles.syllabusItem}>
+                    <div className={styles.syllabusItemInnerContainer}>
+                      <div>
+                        <FileIcon />
+                      </div>
+                      <div>ლექცია 1</div>
+                    </div>
+
+                    <div className={styles.syllabusInfoContainer}>
+                      <div className={styles.quizz}>
+                        <button className={styles.quizzBtn}> ქვიზის დაწყება</button>
+                      </div>
+                      <div className={styles.duration}>10:05</div>
+                      <div className={styles.isCompleted}>
+                        <CompleteCheckIcon />
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                {data.lessons.map((lesson) => (
-                  <div
-                    className={styles.videoLessonsAccordionToggle}
-                    key={lesson.id}
-                  >
-                    <div className={styles.videoLessonsAccordionToggleTab}>
-                      <div
-                        className={
-                          styles.videoLessonsAccordionTabInnerContainer
-                        }
-                      >
-                        <FileIcon />
-                        <div
-                          className={styles.videoLessonsAccordionToggleTabTitle}
-                        >
-                          Lessons With Video Content
-                        </div>
-                      </div>
-                      <div
-                        className={
-                          styles.videoLessonsAccordionTabInnerContainer
-                        }
-                      >
-                        <button className={styles.videoLessonsAccordionQuizBtn}>
-                          ქვიზის დაწყება
-                        </button>
-
-                        <div className={styles.videoLessonsAccordionQuizTime}>
-                          {lesson.time}
-                        </div>
-                        <div
-                          className={styles.videoLessonsAccordionIconContainer}
-                        >
-                          {lesson.unlocked ? (
-                            <CompleteCheckIcon />
-                          ) : (
-                            <BlockIcon />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              </Accordion>
             ))}
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default VideoLectures;
+export default VideoLectures

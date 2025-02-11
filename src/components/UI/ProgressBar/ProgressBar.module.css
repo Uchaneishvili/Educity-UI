@@ -1,0 +1,16 @@
+.progressBar {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+}
+
+.progressLine {
+  height: 4px;
+  background-color: #e6e6e7;
+  flex: 1;
+  border-radius: 2px;
+}
+
+.progressLine.completed {
+  background-color: #3561fe;
+}

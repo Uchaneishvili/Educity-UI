@@ -4,6 +4,8 @@ import { Divider } from '../icons'
 import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icons'
 import { Button } from '../Button/Button'
 import { useNavigate } from 'react-router-dom'
+import useRefState from '../../../hooks/useRefState'
+import { addToWishlist, removeFromWishlist } from '../../../services/wishlist.service'
 export function Card({
   id,
   title,
@@ -16,10 +18,23 @@ export function Card({
   buttonName,
   bordered,
   price,
-  discountedPrice
+  discountedPrice,
+  isInWishlist
 }) {
-  const [isActive, setIsActive] = useState(false)
+  const [isActiveRef, setIsActive] = useRefState(isInWishlist)
   const navigate = useNavigate()
+
+  const handleWishlistClick = async () => {
+    try {
+      if (isActiveRef.current) {
+        await addToWishlist(id)
+      } else {
+        await removeFromWishlist(id)
+      }
+    } catch (err) {
+      console.error(err, 'error while adding to wishlist')
+    }
+  }
 
   return (
     <div className={`${styles.container}`}>
@@ -75,8 +90,14 @@ export function Card({
 
           {showWishlist && (
             <div className={styles.wishListButtonContainer}>
-              <button className={styles.wishListButton} onClick={() => setIsActive(!isActive)}>
-                <WishlistIcon isActive={isActive} />
+              <button
+                className={styles.wishListButton}
+                onClick={async () => {
+                  setIsActive(!isActiveRef.current)
+                  await handleWishlistClick()
+                }}
+              >
+                <WishlistIcon isActive={isActiveRef.current} />
               </button>
             </div>
           )}

@@ -8,6 +8,8 @@ import { getCategories } from '../../services/categories.service'
 import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
 import { Loader } from '../../components/UI/Loader/Loader'
+import { getWishlist } from '../../services/wishlist.service'
+import Wishlist from '../UserInfo/Components/Wishlist/Wishlist'
 export function Courses() {
   const [courses, setCourses] = useState([])
   const [categories, setCategories] = useState([])
@@ -17,12 +19,15 @@ export function Courses() {
   const [selectedReviews, setSelectedReviews] = useState([])
   const [searchQuery, setSearchQuery] = useState('')
   const pageSize = 10
+  const [wishlist, setWishlist] = useState([])
   const [loading, setLoading] = useState(true)
+
+  const [coursesLoading, setCoursesLoading] = useState(true)
 
   const loadData = useCallback(
     async (page = 1) => {
       try {
-        setLoading(true)
+        setCoursesLoading(true)
 
         const query = {
           page,
@@ -40,7 +45,7 @@ export function Courses() {
       } catch (error) {
         console.error('Error loading courses:', error)
       } finally {
-        setLoading(false)
+        setCoursesLoading(false)
       }
     },
     [selectedCategories, pageSize, selectedReviews, searchQuery]
@@ -48,20 +53,35 @@ export function Courses() {
   useEffect(() => {
     const loadInitialData = async () => {
       try {
+        setLoading(true)
         const categoriesRes = await getCategories()
         setCategories(categoriesRes.data.categories)
       } catch (err) {
         console.error(err, 'error while loading categories')
+      } finally {
+        setLoading(false)
       }
     }
 
     loadInitialData()
-    loadData()
-  }, [loadData])
+  }, [])
 
   useEffect(() => {
     loadData(currentPage)
   }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData])
+
+  const getWishlistData = async () => {
+    try {
+      const response = await getWishlist()
+      setWishlist(response.data)
+    } catch (err) {
+      console.error(err, 'error while getting wishlist')
+    }
+  }
+
+  useEffect(() => {
+    getWishlistData()
+  }, [])
 
   const handleCategoryChange = (categories) => {
     setSelectedCategories(categories)
@@ -102,37 +122,47 @@ export function Courses() {
               <SearchInput onChange={handleSearch} />
             </div>
           </div>
-          <div className={styles.content}>
-            {courses.map((course, index) => (
-              <Card
-                id={course._id}
-                key={course._id || index}
-                bordered={true}
-                title={course.title}
-                totalDuration={course.totalDuration}
-                enrolledStudentsQuantity={course.enrolledStudentsQuantity}
-                totalReviews={course.averageRating}
-                price={course.price}
-                showWishlist={true}
-                discountedPrice={course.discountedPrice}
-              />
-            ))}
-          </div>
+          g
+          {coursesLoading ? (
+            <div className={styles.loaderContent}>
+              <Loader />
+            </div>
+          ) : (
+            <>
+              <div className={styles.content}>
+                {courses.map((course, index) => (
+                  <Card
+                    id={course._id}
+                    key={course._id || index}
+                    bordered={true}
+                    title={course.title}
+                    totalDuration={course.totalDuration}
+                    enrolledStudentsQuantity={course.enrolledStudentsQuantity}
+                    totalReviews={course.averageRating}
+                    price={course.price}
+                    showWishlist={true}
+                    isInWishlist={wishlist.some((item) => item.courseId === course._id)}
+                    discountedPrice={course.discountedPrice}
+                  />
+                ))}
+              </div>
 
-          <div className={styles.paginationContainer}>
-            {totalItems > pageSize && (
-              <Pagination
-                totalItems={totalItems}
-                pageSize={pageSize}
-                currentPage={currentPage}
-                pathPrefix="/courses"
-                onPageChange={(page) => {
-                  setCurrentPage(page)
-                  loadData(page)
-                }}
-              />
-            )}
-          </div>
+              <div className={styles.paginationContainer}>
+                {totalItems > pageSize && (
+                  <Pagination
+                    totalItems={totalItems}
+                    pageSize={pageSize}
+                    currentPage={currentPage}
+                    pathPrefix="/courses"
+                    onPageChange={(page) => {
+                      setCurrentPage(page)
+                      loadData(page)
+                    }}
+                  />
+                )}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

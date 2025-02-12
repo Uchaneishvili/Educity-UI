@@ -1,0 +1,194 @@
+.container {
+  width: 100%;
+  padding-top: 60px;
+}
+
+.videoLecturesTitleContainer {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.videoLecturesTitleButton {
+  cursor: pointer;
+}
+
+.videoLecturesTitle {
+  color: #1d2026;
+  font-size: 36px;
+  line-height: 43.2px;
+}
+
+.videoContainer {
+  max-width: fit-content;
+  max-height: 672px;
+  margin: 0 auto;
+  margin-top: 36px;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.videoContainer > video {
+  max-height: 672px;
+  height: 100%;
+}
+
+.videoLessonsContainer {
+  width: 100%;
+  background: #eff2fa;
+  border-radius: 24px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin-top: 32px;
+}
+
+.videoLessonsCompletionContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 30%;
+}
+
+.videoLessonsCompletionTitle {
+  color: #3561fe;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 25.2px;
+  letter-spacing: 1.3px;
+}
+
+.videoLessonsCompletionProgressBar {
+  display: flex;
+  gap: 3px;
+}
+
+.videoLessonsCompletionProgressLine {
+  width: 85px;
+  height: 5px;
+  background-color: #3561fe;
+}
+
+.videoLessonsAccordionContainer {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  overflow: hidden;
+}
+
+.videoLessonsAccordionTab {
+  width: 100%;
+  padding: 16px 20px;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.videoLessonsAccordionTab svg {
+  cursor: pointer;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+}
+
+.videoLessonsAccordionTabTitle {
+  line-height: 19.2px;
+  font-weight: 600;
+}
+
+.videoLessonsAccordionTabInnerContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.videoLessonsAmount,
+.videoLessonsDuration {
+  color: #555555;
+  line-height: 24px;
+}
+
+.videoLessonsDuration {
+  margin-left: 10px;
+}
+
+.videoLessonsAccordionToggle {
+  width: 100%;
+  background-color: #ffffff;
+  padding: 12px 0;
+  padding-right: 20px;
+  padding-left: 45px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.videoLessonsAccordionToggleTab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.videoLessonsAccordionToggleTabTitle {
+  line-height: 27px;
+}
+
+.videoLessonsAccordionQuizBtn {
+  padding: 4px 12px;
+  background: #3561fe;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.videoLessonsAccordionQuizTime {
+  color: #555555;
+  line-height: 24px;
+  margin-left: 33px;
+}
+
+.videoLessonsAccordionIconContainer {
+  margin-left: 10px;
+}
+
+.syllabusItem {
+  display: flex;
+  height: 32px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 40px 12px 20px;
+}
+
+.syllabusItemInnerContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.syllabusInfoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.quizzBtn {
+  background-color: #3561fe;
+  border-radius: 8px;
+  padding: 4px 12px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  cursor: pointer;
+  border: 0;
+}

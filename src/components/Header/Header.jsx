@@ -19,7 +19,7 @@ export function Header() {
 
   // const handleLogout = () => {
   // authService.logout()
-  // navigate('/auth')
+  // navigate('/login')
   // }
 
   const renderAuthButtons = () => {

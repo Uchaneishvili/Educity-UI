@@ -1,0 +1,61 @@
+.accordionItem {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.accordionHeaderContent {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+.accordionHeader:hover {
+  background-color: #f5f5f5;
+}
+
+.accordionTitle,
+.openAccordionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1d2026;
+}
+
+.openAccordionTitle {
+  font-size: 16px;
+  color: #55be24;
+}
+
+.accordionIcon {
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.accordionContent {
+  height: 0;
+  padding: 0 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  background-color: #fff;
+}
+
+.accordionContent.open {
+  height: auto;
+}
+
+.videosInfo {
+  display: flex;
+  gap: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #555555;
+}

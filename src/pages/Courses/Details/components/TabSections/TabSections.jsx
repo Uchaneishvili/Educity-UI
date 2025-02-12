@@ -511,7 +511,7 @@ const TabSections = () => {
                       October 03, 2024
                     </div>
                   </div>
-                  <div>
+                  <div className={styles.reviewPersonComment}>
                     Quisque nec non amet quis. Varius tellus justo odio
                     parturient mauris curabitur lorem in. Pulvinar sit ultrices
                     mi ut eleifend luctus ut. Id sed faucibus bibendum augue id
@@ -533,7 +533,7 @@ const TabSections = () => {
                       October 03, 2024
                     </div>
                   </div>
-                  <div>
+                  <div className={styles.reviewPersonComment}>
                     Quisque nec non amet quis. Varius tellus justo odio
                     parturient mauris curabitur lorem in. Pulvinar sit ultrices
                     mi ut eleifend luctus ut. Id sed faucibus bibendum augue id
@@ -555,7 +555,7 @@ const TabSections = () => {
                       October 03, 2024
                     </div>
                   </div>
-                  <div>
+                  <div className={styles.reviewPersonComment}>
                     Quisque nec non amet quis. Varius tellus justo odio
                     parturient mauris curabitur lorem in. Pulvinar sit ultrices
                     mi ut eleifend luctus ut. Id sed faucibus bibendum augue id

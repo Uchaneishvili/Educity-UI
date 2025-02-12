@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './VideoLectures.module.css'
 import { ArrowBackIcon, FileIcon, CompleteCheckIcon } from '../../components/UI/icons'
 import { Accordion } from '../../components/UI/Accordion/Accordion'
@@ -53,8 +53,6 @@ function VideoLectures() {
       ]
     }
   ]
-
-  const [tabsState, setTabsState] = useState({})
 
   return (
     <div className="mainContainer">
@@ -143,7 +141,7 @@ function VideoLectures() {
 
                     <div className={styles.syllabusInfoContainer}>
                       <div className={styles.quizz}>
-                        <button className={styles.quizzBtn}> ქვიზის დაწყება</button>
+                        <button className={styles.quizzBtn}> ქვიზი</button>
                       </div>
                       <div className={styles.duration}>10:05</div>
                       <div className={styles.isCompleted}>

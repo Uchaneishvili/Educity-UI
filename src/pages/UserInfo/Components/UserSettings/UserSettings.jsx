@@ -1,9 +1,23 @@
-import React from "react";
-import styles from "./UserSettings.module.css";
-import Input from "../../../../components/UI/Input/Input";
-import { Button } from "../../../../components/UI/Button/Button";
+import React, { useEffect, useState } from 'react'
+import styles from './UserSettings.module.css'
+import Input from '../../../../components/UI/Input/Input'
+import { Button } from '../../../../components/UI/Button/Button'
+import { useAuth } from '../../../../context/AuthContext'
 
 function UserSettings() {
+  const [data, setData] = useState()
+  const { user } = useAuth()
+
+  useEffect(() => {
+    setData(user)
+  }, [user])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    console.log(formData)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.uploadPhotoContainer}>
@@ -15,27 +29,17 @@ function UserSettings() {
         </div>
       </div>
       <div className={styles.formsContainer}>
-        <form className={styles.formContainer}>
+        <form className={styles.formContainer} onSubmit={handleSubmit} defaultValue={data}>
           <div className={styles.twoInputContainer}>
             <div className={styles.inputContainer}>
               <Input
                 type="text"
                 name="Full name"
-                placeholder="First name"
+                placeholder="  name"
                 id="firstName"
+                defaultValue={data?.fullName}
               />
             </div>
-            <div className={styles.inputContainer}>
-              <Input type="text" placeholder="Last name" />
-            </div>
-          </div>
-          <div className={styles.inputContainer}>
-            <Input
-              type="text"
-              name="Username"
-              placeholder="Enter your username"
-              id="username"
-            />
           </div>
           <div className={styles.inputContainer}>
             <Input
@@ -43,14 +47,7 @@ function UserSettings() {
               name="Email"
               placeholder="Email address"
               id="email"
-            />
-          </div>
-          <div className={styles.inputContainer}>
-            <Input
-              type="text"
-              name="Title"
-              placeholder="Your tittle, proffesion or small biography"
-              id="title"
+              defaultValue={data?.email}
             />
           </div>
 
@@ -62,18 +59,10 @@ function UserSettings() {
         <div className={styles.formTitle}>Change password</div>
         <form className={styles.formContainer}>
           <div className={styles.inputContainer}>
-            <Input
-              name="Current Password"
-              placeholder="Password"
-              id="currentPassword"
-            />
+            <Input name="Current Password" placeholder="Password" id="currentPassword" />
           </div>
           <div className={styles.inputContainer}>
-            <Input
-              name="New Password"
-              placeholder="Password"
-              id="newPassword"
-            />
+            <Input name="New Password" placeholder="Password" id="newPassword" />
           </div>
           <div className={styles.inputContainer}>
             <Input
@@ -88,7 +77,7 @@ function UserSettings() {
         </form>
       </div>
     </div>
-  );
+  )
 }
 
-export default UserSettings;
+export default UserSettings

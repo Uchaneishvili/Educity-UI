@@ -4,24 +4,23 @@ import styles from './LoginForm.module.css'
 import { Button } from '../../../../components/UI/Button/Button'
 import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
 import Input from '../../../../components/UI/Input/Input'
-import AuthService from '../../../../services/auth.service'
+import { useAuth } from '../../../../context/AuthContext'
 
-const authService = new AuthService()
-
-function LoginForm() {
+function LoginForm({ onSuccess }) {
   const [isChecked, setIsChecked] = useState(false)
   const navigate = useNavigate()
+  const { login } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = Object.fromEntries(formData.entries())
 
-    const res = await authService.login(values)
-    if (res.success) {
-      navigate('/')
+    const result = await login(values)
+    if (result.success) {
+      onSuccess()
     } else {
-      console.error('Login failed:', res.error)
+      console.error('Login failed:', result.error)
     }
   }
 

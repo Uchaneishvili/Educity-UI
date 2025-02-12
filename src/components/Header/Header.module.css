@@ -85,6 +85,12 @@ li {
 .loginBtn:hover {
   background-color: #3555b8;
 }
+.userMenuContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
 
 @media (max-width: 1024px) {
   .nav {

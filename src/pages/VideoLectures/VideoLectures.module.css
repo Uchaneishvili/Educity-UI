@@ -166,13 +166,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px 12px 20px;
+  padding: 12px 20px 12px 20px;
 }
 
 .syllabusItemInnerContainer {
   display: flex;
   align-items: center;
   gap: 10px;
+  max-width: 60%;
 }
 
 .syllabusInfoContainer {
@@ -191,4 +192,42 @@
   line-height: 24px;
   cursor: pointer;
   border: 0;
+}
+
+@media (max-width: 1024px) {
+  .videoContainer {
+    height: 40vh;
+  }
+
+  video {
+    width: 100vw;
+  }
+
+  .videoLecturesTitle {
+    font-size: 24px;
+  }
+
+  .videoLessonsCompletionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .quizzBtn {
+    background-color: #3561fe;
+    border-radius: 8px;
+    padding: 2px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 24px;
+    cursor: pointer;
+    border: 0;
+  }
+
+  .duration,
+  .syllabusItemInnerContainer {
+    font-size: 12px;
+  }
 }

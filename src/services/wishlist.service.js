@@ -1,7 +1,9 @@
 import RequestHelper from '../apis/RequestHelper'
+import FormatData from '../utils/FormatData'
 
-export const getWishlist = async () => {
-  return await RequestHelper.educity.get(`/course-favorites`)
+export const getWishlist = async (query) => {
+  const paginPath = FormatData.generatePaginationURLPath(query)
+  return await RequestHelper.educity.get(`/course-favorites${paginPath}`)
 }
 
 export const addToWishlist = async (id) => {

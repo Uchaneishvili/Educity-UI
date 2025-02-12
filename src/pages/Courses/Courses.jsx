@@ -9,7 +9,6 @@ import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
 import { Loader } from '../../components/UI/Loader/Loader'
 import { getWishlist } from '../../services/wishlist.service'
-import Wishlist from '../UserInfo/Components/Wishlist/Wishlist'
 export function Courses() {
   const [courses, setCourses] = useState([])
   const [categories, setCategories] = useState([])
@@ -23,6 +22,7 @@ export function Courses() {
   const [loading, setLoading] = useState(true)
 
   const [coursesLoading, setCoursesLoading] = useState(true)
+  const [selectedFilter, setSelectedFilter] = useState([])
 
   const loadData = useCallback(
     async (page = 1) => {
@@ -34,7 +34,8 @@ export function Courses() {
           pageSize,
           filters: {
             avgRating: selectedReviews,
-            categoryId: selectedCategories
+            categoryId: selectedCategories,
+            courseType: selectedFilter
           },
           customSearch: searchQuery ? { search: searchQuery } : undefined
         }
@@ -48,7 +49,7 @@ export function Courses() {
         setCoursesLoading(false)
       }
     },
-    [selectedCategories, pageSize, selectedReviews, searchQuery]
+    [selectedCategories, pageSize, selectedReviews, searchQuery, selectedFilter]
   )
   useEffect(() => {
     const loadInitialData = async () => {
@@ -87,6 +88,10 @@ export function Courses() {
     setSelectedCategories(categories)
   }
 
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter)
+  }
+
   const handleReviewChange = (reviews) => {
     setSelectedReviews(reviews)
     setCurrentPage(1)
@@ -105,6 +110,21 @@ export function Courses() {
     )
   }
 
+  const data = [
+    {
+      name: 'აუდიტორიული',
+      _id: 'offline'
+    },
+    {
+      name: 'ჰიბრიდული',
+      _id: 'hybrid'
+    },
+    {
+      name: 'ონლაინ',
+      _id: 'online'
+    }
+  ]
+
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -112,6 +132,9 @@ export function Courses() {
           <div className={styles.filterContainer}>
             <div className={styles.filterTitle}>კატეგორიები</div>
             <CategoriesList data={categories} onCategoryChange={handleCategoryChange} />
+            <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
+            <CategoriesList data={data} onCategoryChange={handleFilterChange} />
+
             <Reviews onReviewChange={handleReviewChange} />
           </div>
         </div>
@@ -122,7 +145,6 @@ export function Courses() {
               <SearchInput onChange={handleSearch} />
             </div>
           </div>
-          g
           {coursesLoading ? (
             <div className={styles.loaderContent}>
               <Loader />
@@ -141,7 +163,7 @@ export function Courses() {
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}
-                    isInWishlist={wishlist.some((item) => item.courseId === course._id)}
+                    isInWishlist={wishlist.some((item) => item.courseId._id === course._id)}
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

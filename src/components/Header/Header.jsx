@@ -16,7 +16,7 @@ export function Header() {
     if (isAuthenticated) {
       return (
         <div className={styles.userMenuContainer}>
-          <Button type="secondary" onClick={() => navigate('/login')}>
+          <Button type="secondary" onClick={() => navigate('/me')}>
             ჩემი კურსები
           </Button>
 

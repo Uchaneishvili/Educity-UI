@@ -1,0 +1,141 @@
+.swiper {
+  width: 100%;
+  max-width: 800px;
+  padding: 20px 0 40px;
+  --swiper-navigation-size: 20px; /* Adjust this value to change the arrow size */
+}
+
+.testimonialCard {
+  padding: 20px;
+  height: 400px;
+  position: relative;
+}
+
+.testimonialLayout {
+  position: relative;
+  height: 100%;
+}
+
+.imageWrapper {
+  width: 280px;
+  position: absolute;
+  top: 0;
+  left: 30%;
+  z-index: 1;
+}
+
+.imageWrapper img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.testimonialContent {
+  position: absolute;
+  right: 6%;
+  left: 35%;
+  top: 50%;
+  display: flex;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.blueStripe {
+  width: 4px;
+  background-color: #3561fe;
+  border-top-left-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.contentWrapper {
+  padding: 24px;
+  flex: 1;
+}
+
+.testimonialText {
+  color: #5f5f7e;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.testimonialFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.name {
+  color: #5f5f7e;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Custom Swiper Navigation Styles */
+:global(.swiper-button-next),
+:global(.swiper-button-prev) {
+  color: #3561fe;
+  background-color: #ffffff;
+  box-shadow: 0px 2.75px 41.29px #292c7c26;
+  border-radius: 50%;
+  width: 50px !important;
+  height: 55px !important;
+  top: 35% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background: #3561fe;
+}
+
+:global(.swiper-button-prev) {
+  left: 20% !important;
+}
+
+:global(.swiper-button-next) {
+  right: 20% !important;
+}
+@media (max-width: 1024px) {
+  :global(.swiper-button-prev),
+  :global(.swiper-button-next) {
+    top: 35% !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  :global(.swiper-button-prev) {
+    left: 1% !important;
+  }
+
+  :global(.swiper-button-next) {
+    left: 280px !important;
+  }
+
+  .imageWrapper {
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  .testimonialContent {
+    left: 0;
+    right: 0;
+    max-width: 380px;
+  }
+
+  .testimonialCard {
+    padding: 0px;
+  }
+
+  .name {
+    font-size: 12px;
+  }
+
+  .testimonialText {
+    font-size: 12px;
+  }
+}

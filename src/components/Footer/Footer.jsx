@@ -42,7 +42,7 @@ export function Footer() {
 
       <div className={styles.footerMediaContainer}>
         <div className={styles.footerMediaInnerContainer}>
-          <div className={styles.footerRightsText}>© 2024</div>
+          <div className={styles.footerRightsText}>© 2025</div>
           <SocialMedia />
         </div>
       </div>

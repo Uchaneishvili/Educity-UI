@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import styles from './Wishlist.module.css'
-import CardListItem from '../../../../components/UI/CardListItem/CardListItem'
-import Pagination from '../../../../components/UI/Pagination/Pagination'
-import { getWishlist } from '../../../../services/wishlist.service'
-import { Loader } from '../../../../components/UI/Loader/Loader'
+import React, { useState, useEffect } from "react";
+import styles from "./Wishlist.module.css";
+import CardListItem from "../../../../components/UI/CardListItem/CardListItem";
+import Pagination from "../../../../components/UI/Pagination/Pagination";
+import { getWishlist } from "../../../../services/wishlist.service";
+import { Loader } from "../../../../components/UI/Loader/Loader";
 function Wishlist() {
-  const [data, setData] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const loadData = async () => {
     try {
-      const response = await getWishlist()
-      console.log(response)
-      setData(response.data)
-      setLoading(false)
+      const response = await getWishlist();
+      console.log(response);
+      setData(response.data);
+      setLoading(false);
     } catch (error) {
-      console.log(error)
-      setLoading(false)
+      console.log(error);
+      setLoading(false);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    loadData()
-  }, [])
+    loadData();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -41,12 +41,13 @@ function Wishlist() {
               price={item.courseId.price}
               oldPrice={item.courseId.discountedPrice}
               showBuy={true}
+              showPrice={true}
             />
-          )
+          );
         })
       )}
     </div>
-  )
+  );
 }
 
-export default Wishlist
+export default Wishlist;

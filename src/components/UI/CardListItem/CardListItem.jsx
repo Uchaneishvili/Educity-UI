@@ -1,9 +1,20 @@
-import React from 'react'
-import styles from './CardListItem.module.css'
-import { ColoredStar, WishlistIcon } from '../../UI/icons'
-import { Button } from '../Button/Button'
+import React from "react";
+import styles from "./CardListItem.module.css";
+import { ColoredStar, WishlistIcon } from "../../UI/icons";
+import { Button } from "../Button/Button";
 
-function CardListItem({ img, reviewScore, reviewNumber, name, author, price, oldPrice, showBuy }) {
+function CardListItem({
+  img,
+  reviewScore,
+  reviewNumber,
+  name,
+  author,
+  price,
+  oldPrice,
+  showBuy,
+  hideBuyButton,
+  showPrice,
+}) {
   return (
     <div className={styles.container}>
       <div className={styles.cardListDescriptionContainer}>
@@ -15,7 +26,9 @@ function CardListItem({ img, reviewScore, reviewNumber, name, author, price, old
             <div className={styles.cardListReviewContainer}>
               <ColoredStar />
               <div className={styles.cardListReviewScore}>{reviewScore}</div>
-              <div className={styles.cardListReviewNumber}>({reviewNumber} Review)</div>
+              <div className={styles.cardListReviewNumber}>
+                ({reviewNumber} Review)
+              </div>
             </div>
             <div className={styles.cardListName}>{name}</div>
           </div>
@@ -26,13 +39,20 @@ function CardListItem({ img, reviewScore, reviewNumber, name, author, price, old
         </div>
       </div>
       <div className={styles.cardListPricesAndButtonsContainer}>
-        <div className={styles.cardListPricesContainer}>
-          <div className={styles.cardListPrice}>{price} ₾</div>
-          <div className={styles.cardListOldPrice}>{oldPrice} ₾</div>
-        </div>
+        {showPrice && (
+          <div className={styles.cardListPricesContainer}>
+            <div className={styles.cardListPrice}>{price} ₾</div>
+            <div className={styles.cardListOldPrice}>{oldPrice} ₾</div>
+          </div>
+        )}
+
         {showBuy && (
           <div className={styles.cardListButtonsContainer}>
-            <Button type="primary">კურსის შეძენა</Button>
+            {hideBuyButton ? (
+              <></>
+            ) : (
+              <Button type="primary">კურსის შეძენა</Button>
+            )}
 
             <div className={styles.cardWishListButtonContainer}>
               <button className={styles.cardWishListButton}>
@@ -43,7 +63,7 @@ function CardListItem({ img, reviewScore, reviewNumber, name, author, price, old
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default CardListItem
+export default CardListItem;

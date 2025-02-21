@@ -1,0 +1,153 @@
+.container {
+  width: 100%;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkoutTitle {
+  font-size: 24px;
+  line-height: 32px;
+  text-align: center;
+}
+
+.checkoutNavigationContainer {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #6e7485;
+}
+
+.checkoutNavigationContainer > div:first-child {
+  cursor: pointer;
+}
+
+.checkoutNavigationContainer > div:last-child {
+  color: #1d2026;
+}
+
+.shoppingCartContainer {
+  max-width: 850px;
+  width: 100%;
+  border: 1px solid #e9eaf0;
+  border-radius: 16px;
+  margin-top: 61px;
+}
+
+.shoppingCardsContainer {
+  padding: 56px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid #e9eaf0;
+}
+
+.shoppingCartTitle {
+  color: #1d2026;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.shoppingCardContainer > div {
+  border: 0;
+  padding: 0;
+}
+
+.shoppingPricesContainer {
+  padding: 24px 32px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.orderSummaryContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #e9eaf0;
+}
+
+.orderSummaryTitle {
+  color: #1d2026;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.orderSummaryPriceContainer,
+.checkoutTotalPriceContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderSummaryPriceContainer > div:first-child {
+  color: #6e7485;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.orderSummaryPriceContainer > div:last-child {
+  color: #1d2026;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.checkoutTotalPriceContainer > div:first-child {
+  color: #202029;
+  line-height: 24px;
+}
+
+.checkoutTotalPriceContainer > div:last-child {
+  color: #202029;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.checkoutButtonContainer {
+  margin-top: 24px;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding-top: 32px;
+  }
+
+  .shoppingCartContainer {
+    margin-top: 32px;
+  }
+
+  .shoppingCartTitle {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+
+  .shoppingCardsContainer,
+  .shoppingPricesContainer {
+    padding: 24px 16px;
+  }
+
+  .shoppingCardContainer {
+    margin: 0 auto;
+  }
+
+  .shoppingCardContainer > div {
+    width: 100%;
+  }
+
+  .shoppingCardContainer > div > div:last-child {
+    display: none;
+  }
+
+  .checkoutTotalPriceContainer > div:last-child {
+    font-size: 18px;
+    line-height: 32px;
+  }
+}

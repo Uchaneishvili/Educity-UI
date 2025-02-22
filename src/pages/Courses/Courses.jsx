@@ -41,7 +41,7 @@ export function Courses() {
         }
 
         const response = await getCourses(query)
-        setCourses(response.data.items)
+        setCourses(response.data.courses)
         setTotalItems(response.data.total)
       } catch (error) {
         console.error('Error loading courses:', error)
@@ -56,7 +56,7 @@ export function Courses() {
       try {
         setLoading(true)
         const categoriesRes = await getCategories()
-        setCategories(categoriesRes.data.categories)
+        setCategories(categoriesRes.data.data.categories)
       } catch (err) {
         console.error(err, 'error while loading categories')
       } finally {

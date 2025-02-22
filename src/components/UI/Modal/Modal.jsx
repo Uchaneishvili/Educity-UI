@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Modal.module.css";
 
-function Modal({ children, isOpen, onClose, width }) {
+function Modal({ children, isOpen, width }) {
   return (
     <>
       {isOpen && (

@@ -16,6 +16,7 @@ import {
 } from "../../components/UI/icons";
 import TextArea from "../../components/UI/Textarea/Textarea";
 import { Button } from "../../components/UI/Button/Button";
+import Input from "../../components/UI/Input/Input";
 
 function VideoLectures() {
   const data = [
@@ -67,7 +68,21 @@ function VideoLectures() {
     },
   ];
 
-  const [isOpen, setIsOpen] = useState(false);
+  const quizzQuestions = [
+    {
+      id: 1,
+      question: "Lorem ipsum dolor sit amet consectetur?",
+      answers: ["Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor"],
+    },
+    {
+      id: 2,
+      question: "Lorem ipsum dolor sit amet consectetur?",
+      answers: ["Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor"],
+    },
+  ];
+
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [starsAmount, setStarsAmount] = useState(0);
 
   return (
@@ -100,7 +115,7 @@ function VideoLectures() {
                 </div>
                 <button
                   className={styles.videoLessonsReviewBtn}
-                  onClick={() => setIsOpen(true)}
+                  onClick={() => setIsReviewOpen(true)}
                 >
                   შეფასების დაწერა
                 </button>
@@ -171,7 +186,12 @@ function VideoLectures() {
 
                       <div className={styles.syllabusInfoContainer}>
                         <div className={styles.quizz}>
-                          <button className={styles.quizzBtn}> ქვიზი</button>
+                          <button
+                            className={styles.quizzBtn}
+                            onClick={() => setIsQuizzOpen(true)}
+                          >
+                            ქვიზი
+                          </button>
                         </div>
                         <div className={styles.duration}>10:05</div>
                         <div className={styles.isCompleted}>
@@ -187,12 +207,12 @@ function VideoLectures() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} width="650px">
+      <Modal isOpen={isReviewOpen} width="650px">
         <div className={styles.reviewModalHeaderContainer}>
           <div className={styles.reviewModalHeaderTitle}>Write a Review</div>
           <div
             className={styles.reviewModalCloseIcon}
-            onClick={() => setIsOpen(false)}
+            onClick={() => setIsReviewOpen(false)}
           >
             <CloseIcon />
           </div>
@@ -229,6 +249,51 @@ function VideoLectures() {
               </Button>
             </div>
           </form>
+        </div>
+      </Modal>
+
+      <Modal isOpen={isQuizzOpen} width="650px">
+        <div className={styles.quizzModalHeaderContainer}>
+          <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
+          <div
+            className={styles.quizzModalCloseIcon}
+            onClick={() => setIsQuizzOpen(false)}
+          >
+            <CloseIcon />
+          </div>
+        </div>
+
+        <div className={styles.quizzModalQuestionsContainer}>
+          {quizzQuestions.map((quizz) => (
+            <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
+              <div className={styles.quizzModalQuestionHeader}>
+                <div className={styles.quizzModalQuestionNumber}>
+                  {quizz.id}
+                </div>
+                <div className={styles.quizzModalQuestionText}>
+                  {quizz.question}
+                </div>
+              </div>
+              <div className={styles.quizzModalQuestionAnswers}>
+                {quizz.answers.map((answer, index) => (
+                  <div key={index} className={styles.quizzModalQuestionAnswer}>
+                    <input type="radio" />
+                    <div className={styles.quizzModalQuestionAnswerText}>
+                      {answer}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className={styles.quizzModalButtons}>
+          <button>Cancel</button>
+
+          <Button type="primary">
+            Submit <SubmitBtnArrow />
+          </Button>
         </div>
       </Modal>
     </>

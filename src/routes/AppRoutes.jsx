@@ -32,6 +32,38 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/me/courses"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/wishlist"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/purchase-history"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/settings"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
         <Route path="/video-lectures" element={<VideoLectures />} />

@@ -13,6 +13,7 @@ import {
 import TextArea from '../../components/UI/Textarea/Textarea'
 import { Button } from '../../components/UI/Button/Button'
 import { Video } from '../../components/VideoPlayer/Video'
+
 function VideoLectures() {
   const data = [
     {

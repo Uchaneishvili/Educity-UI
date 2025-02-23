@@ -1,23 +1,18 @@
-import React, { useState } from "react";
-import styles from "./VideoLectures.module.css";
-import {
-  ArrowBackIcon,
-  FileIcon,
-  CompleteCheckIcon,
-} from "../../components/UI/icons";
-import { Accordion } from "../../components/UI/Accordion/Accordion";
-import { ProgressBar } from "../../components/UI/ProgressBar/ProgressBar";
-import Modal from "../../components/UI/Modal/Modal";
+import React, { useState } from 'react'
+import styles from './VideoLectures.module.css'
+import { ArrowBackIcon, FileIcon, CompleteCheckIcon } from '../../components/UI/icons'
+import { Accordion } from '../../components/UI/Accordion/Accordion'
+import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar'
+import Modal from '../../components/UI/Modal/Modal'
 import {
   CloseIcon,
   ReviewModalColoredStar,
   ReviewModalUncoloredStar,
-  SubmitBtnArrow,
-} from "../../components/UI/icons";
-import TextArea from "../../components/UI/Textarea/Textarea";
-import { Button } from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
-
+  SubmitBtnArrow
+} from '../../components/UI/icons'
+import TextArea from '../../components/UI/Textarea/Textarea'
+import { Button } from '../../components/UI/Button/Button'
+import { Video } from '../../components/VideoPlayer/Video'
 function VideoLectures() {
   const data = [
     {
@@ -28,20 +23,20 @@ function VideoLectures() {
       lessons: [
         {
           id: 1,
-          time: "12:30",
-          unlocked: true,
+          time: '12:30',
+          unlocked: true
         },
         {
           id: 2,
-          time: "1:35",
-          unlocked: true,
+          time: '1:35',
+          unlocked: true
         },
         {
           id: 3,
-          time: "8:45",
-          unlocked: false,
-        },
-      ],
+          time: '8:45',
+          unlocked: false
+        }
+      ]
     },
     {
       id: 2,
@@ -51,39 +46,39 @@ function VideoLectures() {
       lessons: [
         {
           id: 1,
-          time: "12:30",
-          unlocked: true,
+          time: '12:30',
+          unlocked: true
         },
         {
           id: 2,
-          time: "1:35",
-          unlocked: true,
+          time: '1:35',
+          unlocked: true
         },
         {
           id: 3,
-          time: "8:45",
-          unlocked: false,
-        },
-      ],
-    },
-  ];
+          time: '8:45',
+          unlocked: false
+        }
+      ]
+    }
+  ]
 
   const quizzQuestions = [
     {
       id: 1,
-      question: "Lorem ipsum dolor sit amet consectetur?",
-      answers: ["Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor"],
+      question: 'Lorem ipsum dolor sit amet consectetur?',
+      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor']
     },
     {
       id: 2,
-      question: "Lorem ipsum dolor sit amet consectetur?",
-      answers: ["Lorem ipsum dolor", "Lorem ipsum dolor", "Lorem ipsum dolor"],
-    },
-  ];
+      question: 'Lorem ipsum dolor sit amet consectetur?',
+      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor']
+    }
+  ]
 
-  const [isReviewOpen, setIsReviewOpen] = useState(false);
-  const [isQuizzOpen, setIsQuizzOpen] = useState(false);
-  const [starsAmount, setStarsAmount] = useState(0);
+  const [isReviewOpen, setIsReviewOpen] = useState(false)
+  const [isQuizzOpen, setIsQuizzOpen] = useState(false)
+  const [starsAmount, setStarsAmount] = useState(0)
 
   return (
     <>
@@ -93,26 +88,23 @@ function VideoLectures() {
             <div className={styles.videoLecturesTitleButton}>
               <ArrowBackIcon />
             </div>
-            <div className={styles.videoLecturesTitle}>
-              ვიდეო ლექციები / UI/UX დიზაინი
-            </div>
+            <div className={styles.videoLecturesTitle}>ვიდეო ლექციები / UI/UX დიზაინი</div>
           </div>
 
           <div className={styles.videoContainer}>
-            <video controls>
+            {/* <video controls>
               <source
                 src="https://videocdn.cdnpk.net/videos/838129da-4f19-4fee-be20-62fb61cee154/horizontal/previews/videvo_watermarked/large.mp4"
                 type="video/mp4"
-              />
-            </video>
+              /> */}
+            {/* </video> */}
+            <Video playbackId="KRRu7wMFyyOBQ1D7IPpipUkI6q6ctYwGq01Awc7G01p0100" />
           </div>
 
           <div className={styles.videoLessonsContainer}>
             <div className={styles.videoLessonsCompletionContainer}>
               <div className={styles.videoLessonsCompletionInnerContainer}>
-                <div className={styles.videoLessonsCompletionTitle}>
-                  2/5 COMPLETED
-                </div>
+                <div className={styles.videoLessonsCompletionTitle}>2/5 COMPLETED</div>
                 <button
                   className={styles.videoLessonsReviewBtn}
                   onClick={() => setIsReviewOpen(true)}
@@ -186,10 +178,7 @@ function VideoLectures() {
 
                       <div className={styles.syllabusInfoContainer}>
                         <div className={styles.quizz}>
-                          <button
-                            className={styles.quizzBtn}
-                            onClick={() => setIsQuizzOpen(true)}
-                          >
+                          <button className={styles.quizzBtn} onClick={() => setIsQuizzOpen(true)}>
                             ქვიზი
                           </button>
                         </div>
@@ -210,10 +199,7 @@ function VideoLectures() {
       <Modal isOpen={isReviewOpen} width="650px">
         <div className={styles.reviewModalHeaderContainer}>
           <div className={styles.reviewModalHeaderTitle}>Write a Review</div>
-          <div
-            className={styles.reviewModalCloseIcon}
-            onClick={() => setIsReviewOpen(false)}
-          >
+          <div className={styles.reviewModalCloseIcon} onClick={() => setIsReviewOpen(false)}>
             <CloseIcon />
           </div>
         </div>
@@ -225,11 +211,7 @@ function VideoLectures() {
           <div className={styles.reviewModalStars}>
             {[...Array(5)].map((_, index) => (
               <div key={index} onClick={() => setStarsAmount(index + 1)}>
-                {index < starsAmount ? (
-                  <ReviewModalColoredStar />
-                ) : (
-                  <ReviewModalUncoloredStar />
-                )}
+                {index < starsAmount ? <ReviewModalColoredStar /> : <ReviewModalUncoloredStar />}
               </div>
             ))}
           </div>
@@ -255,10 +237,7 @@ function VideoLectures() {
       <Modal isOpen={isQuizzOpen} width="650px">
         <div className={styles.quizzModalHeaderContainer}>
           <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
-          <div
-            className={styles.quizzModalCloseIcon}
-            onClick={() => setIsQuizzOpen(false)}
-          >
+          <div className={styles.quizzModalCloseIcon} onClick={() => setIsQuizzOpen(false)}>
             <CloseIcon />
           </div>
         </div>
@@ -267,20 +246,14 @@ function VideoLectures() {
           {quizzQuestions.map((quizz) => (
             <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
               <div className={styles.quizzModalQuestionHeader}>
-                <div className={styles.quizzModalQuestionNumber}>
-                  {quizz.id}
-                </div>
-                <div className={styles.quizzModalQuestionText}>
-                  {quizz.question}
-                </div>
+                <div className={styles.quizzModalQuestionNumber}>{quizz.id}</div>
+                <div className={styles.quizzModalQuestionText}>{quizz.question}</div>
               </div>
               <div className={styles.quizzModalQuestionAnswers}>
                 {quizz.answers.map((answer, index) => (
                   <div key={index} className={styles.quizzModalQuestionAnswer}>
                     <input type="radio" />
-                    <div className={styles.quizzModalQuestionAnswerText}>
-                      {answer}
-                    </div>
+                    <div className={styles.quizzModalQuestionAnswerText}>{answer}</div>
                   </div>
                 ))}
               </div>
@@ -297,7 +270,7 @@ function VideoLectures() {
         </div>
       </Modal>
     </>
-  );
+  )
 }
 
-export default VideoLectures;
+export default VideoLectures

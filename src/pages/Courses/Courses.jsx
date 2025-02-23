@@ -9,6 +9,8 @@ import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
 import { Loader } from '../../components/UI/Loader/Loader'
 import { getWishlist } from '../../services/wishlist.service'
+import { useDebounce } from '../../hooks/useDebounce'
+
 export function Courses() {
   const [courses, setCourses] = useState([])
   const [categories, setCategories] = useState([])
@@ -41,8 +43,9 @@ export function Courses() {
         }
 
         const response = await getCourses(query)
-        setCourses(response.data.courses)
-        setTotalItems(response.data.total)
+
+        setCourses(response.data.data.courses)
+        setTotalItems(response.data.data.totalCount)
       } catch (error) {
         console.error('Error loading courses:', error)
       } finally {
@@ -97,9 +100,13 @@ export function Courses() {
     setCurrentPage(1)
   }
 
-  const handleSearch = (value) => {
+  const debouncedSearch = useDebounce((value) => {
     setSearchQuery(value)
     setCurrentPage(1)
+  }, 500)
+
+  const handleSearch = (value) => {
+    debouncedSearch(value)
   }
 
   if (loading) {
@@ -130,10 +137,10 @@ export function Courses() {
       <div className={styles.container}>
         <div className={styles.sidebarContainer}>
           <div className={styles.filterContainer}>
-            <div className={styles.filterTitle}>კატეგორიები</div>
-            <CategoriesList data={categories} onCategoryChange={handleCategoryChange} />
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
             <CategoriesList data={data} onCategoryChange={handleFilterChange} />
+            <div className={styles.filterTitle}>კატეგორიები</div>
+            <CategoriesList data={categories} onCategoryChange={handleCategoryChange} />
 
             <Reviews onReviewChange={handleReviewChange} />
           </div>
@@ -157,6 +164,7 @@ export function Courses() {
                     id={course._id}
                     key={course._id || index}
                     bordered={true}
+                    thumbnail={course.thumbnail}
                     title={course.title}
                     totalDuration={course.totalDuration}
                     enrolledStudentsQuantity={course.enrolledStudentsQuantity}

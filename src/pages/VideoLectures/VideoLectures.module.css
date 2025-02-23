@@ -20,9 +20,12 @@
 }
 
 .videoContainer {
-  max-width: fit-content;
-  max-height: 672px;
-  margin: 0 auto;
+  /* max-width: fit-content; */
+  /* max-height: 672px; */
+  /* margin: 0 auto; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 36px;
   border-radius: 24px;
   overflow: hidden;
@@ -400,10 +403,6 @@
 }
 
 @media (max-width: 1024px) {
-  .videoContainer {
-    height: 40vh;
-  }
-
   video {
     width: 100vw;
   }

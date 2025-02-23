@@ -19,7 +19,8 @@ export function Card({
   bordered,
   price,
   discountedPrice,
-  isInWishlist
+  isInWishlist,
+  thumbnail
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist)
   const navigate = useNavigate()
@@ -35,14 +36,15 @@ export function Card({
       console.error(err, 'error while adding to wishlist')
     }
   }
-
+  console.log('***', thumbnail)
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
         <img
           className={styles.cardImageWeb}
           alt={title}
-          src="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
+          // src="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
+          src={thumbnail}
         />
 
         <img

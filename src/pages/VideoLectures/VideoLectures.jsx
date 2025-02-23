@@ -16,7 +16,6 @@ import {
 } from "../../components/UI/icons";
 import TextArea from "../../components/UI/Textarea/Textarea";
 import { Button } from "../../components/UI/Button/Button";
-import Input from "../../components/UI/Input/Input";
 
 function VideoLectures() {
   const data = [

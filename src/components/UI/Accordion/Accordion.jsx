@@ -5,6 +5,8 @@ import { ArrowDownIcon, ArrowUpIcon } from '../icons'
 export function Accordion({ title, children, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
+  console.log(children.props.children.length)
+
   return (
     <div className={styles.accordionItem}>
       <div className={styles.accordionHeader} onClick={() => setIsOpen(!isOpen)}>
@@ -15,7 +17,7 @@ export function Accordion({ title, children, defaultOpen = false }) {
           </div>
         </div>
         <div className={styles.videosInfo}>
-          <span>5 ლექცია</span>
+          <span>{children.props.children.length} ლექცია</span>
           <span>45 Minutes</span>
         </div>
       </div>

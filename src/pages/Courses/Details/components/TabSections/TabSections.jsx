@@ -1,20 +1,13 @@
-import React, { useState } from "react";
-import styles from "./TabSections.module.css";
-import { PaginationButton } from "../../../../../components/UI/PaginationButton/PaginationButton";
-import { ArrowIcon } from "../../../../../components/UI/icons";
-import AboutCourse from "./components/AboutCourse/AboutCourse";
-import Syllabus from "./components/Syllabus/Syllabus";
-import CourseReview from "./components/CourseReview/CourseReview";
+import React, { useState } from 'react'
+import styles from './TabSections.module.css'
+import { PaginationButton } from '../../../../../components/UI/PaginationButton/PaginationButton'
+import { ArrowIcon } from '../../../../../components/UI/icons'
+import AboutCourse from './components/AboutCourse/AboutCourse'
+import Syllabus from './components/Syllabus/Syllabus'
+import CourseReview from './components/CourseReview/CourseReview'
 
-const TabSections = () => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const tabs = [
-    { id: 0, label: "კურსის შესახებ" },
-    { id: 1, label: "სილაბუსი" },
-    { id: 2, label: "შეფასება" },
-    { id: 3, label: "დაგვიკავშირდით" },
-  ];
+const TabSections = ({ tabs, description, syllabus }) => {
+  const [activeTab, setActiveTab] = useState(0)
 
   return (
     <div className={styles.container}>
@@ -23,9 +16,9 @@ const TabSections = () => {
           <div
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`${styles.tab} ${
-              activeTab === tab.id ? styles.active : ""
-            } ${index > 0 ? styles.border : ""}`}
+            className={`${styles.tab} ${activeTab === tab.id ? styles.active : ''} ${
+              index > 0 ? styles.border : ''
+            }`}
           >
             {tab.label}
 
@@ -33,9 +26,9 @@ const TabSections = () => {
               <PaginationButton
                 label={<ArrowIcon />}
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent the tab click from firing
+                  e.stopPropagation() // Prevent the tab click from firing
 
-                  setActiveTab(tab.id + 1); // Wrap around to the first tab
+                  setActiveTab(tab.id + 1) // Wrap around to the first tab
                 }}
               />
             </div>
@@ -44,14 +37,14 @@ const TabSections = () => {
       </div>
 
       <div className={styles.content}>
-        {activeTab === 0 && <AboutCourse />}
+        {activeTab === 0 && <AboutCourse description={description} />}
 
-        {activeTab === 1 && <Syllabus />}
+        {activeTab === 1 && <Syllabus syllabus={syllabus} />}
 
         {activeTab === 2 && <CourseReview />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TabSections;
+export default TabSections

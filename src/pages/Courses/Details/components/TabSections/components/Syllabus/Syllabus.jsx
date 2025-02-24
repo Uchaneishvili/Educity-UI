@@ -1,89 +1,63 @@
-import React from "react";
-import styles from "./Syllabus.module.css";
-import { Accordion } from "../../../../../../../components/UI/Accordion/Accordion";
-import {
-  FileIcon,
-  CompleteCheckIcon,
-} from "../../../../../../../components/UI/icons";
-
+import React, { useCallback, useEffect, useState } from 'react'
+import styles from './Syllabus.module.css'
+import { Accordion } from '../../../../../../../components/UI/Accordion/Accordion'
+import { FileIcon, CompleteCheckIcon } from '../../../../../../../components/UI/icons'
+import { getSyllabusByCourseId } from '../../../../../../../services/syllabus.service'
+import { useParams } from 'react-router-dom'
+import { Loader } from '../../../../../../../components/UI/Loader/Loader'
 function Syllabus() {
-  const syllabusData = [
-    {
-      id: 1,
-      lectures: [
-        {
-          id: 1,
-          lectureNumber: "1",
-          lectureTime: "10:05",
-          quiz: true,
-        },
-        {
-          id: 2,
-          lectureNumber: "2",
-          lectureTime: "11:05",
-          preview: true,
-        },
-      ],
-    },
-    {
-      id: 2,
-      lectures: [
-        {
-          id: 1,
-          lectureNumber: "1",
-          lectureTime: "10:05",
-        },
-        {
-          id: 2,
-          lectureNumber: "2",
-          lectureTime: "11:05",
-        },
-      ],
-    },
-    {
-      id: 3,
-      lectures: [
-        {
-          id: 1,
-          lectureNumber: "1",
-          lectureTime: "10:05",
-        },
-        {
-          id: 2,
-          lectureNumber: "2",
-          lectureTime: "11:05",
-        },
-      ],
-    },
-  ];
+  const [syllabusData, setSyllabusData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams()
 
+  const loadSyllabusData = useCallback(async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await getSyllabusByCourseId(id)
+      setSyllabusData(data.data.syllabus)
+    } catch {
+      console.log('error while loading syllabus data')
+    } finally {
+      setIsLoading(false)
+    }
+  }, [id])
+
+  useEffect(() => {
+    loadSyllabusData()
+  }, [loadSyllabusData])
+
+  if (isLoading) {
+    return <Loader />
+  }
+
+  console.log('FFS', syllabusData)
   return (
     <>
       {syllabusData.map((syllabus) => (
-        <Accordion title="Lessons with video content" key={syllabus.id}>
+        <Accordion title={syllabus.title} key={syllabus._id}>
           <div className={styles.syllabusContainer}>
-            {syllabus.lectures.map((lecture) => (
+            {syllabus.levels.map((level) => (
               <div className={styles.syllabusItem}>
                 <div className={styles.syllabusItemInnerContainer}>
                   <div>
                     <FileIcon />
                   </div>
-                  <div>ლექცია {lecture.lectureNumber}</div>
+                  <div>{level.title}</div>
                 </div>
 
                 <div className={styles.syllabusInfoContainer}>
-                  {lecture.quiz && (
+                  {level.quiz && (
                     <div className={styles.quizz}>
                       <button className={styles.quizzBtn}>ქვიზი</button>
                     </div>
                   )}
 
-                  {lecture.preview && (
+                  {level.preview && (
                     <div className={styles.quizz}>
                       <button className={styles.quizzBtn}>Preview</button>
                     </div>
                   )}
-                  <div className={styles.duration}>{lecture.lectureTime}</div>
+                  <div className={styles.duration}>{level.lectureTime}</div>
                   <div className={styles.isCompleted}>
                     <CompleteCheckIcon />
                   </div>
@@ -94,7 +68,7 @@ function Syllabus() {
         </Accordion>
       ))}
     </>
-  );
+  )
 }
 
-export default Syllabus;
+export default Syllabus

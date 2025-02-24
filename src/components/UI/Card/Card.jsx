@@ -36,7 +36,6 @@ export function Card({
       console.error(err, 'error while adding to wishlist')
     }
   }
-  console.log('***', thumbnail)
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
@@ -47,11 +46,7 @@ export function Card({
           src={thumbnail}
         />
 
-        <img
-          className={styles.cardImageMobile}
-          alt={title}
-          src="https://fastly.picsum.photos/id/668/358/210.jpg?hmac=0fczd3RLzyOxNWrnrJIfE8XA3rdi1iypfbN8aZn8kL0"
-        />
+        <img className={styles.cardImageMobile} alt={title} src={thumbnail} />
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.contentContainer}>
@@ -110,9 +105,12 @@ export function Card({
         {showBuy ? (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={`${styles.price} ${styles.priceDetails}`}>{discountedPrice} ₾</div>
+              {discountedPrice && (
+                <div className={`${styles.price} ${styles.priceDetails}`}>{price} ₾</div>
+              )}
+
               <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
-                {price} ₾
+                {discountedPrice ? discountedPrice : price} ₾
               </div>
             </div>
 
@@ -123,8 +121,11 @@ export function Card({
         ) : (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={styles.price}>{price} ₾</div>
-              <div className={styles.discountedPrice}>{discountedPrice} ₾</div>
+              {discountedPrice && <div className={styles.price}>{price} ₾</div>}
+
+              <div className={styles.discountedPrice}>
+                {discountedPrice ? discountedPrice : price} ₾
+              </div>
             </div>
 
             <div className={styles.detailsContainer}>

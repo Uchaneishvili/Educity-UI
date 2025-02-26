@@ -15,8 +15,9 @@ function LoginForm({ onSuccess }) {
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = Object.fromEntries(formData.entries())
+    const data = { ...values, rememberMe: isChecked }
 
-    const result = await login(values)
+    const result = await login(data)
     if (result.success) {
       onSuccess()
     } else {

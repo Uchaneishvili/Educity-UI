@@ -139,8 +139,8 @@
     width: fit-content;
     flex-direction: column;
     padding: 0;
-    border: 0;
     gap: 16px;
+    padding: 24px 16px;
   }
 
   .cardListDescriptionContainer {
@@ -153,8 +153,6 @@
 
   .cardListPricesAndButtonsContainer {
     box-sizing: border-box;
-    padding: 24px 16px;
-    border: 1px solid #3561fe29;
     border-radius: 16px;
     gap: 0;
     justify-content: space-between;

@@ -4,6 +4,8 @@ import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
 import { Button } from '../../../../components/UI/Button/Button'
 import Input from '../../../../components/UI/Input/Input'
 import AuthService from '../../../../services/auth.service'
+import Select from '../../../../components/UI/Select/Select'
+import DatePicker from '../../../../components/UI/DatePicker/DatePicker'
 
 const authService = new AuthService()
 
@@ -28,10 +30,23 @@ function RegisterForm({ setActiveTab }) {
       <Input name="fullName" placeholder={'სახელი/გვარი'} />
       <Input name="email" placeholder={'ელ.ფოსტა'} />
       <Input name="phoneNumber" placeholder={'ტელეფონის ნომერი'} />
-      <Input name="city" placeholder={'ქალაქი'} />
-      <Input name="birthDate" placeholder={'დაბადების თარიღი'} />
-      <Input name="password" placeholder={'პაროლი'} />
-      <Input name="confirmPassword" placeholder={'გაიმეორე პაროლი'} />
+      <Select
+        name="city"
+        placeholder={'ქალაქი'}
+        options={[
+          { id: 1, value: 'თბილისი' },
+          { id: 2, value: 'ბათუმი' }
+        ]}
+      />
+      <DatePicker name="birthDate" placeholder={'დაბადების თარიღი'} />
+      <Input name="password" type={'password'} placeholder={'პაროლი'} />
+
+      <Input name="confirmPassword" type={'password'} placeholder={'გაიმეორე პაროლი'} />
+
+      <ul className={styles.validationList}>
+        <li>მინ. 1 დიდი ასო A</li>
+        <li>მინ. 1 პატარა ასო a</li>
+      </ul>
 
       <div className={styles.termsAndConditionsContainer}>
         <div className={styles.acceptRulesContainer}>

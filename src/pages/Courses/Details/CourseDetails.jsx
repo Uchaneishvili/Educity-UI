@@ -78,7 +78,7 @@ export function CourseDetails() {
             price={data.price}
           />
         </div>
-        <div className={styles.description}>
+        <div className={styles.tabSelectorContainer}>
           <TabSections
             tabs={[
               { id: 0, label: 'კურსის შესახებ' },

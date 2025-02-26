@@ -27,7 +27,7 @@ function LoginForm({ onSuccess }) {
   return (
     <form onSubmit={handleSubmit} className={styles.inputContainer}>
       <Input name="email" placeholder={'ელ.ფოსტა'} />
-      <Input name="password" placeholder={'პაროლი'} />
+      <Input name="password" type={'password'} placeholder={'პაროლი'} />
 
       <div className={styles.inputContainerFooter}>
         <div className={styles.saveUserContainer}>

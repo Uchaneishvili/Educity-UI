@@ -51,7 +51,10 @@
   gap: 12px;
   width: 100%;
 }
-
+/* 
+.tabSelectorContainer {
+  width: 80%;
+} */
 .videoLessonsCompletionContainer > div:last-child {
   width: 30%;
 }
@@ -400,6 +403,19 @@
   padding: 24px;
   display: flex;
   justify-content: space-between;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  border: none;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.cancelButton:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 1024px) {

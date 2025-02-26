@@ -62,7 +62,7 @@
   padding-top: 3%;
 }
 
-.description {
+.tabSelectorContainer {
   width: 60%;
 }
 
@@ -130,7 +130,7 @@
     justify-content: center;
   }
 
-  .description {
+  .tabSelectorContainer {
     width: 100%;
   }
 

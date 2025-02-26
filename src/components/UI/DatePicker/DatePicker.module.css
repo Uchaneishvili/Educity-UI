@@ -1,0 +1,86 @@
+.datePickerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #000000cc;
+}
+
+.datePickerWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.datePicker {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #d3dce6;
+  border-radius: 8px;
+  font-size: 15px;
+  line-height: 18.11px;
+  color: #00000099;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.datePicker::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+.datePicker:hover {
+  border-color: #b0b7c3;
+}
+
+.datePicker:focus {
+  border-color: #3561fe;
+}
+
+.placeholderWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.placeholder {
+  color: #9ca3af;
+}
+
+.iconButton {
+  position: absolute;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+.iconButton svg {
+  width: 20px;
+  height: 20px;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import styles from './VideoLectures.module.css'
 import { ArrowBackIcon, FileIcon, CompleteCheckIcon } from '../../components/UI/icons'
 import { Accordion } from '../../components/UI/Accordion/Accordion'
@@ -13,8 +14,11 @@ import {
 import TextArea from '../../components/UI/Textarea/Textarea'
 import { Button } from '../../components/UI/Button/Button'
 import { Video } from '../../components/VideoPlayer/Video'
+import { addReviewToCourse } from '../../services/review.service'
 
 function VideoLectures() {
+  const { id } = useParams()
+
   const data = [
     {
       id: 1,
@@ -80,6 +84,20 @@ function VideoLectures() {
   const [isReviewOpen, setIsReviewOpen] = useState(false)
   const [isQuizzOpen, setIsQuizzOpen] = useState(false)
   const [starsAmount, setStarsAmount] = useState(0)
+  const [comment, setComment] = useState('')
+
+  const addReview = async () => {
+    try {
+      await addReviewToCourse(id, {
+        rating: starsAmount,
+        comment: comment
+      })
+
+      setIsReviewOpen(false)
+    } catch (error) {
+      console.error('Error adding review:', error)
+    }
+  }
 
   return (
     <>
@@ -101,7 +119,6 @@ function VideoLectures() {
             {/* </video> */}
             <Video playbackId="KRRu7wMFyyOBQ1D7IPpipUkI6q6ctYwGq01Awc7G01p0100" />
           </div>
-
           <div className={styles.videoLessonsContainer}>
             <div className={styles.videoLessonsCompletionContainer}>
               <div className={styles.videoLessonsCompletionInnerContainer}>
@@ -194,6 +211,17 @@ function VideoLectures() {
               ))}
             </div>
           </div>
+          {/* <div className={styles.tabSelectorContainer}>
+            <TabSections
+              tabs={[
+                { id: 0, label: 'კურსის შესახებ' },
+                { id: 1, label: 'სილაბუსი' },
+                { id: 2, label: 'შეფასება' },
+                { id: 3, label: 'დაგვიკავშირდით' }
+              ]}
+              description={data.description}
+            />
+          </div> */}
         </div>
       </div>
 
@@ -206,7 +234,7 @@ function VideoLectures() {
         </div>
         <div className={styles.reviewModalMainContainer}>
           <div className={styles.reviewModalMainTitle}>
-            <div className={styles.reviewModalAmount}>{starsAmount}.0</div>
+            <div className={styles.reviewModalAmount}>{starsAmount}</div>
             <div className={styles.reviewModalRate}>(Good/Amazing)</div>
           </div>
           <div className={styles.reviewModalStars}>
@@ -222,12 +250,13 @@ function VideoLectures() {
               id="reviewModalFeedback"
               name="Feedback"
               placeholder="Write down your feedback here..."
+              onChange={(e) => setComment(e.target.value)}
             />
 
             <div className={styles.reviewModalFeedbackButtons}>
-              <button>Cancel</button>
+              <button className={styles.cancelButton}>Cancel</button>
 
-              <Button type="primary">
+              <Button type="primary" shadow={false} onClick={addReview}>
                 Submit Review <SubmitBtnArrow />
               </Button>
             </div>
@@ -263,7 +292,7 @@ function VideoLectures() {
         </div>
 
         <div className={styles.quizzModalButtons}>
-          <button>Cancel</button>
+          <button className={styles.cancelButton}>Cancel</button>
 
           <Button type="primary">
             Submit <SubmitBtnArrow />

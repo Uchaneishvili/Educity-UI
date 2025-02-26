@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Card.module.css'
 import { Divider } from '../icons'
 import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icons'
@@ -16,7 +16,6 @@ export function Card({
   showDivider,
   showBuy,
   buttonName,
-  bordered,
   price,
   discountedPrice,
   isInWishlist,
@@ -39,14 +38,7 @@ export function Card({
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
-        <img
-          className={styles.cardImageWeb}
-          alt={title}
-          // src="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-          src={thumbnail}
-        />
-
-        <img className={styles.cardImageMobile} alt={title} src={thumbnail} />
+        <img className={styles.cardImageWeb} alt={title} src={thumbnail} />
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.contentContainer}>
@@ -60,10 +52,9 @@ export function Card({
                     <span>
                       <ClockIcon />
                     </span>
-                    {totalDuration} თვე
+                    {totalDuration}
                   </div>
                 )}
-
                 {enrolledStudentsQuantity && (
                   <div className={styles.studentsInfo}>
                     <span>
@@ -72,7 +63,6 @@ export function Card({
                     {enrolledStudentsQuantity} სტუდენტი
                   </div>
                 )}
-
                 {totalReviews && (
                   <div className={styles.reviewInfo}>
                     <span>

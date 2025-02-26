@@ -34,6 +34,7 @@ function Wishlist() {
         data.map((item) => {
           return (
             <CardListItem
+              img={item.thumbnail}
               reviewScore={item.averageRating}
               reviewNumber={item.enrolledStudentsQuantity}
               name={item.title}

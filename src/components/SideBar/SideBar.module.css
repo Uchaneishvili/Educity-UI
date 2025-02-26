@@ -53,6 +53,7 @@
   font-weight: 400;
   cursor: pointer;
   transition: color 0.5s ease-in-out;
+  box-sizing: border-box;
 }
 
 .sideBarLink:hover {

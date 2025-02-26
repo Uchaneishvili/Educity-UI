@@ -15,10 +15,16 @@
 
 .cardListImgContainer {
   max-width: 160px;
+  position: relative;
+  width: 160px;
+  height: 90px;
 }
 
 .cardListImgContainer > img {
   border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .cardListTextsContainer {
@@ -149,6 +155,8 @@
 
   .cardListImgContainer {
     max-width: 170px;
+    width: 170px;
+    height: 95.625px;
   }
 
   .cardListPricesAndButtonsContainer {

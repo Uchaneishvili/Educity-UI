@@ -1,25 +1,44 @@
-import React from "react";
-import styles from "./PurchaseHistory.module.css";
-import CardListItem from "../../../../components/UI/CardListItem/CardListItem";
-import Pagination from "../../../../components/UI/Pagination/Pagination";
-
+import React from 'react'
+import styles from './PurchaseHistory.module.css'
+import CardListItem from '../../../../components/UI/CardListItem/CardListItem'
+import Pagination from '../../../../components/UI/Pagination/Pagination'
+import { getPurchaseHistory } from '../../../../services/purchase.service'
+import { useCallback, useEffect, useState } from 'react'
 function PurchaseHistory() {
+  const [data, setData] = useState([])
+  const [totalPages, setTotalPages] = useState(0)
+  const loadData = useCallback(async () => {
+    try {
+      const { data } = await getPurchaseHistory()
+      setData(data.data.purchases)
+      setTotalPages(data.data.totalPages)
+    } catch (err) {
+      console.log('error in loadData', err)
+    }
+  }, [])
+
+  useEffect(() => {
+    loadData()
+  }, [loadData])
   return (
     <div className={styles.container}>
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showPrice={true}
-      />
+      {data.map((item) => (
+        <CardListItem
+          key={item.id}
+          img={item.courseId.thumbnail}
+          reviewScore={item.courseId.rating}
+          reviewNumber={item.courseId.reviews_count}
+          name={item.courseId.title}
+          author={item.courseId.author}
+          price={item.courseId.price}
+          oldPrice={item.courseId.old_price}
+          showPrice={true}
+        />
+      ))}
 
-      <Pagination />
+      {totalPages > 10 && <Pagination />}
     </div>
-  );
+  )
 }
 
-export default PurchaseHistory;
+export default PurchaseHistory

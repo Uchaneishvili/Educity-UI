@@ -181,6 +181,15 @@ li {
   .header {
     padding: 0px 16px;
   }
+
+  .container > div:first-child {
+    order: 2;
+  }
+
+  .container > div:last-child {
+    order: 2;
+  }
+
   .navList {
     display: none;
   }
@@ -192,6 +201,10 @@ li {
   }
 
   .authButtons {
+    display: none;
+  }
+
+  .userMenuContainer > button {
     display: none;
   }
 }

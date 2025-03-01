@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./BecomePartner.module.css";
 import {
   PhoneIcon,
@@ -34,6 +34,8 @@ function BecomePartner() {
     },
   ];
 
+  const [active, setActive] = useState(0);
+
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -48,7 +50,7 @@ function BecomePartner() {
               შემდგარი გუნდი.
             </div>
           </div>
-          <div>
+          <div className={styles.becomePartnerInfoImage}>
             <img
               src="/assets/becomePartnerBanner.png"
               alt="team working in office"
@@ -81,6 +83,39 @@ function BecomePartner() {
             <div>
               <div className={styles.becomePartnerFormTitle}>
                 გახდი პარტნიორი
+              </div>
+
+              <div className={styles.becomePartnerFormSectionButtons}>
+                <button
+                  className={
+                    active === 0
+                      ? styles.becomePartnerFormSectionActiveButton
+                      : ""
+                  }
+                  onClick={() => setActive(0)}
+                >
+                  დასაქმება
+                </button>
+                <button
+                  className={
+                    active === 1
+                      ? styles.becomePartnerFormSectionActiveButton
+                      : ""
+                  }
+                  onClick={() => setActive(1)}
+                >
+                  კორპორატიული შეთავაზება
+                </button>
+                <button
+                  className={
+                    active === 2
+                      ? styles.becomePartnerFormSectionActiveButton
+                      : ""
+                  }
+                  onClick={() => setActive(2)}
+                >
+                  სოციალური პასუხისმგებლობა
+                </button>
               </div>
 
               <div className={styles.becomePartnerFormDescription}>

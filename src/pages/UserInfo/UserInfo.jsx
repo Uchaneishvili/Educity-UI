@@ -14,7 +14,11 @@ function UserInfo() {
   const { user } = useAuth();
 
   useEffect(() => {
-    if (location.pathname === "/me/wishlist") {
+    if (location.pathname === "/me") {
+      setPage("dashboard");
+    } else if (location.pathname === "/me/courses") {
+      setPage("courses");
+    } else if (location.pathname === "/me/wishlist") {
       setPage("wishlist");
     } else if (location.pathname === "/me/purchase-history") {
       setPage("purchaseHistory");

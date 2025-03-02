@@ -9,6 +9,7 @@ import Dropdown from "../UI/Dropdown/Dropdown";
 import { DropdownCourseIcon } from "../UI/icons";
 import React from "react";
 import { ProgressBar } from "../UI/ProgressBar/ProgressBar";
+import IconUser from "../UI/IconUser";
 
 export function Header() {
   const courses = [
@@ -66,25 +67,42 @@ export function Header() {
         </div>
       );
     } else {
-      return (
-        <div className={styles.authButtons}>
-          <Button type="secondary" onClick={() => navigate("/register")}>
-            რეგისტრაცია
-          </Button>
-          <Button type="primary" onClick={() => navigate("/login")}>
-            ავტორიზაცია
-          </Button>
-        </div>
-      );
+      if (window.innerWidth <= 1024) {
+        return (
+          <div className={styles.userIcon} onClick={() => navigate("/login")}>
+            <IconUser />
+          </div>
+        );
+      } else {
+        return (
+          <div className={styles.authButtons}>
+            <Button type="secondary" onClick={() => navigate("/register")}>
+              რეგისტრაცია
+            </Button>
+            <Button type="primary" onClick={() => navigate("/login")}>
+              ავტორიზაცია
+            </Button>
+          </div>
+        );
+      }
     }
   };
 
   return (
     <header className={styles.header}>
       <SideBar
+        type={"burger"}
         sideBarActive={sideBarActive}
         setSideBarActive={setSideBarActive}
-        isAuthenticated={isAuthenticated}
+        shownLocation={"translateX(0)"}
+        hiddenLocation={"translateX(-100%)"}
+      />
+      <SideBar
+        type={"user"}
+        sideBarActive={showUserMenu}
+        setSideBarActive={setShowUserMenu}
+        shownLocation={"translateX(0)"}
+        hiddenLocation={"translateX(100%)"}
       />
       <div className={styles.container}>
         <div>

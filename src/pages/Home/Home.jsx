@@ -27,6 +27,7 @@ import { SubscribeInput } from '../../components/UI/SubscribeInput/SubscribeInpu
 import { useNavigate } from 'react-router-dom'
 import { CourseGraduateSwiper } from '../../components/CourseGraduateSwiper/CourseGraduateSwiper'
 
+
 export function Home() {
   const navigate = useNavigate()
 
@@ -164,6 +165,7 @@ export function Home() {
                 Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est. Egestas purus at
                 egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra mauris tellus
                 aliquam.
+
               </div>
               <div className={styles.courseGraduateButtonContainer}>
                 <button className={styles.courseGraduateButton}>
@@ -203,6 +205,8 @@ export function Home() {
           <OnlineChatIcon />
         </div>
       </div> */}
+
+        <Messenger />
       </div>
     </div>
   )

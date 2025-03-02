@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .container > div > textarea {
+    height: fit-content;
+  }
+
+  .container > button {
+    width: 100% !important;
+  }
+}

@@ -81,7 +81,7 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     <div
       className={styles.sideBarContainer}
       style={{
-        transform: sideBarActive ? "translateX(0)" : "translateX(100%)",
+        transform: sideBarActive ? "translateX(0)" : "translateX(-100%)",
       }}
     >
       <div className={styles.sideBarInnerContainer}>

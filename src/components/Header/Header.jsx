@@ -109,7 +109,7 @@ export function Header() {
           </div>
         </nav>
 
-        <div className={styles.authButtons}>{renderAuthButtons()}</div>
+        {renderAuthButtons()}
         <Dropdown isOpen={isDropdownOpen} width="430px">
           <div className={styles.dropdownHeaderContainer}>
             <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>

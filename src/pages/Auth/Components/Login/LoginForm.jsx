@@ -4,31 +4,31 @@ import styles from './LoginForm.module.css'
 import { Button } from '../../../../components/UI/Button/Button'
 import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
 import Input from '../../../../components/UI/Input/Input'
-import AuthService from '../../../../services/auth.service'
+import { useAuth } from '../../../../context/AuthContext'
 
-const authService = new AuthService()
-
-function LoginForm() {
+function LoginForm({ onSuccess }) {
   const [isChecked, setIsChecked] = useState(false)
   const navigate = useNavigate()
+  const { login } = useAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const values = Object.fromEntries(formData.entries())
+    const data = { ...values, rememberMe: isChecked }
 
-    const res = await authService.login(values)
-    if (res.success) {
-      navigate('/')
+    const result = await login(data)
+    if (result.success) {
+      onSuccess()
     } else {
-      console.error('Login failed:', res.error)
+      console.error('Login failed:', result.error)
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className={styles.inputContainer}>
       <Input name="email" placeholder={'ელ.ფოსტა'} />
-      <Input name="password" placeholder={'პაროლი'} />
+      <Input name="password" type={'password'} placeholder={'პაროლი'} />
 
       <div className={styles.inputContainerFooter}>
         <div className={styles.saveUserContainer}>

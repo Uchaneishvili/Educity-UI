@@ -105,16 +105,14 @@ class AuthService {
   }
 
   async logout() {
-    // Remove token and user data from local storage
     this.removeToken()
     localStorage.removeItem(this.config.userKey)
-    // this.redirectToLogin() // Redirect to login page
   }
 
   async getCurrentUser() {
     try {
       const { data } = await this.api.get(this.config.currentUserEndpoint)
-      return data.user
+      return data
     } catch (error) {
       console.error('Error fetching current user:', error)
       return null

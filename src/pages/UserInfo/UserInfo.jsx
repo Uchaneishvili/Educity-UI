@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./UserInfo.module.css";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import CoursesTab from "./Components/CoursesTab/CoursesTab";
 import Wishlist from "./Components/Wishlist/Wishlist";
 import PurchaseHistory from "./Components/PurchaseHistory/PurchaseHistory";
 import UserSettings from "./Components/UserSettings/UserSettings";
-
+import { useAuth } from "../../context/AuthContext";
+import { useLocation, useNavigate } from "react-router-dom";
 function UserInfo() {
   const [page, setPage] = useState("dashboard");
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  useEffect(() => {
+    if (location.pathname === "/me/wishlist") {
+      setPage("wishlist");
+    } else if (location.pathname === "/me/purchase-history") {
+      setPage("purchaseHistory");
+    } else if (location.pathname === "/me/settings") {
+      setPage("settings");
+    }
+  }, [location.pathname]);
 
   return (
     <div className="mainContainer">
@@ -18,10 +32,7 @@ function UserInfo() {
               <img src="/assets/userPhoto.png" alt="user" />
             </div>
             <div className={styles.userInfo}>
-              <div className={styles.userName}>Kevin Gilbert</div>
-              <div className={styles.userProfession}>
-                Web Designer & Best-Selling Instructor
-              </div>
+              <div className={styles.userName}>{user?.fullName}</div>
             </div>
           </div>
           <div className={styles.userNavigation}>
@@ -29,7 +40,10 @@ function UserInfo() {
               className={`${styles.userNavigationButton} ${
                 page === "dashboard" && styles.active
               }`}
-              onClick={() => setPage("dashboard")}
+              onClick={() => {
+                setPage("dashboard");
+                navigate("/me");
+              }}
             >
               DASHBOARD
             </button>
@@ -37,7 +51,10 @@ function UserInfo() {
               className={`${styles.userNavigationButton} ${
                 page === "courses" && styles.active
               }`}
-              onClick={() => setPage("courses")}
+              onClick={() => {
+                setPage("courses");
+                navigate("/me/courses");
+              }}
             >
               COURSES
             </button>
@@ -45,7 +62,10 @@ function UserInfo() {
               className={`${styles.userNavigationButton} ${
                 page === "wishlist" && styles.active
               }`}
-              onClick={() => setPage("wishlist")}
+              onClick={() => {
+                setPage("wishlist");
+                navigate("/me/wishlist");
+              }}
             >
               WISHLIST
             </button>
@@ -53,7 +73,10 @@ function UserInfo() {
               className={`${styles.userNavigationButton} ${
                 page === "purchaseHistory" && styles.active
               }`}
-              onClick={() => setPage("purchaseHistory")}
+              onClick={() => {
+                setPage("purchaseHistory");
+                navigate("/me/purchase-history");
+              }}
             >
               PURCHASE HISTORY
             </button>
@@ -61,7 +84,10 @@ function UserInfo() {
               className={`${styles.userNavigationButton} ${
                 page === "settings" && styles.active
               }`}
-              onClick={() => setPage("settings")}
+              onClick={() => {
+                setPage("settings");
+                navigate("/me/settings");
+              }}
             >
               SETTINGS
             </button>

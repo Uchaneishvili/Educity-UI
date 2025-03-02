@@ -59,3 +59,10 @@
   font-weight: 400;
   color: #555555;
 }
+
+@media (max-width: 1024px) {
+  .videosInfo,
+  .accordionTitle {
+    font-size: 12px;
+  }
+}

@@ -11,7 +11,16 @@ label {
   color: #000000cc;
 }
 
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .input {
+  width: 100%;
+  padding-right: 40px; /* Make room for the icon */
   height: 48px;
   border: 1px solid #d3dce6;
   padding: 0 16px;
@@ -20,4 +29,22 @@ label {
   line-height: 18.11px;
   color: #00000099;
   outline: none;
+}
+
+.iconButton {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.iconButton svg {
+  width: 20px;
+  height: 20px;
+  color: #666;
 }

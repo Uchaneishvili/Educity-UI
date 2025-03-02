@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './Card.module.css'
 import { Divider } from '../icons'
 import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icons'
@@ -16,10 +16,10 @@ export function Card({
   showDivider,
   showBuy,
   buttonName,
-  bordered,
   price,
   discountedPrice,
-  isInWishlist
+  isInWishlist,
+  thumbnail
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist)
   const navigate = useNavigate()
@@ -35,21 +35,10 @@ export function Card({
       console.error(err, 'error while adding to wishlist')
     }
   }
-
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
-        <img
-          className={styles.cardImageWeb}
-          alt={title}
-          src="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        />
-
-        <img
-          className={styles.cardImageMobile}
-          alt={title}
-          src="https://fastly.picsum.photos/id/668/358/210.jpg?hmac=0fczd3RLzyOxNWrnrJIfE8XA3rdi1iypfbN8aZn8kL0"
-        />
+        <img className={styles.cardImageWeb} alt={title} src={thumbnail} />
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.contentContainer}>
@@ -63,10 +52,9 @@ export function Card({
                     <span>
                       <ClockIcon />
                     </span>
-                    {totalDuration} თვე
+                    {totalDuration}
                   </div>
                 )}
-
                 {enrolledStudentsQuantity && (
                   <div className={styles.studentsInfo}>
                     <span>
@@ -75,7 +63,6 @@ export function Card({
                     {enrolledStudentsQuantity} სტუდენტი
                   </div>
                 )}
-
                 {totalReviews && (
                   <div className={styles.reviewInfo}>
                     <span>
@@ -108,9 +95,12 @@ export function Card({
         {showBuy ? (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={`${styles.price} ${styles.priceDetails}`}>{discountedPrice} ₾</div>
+              {discountedPrice && (
+                <div className={`${styles.price} ${styles.priceDetails}`}>{price} ₾</div>
+              )}
+
               <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
-                {price} ₾
+                {discountedPrice ? discountedPrice : price} ₾
               </div>
             </div>
 
@@ -121,8 +111,11 @@ export function Card({
         ) : (
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
-              <div className={styles.price}>{price} ₾</div>
-              <div className={styles.discountedPrice}>{discountedPrice} ₾</div>
+              {discountedPrice && <div className={styles.price}>{price} ₾</div>}
+
+              <div className={styles.discountedPrice}>
+                {discountedPrice ? discountedPrice : price} ₾
+              </div>
             </div>
 
             <div className={styles.detailsContainer}>

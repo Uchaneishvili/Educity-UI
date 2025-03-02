@@ -22,7 +22,7 @@ const CategoriesList = ({ data, onCategoryChange }) => {
             checked={selectedCategories.includes(category._id)}
             onChange={() => handleCheckboxChange(category._id)}
           />
-          {category.name}
+          <span>{category.name}</span>
         </div>
       ))}
     </div>

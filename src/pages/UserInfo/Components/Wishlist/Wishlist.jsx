@@ -1,61 +1,52 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './Wishlist.module.css'
 import CardListItem from '../../../../components/UI/CardListItem/CardListItem'
 import Pagination from '../../../../components/UI/Pagination/Pagination'
-
+import { getWishlist } from '../../../../services/wishlist.service'
+import { Loader } from '../../../../components/UI/Loader/Loader'
 function Wishlist() {
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  const loadData = async () => {
+    try {
+      const response = await getWishlist()
+      console.log(response)
+      setData(response.data)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      setLoading(false)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
   return (
     <div className={styles.container}>
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showBuy={true}
-      />
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showBuy={true}
-      />
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showBuy={true}
-      />
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showBuy={true}
-      />
-      <CardListItem
-        img="https://fastly.picsum.photos/id/579/480/292.jpg?hmac=Tux53lw7zzOR1tdJuxZDjIyTSn4S-IT3n2HIXD328ek"
-        reviewScore="4.6"
-        reviewNumber="456,230"
-        name="UI/UX Designer"
-        author="ვაკო ვაკო"
-        price="50$"
-        oldPrice="100$"
-        showBuy={true}
-      />
+      {loading ? (
+        <Loader />
+      ) : (
+        data.map((item) => {
+          return (
+            <CardListItem
+              img={item.thumbnail}
+              reviewScore={item.averageRating}
+              reviewNumber={item.enrolledStudentsQuantity}
+              name={item.title}
+              author="ვაკო ვაკო"
+              price={item.price}
+              oldPrice={item.discountedPrice}
+              showBuy={true}
+              showPrice={true}
+            />
+          )
+        })
+      )}
     </div>
   )
 }

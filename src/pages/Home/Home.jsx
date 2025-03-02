@@ -24,9 +24,9 @@ import {
 } from '../../components/UI/icons'
 import CategoryCard from '../../components/CategoryCard/CategoryCard'
 import { SubscribeInput } from '../../components/UI/SubscribeInput/SubscribeInput'
-import { Feedback } from '../../components/UI/Feedback/Feedback'
 import { useNavigate } from 'react-router-dom'
-import { Messenger } from '../../components/Messenger/Messenger'
+import { CourseGraduateSwiper } from '../../components/CourseGraduateSwiper/CourseGraduateSwiper'
+
 
 export function Home() {
   const navigate = useNavigate()
@@ -87,7 +87,7 @@ export function Home() {
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <div className={styles.textSide}>
-            <div className={styles.title}>ისწავლე, განვითარდი და მიაღწიე ჩვენთან ერთად!</div>
+            <div className={styles.title}>ისწავლე, განვითარდი და მიაღწიე ჩვენთან ერთად!</div>
             <div className={styles.description}>
               დაეუფლე ციფრულ ტექნოლოგიებს 0-დან, ისარგებლე დაფინანსებული კურსებით და რაც მთავარია,
               ისწავლე ნებისმიერი ადგილიდან. ჩვენთან მიიღებ სრულყოფილ განათლებას და დასაქმების შანსს.
@@ -161,15 +161,12 @@ export function Home() {
           <div className={styles.courseGraduateInnerContainer}>
             <div className={styles.courseGraduateTextsContainer}>
               <div className={styles.courseGraduateTitle}>რას ამბობენ კურსდამთავრებულები?</div>
-
               <div className={styles.courseGraduateDescription}>
                 Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est. Egestas purus at
                 egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra mauris tellus
-                aliquam. Lorem ipsum dolor sit amet consectetur. Id id sed est magnis est. Egestas
-                purus at egestas nulla tellus. Egestas proin erat fusce turpis. Eu viverra mauris
-                tellus aliquam.
-              </div>
+                aliquam.
 
+              </div>
               <div className={styles.courseGraduateButtonContainer}>
                 <button className={styles.courseGraduateButton}>
                   <div className={styles.courseGraduateButtonTitle}>დაგვიტოვე კომენტარი</div>
@@ -179,27 +176,7 @@ export function Home() {
                 </button>
               </div>
             </div>
-
-            <div className={styles.courseGraduatePersonContainer}>
-              <img src="/assets/courseGraduateGirlPhoto.png" alt="courseGraduateGirl" />
-              <div className={styles.courseGraduateCommentFullContainer}>
-                <div className={styles.courseGraduateCommentLeftShadow}></div>
-                <div className={styles.courseGraduateCommentContainer}>
-                  <div className={styles.courseGraduateGrayLine}></div>
-                  <div>
-                    <div className={styles.courseGraduateText}>
-                      "Thank you so much for your help. It's exactly what I've been looking for. You
-                      won't regret it. It really saves me time and effort. TOTC is exactly what our
-                      business has been lacking."
-                    </div>
-                    <div className={styles.courseGraduatePersonInfo}>
-                      <div className={styles.courseGraduateName}>Gloria Rose</div>
-                      <Feedback starsAmount={3} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <CourseGraduateSwiper />
           </div>
         </div>
 

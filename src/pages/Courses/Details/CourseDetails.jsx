@@ -53,16 +53,16 @@ export function CourseDetails() {
 
           <div className={styles.shortInfoContainer}>
             <div className={styles.duration}>
-              <ClockIcon /> {data.totalDuration || 0} თვე
+              <ClockIcon /> {data.totalDuration || ''}
             </div>
             <div className={styles.studentsQuantity}>
-              <StudentIcon /> {data.enrolledStudentsCount || 0} სტუდენტი
+              <StudentIcon /> {data.enrolledStudentsCount || ''} სტუდენტი
             </div>
             <div className={styles.level}>
-              <LevelIcon /> {data.level || 'საბაზისო'}
+              <LevelIcon /> {data.difficultyLevel || ''}
             </div>
             <div className={styles.lecturesQuantity}>
-              <LectureIcon /> {data.lecturesCount || 0} ლექცია
+              <LectureIcon /> {data.lecturesCount || ''} ლექცია
             </div>
           </div>
         </div>
@@ -72,12 +72,13 @@ export function CourseDetails() {
           <Card
             showBuy={true}
             buttonName={'კურსზე რეგისტრაცია'}
+            thumbnail={data.thumbnail}
             title={data.title}
             discountedPrice={data.discountedPrice}
             price={data.price}
           />
         </div>
-        <div className={styles.description}>
+        <div className={styles.tabSelectorContainer}>
           <TabSections
             tabs={[
               { id: 0, label: 'კურსის შესახებ' },
@@ -85,6 +86,7 @@ export function CourseDetails() {
               { id: 2, label: 'შეფასება' },
               { id: 3, label: 'დაგვიკავშირდით' }
             ]}
+            description={data.description}
           />
         </div>
       </div>

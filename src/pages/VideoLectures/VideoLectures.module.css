@@ -20,9 +20,12 @@
 }
 
 .videoContainer {
-  max-width: fit-content;
-  max-height: 672px;
-  margin: 0 auto;
+  /* max-width: fit-content; */
+  /* max-height: 672px; */
+  /* margin: 0 auto; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
   margin-top: 36px;
   border-radius: 24px;
   overflow: hidden;
@@ -46,7 +49,19 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 100%;
+}
+/* 
+.tabSelectorContainer {
+  width: 80%;
+} */
+.videoLessonsCompletionContainer > div:last-child {
   width: 30%;
+}
+
+.videoLessonsCompletionInnerContainer {
+  display: flex;
+  justify-content: space-between;
 }
 
 .videoLessonsCompletionTitle {
@@ -66,6 +81,19 @@
   width: 85px;
   height: 5px;
   background-color: #3561fe;
+}
+
+.videoLessonsReviewBtn {
+  width: 180px;
+  height: fit-content;
+  background-color: #3561fe29;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #3561fe;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 4px 0;
 }
 
 .videoLessonsAccordionContainer {
@@ -166,13 +194,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 40px 12px 20px;
+  padding: 12px 20px 12px 20px;
 }
 
 .syllabusItemInnerContainer {
   display: flex;
   align-items: center;
   gap: 10px;
+  max-width: 60%;
 }
 
 .syllabusInfoContainer {
@@ -191,4 +220,264 @@
   line-height: 24px;
   cursor: pointer;
   border: 0;
+}
+
+.reviewModalHeaderContainer,
+.quizzModalHeaderContainer {
+  padding: 16px 20px;
+  box-shadow: 0px -1px 0px 0px #e9eaf0 inset;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.reviewModalHeaderTitle,
+.quizzModalHeaderTitle {
+  color: #1d2026;
+  line-height: 22px;
+}
+
+.reviewModalCloseIcon,
+.quizzModalCloseIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.reviewModalCloseIcon > svg,
+.quizzModalCloseIcon > svg {
+  width: 100%;
+  height: 100%;
+  fill: #8c94a3;
+  cursor: pointer;
+}
+
+.reviewModalMainContainer {
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviewModalMainTitle {
+  display: flex;
+  gap: 7px;
+}
+
+.reviewModalAmount {
+  color: #1d2026;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.reviewModalRate {
+  color: #8c94a3;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -1.5%;
+}
+
+.reviewModalStars {
+  display: flex;
+  gap: 2px;
+  margin-top: 12px;
+}
+
+.reviewModalStars > div {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+}
+
+.reviewModalFeedbackForm {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.reviewModalFeedbackForm > div {
+  gap: 6px;
+}
+
+.reviewModalFeedbackForm > div > label {
+  font-size: 14px;
+}
+
+.reviewModalFeedbackForm > div > textarea {
+  height: 100px;
+}
+
+.reviewModalFeedbackButtons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.reviewModalFeedbackButtons > button:first-child,
+.quizzModalButtons > button:first-child {
+  width: 102px;
+  border: 0;
+  border-radius: 8px;
+  color: #1d2026;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 48px;
+  cursor: pointer;
+}
+
+.reviewModalFeedbackButtons > button:last-child,
+.quizzModalButtons > button:last-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quizzModalQuestionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 48px;
+  padding: 0 24px;
+}
+
+.quizzModalQuestionContainer {
+  border: 1px solid #475569;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.quizzModalQuestionHeader {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #0a033c;
+}
+
+.quizzModalQuestionNumber {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #475569;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 14px;
+  flex-shrink: 0;
+}
+
+.quizzModalQuestionText {
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 28px;
+}
+
+.quizzModalQuestionAnswers {
+  background-color: #eff2fa;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quizzModalQuestionAnswer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.quizzModalQuestionAnswer > input {
+  width: 16px;
+  height: 16px;
+}
+
+.quizzModalQuestionAnswerText {
+  color: #010101;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.quizzModalButtons {
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancelButton {
+  padding: 8px 16px;
+  border: none;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.cancelButton:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 1024px) {
+  video {
+    width: 100vw;
+  }
+
+  .videoLecturesTitle {
+    font-size: 24px;
+  }
+
+  .videoLessonsContainer {
+    background-color: white;
+    margin-top: 0;
+    padding: 24px 0;
+  }
+
+  .videoLessonsCompletionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .videoLessonsCompletionContainer > div:last-child {
+    width: 100%;
+  }
+
+  .videoLessonsAccordionContainer {
+    border: 1px solid #0000001a;
+    border-radius: 16px;
+    padding: 22px 10px;
+  }
+
+  .quizzBtn {
+    background-color: #3561fe;
+    border-radius: 8px;
+    padding: 2px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 24px;
+    cursor: pointer;
+    border: 0;
+  }
+
+  .duration,
+  .syllabusItemInnerContainer {
+    font-size: 12px;
+  }
+
+  .reviewModalHeaderContainer {
+    padding: 28px 20px;
+    padding-bottom: 16px;
+    box-shadow: 0px -1px 0px 0px #e9eaf0 inset;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .quizzModalQuestionText {
+    font-size: 16px;
+    line-height: 24px;
+  }
 }

@@ -9,7 +9,8 @@ import CategoriesList from './components/Categories/CategoriesList'
 import Reviews from './components/Reviews/Reviews'
 import { Loader } from '../../components/UI/Loader/Loader'
 import { getWishlist } from '../../services/wishlist.service'
-import Wishlist from '../UserInfo/Components/Wishlist/Wishlist'
+import { useDebounce } from '../../hooks/useDebounce'
+
 export function Courses() {
   const [courses, setCourses] = useState([])
   const [categories, setCategories] = useState([])
@@ -23,6 +24,7 @@ export function Courses() {
   const [loading, setLoading] = useState(true)
 
   const [coursesLoading, setCoursesLoading] = useState(true)
+  const [selectedFilter, setSelectedFilter] = useState([])
 
   const loadData = useCallback(
     async (page = 1) => {
@@ -34,28 +36,30 @@ export function Courses() {
           pageSize,
           filters: {
             avgRating: selectedReviews,
-            categoryId: selectedCategories
+            categoryId: selectedCategories,
+            courseType: selectedFilter
           },
           customSearch: searchQuery ? { search: searchQuery } : undefined
         }
 
         const response = await getCourses(query)
-        setCourses(response.data.items)
-        setTotalItems(response.data.total)
+
+        setCourses(response.data.data.courses)
+        setTotalItems(response.data.data.totalCount)
       } catch (error) {
         console.error('Error loading courses:', error)
       } finally {
         setCoursesLoading(false)
       }
     },
-    [selectedCategories, pageSize, selectedReviews, searchQuery]
+    [selectedCategories, pageSize, selectedReviews, searchQuery, selectedFilter]
   )
   useEffect(() => {
     const loadInitialData = async () => {
       try {
         setLoading(true)
         const categoriesRes = await getCategories()
-        setCategories(categoriesRes.data.categories)
+        setCategories(categoriesRes.data.data.categories)
       } catch (err) {
         console.error(err, 'error while loading categories')
       } finally {
@@ -87,14 +91,22 @@ export function Courses() {
     setSelectedCategories(categories)
   }
 
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter)
+  }
+
   const handleReviewChange = (reviews) => {
     setSelectedReviews(reviews)
     setCurrentPage(1)
   }
 
-  const handleSearch = (value) => {
+  const debouncedSearch = useDebounce((value) => {
     setSearchQuery(value)
     setCurrentPage(1)
+  }, 500)
+
+  const handleSearch = (value) => {
+    debouncedSearch(value)
   }
 
   if (loading) {
@@ -105,13 +117,31 @@ export function Courses() {
     )
   }
 
+  const data = [
+    {
+      name: 'აუდიტორიული',
+      _id: 'offline'
+    },
+    {
+      name: 'ჰიბრიდული',
+      _id: 'hybrid'
+    },
+    {
+      name: 'ონლაინ',
+      _id: 'online'
+    }
+  ]
+
   return (
     <div className="mainContainer">
       <div className={styles.container}>
         <div className={styles.sidebarContainer}>
           <div className={styles.filterContainer}>
+            <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
+            <CategoriesList data={data} onCategoryChange={handleFilterChange} />
             <div className={styles.filterTitle}>კატეგორიები</div>
             <CategoriesList data={categories} onCategoryChange={handleCategoryChange} />
+
             <Reviews onReviewChange={handleReviewChange} />
           </div>
         </div>
@@ -122,7 +152,6 @@ export function Courses() {
               <SearchInput onChange={handleSearch} />
             </div>
           </div>
-          g
           {coursesLoading ? (
             <div className={styles.loaderContent}>
               <Loader />
@@ -135,13 +164,14 @@ export function Courses() {
                     id={course._id}
                     key={course._id || index}
                     bordered={true}
+                    thumbnail={course.thumbnail}
                     title={course.title}
                     totalDuration={course.totalDuration}
                     enrolledStudentsQuantity={course.enrolledStudentsQuantity}
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}
-                    isInWishlist={wishlist.some((item) => item.courseId === course._id)}
+                    isInWishlist={wishlist.some((item) => item._id === course._id)}
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

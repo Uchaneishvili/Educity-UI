@@ -12,6 +12,8 @@ import SubscriptionPack from "../pages/SubscriptionPack/SubscriptionPack";
 import BecomePartner from "../pages/BecomePartner/BecomePartner";
 import { ErrorPage } from "../pages/ErrorPage/ErrorPage";
 import VideoLectures from "../pages/VideoLectures/VideoLectures";
+import ProtectedRoute from "./ProtectedRoute";
+import Checkout from "../pages/Checkout/Checkout";
 
 export const AppRoutes = () => {
   return (
@@ -22,10 +24,50 @@ export const AppRoutes = () => {
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<CourseDetails />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/me" element={<UserInfo />} />
+        <Route
+          path="/me"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/courses"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/wishlist"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/purchase-history"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/me/settings"
+          element={
+            <ProtectedRoute>
+              <UserInfo />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
         <Route path="/video-lectures" element={<VideoLectures />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 

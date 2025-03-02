@@ -25,6 +25,11 @@ export function Auth() {
     navigate(tabId === 0 ? '/login' : '/register')
   }
 
+  const handleLoginSuccess = () => {
+    const redirectPath = location.state?.from || '/' // Redirect to the original path or home
+    navigate(redirectPath)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
@@ -49,7 +54,11 @@ export function Auth() {
               />
             </div>
 
-            {activeTab === 0 ? <LoginForm /> : <RegisterForm setActiveTab={setActiveTab} />}
+            {activeTab === 0 ? (
+              <LoginForm onSuccess={handleLoginSuccess} />
+            ) : (
+              <RegisterForm setActiveTab={setActiveTab} />
+            )}
 
             <OrDivider />
 

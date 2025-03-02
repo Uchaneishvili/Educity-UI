@@ -1,29 +1,29 @@
-import React from 'react'
-import styles from './RegisterForm.module.css'
-import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
-import { Button } from '../../../../components/UI/Button/Button'
-import Input from '../../../../components/UI/Input/Input'
-import AuthService from '../../../../services/auth.service'
-import Select from '../../../../components/UI/Select/Select'
-import DatePicker from '../../../../components/UI/DatePicker/DatePicker'
+import React from 'react';
+import styles from './RegisterForm.module.css';
+import Checkbox from '../../../../components/UI/Checkbox/Checkbox';
+import { Button } from '../../../../components/UI/Button/Button';
+import Input from '../../../../components/UI/Input/Input';
+import AuthService from '../../../../services/auth.service';
+import Select from '../../../../components/UI/Select/Select';
+import DatePicker from '../../../../components/UI/DatePicker/DatePicker';
 
-const authService = new AuthService()
+const authService = new AuthService();
 
 function RegisterForm({ setActiveTab }) {
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const values = Object.fromEntries(formData.entries())
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const values = Object.fromEntries(formData.entries());
 
     await authService
       .register(values)
-      .then((res) => {
+      .then(res => {
         if (res.success) {
-          setActiveTab(0)
+          setActiveTab(0);
         }
       })
-      .catch((err) => console.error(err))
-  }
+      .catch(err => console.error(err));
+  };
 
   return (
     <form className={styles.inputContainer} onSubmit={handleSubmit}>
@@ -35,13 +35,17 @@ function RegisterForm({ setActiveTab }) {
         placeholder={'ქალაქი'}
         options={[
           { id: 1, value: 'თბილისი' },
-          { id: 2, value: 'ბათუმი' }
+          { id: 2, value: 'ბათუმი' },
         ]}
       />
       <DatePicker name="birthDate" placeholder={'დაბადების თარიღი'} />
       <Input name="password" type={'password'} placeholder={'პაროლი'} />
 
-      <Input name="confirmPassword" type={'password'} placeholder={'გაიმეორე პაროლი'} />
+      <Input
+        name="confirmPassword"
+        type={'password'}
+        placeholder={'გაიმეორე პაროლი'}
+      />
 
       <ul className={styles.validationList}>
         <li>მინ. 1 დიდი ასო A</li>
@@ -55,7 +59,9 @@ function RegisterForm({ setActiveTab }) {
             // checked={isChecked}
             // onChange={() => setIsChecked(!isChecked)}
           />
-          <span className={styles.acceptRules}> გავეცანი და ვეთანხმები წესებსა და პირობებს</span>
+          <span className={styles.acceptRules}>
+            გავეცანი და ვეთანხმები წესებსა და პირობებს
+          </span>
         </div>
       </div>
       <div className={styles.registerBtnContainer}>
@@ -64,7 +70,7 @@ function RegisterForm({ setActiveTab }) {
         </Button>
       </div>
     </form>
-  )
+  );
 }
 
-export default RegisterForm
+export default RegisterForm;

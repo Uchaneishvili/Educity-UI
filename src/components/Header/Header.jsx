@@ -15,19 +15,19 @@ export function Header() {
   const courses = [
     {
       id: 1,
-      name: "2025 UI/UX design with figma",
+      name: '2025 UI/UX design with figma',
     },
     {
       id: 2,
-      name: "2025 UI/UX design with figma",
+      name: '2025 UI/UX design with figma',
     },
     {
       id: 3,
-      name: "2025 UI/UX design with figma",
+      name: '2025 UI/UX design with figma',
     },
     {
       id: 4,
-      name: "2025 UI/UX design with figma",
+      name: '2025 UI/UX design with figma',
     },
   ];
 
@@ -106,18 +106,18 @@ export function Header() {
       />
       <div className={styles.container}>
         <div>
-          <div className={styles.logo} onClick={() => navigate("/")}>
+          <div className={styles.logo} onClick={() => navigate('/')}>
             Educity
           </div>
         </div>
 
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li onClick={() => navigate("/")}>მთავარი</li>
-            <li onClick={() => navigate("/courses")}>კურსები</li>
-            <li onClick={() => navigate("/aboutus")}>ჩვენს შესახებ</li>
-            <li onClick={() => navigate("/contacts")}>კონტაქტი</li>
-            <li onClick={() => navigate("/become-partner")}>გახდი პარტნიორი</li>
+            <li onClick={() => navigate('/')}>მთავარი</li>
+            <li onClick={() => navigate('/courses')}>კურსები</li>
+            <li onClick={() => navigate('/aboutus')}>ჩვენს შესახებ</li>
+            <li onClick={() => navigate('/contacts')}>კონტაქტი</li>
+            <li onClick={() => navigate('/become-partner')}>გახდი პარტნიორი</li>
           </ul>
           <div
             className={styles.burgerMenu}
@@ -133,14 +133,14 @@ export function Header() {
             <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>
             <div
               className={styles.dropdownHeaderBtn}
-              onClick={() => navigate("/me")}
+              onClick={() => navigate('/me')}
             >
               ყველას ნახვა
             </div>
           </div>
 
           <div className={styles.dropdownCoursesContainer}>
-            {courses.map((course) => (
+            {courses.map(course => (
               <div key={course.id} className={styles.dropdownCourseContainer}>
                 <div className={styles.dropdownCourseIcon}>
                   <DropdownCourseIcon />

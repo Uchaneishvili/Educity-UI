@@ -1,23 +1,27 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import styles from './VideoLectures.module.css'
-import { ArrowBackIcon, FileIcon, CompleteCheckIcon } from '../../components/UI/icons'
-import { Accordion } from '../../components/UI/Accordion/Accordion'
-import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar'
-import Modal from '../../components/UI/Modal/Modal'
+import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styles from './VideoLectures.module.css';
+import {
+  ArrowBackIcon,
+  FileIcon,
+  CompleteCheckIcon,
+} from '../../components/UI/icons';
+import { Accordion } from '../../components/UI/Accordion/Accordion';
+import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar';
+import Modal from '../../components/UI/Modal/Modal';
 import {
   CloseIcon,
   ReviewModalColoredStar,
   ReviewModalUncoloredStar,
-  SubmitBtnArrow
-} from '../../components/UI/icons'
-import TextArea from '../../components/UI/Textarea/Textarea'
-import { Button } from '../../components/UI/Button/Button'
-import { Video } from '../../components/VideoPlayer/Video'
-import { addReviewToCourse } from '../../services/review.service'
+  SubmitBtnArrow,
+} from '../../components/UI/icons';
+import TextArea from '../../components/UI/Textarea/Textarea';
+import { Button } from '../../components/UI/Button/Button';
+import { Video } from '../../components/VideoPlayer/Video';
+import { addReviewToCourse } from '../../services/review.service';
 
 function VideoLectures() {
-  const { id } = useParams()
+  const { id } = useParams();
 
   const data = [
     {
@@ -29,19 +33,19 @@ function VideoLectures() {
         {
           id: 1,
           time: '12:30',
-          unlocked: true
+          unlocked: true,
         },
         {
           id: 2,
           time: '1:35',
-          unlocked: true
+          unlocked: true,
         },
         {
           id: 3,
           time: '8:45',
-          unlocked: false
-        }
-      ]
+          unlocked: false,
+        },
+      ],
     },
     {
       id: 2,
@@ -52,52 +56,52 @@ function VideoLectures() {
         {
           id: 1,
           time: '12:30',
-          unlocked: true
+          unlocked: true,
         },
         {
           id: 2,
           time: '1:35',
-          unlocked: true
+          unlocked: true,
         },
         {
           id: 3,
           time: '8:45',
-          unlocked: false
-        }
-      ]
-    }
-  ]
+          unlocked: false,
+        },
+      ],
+    },
+  ];
 
   const quizzQuestions = [
     {
       id: 1,
       question: 'Lorem ipsum dolor sit amet consectetur?',
-      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor']
+      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
     },
     {
       id: 2,
       question: 'Lorem ipsum dolor sit amet consectetur?',
-      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor']
-    }
-  ]
+      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
+    },
+  ];
 
-  const [isReviewOpen, setIsReviewOpen] = useState(false)
-  const [isQuizzOpen, setIsQuizzOpen] = useState(false)
-  const [starsAmount, setStarsAmount] = useState(0)
-  const [comment, setComment] = useState('')
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+  const [isQuizzOpen, setIsQuizzOpen] = useState(false);
+  const [starsAmount, setStarsAmount] = useState(0);
+  const [comment, setComment] = useState('');
 
   const addReview = async () => {
     try {
       await addReviewToCourse(id, {
         rating: starsAmount,
-        comment: comment
-      })
+        comment: comment,
+      });
 
-      setIsReviewOpen(false)
+      setIsReviewOpen(false);
     } catch (error) {
-      console.error('Error adding review:', error)
+      console.error('Error adding review:', error);
     }
-  }
+  };
 
   return (
     <>
@@ -107,7 +111,9 @@ function VideoLectures() {
             <div className={styles.videoLecturesTitleButton}>
               <ArrowBackIcon />
             </div>
-            <div className={styles.videoLecturesTitle}>ვიდეო ლექციები / UI/UX დიზაინი</div>
+            <div className={styles.videoLecturesTitle}>
+              ვიდეო ლექციები / UI/UX დიზაინი
+            </div>
           </div>
 
           <div className={styles.videoContainer}>
@@ -122,7 +128,9 @@ function VideoLectures() {
           <div className={styles.videoLessonsContainer}>
             <div className={styles.videoLessonsCompletionContainer}>
               <div className={styles.videoLessonsCompletionInnerContainer}>
-                <div className={styles.videoLessonsCompletionTitle}>2/5 COMPLETED</div>
+                <div className={styles.videoLessonsCompletionTitle}>
+                  2/5 COMPLETED
+                </div>
                 <button
                   className={styles.videoLessonsReviewBtn}
                   onClick={() => setIsReviewOpen(true)}
@@ -134,7 +142,7 @@ function VideoLectures() {
             </div>
 
             <div className={styles.videoLessonsAccordionContainer}>
-              {data.map((data) => (
+              {data.map(data => (
                 <Accordion
                   title="Lessons with video content
 "
@@ -196,7 +204,10 @@ function VideoLectures() {
 
                       <div className={styles.syllabusInfoContainer}>
                         <div className={styles.quizz}>
-                          <button className={styles.quizzBtn} onClick={() => setIsQuizzOpen(true)}>
+                          <button
+                            className={styles.quizzBtn}
+                            onClick={() => setIsQuizzOpen(true)}
+                          >
                             ქვიზი
                           </button>
                         </div>
@@ -228,7 +239,10 @@ function VideoLectures() {
       <Modal isOpen={isReviewOpen} width="650px">
         <div className={styles.reviewModalHeaderContainer}>
           <div className={styles.reviewModalHeaderTitle}>Write a Review</div>
-          <div className={styles.reviewModalCloseIcon} onClick={() => setIsReviewOpen(false)}>
+          <div
+            className={styles.reviewModalCloseIcon}
+            onClick={() => setIsReviewOpen(false)}
+          >
             <CloseIcon />
           </div>
         </div>
@@ -240,7 +254,11 @@ function VideoLectures() {
           <div className={styles.reviewModalStars}>
             {[...Array(5)].map((_, index) => (
               <div key={index} onClick={() => setStarsAmount(index + 1)}>
-                {index < starsAmount ? <ReviewModalColoredStar /> : <ReviewModalUncoloredStar />}
+                {index < starsAmount ? (
+                  <ReviewModalColoredStar />
+                ) : (
+                  <ReviewModalUncoloredStar />
+                )}
               </div>
             ))}
           </div>
@@ -250,7 +268,7 @@ function VideoLectures() {
               id="reviewModalFeedback"
               name="Feedback"
               placeholder="Write down your feedback here..."
-              onChange={(e) => setComment(e.target.value)}
+              onChange={e => setComment(e.target.value)}
             />
 
             <div className={styles.reviewModalFeedbackButtons}>
@@ -267,23 +285,32 @@ function VideoLectures() {
       <Modal isOpen={isQuizzOpen} width="650px">
         <div className={styles.quizzModalHeaderContainer}>
           <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
-          <div className={styles.quizzModalCloseIcon} onClick={() => setIsQuizzOpen(false)}>
+          <div
+            className={styles.quizzModalCloseIcon}
+            onClick={() => setIsQuizzOpen(false)}
+          >
             <CloseIcon />
           </div>
         </div>
 
         <div className={styles.quizzModalQuestionsContainer}>
-          {quizzQuestions.map((quizz) => (
+          {quizzQuestions.map(quizz => (
             <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
               <div className={styles.quizzModalQuestionHeader}>
-                <div className={styles.quizzModalQuestionNumber}>{quizz.id}</div>
-                <div className={styles.quizzModalQuestionText}>{quizz.question}</div>
+                <div className={styles.quizzModalQuestionNumber}>
+                  {quizz.id}
+                </div>
+                <div className={styles.quizzModalQuestionText}>
+                  {quizz.question}
+                </div>
               </div>
               <div className={styles.quizzModalQuestionAnswers}>
                 {quizz.answers.map((answer, index) => (
                   <div key={index} className={styles.quizzModalQuestionAnswer}>
                     <input type="radio" />
-                    <div className={styles.quizzModalQuestionAnswerText}>{answer}</div>
+                    <div className={styles.quizzModalQuestionAnswerText}>
+                      {answer}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -300,7 +327,7 @@ function VideoLectures() {
         </div>
       </Modal>
     </>
-  )
+  );
 }
 
-export default VideoLectures
+export default VideoLectures;

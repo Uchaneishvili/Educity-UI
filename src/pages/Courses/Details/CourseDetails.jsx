@@ -1,43 +1,48 @@
-import styles from './CourseDetails.module.css'
-import { ClockIcon, StudentIcon, LectureIcon, LevelIcon } from '../../../components/UI/icons'
-import { Card } from '../../../components/UI/Card/Card'
-import TabSections from './components/TabSections/TabSections'
-import { getCourseDetails } from '../../../services/courses.service'
-import { useParams } from 'react-router-dom'
-import { useState, useEffect, useCallback } from 'react'
-import { Loader } from '../../../components/UI/Loader/Loader'
-import { Error } from '../../../components/Error/Error'
+import styles from './CourseDetails.module.css';
+import {
+  ClockIcon,
+  StudentIcon,
+  LectureIcon,
+  LevelIcon,
+} from '../../../components/UI/icons';
+import { Card } from '../../../components/UI/Card/Card';
+import TabSections from './components/TabSections/TabSections';
+import { getCourseDetails } from '../../../services/courses.service';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Loader } from '../../../components/UI/Loader/Loader';
+import { Error } from '../../../components/Error/Error';
 export function CourseDetails() {
-  const { id } = useParams()
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { id } = useParams();
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const loadData = useCallback(async () => {
     try {
-      setLoading(true)
-      const res = await getCourseDetails(id)
-      setData(res.data)
+      setLoading(true);
+      const res = await getCourseDetails(id);
+      setData(res.data);
     } catch (error) {
-      console.error('Error loading course details:', error)
+      console.error('Error loading course details:', error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
-    loadData()
-  }, [loadData])
+    loadData();
+  }, [loadData]);
 
   if (loading) {
     return (
       <div className={styles.loaderContainer}>
         <Loader />
       </div>
-    )
+    );
   }
 
   if (!data) {
-    return <Error />
+    return <Error />;
   }
 
   return (
@@ -45,7 +50,9 @@ export function CourseDetails() {
       <div className={`${styles.container} mainContainer`}>
         <div className={styles.innerContainer}>
           <div className={styles.lecturerContainer}>
-            <div className={styles.categoryButton}>{data.category?.name || 'დიზაინი'}</div>
+            <div className={styles.categoryButton}>
+              {data.category?.name || 'დიზაინი'}
+            </div>
             ლექტორი: {data.lecturer?.fullName || 'მარიამ რთველაძე'}
           </div>
 
@@ -84,12 +91,11 @@ export function CourseDetails() {
               { id: 0, label: 'კურსის შესახებ' },
               { id: 1, label: 'სილაბუსი' },
               { id: 2, label: 'შეფასება' },
-              { id: 3, label: 'დაგვიკავშირდით' }
             ]}
             description={data.description}
           />
         </div>
       </div>
     </>
-  )
+  );
 }

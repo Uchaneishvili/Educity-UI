@@ -1,11 +1,19 @@
-import React from 'react'
-import styles from './Card.module.css'
-import { Divider } from '../icons'
-import { ClockIcon, StudentIcon, NarrowColoredStar, WishlistIcon } from '../icons'
-import { Button } from '../Button/Button'
-import { useNavigate } from 'react-router-dom'
-import useRefState from '../../../hooks/useRefState'
-import { addToWishlist, removeFromWishlist } from '../../../services/wishlist.service'
+import React from 'react';
+import styles from './Card.module.css';
+import { Divider } from '../icons';
+import {
+  ClockIcon,
+  StudentIcon,
+  NarrowColoredStar,
+  WishlistIcon,
+} from '../icons';
+import { Button } from '../Button/Button';
+import { useNavigate } from 'react-router-dom';
+import useRefState from '../../../hooks/useRefState';
+import {
+  addToWishlist,
+  removeFromWishlist,
+} from '../../../services/wishlist.service';
 export function Card({
   id,
   title,
@@ -19,22 +27,22 @@ export function Card({
   price,
   discountedPrice,
   isInWishlist,
-  thumbnail
+  thumbnail,
 }) {
-  const [isActiveRef, setIsActive] = useRefState(isInWishlist)
-  const navigate = useNavigate()
+  const [isActiveRef, setIsActive] = useRefState(isInWishlist);
+  const navigate = useNavigate();
 
   const handleWishlistClick = async () => {
     try {
       if (isActiveRef.current) {
-        await addToWishlist(id)
+        await addToWishlist(id);
       } else {
-        await removeFromWishlist(id)
+        await removeFromWishlist(id);
       }
     } catch (err) {
-      console.error(err, 'error while adding to wishlist')
+      console.error(err, 'error while adding to wishlist');
     }
-  }
+  };
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
@@ -80,8 +88,8 @@ export function Card({
               <button
                 className={styles.wishListButton}
                 onClick={async () => {
-                  setIsActive(!isActiveRef.current)
-                  await handleWishlistClick()
+                  setIsActive(!isActiveRef.current);
+                  await handleWishlistClick();
                 }}
               >
                 <WishlistIcon isActive={isActiveRef.current} />
@@ -96,10 +104,14 @@ export function Card({
           <div className={styles.footer}>
             <div className={styles.priceContainer}>
               {discountedPrice && (
-                <div className={`${styles.price} ${styles.priceDetails}`}>{price} ₾</div>
+                <div className={`${styles.price} ${styles.priceDetails}`}>
+                  {price} ₾
+                </div>
               )}
 
-              <div className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}>
+              <div
+                className={`${styles.discountedPrice} ${styles.discountedPriceDetails}`}
+              >
                 {discountedPrice ? discountedPrice : price} ₾
               </div>
             </div>
@@ -119,7 +131,10 @@ export function Card({
             </div>
 
             <div className={styles.detailsContainer}>
-              <div className={styles.details} onClick={() => navigate(`/courses/${id}`)}>
+              <div
+                className={styles.details}
+                onClick={() => navigate(`/courses/${id}`)}
+              >
                 დეტალები
               </div>
             </div>
@@ -127,5 +142,5 @@ export function Card({
         )}
       </div>
     </div>
-  )
+  );
 }

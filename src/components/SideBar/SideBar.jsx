@@ -54,6 +54,10 @@ function SideBar({
       name: 'გახდი პარტნიორი',
       link: '/become-partner',
     },
+    {
+      name: 'პაკეტები',
+      link: '/subscriptions',
+    },
   ];
 
   const userMenuLinks = [

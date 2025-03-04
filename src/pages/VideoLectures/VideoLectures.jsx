@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './VideoLectures.module.css';
 import {
@@ -19,6 +19,7 @@ import TextArea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
 import { addReviewToCourse } from '../../services/review.service';
+import { getCourseDetails } from '../../services/courses.service';
 
 function VideoLectures() {
   const { id } = useParams();
@@ -102,6 +103,19 @@ function VideoLectures() {
       console.error('Error adding review:', error);
     }
   };
+
+  const loadData = useCallback(async () => {
+    try {
+      const response = await getCourseDetails(id);
+      console.log(response);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   return (
     <>

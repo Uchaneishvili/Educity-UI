@@ -14,6 +14,7 @@ import {
   addToWishlist,
   removeFromWishlist,
 } from '../../../services/wishlist.service';
+import { Video } from '../../VideoPlayer/Video';
 export function Card({
   id,
   title,
@@ -28,6 +29,8 @@ export function Card({
   discountedPrice,
   isInWishlist,
   thumbnail,
+  introVideo,
+  onClick,
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist);
   const navigate = useNavigate();
@@ -46,7 +49,13 @@ export function Card({
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
-        <img className={styles.cardImageWeb} alt={title} src={thumbnail} />
+        {introVideo ? (
+          <div className={styles.cardImageWeb}>
+            <Video playbackId={introVideo} />
+          </div>
+        ) : (
+          <img className={styles.cardImageWeb} alt={title} src={thumbnail} />
+        )}
       </div>
       <div className={styles.innerContainer}>
         <div className={styles.contentContainer}>
@@ -117,7 +126,7 @@ export function Card({
             </div>
 
             <div className={styles.detailsContainer}>
-              <Button> {buttonName}</Button>
+              <Button onClick={onClick}> {buttonName}</Button>
             </div>
           </div>
         ) : (

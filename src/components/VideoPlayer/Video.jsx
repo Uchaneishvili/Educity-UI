@@ -1,7 +1,7 @@
 import MuxPlayer from '@mux/mux-player-react';
 import styles from './Video.module.css';
 
-export function Video({ playbackId }) {
+export function Video({ playbackId, thumbnail }) {
   return (
     <div className={styles.videoContainer}>
       <MuxPlayer
@@ -13,6 +13,7 @@ export function Video({ playbackId }) {
         primary-color="#ffffff"
         secondary-color="#000000"
         accent-color="#9b70ff"
+        poster="https://fastly.picsum.photos/id/827/1920/1080.jpg?hmac=JHKjyAUSi4Qf7e1660WBg_HwS8AgNo76wgNmHekWqnM" // Add your placeholder thumbnail URL here
       />
     </div>
   );

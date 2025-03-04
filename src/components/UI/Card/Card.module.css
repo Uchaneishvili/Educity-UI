@@ -23,8 +23,7 @@
   padding-top: 56.25%; /* 16:9 Aspect Ratio (9 / 16 = 0.5625 or 56.25%) */
 }
 
-.cardImageWeb,
-.cardImageMobile {
+.cardImageWeb {
   position: absolute;
   top: 0;
   left: 0;
@@ -33,10 +32,6 @@
   object-fit: cover;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
-
-.cardImageMobile {
-  display: none;
 }
 
 .contentContainer {
@@ -143,12 +138,8 @@
   .container {
     width: 358px;
   }
-  .cardImageMobile {
-    display: block;
-  }
-
   .cardImageWeb {
-    display: none;
+    display: block;
   }
 
   .durationInfo,

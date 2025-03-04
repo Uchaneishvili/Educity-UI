@@ -1,15 +1,19 @@
-import FormatData from '../utils/FormatData'
-import RequestHelper from '../apis/RequestHelper'
+import FormatData from '../utils/FormatData';
+import RequestHelper from '../apis/RequestHelper';
 
-export const getCourses = async (query) => {
-  const paginPath = FormatData.generatePaginationURLPath(query)
-  return await RequestHelper.educity.get(`/courses${paginPath}`)
-}
+export const getCourses = async query => {
+  const paginPath = FormatData.generatePaginationURLPath(query);
+  return await RequestHelper.educity.get(`/courses${paginPath}`);
+};
 
-export const getCourseDetails = async (id) => {
-  return await RequestHelper.educity.get(`/courses/${id}`)
-}
+export const getCourseDetails = async id => {
+  return await RequestHelper.educity.get(`/courses/${id}`);
+};
 
-export const getCourseReviews = async (id) => {
-  return await RequestHelper.educity.get(`/courses/${id}/reviews`)
-}
+export const getCourseReviews = async id => {
+  return await RequestHelper.educity.get(`/courses/${id}/reviews`);
+};
+
+export const checkAccess = async id => {
+  return await RequestHelper.educity.get(`/courses/${id}/check-access`);
+};

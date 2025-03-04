@@ -7,8 +7,11 @@ import {
 } from '../../../components/UI/icons';
 import { Card } from '../../../components/UI/Card/Card';
 import TabSections from './components/TabSections/TabSections';
-import { getCourseDetails } from '../../../services/courses.service';
-import { useParams } from 'react-router-dom';
+import {
+  getCourseDetails,
+  checkAccess,
+} from '../../../services/courses.service';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import { Loader } from '../../../components/UI/Loader/Loader';
 import { Error } from '../../../components/Error/Error';
@@ -16,6 +19,8 @@ export function CourseDetails() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [access, setAccess] = useState(false);
+  const navigate = useNavigate();
 
   const loadData = useCallback(async () => {
     try {
@@ -28,6 +33,19 @@ export function CourseDetails() {
       setLoading(false);
     }
   }, [id]);
+
+  const checkingUserAccess = useCallback(async () => {
+    try {
+      const res = await checkAccess(id);
+      setAccess(res.hasAccess);
+    } catch (error) {
+      console.error('Error loading course details:', error);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    checkingUserAccess();
+  }, [checkingUserAccess]);
 
   useEffect(() => {
     loadData();
@@ -44,6 +62,16 @@ export function CourseDetails() {
   if (!data) {
     return <Error />;
   }
+
+  const buttonName = () => {
+    const isOnline = data.type === 'online';
+
+    if (access) {
+      return isOnline ? 'კურსზე გადასვლა' : 'კურსი უკვე შეძენილი გაქვთ';
+    } else {
+      return isOnline ? 'ყიდვა' : 'კურსზე რეგისტრაცია';
+    }
+  };
 
   return (
     <>
@@ -78,11 +106,27 @@ export function CourseDetails() {
         <div className={styles.cardContainer}>
           <Card
             showBuy={true}
-            buttonName={'კურსზე რეგისტრაცია'}
+            buttonName={buttonName()}
             thumbnail={data.thumbnail}
             title={data.title}
             discountedPrice={data.discountedPrice}
             price={data.price}
+            introVideo={true}
+            onClick={() => {
+              const isOnline = data.type === 'online';
+
+              if (access) {
+                if (isOnline) {
+                  navigate(`/course/${id}/videos`);
+                }
+              } else {
+                if (isOnline) {
+                  navigate(`/checkout/${id}`);
+                } else {
+                  navigate(`/register/${id}`);
+                }
+              }
+            }}
           />
         </div>
         <div className={styles.tabSelectorContainer}>

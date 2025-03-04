@@ -1,19 +1,19 @@
-import { Route, Routes } from "react-router-dom";
-import { Home } from "../pages/Home/Home";
-import { Contact } from "../pages/Contact/Contact";
-import { AboutUs } from "../pages/AboutUs/AboutUs";
-import { Courses } from "../pages/Courses/Courses";
-import { Auth } from "../pages/Auth/Auth";
-import { MainLayout } from "../layouts/MainLayout";
-import { CourseDetails } from "../pages/Courses/Details/CourseDetails";
-import ForgetPass from "../pages/ForgetPass/ForgetPass";
-import UserInfo from "../pages/UserInfo/UserInfo";
-import SubscriptionPack from "../pages/SubscriptionPack/SubscriptionPack";
-import BecomePartner from "../pages/BecomePartner/BecomePartner";
-import { ErrorPage } from "../pages/ErrorPage/ErrorPage";
-import VideoLectures from "../pages/VideoLectures/VideoLectures";
-import ProtectedRoute from "./ProtectedRoute";
-import Checkout from "../pages/Checkout/Checkout";
+import { Route, Routes } from 'react-router-dom';
+import { Home } from '../pages/Home/Home';
+import { Contact } from '../pages/Contact/Contact';
+import { AboutUs } from '../pages/AboutUs/AboutUs';
+import { Courses } from '../pages/Courses/Courses';
+import { Auth } from '../pages/Auth/Auth';
+import { MainLayout } from '../layouts/MainLayout';
+import { CourseDetails } from '../pages/Courses/Details/CourseDetails';
+import ForgetPass from '../pages/ForgetPass/ForgetPass';
+import UserInfo from '../pages/UserInfo/UserInfo';
+import SubscriptionPack from '../pages/SubscriptionPack/SubscriptionPack';
+import BecomePartner from '../pages/BecomePartner/BecomePartner';
+import { ErrorPage } from '../pages/ErrorPage/ErrorPage';
+import VideoLectures from '../pages/VideoLectures/VideoLectures';
+import ProtectedRoute from './ProtectedRoute';
+import Checkout from '../pages/Checkout/Checkout';
 
 export const AppRoutes = () => {
   return (
@@ -66,8 +66,8 @@ export const AppRoutes = () => {
         />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
-        <Route path="/video-lectures" element={<VideoLectures />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/courses/:id/videos" element={<VideoLectures />} />
+        <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 

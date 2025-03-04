@@ -20,58 +20,10 @@ import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
 import { addReviewToCourse } from '../../services/review.service';
 import { getCourseDetails } from '../../services/courses.service';
+import { Loader } from '../../components/UI/Loader/Loader';
 
 function VideoLectures() {
   const { id } = useParams();
-
-  const data = [
-    {
-      id: 1,
-      lessonsAmount: 5,
-      mins: 45,
-      closedTab: true,
-      lessons: [
-        {
-          id: 1,
-          time: '12:30',
-          unlocked: true,
-        },
-        {
-          id: 2,
-          time: '1:35',
-          unlocked: true,
-        },
-        {
-          id: 3,
-          time: '8:45',
-          unlocked: false,
-        },
-      ],
-    },
-    {
-      id: 2,
-      lessonsAmount: 5,
-      mins: 45,
-      closedTab: true,
-      lessons: [
-        {
-          id: 1,
-          time: '12:30',
-          unlocked: true,
-        },
-        {
-          id: 2,
-          time: '1:35',
-          unlocked: true,
-        },
-        {
-          id: 3,
-          time: '8:45',
-          unlocked: false,
-        },
-      ],
-    },
-  ];
 
   const quizzQuestions = [
     {
@@ -90,6 +42,9 @@ function VideoLectures() {
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [starsAmount, setStarsAmount] = useState(0);
   const [comment, setComment] = useState('');
+  const [data, setData] = useState();
+  const [playBackId, setPlayBackId] = useState();
+  const [loading, setLoading] = useState(true);
 
   const addReview = async () => {
     try {
@@ -107,9 +62,13 @@ function VideoLectures() {
   const loadData = useCallback(async () => {
     try {
       const response = await getCourseDetails(id);
-      console.log(response);
+
+      setData(response.data);
+      setPlayBackId(response.data.intro);
+      setLoading(false);
     } catch (error) {
       console.error('Error loading data:', error);
+      setLoading(false);
     }
   }, [id]);
 
@@ -120,43 +79,38 @@ function VideoLectures() {
   return (
     <>
       <div className="mainContainer">
-        <div className={styles.container}>
-          <div className={styles.videoLecturesTitleContainer}>
-            <div className={styles.videoLecturesTitleButton}>
-              <ArrowBackIcon />
-            </div>
-            <div className={styles.videoLecturesTitle}>
-              ვიდეო ლექციები / UI/UX დიზაინი
-            </div>
-          </div>
-
-          <div className={styles.videoContainer}>
-            {/* <video controls>
-              <source
-                src="https://videocdn.cdnpk.net/videos/838129da-4f19-4fee-be20-62fb61cee154/horizontal/previews/videvo_watermarked/large.mp4"
-                type="video/mp4"
-              /> */}
-            {/* </video> */}
-            <Video playbackId="KRRu7wMFyyOBQ1D7IPpipUkI6q6ctYwGq01Awc7G01p0100" />
-          </div>
-          <div className={styles.videoLessonsContainer}>
-            <div className={styles.videoLessonsCompletionContainer}>
-              <div className={styles.videoLessonsCompletionInnerContainer}>
-                <div className={styles.videoLessonsCompletionTitle}>
-                  2/5 COMPLETED
-                </div>
-                <button
-                  className={styles.videoLessonsReviewBtn}
-                  onClick={() => setIsReviewOpen(true)}
-                >
-                  შეფასების დაწერა
-                </button>
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className={styles.container}>
+            <div className={styles.videoLecturesTitleContainer}>
+              <div className={styles.videoLecturesTitleButton}>
+                <ArrowBackIcon />
               </div>
-              <ProgressBar percentage={40} totalBars={5} />
+              <div className={styles.videoLecturesTitle}>{data?.title}</div>
             </div>
 
-            <div className={styles.videoLessonsAccordionContainer}>
-              {data.map(data => (
+            <div className={styles.videoContainer}>
+              <Video playbackId={playBackId} thumbnail={data.thumbnail} />
+            </div>
+            <div className={styles.videoLessonsContainer}>
+              <div className={styles.videoLessonsCompletionContainer}>
+                <div className={styles.videoLessonsCompletionInnerContainer}>
+                  <div className={styles.videoLessonsCompletionTitle}>
+                    2/5 COMPLETED
+                  </div>
+                  <button
+                    className={styles.videoLessonsReviewBtn}
+                    onClick={() => setIsReviewOpen(true)}
+                  >
+                    შეფასების დაწერა
+                  </button>
+                </div>
+                <ProgressBar percentage={40} totalBars={5} />
+              </div>
+
+              <div className={styles.videoLessonsAccordionContainer}>
+                {/* {data.map(data => (
                 <Accordion
                   title="Lessons with video content
 "
@@ -233,10 +187,10 @@ function VideoLectures() {
                     </div>
                   </div>
                 </Accordion>
-              ))}
+              ))} */}
+              </div>
             </div>
-          </div>
-          {/* <div className={styles.tabSelectorContainer}>
+            {/* <div className={styles.tabSelectorContainer}>
             <TabSections
               tabs={[
                 { id: 0, label: 'კურსის შესახებ' },
@@ -247,7 +201,8 @@ function VideoLectures() {
               description={data.description}
             />
           </div> */}
-        </div>
+          </div>
+        )}
       </div>
 
       <Modal isOpen={isReviewOpen} width="650px">

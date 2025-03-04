@@ -29,7 +29,7 @@ export function Card({
   discountedPrice,
   isInWishlist,
   thumbnail,
-  introVideo,
+  intro,
   onClick,
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist);
@@ -49,9 +49,9 @@ export function Card({
   return (
     <div className={`${styles.container}`}>
       <div className={styles.imageContainer}>
-        {introVideo ? (
+        {intro ? (
           <div className={styles.cardImageWeb}>
-            <Video playbackId={introVideo} />
+            <Video playbackId={intro} thumbnail={thumbnail} />
           </div>
         ) : (
           <img className={styles.cardImageWeb} alt={title} src={thumbnail} />

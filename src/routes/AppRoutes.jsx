@@ -66,7 +66,7 @@ export const AppRoutes = () => {
         />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
-        <Route path="/courses/:id/videos" element={<VideoLectures />} />
+        <Route path="/course/:id/videos" element={<VideoLectures />} />
         <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>

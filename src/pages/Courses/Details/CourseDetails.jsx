@@ -37,7 +37,7 @@ export function CourseDetails() {
   const checkingUserAccess = useCallback(async () => {
     try {
       const res = await checkAccess(id);
-      setAccess(res.hasAccess);
+      setAccess(res.data.hasAccess);
     } catch (error) {
       console.error('Error loading course details:', error);
     }
@@ -64,7 +64,7 @@ export function CourseDetails() {
   }
 
   const buttonName = () => {
-    const isOnline = data.type === 'online';
+    const isOnline = data.type === 'remote';
 
     if (access) {
       return isOnline ? 'კურსზე გადასვლა' : 'კურსი უკვე შეძენილი გაქვთ';
@@ -111,9 +111,9 @@ export function CourseDetails() {
             title={data.title}
             discountedPrice={data.discountedPrice}
             price={data.price}
-            introVideo={true}
+            intro={data.intro}
             onClick={() => {
-              const isOnline = data.type === 'online';
+              const isOnline = data.type === 'remote';
 
               if (access) {
                 if (isOnline) {

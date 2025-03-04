@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/UI/Button/Button';
 import { getCourseDetails } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
+import { purchaseCourse } from '../../services/purchase.service';
+
 function Checkout() {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,6 +25,20 @@ function Checkout() {
       setLoading(false);
     }
   }, [id]);
+
+  const payForCourse = async () => {
+    try {
+      const response = await purchaseCourse(id);
+
+      console.log('Response', response);
+
+      if (response.status === 201) {
+        navigate('/');
+      }
+    } catch (err) {
+      console.log('error while paying for course', err);
+    }
+  };
 
   useEffect(() => {
     loadData();
@@ -71,7 +87,13 @@ function Checkout() {
               </div>
 
               <div className={styles.checkoutButtonContainer}>
-                <Button type="primary" width="100%">
+                <Button
+                  type="primary"
+                  width="100%"
+                  onClick={() => {
+                    payForCourse();
+                  }}
+                >
                   კურსის შეძენა
                 </Button>
               </div>

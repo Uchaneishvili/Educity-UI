@@ -100,7 +100,7 @@ export function Header() {
             <li onClick={() => navigate('/aboutus')}>ჩვენს შესახებ</li>
             <li onClick={() => navigate('/contacts')}>კონტაქტი</li>
             <li onClick={() => navigate('/become-partner')}>გახდი პარტნიორი</li>
-            <li onClick={() => navigate('/become-partner')}>პაკეტები</li>
+            <li onClick={() => navigate('/subscriptions')}>პაკეტები</li>
           </ul>
           <div
             className={styles.burgerMenu}

@@ -1,16 +1,54 @@
-import React from "react";
-import styles from "./Contact.module.css";
+import React, { useState } from 'react';
+import styles from './Contact.module.css';
 import {
   PhoneIcon,
   MessageIcon,
   LocationIcon,
-} from "../../components/UI/icons";
-import SocialMedia from "../../components/SocialMedia/SocialMedia";
-import Input from "../../components/UI/Input/Input";
-import Textarea from "../../components/UI/Textarea/Textarea";
-import { Button } from "../../components/UI/Button/Button";
+} from '../../components/UI/icons';
+import SocialMedia from '../../components/SocialMedia/SocialMedia';
+import Input from '../../components/UI/Input/Input';
+import Textarea from '../../components/UI/Textarea/Textarea';
+import { Button } from '../../components/UI/Button/Button';
+import emailjs from '@emailjs/browser';
 
 export function Contact() {
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [title, setTitle] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const serviceId = process.env.REACT_APP_EMAIL_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAIL_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAIL_PUBLIC_KEY;
+
+    const templateParams = {
+      from_name: name,
+      from_lastName: lastName,
+      from_email: email,
+      from_phoneNumber: phoneNumber,
+      title: title,
+      message: message,
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, publicKey)
+      .then(response => {
+        console.log('Email has been sent!', response);
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPhoneNumber('');
+        setTitle('');
+        setMessage('');
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -36,7 +74,10 @@ export function Contact() {
             <SocialMedia />
           </div>
 
-          <form className={styles.contactsFormContainer}>
+          <form
+            className={styles.contactsFormContainer}
+            onSubmit={handleSubmit}
+          >
             <div className={styles.twoInputsContainer}>
               <div className={styles.nameInputContainer}>
                 <Input
@@ -44,6 +85,8 @@ export function Contact() {
                   id="name"
                   name="სახელი"
                   placeholder="სახელი"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className={styles.lastNameInputContainer}>
@@ -52,6 +95,8 @@ export function Contact() {
                   id="lastName"
                   name="გვარი"
                   placeholder="გვარი"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -62,6 +107,8 @@ export function Contact() {
                   id="email"
                   name="ელ-ფოსტა"
                   placeholder="ელ-ფოსტა"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
               <div className={styles.phoneNumberInputContainer}>
@@ -70,6 +117,8 @@ export function Contact() {
                   id="phoneNumber"
                   name="ტელეფონის ნომერი"
                   placeholder="5XX XXX XXX"
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
                 />
               </div>
             </div>
@@ -79,6 +128,8 @@ export function Contact() {
                 id="title"
                 name="სათაური"
                 placeholder="შეტყობინების სათაური"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
               />
             </div>
             <div>
@@ -86,6 +137,8 @@ export function Contact() {
                 id="message"
                 name="შეტყობინება"
                 placeholder="დაწერეთ თქვენი შეტყობინება.."
+                value={message}
+                onChange={e => setMessage(e.target.value)}
               />
             </div>
 

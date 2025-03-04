@@ -1,8 +1,16 @@
-import React, { useState } from 'react'
-import styles from './Input.module.css'
+import React, { useState } from 'react';
+import styles from './Input.module.css';
 
-const Input = ({ type, id, name, placeholder, defaultValue }) => {
-  const [showPassword, setShowPassword] = useState(false)
+const Input = ({
+  type,
+  id,
+  name,
+  placeholder,
+  value,
+  defaultValue,
+  onChange,
+}) => {
+  const [showPassword, setShowPassword] = useState(false);
 
   const renderInputIcon = () => {
     if (type === 'password') {
@@ -40,7 +48,7 @@ const Input = ({ type, id, name, placeholder, defaultValue }) => {
             </svg>
           )}
         </button>
-      )
+      );
     } else if (type === 'select') {
       return (
         <span className={styles.iconButton}>
@@ -56,27 +64,31 @@ const Input = ({ type, id, name, placeholder, defaultValue }) => {
             <polyline points="6 9 12 15 18 9" />
           </svg>
         </span>
-      )
+      );
     }
-    return null
-  }
+    return null;
+  };
 
   return (
     <div className={styles.inputContainer}>
       {id && <label htmlFor={id}>{name}</label>}
       <div className={styles.inputWrapper}>
         <input
-          type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
+          type={
+            type === 'password' ? (showPassword ? 'text' : 'password') : type
+          }
           id={id}
           name={name}
           placeholder={placeholder}
           className={styles.input}
           defaultValue={defaultValue}
+          value={value}
+          onChange={onChange}
         />
         {renderInputIcon()}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Input
+export default Input;

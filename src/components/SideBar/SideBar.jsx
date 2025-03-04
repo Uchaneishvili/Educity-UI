@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import styles from "./SideBar.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../UI/Button/Button";
-import { CloseIcon, UserIcon } from "../UI/icons";
-import AuthService from "../../services/auth.service";
+import React, { useEffect } from 'react';
+import styles from './SideBar.module.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '../UI/Button/Button';
+import { CloseIcon, UserIcon } from '../UI/icons';
+import AuthService from '../../services/auth.service';
 
 const authService = new AuthService();
 
@@ -21,7 +21,7 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     refreshSideBar();
   }, [navigate]);
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = path => location.pathname === path;
 
   const isAuthenticated = () => {
     return !!authService.getToken();
@@ -29,51 +29,52 @@ function SideBar({ sideBarActive, setSideBarActive }) {
 
   const sideBarLinks = [
     {
-      name: "მთავარი",
-      link: "/",
+      name: 'მთავარი',
+      link: '/',
     },
     {
-      name: "კურსები",
-      link: "/courses",
+      name: 'კურსები',
+      link: '/courses',
     },
     {
-      name: "ჩვენს შესახებ",
-      link: "/aboutus",
+      name: 'ჩვენს შესახებ',
+      link: '/aboutus',
     },
     {
-      name: "კონტაქტი",
-      link: "/contacts",
+      name: 'კონტაქტი',
+      link: '/contacts',
     },
     {
-      name: "გახდი პარტნიორი",
-      link: "/become-partner",
+      name: 'გახდი პარტნიორი',
+      link: '/become-partner',
     },
   ];
 
   const sideBarLoggedLinks = [
     {
-      name: "მთავარი",
-      link: "/",
+      name: 'მთავარი',
+      link: '/',
     },
     {
-      name: "კურსები",
-      link: "/courses",
+      name: 'კურსები',
+      link: '/courses',
     },
     {
-      name: "ჩვენს შესახებ",
-      link: "/aboutus",
+      name: 'ჩვენს შესახებ',
+      link: '/aboutus',
     },
     {
-      name: "კონტაქტი",
-      link: "/contacts",
+      name: 'კონტაქტი',
+      link: '/contacts',
     },
     {
-      name: "გახდი პარტნიორი",
-      link: "/become-partner",
+      name: 'გახდი პარტნიორი',
+      link: '/become-partner',
     },
+
     {
-      name: "ჩემი პროფილი",
-      link: "/me",
+      name: 'ჩემი პროფილი',
+      link: '/me',
     },
   ];
 
@@ -81,11 +82,11 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     <div
       className={styles.sideBarContainer}
       style={{
-        transform: sideBarActive ? "translateX(0)" : "translateX(-100%)",
+        transform: sideBarActive ? 'translateX(0)' : 'translateX(-100%)',
       }}
     >
       <div className={styles.sideBarInnerContainer}>
-        <div className={styles.sideBarLogo} onClick={() => navigate("/")}>
+        <div className={styles.sideBarLogo} onClick={() => navigate('/')}>
           Educity
         </div>
 
@@ -110,14 +111,14 @@ function SideBar({ sideBarActive, setSideBarActive }) {
           (page, index) => (
             <div
               className={`${styles.sideBarLink} ${
-                isActive(page.link) ? styles.active : ""
+                isActive(page.link) ? styles.active : ''
               }`}
               onClick={() => navigate(page.link)}
               key={index}
             >
               {page.name}
             </div>
-          )
+          ),
         )}
       </div>
 

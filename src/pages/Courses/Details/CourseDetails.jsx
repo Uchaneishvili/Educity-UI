@@ -81,7 +81,7 @@ export function CourseDetails() {
             <div className={styles.categoryButton}>
               {data.category?.name || 'დიზაინი'}
             </div>
-            ლექტორი: {data.lecturer?.fullName || 'მარიამ რთველაძე'}
+            ლექტორი: {data.instructorName}
           </div>
 
           <div className={styles.titleContainer}>{data.title}</div>
@@ -117,7 +117,7 @@ export function CourseDetails() {
 
               if (access) {
                 if (isOnline) {
-                  navigate(`/course/${id}/videos`);
+                  navigate(`/courses/${id}/videos`);
                 }
               } else {
                 if (isOnline) {

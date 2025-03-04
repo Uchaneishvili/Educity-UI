@@ -91,7 +91,11 @@ function VideoLectures() {
             </div>
 
             <div className={styles.videoContainer}>
-              <Video playbackId={playBackId} thumbnail={data.thumbnail} />
+              <Video
+                playbackId={playBackId}
+                thumbnail={data.thumbnail}
+                size={'80%'}
+              />
             </div>
             <div className={styles.videoLessonsContainer}>
               <div className={styles.videoLessonsCompletionContainer}>

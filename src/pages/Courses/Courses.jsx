@@ -1,35 +1,35 @@
-import { Card } from '../../components/UI/Card/Card'
-import SearchInput from '../../components/UI/SearchInput/SearchInput'
-import styles from './Courses.module.css'
-import Pagination from '../../components/UI/Pagination/Pagination'
-import { useEffect, useState, useCallback } from 'react'
-import { getCourses } from '../../services/courses.service'
-import { getCategories } from '../../services/categories.service'
-import CategoriesList from './components/Categories/CategoriesList'
-import Reviews from './components/Reviews/Reviews'
-import { Loader } from '../../components/UI/Loader/Loader'
-import { getWishlist } from '../../services/wishlist.service'
-import { useDebounce } from '../../hooks/useDebounce'
+import { Card } from '../../components/UI/Card/Card';
+import SearchInput from '../../components/UI/SearchInput/SearchInput';
+import styles from './Courses.module.css';
+import Pagination from '../../components/UI/Pagination/Pagination';
+import { useEffect, useState, useCallback } from 'react';
+import { getCourses } from '../../services/courses.service';
+import { getCategories } from '../../services/categories.service';
+import CategoriesList from './components/Categories/CategoriesList';
+import Reviews from './components/Reviews/Reviews';
+import { Loader } from '../../components/UI/Loader/Loader';
+import { getWishlist } from '../../services/wishlist.service';
+import { useDebounce } from '../../hooks/useDebounce';
 
 export function Courses() {
-  const [courses, setCourses] = useState([])
-  const [categories, setCategories] = useState([])
-  const [totalItems, setTotalItems] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [selectedCategories, setSelectedCategories] = useState([])
-  const [selectedReviews, setSelectedReviews] = useState([])
-  const [searchQuery, setSearchQuery] = useState('')
-  const pageSize = 10
-  const [wishlist, setWishlist] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [courses, setCourses] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedReviews, setSelectedReviews] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const pageSize = 10;
+  const [wishlist, setWishlist] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [coursesLoading, setCoursesLoading] = useState(true)
-  const [selectedFilter, setSelectedFilter] = useState([])
+  const [coursesLoading, setCoursesLoading] = useState(true);
+  const [selectedFilter, setSelectedFilter] = useState([]);
 
   const loadData = useCallback(
     async (page = 1) => {
       try {
-        setCoursesLoading(true)
+        setCoursesLoading(true);
 
         const query = {
           page,
@@ -37,100 +37,110 @@ export function Courses() {
           filters: {
             avgRating: selectedReviews,
             categoryId: selectedCategories,
-            courseType: selectedFilter
+            courseType: selectedFilter,
           },
-          customSearch: searchQuery ? { search: searchQuery } : undefined
-        }
+          customSearch: searchQuery ? { search: searchQuery } : undefined,
+        };
 
-        const response = await getCourses(query)
+        const response = await getCourses(query);
 
-        setCourses(response.data.data.courses)
-        setTotalItems(response.data.data.totalCount)
+        setCourses(response.data.data.courses);
+        setTotalItems(response.data.data.totalCount);
       } catch (error) {
-        console.error('Error loading courses:', error)
+        console.error('Error loading courses:', error);
       } finally {
-        setCoursesLoading(false)
+        setCoursesLoading(false);
       }
     },
-    [selectedCategories, pageSize, selectedReviews, searchQuery, selectedFilter]
-  )
+    [
+      selectedCategories,
+      pageSize,
+      selectedReviews,
+      searchQuery,
+      selectedFilter,
+    ],
+  );
   useEffect(() => {
     const loadInitialData = async () => {
       try {
-        setLoading(true)
-        const categoriesRes = await getCategories()
-        setCategories(categoriesRes.data.data.categories)
+        setLoading(true);
+        const categoriesRes = await getCategories();
+        setCategories(categoriesRes.data.data.categories);
       } catch (err) {
-        console.error(err, 'error while loading categories')
+        console.error(err, 'error while loading categories');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    loadInitialData()
-  }, [])
+    loadInitialData();
+  }, []);
 
   useEffect(() => {
-    loadData(currentPage)
-  }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData])
+    loadData(currentPage);
+  }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData]);
 
   const getWishlistData = async () => {
     try {
-      const response = await getWishlist()
-      setWishlist(response.data)
+      const response = await getWishlist();
+      setWishlist(response.data);
     } catch (err) {
-      console.error(err, 'error while getting wishlist')
+      console.error(err, 'error while getting wishlist');
     }
-  }
+  };
 
   useEffect(() => {
-    getWishlistData()
-  }, [])
+    getWishlistData();
+  }, []);
 
-  const handleCategoryChange = (categories) => {
-    setSelectedCategories(categories)
-  }
+  const handleCategoryChange = categories => {
+    setSelectedCategories(categories);
+  };
 
-  const handleFilterChange = (filter) => {
-    setSelectedFilter(filter)
-  }
+  const handleFilterChange = filter => {
+    setSelectedFilter(filter);
+  };
 
-  const handleReviewChange = (reviews) => {
-    setSelectedReviews(reviews)
-    setCurrentPage(1)
-  }
+  const handleReviewChange = reviews => {
+    setSelectedReviews(reviews);
+    setCurrentPage(1);
+  };
 
-  const debouncedSearch = useDebounce((value) => {
-    setSearchQuery(value)
-    setCurrentPage(1)
-  }, 500)
+  const debouncedSearch = useDebounce(value => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  }, 500);
 
-  const handleSearch = (value) => {
-    debouncedSearch(value)
-  }
+  const handleSearch = value => {
+    debouncedSearch(value);
+  };
 
   if (loading) {
     return (
       <div className={styles.loaderContainer}>
         <Loader />
       </div>
-    )
+    );
   }
 
   const data = [
     {
       name: 'აუდიტორიული',
-      _id: 'offline'
+      _id: 'offline',
     },
     {
-      name: 'ჰიბრიდული',
-      _id: 'hybrid'
+      name: 'ონლაინი',
+      _id: 'online',
     },
     {
-      name: 'ონლაინ',
-      _id: 'online'
-    }
-  ]
+      name: 'შერეული ფორმატი',
+      _id: 'hybrid',
+    },
+    {
+      name: 'ვიდეო ლექცია',
+      _id: 'videoLecture',
+    },
+  ];
 
   return (
     <div className="mainContainer">
@@ -140,7 +150,10 @@ export function Courses() {
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
             <CategoriesList data={data} onCategoryChange={handleFilterChange} />
             <div className={styles.filterTitle}>კატეგორიები</div>
-            <CategoriesList data={categories} onCategoryChange={handleCategoryChange} />
+            <CategoriesList
+              data={categories}
+              onCategoryChange={handleCategoryChange}
+            />
 
             <Reviews onReviewChange={handleReviewChange} />
           </div>
@@ -171,7 +184,9 @@ export function Courses() {
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}
-                    isInWishlist={wishlist.some((item) => item._id === course._id)}
+                    isInWishlist={wishlist.some(
+                      item => item._id === course._id,
+                    )}
                     discountedPrice={course.discountedPrice}
                   />
                 ))}
@@ -184,9 +199,9 @@ export function Courses() {
                     pageSize={pageSize}
                     currentPage={currentPage}
                     pathPrefix="/courses"
-                    onPageChange={(page) => {
-                      setCurrentPage(page)
-                      loadData(page)
+                    onPageChange={page => {
+                      setCurrentPage(page);
+                      loadData(page);
                     }}
                   />
                 )}
@@ -196,5 +211,5 @@ export function Courses() {
         </div>
       </div>
     </div>
-  )
+  );
 }

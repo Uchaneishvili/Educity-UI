@@ -7,7 +7,13 @@ import AuthService from '../../services/auth.service';
 
 const authService = new AuthService();
 
-function SideBar({ sideBarActive, setSideBarActive }) {
+function SideBar({
+  type,
+  sideBarActive,
+  setSideBarActive,
+  hiddenLocation,
+  shownLocation,
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -27,7 +33,7 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     return !!authService.getToken();
   };
 
-  const sideBarLinks = [
+  const burgerBarLinks = [
     {
       name: 'მთავარი',
       link: '/',
@@ -47,34 +53,33 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     {
       name: 'გახდი პარტნიორი',
       link: '/become-partner',
+    },
+    {
+      name: 'პაკეტები',
+      link: '/subscriptions',
     },
   ];
 
-  const sideBarLoggedLinks = [
+  const userMenuLinks = [
     {
-      name: 'მთავარი',
-      link: '/',
+      name: 'პროფილი',
+      link: '/me',
     },
     {
       name: 'კურსები',
-      link: '/courses',
+      link: '/me/courses',
     },
     {
-      name: 'ჩვენს შესახებ',
-      link: '/aboutus',
+      name: 'ფავორიტები',
+      link: '/me/wishlist',
     },
     {
-      name: 'კონტაქტი',
-      link: '/contacts',
+      name: 'შეძენილი კურსები',
+      link: '/me/purchase-history',
     },
     {
-      name: 'გახდი პარტნიორი',
-      link: '/become-partner',
-    },
-
-    {
-      name: 'ჩემი პროფილი',
-      link: '/me',
+      name: 'პარამეტრები',
+      link: '/me/settings',
     },
   ];
 
@@ -82,7 +87,7 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     <div
       className={styles.sideBarContainer}
       style={{
-        transform: sideBarActive ? 'translateX(0)' : 'translateX(-100%)',
+        transform: sideBarActive ? shownLocation : hiddenLocation,
       }}
     >
       <div className={styles.sideBarInnerContainer}>
@@ -98,17 +103,9 @@ function SideBar({ sideBarActive, setSideBarActive }) {
         </div>
       </div>
 
-      {isAuthenticated() && (
-        <div className={styles.authenticatedUserContainer}>
-          <div className={styles.userIcon}>
-            <UserIcon />
-          </div>
-          <div className={styles.userName}>Sophia Rose</div>
-        </div>
-      )}
-      <div className={styles.sideBarLinksContainer}>
-        {(isAuthenticated() ? sideBarLoggedLinks : sideBarLinks).map(
-          (page, index) => (
+      {type === 'burger' && (
+        <div className={styles.sideBarLinksContainer}>
+          {burgerBarLinks.map((page, index) => (
             <div
               className={`${styles.sideBarLink} ${
                 isActive(page.link) ? styles.active : ''
@@ -118,19 +115,38 @@ function SideBar({ sideBarActive, setSideBarActive }) {
             >
               {page.name}
             </div>
-          ),
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {!isAuthenticated() ? (
-        <div className={styles.authButtons}>
-          <Button type="primary">ავტორიზაცია</Button>
-          <Button type="secondary">რეგისტრაცია</Button>
-        </div>
-      ) : (
-        <div className={styles.logOutButton}>
-          <Button type="secondary">LOG OUT</Button>
-        </div>
+      {type === 'user' && (
+        <>
+          {isAuthenticated() && (
+            <div className={styles.authenticatedUserContainer}>
+              <div className={styles.userIcon}>
+                <UserIcon />
+              </div>
+              <div className={styles.userName}>Sophia Rose</div>
+            </div>
+          )}
+          <div className={styles.sideBarLinksContainer}>
+            {userMenuLinks.map((page, index) => (
+              <div
+                className={`${styles.sideBarLink} ${
+                  isActive(page.link) ? styles.active : ''
+                }`}
+                onClick={() => navigate(page.link)}
+                key={index}
+              >
+                {page.name}
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.logOutButton}>
+            <Button type="secondary">LOG OUT</Button>
+          </div>
+        </>
       )}
     </div>
   );

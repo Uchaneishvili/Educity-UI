@@ -13,6 +13,15 @@ RUN npm ci
 # Copy source code
 COPY . .
 
+# Add ARGs for build-time environment variables
+ARG REACT_APP_API_URL
+ARG REACT_APP_AUTH_DOMAIN
+# Add other ARGs as needed
+
+# Set environment variables for the build
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+# Set other environment variables as needed
+
 # Build for production
 RUN npm run build
 
@@ -24,6 +33,7 @@ WORKDIR /app
 # Set production environment
 ENV NODE_ENV=production
 ENV PORT=3000
+ENV HOST=0.0.0.0
 
 # Copy build files from builder stage
 COPY --from=builder /app/build ./build
@@ -37,4 +47,4 @@ RUN npm install -g serve
 EXPOSE 3000
 
 # Start the application in production mode
-CMD ["serve", "-s", "build", "-l", "3000"] 
+CMD ["serve", "-s", "build", "-l", "0.0.0.0:3000", "--no-clipboard", "--single"] 

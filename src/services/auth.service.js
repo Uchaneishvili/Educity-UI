@@ -3,7 +3,8 @@ import RequestHelper from '../apis/RequestHelper';
 
 class AuthService {
   constructor(options = {}) {
-    const baseURL = process.env.REACT_APP_API_URL;
+    // const baseURL = process.env.REACT_APP_API_URL;
+    const baseURL = 'http://18.199.174.218/api/v1';
 
     const defaultOptions = {
       tokenKey: 'access_token',

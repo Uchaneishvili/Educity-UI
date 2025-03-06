@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { Button } from '../UI/Button/Button';
 import { BurgerMenuIcon } from '../UI/icons';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
 import Dropdown from '../UI/Dropdown/Dropdown';
@@ -35,6 +35,8 @@ export function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
@@ -46,6 +48,10 @@ export function Header() {
 
     refreshDropdown();
   }, [navigate]);
+
+  const getActiveButtons = value => {
+    return location.pathname === value ? styles.navListLiActive : '';
+  };
 
   const renderAuthButtons = () => {
     if (isAuthenticated) {
@@ -111,12 +117,39 @@ export function Header() {
 
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li onClick={() => navigate('/')}>მთავარი</li>
-            <li onClick={() => navigate('/courses')}>კურსები</li>
-            <li onClick={() => navigate('/aboutus')}>ჩვენს შესახებ</li>
-            <li onClick={() => navigate('/contacts')}>კონტაქტი</li>
-            <li onClick={() => navigate('/become-partner')}>გახდი პარტნიორი</li>
-            <li onClick={() => navigate('/subscriptions')}>პაკეტები</li>
+            <li onClick={() => navigate('/')} className={getActiveButtons('/')}>
+              მთავარი
+            </li>
+            <li
+              onClick={() => navigate('/courses')}
+              className={getActiveButtons('/courses')}
+            >
+              კურსები
+            </li>
+            <li
+              onClick={() => navigate('/aboutus')}
+              className={getActiveButtons('/aboutus')}
+            >
+              ჩვენს შესახებ
+            </li>
+            <li
+              onClick={() => navigate('/contacts')}
+              className={getActiveButtons('/contacts')}
+            >
+              კონტაქტი
+            </li>
+            <li
+              onClick={() => navigate('/become-partner')}
+              className={getActiveButtons('/become-partner')}
+            >
+              გახდი პარტნიორი
+            </li>
+            <li
+              onClick={() => navigate('/subscriptions')}
+              className={getActiveButtons('/subscriptions')}
+            >
+              პაკეტები
+            </li>
           </ul>
           <div
             className={styles.burgerMenu}

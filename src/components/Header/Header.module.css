@@ -47,6 +47,10 @@
   cursor: pointer;
 }
 
+.navListLiActive {
+  color: #4169e1;
+}
+
 .navList li:hover {
   color: #4169e1;
 }

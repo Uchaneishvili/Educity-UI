@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
-import styles from "./SideBar.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Button } from "../UI/Button/Button";
-import { CloseIcon, UserIcon } from "../UI/icons";
-import AuthService from "../../services/auth.service";
+import React, { useEffect } from 'react';
+import styles from './SideBar.module.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Button } from '../UI/Button/Button';
+import { CloseIcon, UserIcon } from '../UI/icons';
+import AuthService from '../../services/auth.service';
 
 const authService = new AuthService();
 
-function SideBar({ sideBarActive, setSideBarActive }) {
+function SideBar({
+  type,
+  sideBarActive,
+  setSideBarActive,
+  hiddenLocation,
+  shownLocation,
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -21,59 +27,59 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     refreshSideBar();
   }, [navigate]);
 
-  const isActive = (path) => location.pathname === path;
+  const isActive = path => location.pathname === path;
 
   const isAuthenticated = () => {
     return !!authService.getToken();
   };
 
-  const sideBarLinks = [
+  const burgerBarLinks = [
     {
-      name: "მთავარი",
-      link: "/",
+      name: 'მთავარი',
+      link: '/',
     },
     {
-      name: "კურსები",
-      link: "/courses",
+      name: 'კურსები',
+      link: '/courses',
     },
     {
-      name: "ჩვენს შესახებ",
-      link: "/aboutus",
+      name: 'ჩვენს შესახებ',
+      link: '/aboutus',
     },
     {
-      name: "კონტაქტი",
-      link: "/contacts",
+      name: 'კონტაქტი',
+      link: '/contacts',
     },
     {
-      name: "გახდი პარტნიორი",
-      link: "/become-partner",
+      name: 'გახდი პარტნიორი',
+      link: '/become-partner',
+    },
+    {
+      name: 'პაკეტები',
+      link: '/subscriptions',
     },
   ];
 
-  const sideBarLoggedLinks = [
+  const userMenuLinks = [
     {
-      name: "მთავარი",
-      link: "/",
+      name: 'პროფილი',
+      link: '/me',
     },
     {
-      name: "კურსები",
-      link: "/courses",
+      name: 'კურსები',
+      link: '/me/courses',
     },
     {
-      name: "ჩვენს შესახებ",
-      link: "/aboutus",
+      name: 'ფავორიტები',
+      link: '/me/wishlist',
     },
     {
-      name: "კონტაქტი",
-      link: "/contacts",
+      name: 'შეძენილი კურსები',
+      link: '/me/purchase-history',
     },
     {
-      name: "გახდი პარტნიორი",
-      link: "/become-partner",
-    },
-    {
-      name: "ჩემი პროფილი",
-      link: "/me",
+      name: 'პარამეტრები',
+      link: '/me/settings',
     },
   ];
 
@@ -81,11 +87,11 @@ function SideBar({ sideBarActive, setSideBarActive }) {
     <div
       className={styles.sideBarContainer}
       style={{
-        transform: sideBarActive ? "translateX(0)" : "translateX(-100%)",
+        transform: sideBarActive ? shownLocation : hiddenLocation,
       }}
     >
       <div className={styles.sideBarInnerContainer}>
-        <div className={styles.sideBarLogo} onClick={() => navigate("/")}>
+        <div className={styles.sideBarLogo} onClick={() => navigate('/')}>
           Educity
         </div>
 
@@ -97,39 +103,52 @@ function SideBar({ sideBarActive, setSideBarActive }) {
         </div>
       </div>
 
-      {isAuthenticated() && (
-        <div className={styles.authenticatedUserContainer}>
-          <div className={styles.userIcon}>
-            <UserIcon />
-          </div>
-          <div className={styles.userName}>Sophia Rose</div>
-        </div>
-      )}
-      <div className={styles.sideBarLinksContainer}>
-        {(isAuthenticated() ? sideBarLoggedLinks : sideBarLinks).map(
-          (page, index) => (
+      {type === 'burger' && (
+        <div className={styles.sideBarLinksContainer}>
+          {burgerBarLinks.map((page, index) => (
             <div
               className={`${styles.sideBarLink} ${
-                isActive(page.link) ? styles.active : ""
+                isActive(page.link) ? styles.active : ''
               }`}
               onClick={() => navigate(page.link)}
               key={index}
             >
               {page.name}
             </div>
-          )
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {!isAuthenticated() ? (
-        <div className={styles.authButtons}>
-          <Button type="primary">ავტორიზაცია</Button>
-          <Button type="secondary">რეგისტრაცია</Button>
-        </div>
-      ) : (
-        <div className={styles.logOutButton}>
-          <Button type="secondary">LOG OUT</Button>
-        </div>
+      {type === 'user' && (
+        <>
+          {isAuthenticated() && (
+            <div className={styles.authenticatedUserContainer}>
+              <div className={styles.userIcon}>
+                <UserIcon />
+              </div>
+              <div className={styles.userName}>Sophia Rose</div>
+            </div>
+          )}
+          <div className={styles.sideBarLinksContainer}>
+            {userMenuLinks.map((page, index) => (
+              <div
+                className={`${styles.sideBarLink} ${
+                  isActive(page.link) ? styles.active : ''
+                }`}
+                onClick={() => navigate(page.link)}
+                key={index}
+              >
+                {page.name}
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.logOutButton}>
+            <Button type="secondary" onClick={() => authService.logout()}>
+              LOG OUT
+            </Button>
+          </div>
+        </>
       )}
     </div>
   );

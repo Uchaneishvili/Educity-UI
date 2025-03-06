@@ -24,6 +24,13 @@
   cursor: pointer;
 }
 
+.userLoggedIcon > img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .navList {
   list-style: none;
   display: flex;
@@ -172,6 +179,10 @@ li {
   line-height: 16px;
 }
 
+.userIcon {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .nav {
     display: flex;
@@ -194,6 +205,11 @@ li {
     display: none;
   }
 
+  .userLoggedIcon > img {
+    width: 40px;
+    height: 40px;
+  }
+
   .burgerMenu {
     display: block;
     cursor: pointer;
@@ -206,5 +222,10 @@ li {
 
   .userMenuContainer > button {
     display: none;
+  }
+
+  .userIcon {
+    display: block;
+    order: 2;
   }
 }

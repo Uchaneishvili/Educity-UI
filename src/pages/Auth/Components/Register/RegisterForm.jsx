@@ -15,14 +15,14 @@ function RegisterForm({ setActiveTab }) {
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
 
-    await authService
-      .register(values)
-      .then(res => {
-        if (res.success) {
-          setActiveTab(0);
-        }
-      })
-      .catch(err => console.error(err));
+    try {
+      const res = await authService.register(values);
+      if (res.success) {
+        setActiveTab(0);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

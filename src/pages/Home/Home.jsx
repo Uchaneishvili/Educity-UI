@@ -8,11 +8,7 @@ import {
   GraphicDesignIcon,
   MainPageGirlPhoto,
   FrontendDevelopmentIcon,
-  UIUXDesignIcon,
-  HotelManagementIcon,
-  QAEngineeringIcon,
   DigitalMarketingIcon,
-  SalesManagementIcon,
   EduSchoolIcon,
   VideoPauseIcon,
   VideoLiveIcon,
@@ -29,52 +25,84 @@ import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { SubscribeInput } from '../../components/UI/SubscribeInput/SubscribeInput';
 import { useNavigate } from 'react-router-dom';
 import { CourseGraduateSwiper } from '../../components/CourseGraduateSwiper/CourseGraduateSwiper';
+import MarketingIcon from '../../components/UI/MarketingIcon';
+import BusinessIcon from '../../components/UI/BusinessIcon';
+import LanguageIcon from '../../components/UI/LanguageIcon';
+import ProgramsIcon from '../../components/UI/ProgramsIcon';
+import { useEffect, useCallback, useState } from 'react';
+import { getCategories } from '../../services/categories.service';
 
+const categories = [
+  {
+    icon: <FrontendDevelopmentIcon />,
+    title: 'პროგრამირება',
+    coursesCount: 0,
+  },
+  {
+    icon: <GraphicDesignIcon />,
+    title: 'ციფრული დიზაინი',
+    coursesCount: 0,
+  },
+  {
+    icon: <MarketingIcon />,
+    title: 'მარკეტინგი',
+    coursesCount: 0,
+  },
+  {
+    icon: <LanguageIcon />,
+    title: 'უცხო ენა',
+    coursesCount: 0,
+  },
+  {
+    icon: <EduSchoolIcon />,
+    title: 'ბუღალტერია',
+    coursesCount: 0,
+  },
+  {
+    icon: <DigitalMarketingIcon />,
+    title: 'ფოტოგრაფია & ვიდეო',
+    coursesCount: 0,
+  },
+  {
+    icon: <BusinessIcon />,
+    title: 'ბიზნესი',
+    coursesCount: 0,
+  },
+  {
+    icon: <ProgramsIcon />,
+    title: 'საოფისე პროგრამები',
+    coursesCount: 0,
+  },
+];
 export function Home() {
   const navigate = useNavigate();
+  const [categoriesWithCounts, setCategoriesWithCounts] = useState(categories);
 
-  const categories = [
-    {
-      icon: <GraphicDesignIcon />,
-      title: 'გრაფიკული დიზანი',
-      coursesCount: 38,
-    },
-    {
-      icon: <FrontendDevelopmentIcon />,
-      title: 'FRONT END DEVELOPMENT',
-      coursesCount: 38,
-    },
-    {
-      icon: <UIUXDesignIcon />,
-      title: 'UI/UX დიზაინი',
-      coursesCount: 38,
-    },
-    {
-      icon: <HotelManagementIcon />,
-      title: 'სასტუმროს მენეჯმენტი',
-      coursesCount: 38,
-    },
-    {
-      icon: <QAEngineeringIcon />,
-      title: 'QA Engineering',
-      coursesCount: 38,
-    },
-    {
-      icon: <DigitalMarketingIcon />,
-      title: 'ციფრული მარკეტინგი',
-      coursesCount: 38,
-    },
-    {
-      icon: <SalesManagementIcon />,
-      title: 'გაყიდვების მენეჯმენტი',
-      coursesCount: 38,
-    },
-    {
-      icon: <EduSchoolIcon />,
-      title: 'EduSchool-ის პროგრამა',
-      coursesCount: 38,
-    },
-  ];
+  const loadCategories = useCallback(async () => {
+    try {
+      const { data } = await getCategories();
+
+      const updatedCategories = categoriesWithCounts.map(category => {
+        const count = data.data.categories.filter(
+          course =>
+            course.category &&
+            course.category.toLowerCase() === category.title.toLowerCase(),
+        ).length;
+
+        return {
+          ...category,
+          coursesCount: count,
+        };
+      });
+      setCategoriesWithCounts(updatedCategories);
+    } catch (err) {
+      console.log('Error while loading categories', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   return (
     <div className="mainContainer">
@@ -124,12 +152,18 @@ export function Home() {
             <div className={styles.categoriesContainer}>
               <div className={styles.ourCoursesTitleMobile}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
 
-              {categories.map((category, index) => (
+              {categoriesWithCounts.map((category, index) => (
                 <CategoryCard
                   key={index}
                   icon={category.icon}
                   title={category.title}
                   coursesCount={category.coursesCount}
+                  onClick={() => {
+                    console.log('***', category);
+                    navigate('/courses', {
+                      state: { category: category.title },
+                    });
+                  }}
                 />
               ))}
               <div

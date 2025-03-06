@@ -1,11 +1,16 @@
-import styles from './Footer.module.css'
-import { SubscribeInput } from '../UI/SubscribeInput/SubscribeInput'
-import { LocationIcon, MessageIcon, PhoneIcon } from '../UI/icons'
-import SocialMedia from '../SocialMedia/SocialMedia'
-import { useNavigate } from 'react-router-dom'
+import styles from "./Footer.module.css";
+import { SubscribeInput } from "../UI/SubscribeInput/SubscribeInput";
+import { LocationIcon, MessageIcon, PhoneIcon } from "../UI/icons";
+import SocialMedia from "../SocialMedia/SocialMedia";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export function Footer() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [navigate]);
 
   return (
     <footer className={styles.footer}>
@@ -13,20 +18,42 @@ export function Footer() {
         <div className={styles.logo}>Educity</div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კომპანია</div>
-          <div className={styles.footerSectionText} onClick={() => navigate('/')}>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/")}
+          >
             მთავარი
           </div>
-          <div className={styles.footerSectionText}>კურსები</div>
-          <div className={styles.footerSectionText}>ჩვენს შესახებ</div>
-          <div className={styles.footerSectionText} onClick={() => navigate('/contacts')}>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/courses")}
+          >
+            კურსები
+          </div>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/aboutus")}
+          >
+            ჩვენს შესახებ
+          </div>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/contacts")}
+          >
             კონტაქტი
           </div>
-          <div className={styles.footerSectionText}>გახდი პარტნიორი</div>
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate("/become-partner")}
+          >
+            გახდი პარტნიორი
+          </div>
         </div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>
           <div className={styles.footerSectionText}>
-            <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის კვეთა
+            <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ. ქუთათელაძის
+            კვეთა
           </div>
           <div className={styles.footerSectionText}>
             <PhoneIcon />
@@ -37,7 +64,10 @@ export function Footer() {
             info@educity.ge
           </div>
         </div>
-        <SubscribeInput inputPlaceholder="enter your email" buttonName="Subscribe" />
+        <SubscribeInput
+          inputPlaceholder="enter your email"
+          buttonName="Subscribe"
+        />
       </div>
 
       <div className={styles.footerMediaContainer}>
@@ -47,5 +77,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

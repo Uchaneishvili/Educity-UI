@@ -1,18 +1,33 @@
 import MuxPlayer from '@mux/mux-player-react';
 import styles from './Video.module.css';
 
-export function Video({ playbackId }) {
+export function Video({ playbackId, thumbnail, size }) {
   return (
-    <div className={styles.videoContainer}>
+    <div
+      className={styles.videoContainer}
+      style={{ width: size, height: size }}
+    >
       <MuxPlayer
         className={styles.video}
-        src="https://videocdn.cdnpk.net/videos/838129da-4f19-4fee-be20-62fb61cee154/horizontal/previews/videvo_watermarked/large.mp4"
-        // playbackId={playbackId}
-        metadataVideoTitle="Placeholder (optional)"
-        metadata-viewer-user-id="Placeholder (optional)"
-        primary-color="#ffffff"
-        secondary-color="#000000"
-        accent-color="#9b70ff"
+        playbackId={playbackId}
+        streamType="on-demand"
+        thumbnailTime={0}
+        preload="metadata"
+        autoPlay={false}
+        muted={false}
+        poster={thumbnail}
+        style={{
+          width: '100%',
+          height: '100%',
+          borderRadius: '15px',
+          overflow: 'hidden',
+          border: 'none',
+          background: 'transparent',
+          '--controls-backdrop-color': 'transparent',
+          '--media-object-fit': 'cover',
+          '--media-border-radius': '15px',
+          '--container-border-radius': '15px',
+        }}
       />
     </div>
   );

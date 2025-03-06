@@ -1,36 +1,36 @@
-import React, { useState } from "react";
-import styles from "./BecomePartner.module.css";
+import React, { useState } from 'react';
+import styles from './BecomePartner.module.css';
 import {
   PhoneIcon,
   MessageIcon,
   LocationIcon,
-} from "../../components/UI/icons";
-import SocialMedia from "../../components/SocialMedia/SocialMedia";
-import Input from "../../components/UI/Input/Input";
-import Textarea from "../../components/UI/Textarea/Textarea";
-import { Button } from "../../components/UI/Button/Button";
+} from '../../components/UI/icons';
+import SocialMedia from '../../components/SocialMedia/SocialMedia';
+import Input from '../../components/UI/Input/Input';
+import Textarea from '../../components/UI/Textarea/Textarea';
+import { Button } from '../../components/UI/Button/Button';
 
 function BecomePartner() {
   const partners = [
     {
-      name: "1",
-      logo: "/assets/userAvatar.png",
+      name: '1',
+      logo: '/assets/userAvatar.png',
     },
     {
-      name: "2",
-      logo: "/assets/userAvatar.png",
+      name: '2',
+      logo: '/assets/userAvatar.png',
     },
     {
-      name: "3",
-      logo: "/assets/userAvatar.png",
+      name: '3',
+      logo: '/assets/userAvatar.png',
     },
     {
-      name: "4",
-      logo: "/assets/userAvatar.png",
+      name: '4',
+      logo: '/assets/userAvatar.png',
     },
     {
-      name: "5",
-      logo: "/assets/userAvatar.png",
+      name: '5',
+      logo: '/assets/userAvatar.png',
     },
   ];
 
@@ -63,16 +63,25 @@ function BecomePartner() {
             პარტნიორი კომპანიები
           </div>
           <div className={styles.partnerCompanies}>
-            {Array.from({ length: 3 }, (_, i) => (
-              <div className={styles.partnerCompaniesLogosContainer} key={i}>
-                {partners.map((partner, index1) => (
-                  <div
-                    className={styles.partnerCompanyLogoContainer}
-                    key={index1}
-                  >
-                    <img src={partner.logo} alt={partner.name} />
-                  </div>
-                ))}
+            {Array.from({ length: 3 }, (_, rowIndex) => (
+              <div
+                className={styles.partnerCompaniesLogosContainer}
+                key={rowIndex}
+              >
+                {partners.map((partner, index) => {
+                  const wrappedIndex = (index + rowIndex) % partners.length;
+                  return (
+                    <div
+                      className={styles.partnerCompanyLogoContainer}
+                      key={index}
+                    >
+                      <img
+                        src={partners[wrappedIndex].logo}
+                        alt={partners[wrappedIndex].name}
+                      />
+                    </div>
+                  );
+                })}
               </div>
             ))}
           </div>
@@ -90,7 +99,7 @@ function BecomePartner() {
                   className={
                     active === 0
                       ? styles.becomePartnerFormSectionActiveButton
-                      : ""
+                      : ''
                   }
                   onClick={() => setActive(0)}
                 >
@@ -100,7 +109,7 @@ function BecomePartner() {
                   className={
                     active === 1
                       ? styles.becomePartnerFormSectionActiveButton
-                      : ""
+                      : ''
                   }
                   onClick={() => setActive(1)}
                 >
@@ -110,7 +119,7 @@ function BecomePartner() {
                   className={
                     active === 2
                       ? styles.becomePartnerFormSectionActiveButton
-                      : ""
+                      : ''
                   }
                   onClick={() => setActive(2)}
                 >

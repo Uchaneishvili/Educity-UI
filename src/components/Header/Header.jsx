@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { Button } from '../UI/Button/Button';
-import { BurgerMenuIcon, UserIcon } from '../UI/icons';
+import { BurgerMenuIcon } from '../UI/icons';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
@@ -9,6 +9,7 @@ import Dropdown from '../UI/Dropdown/Dropdown';
 import { DropdownCourseIcon } from '../UI/icons';
 import React from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
+import IconUser from '../UI/IconUser';
 
 export function Header() {
   const courses = [
@@ -34,7 +35,7 @@ export function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const refreshDropdown = () => {
@@ -58,23 +59,29 @@ export function Header() {
           </Button>
 
           <div
-            className={styles.userIcon}
+            className={styles.userLoggedIcon}
             onClick={() => setShowUserMenu(!showUserMenu)}
           >
-            <UserIcon />
+            <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
           </div>
         </div>
       );
     } else {
       return (
-        <div className={styles.authButtons}>
-          <Button type="secondary" onClick={() => navigate('/register')}>
-            რეგისტრაცია
-          </Button>
-          <Button type="primary" onClick={() => navigate('/login')}>
-            ავტორიზაცია
-          </Button>
-        </div>
+        <>
+          <div className={styles.userIcon} onClick={() => navigate('/login')}>
+            <IconUser />
+          </div>
+
+          <div className={styles.authButtons}>
+            <Button type="secondary" onClick={() => navigate('/register')}>
+              რეგისტრაცია
+            </Button>
+            <Button type="primary" onClick={() => navigate('/login')}>
+              ავტორიზაცია
+            </Button>
+          </div>
+        </>
       );
     }
   };
@@ -82,9 +89,18 @@ export function Header() {
   return (
     <header className={styles.header}>
       <SideBar
+        type={'burger'}
         sideBarActive={sideBarActive}
         setSideBarActive={setSideBarActive}
-        isAuthenticated={isAuthenticated}
+        shownLocation={'translateX(0)'}
+        hiddenLocation={'translateX(-100%)'}
+      />
+      <SideBar
+        type={'user'}
+        sideBarActive={showUserMenu}
+        setSideBarActive={setShowUserMenu}
+        shownLocation={'translateX(0)'}
+        hiddenLocation={'translateX(100%)'}
       />
       <div className={styles.container}>
         <div>
@@ -100,6 +116,7 @@ export function Header() {
             <li onClick={() => navigate('/aboutus')}>ჩვენს შესახებ</li>
             <li onClick={() => navigate('/contacts')}>კონტაქტი</li>
             <li onClick={() => navigate('/become-partner')}>გახდი პარტნიორი</li>
+            <li onClick={() => navigate('/subscriptions')}>პაკეტები</li>
           </ul>
           <div
             className={styles.burgerMenu}

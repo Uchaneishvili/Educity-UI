@@ -29,49 +29,53 @@ import CategoryCard from '../../components/CategoryCard/CategoryCard';
 import { SubscribeInput } from '../../components/UI/SubscribeInput/SubscribeInput';
 import { useNavigate } from 'react-router-dom';
 import { CourseGraduateSwiper } from '../../components/CourseGraduateSwiper/CourseGraduateSwiper';
+import MarketingIcon from '../../components/UI/MarketingIcon';
+import BusinessIcon from '../../components/UI/BusinessIcon';
+import LanguageIcon from '../../components/UI/LanguageIcon';
+import ProgramsIcon from '../../components/UI/ProgramsIcon';
 
 export function Home() {
   const navigate = useNavigate();
 
   const categories = [
     {
-      icon: <GraphicDesignIcon />,
-      title: 'გრაფიკული დიზანი',
-      coursesCount: 38,
-    },
-    {
       icon: <FrontendDevelopmentIcon />,
-      title: 'FRONT END DEVELOPMENT',
+      title: 'პროგრამირება',
       coursesCount: 38,
     },
     {
-      icon: <UIUXDesignIcon />,
-      title: 'UI/UX დიზაინი',
+      icon: <GraphicDesignIcon />,
+      title: 'ციფრული დიზაინი',
       coursesCount: 38,
     },
     {
-      icon: <HotelManagementIcon />,
-      title: 'სასტუმროს მენეჯმენტი',
+      icon: <MarketingIcon />,
+      title: 'მარკეტინგი',
       coursesCount: 38,
     },
     {
-      icon: <QAEngineeringIcon />,
-      title: 'QA Engineering',
-      coursesCount: 38,
-    },
-    {
-      icon: <DigitalMarketingIcon />,
-      title: 'ციფრული მარკეტინგი',
-      coursesCount: 38,
-    },
-    {
-      icon: <SalesManagementIcon />,
-      title: 'გაყიდვების მენეჯმენტი',
+      icon: <LanguageIcon />,
+      title: 'უცხო ენა',
       coursesCount: 38,
     },
     {
       icon: <EduSchoolIcon />,
-      title: 'EduSchool-ის პროგრამა',
+      title: 'ბუღალტერია',
+      coursesCount: 38,
+    },
+    {
+      icon: <DigitalMarketingIcon />,
+      title: 'ფოტოგრაფია & ვიდეო',
+      coursesCount: 38,
+    },
+    {
+      icon: <BusinessIcon />,
+      title: 'ბიზნესი',
+      coursesCount: 38,
+    },
+    {
+      icon: <ProgramsIcon />,
+      title: 'საოფისე პროგრამები',
       coursesCount: 38,
     },
   ];

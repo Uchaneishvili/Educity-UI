@@ -64,12 +64,12 @@ export function CourseDetails() {
   }
 
   const buttonName = () => {
-    const isOnline = data.type === 'remote';
+    const isOnline = data.type === 'video-lecture';
 
     if (access) {
       return isOnline ? 'კურსზე გადასვლა' : 'კურსი უკვე შეძენილი გაქვთ';
     } else {
-      return isOnline ? 'ყიდვა' : 'კურსზე რეგისტრაცია';
+      return isOnline ? 'კურსის შეძენა' : 'კურსზე რეგისტრაცია';
     }
   };
 
@@ -107,15 +107,14 @@ export function CourseDetails() {
           <Card
             showBuy={true}
             buttonName={buttonName()}
-            ButtonDisabled={Boolean(access && data.type !== 'remote')}
+            ButtonDisabled={Boolean(access && data.type !== 'video-lecture')}
             thumbnail={data.thumbnail}
             title={data.title}
             discountedPrice={data.discountedPrice}
             price={data.price}
             intro={data.intro}
             onClick={() => {
-              const isOnline = data.type === 'remote';
-
+              const isOnline = data.type === 'video-lecture';
               if (access) {
                 if (isOnline) {
                   navigate(`/courses/${id}/videos`);

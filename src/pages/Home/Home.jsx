@@ -82,7 +82,6 @@ export function Home() {
     try {
       const { data } = await getCategories();
 
-      console.log('response', data);
       const updatedCategories = categoriesWithCounts.map(category => {
         const count = data.data.categories.filter(
           course =>

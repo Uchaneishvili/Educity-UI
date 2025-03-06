@@ -11,9 +11,9 @@ export function Button({
 }) {
   return (
     <button
-      className={styles[type]}
+      className={`${styles[type]} ${disabled ? styles.disabled : ''}`}
       onClick={onClick}
-      disabled={disabled} // TODO Add disabled style
+      disabled={disabled}
       style={{ width: width, boxShadow: !shadow && 'none' }}
     >
       {children}

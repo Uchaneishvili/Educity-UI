@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Input.module.css';
 
 const Input = ({
@@ -11,6 +11,20 @@ const Input = ({
   onChange,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const [inputValue, setInputValue] = useState(defaultValue || '');
+
+  useEffect(() => {
+    if (defaultValue !== undefined) {
+      setInputValue(defaultValue);
+    }
+  }, [defaultValue]);
+
+  const handleChange = e => {
+    setInputValue(e.target.value);
+    if (onChange) {
+      onChange(e);
+    }
+  };
 
   const renderInputIcon = () => {
     if (type === 'password') {
@@ -81,9 +95,8 @@ const Input = ({
           name={name}
           placeholder={placeholder}
           className={styles.input}
-          defaultValue={defaultValue}
-          value={value}
-          onChange={onChange}
+          value={value !== undefined ? value : inputValue}
+          onChange={handleChange}
         />
         {renderInputIcon()}
       </div>

@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './VideoLectures.module.css';
-import {
-  ArrowBackIcon,
-  FileIcon,
-  CompleteCheckIcon,
-} from '../../components/UI/icons';
-import { Accordion } from '../../components/UI/Accordion/Accordion';
+import { ArrowBackIcon } from '../../components/UI/icons';
 import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar';
 import Modal from '../../components/UI/Modal/Modal';
 import {
@@ -19,9 +14,10 @@ import TextArea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
 import { addReviewToCourse } from '../../services/review.service';
-import { getCourseDetails } from '../../services/courses.service';
+import { getCourseDetailsWithSyllabus } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
-
+import { FileIcon, CompleteCheckIcon } from '../../components/UI/icons';
+import { Accordion } from '../../components/UI/Accordion/Accordion';
 function VideoLectures() {
   const { id } = useParams();
 
@@ -61,7 +57,7 @@ function VideoLectures() {
 
   const loadData = useCallback(async () => {
     try {
-      const response = await getCourseDetails(id);
+      const response = await getCourseDetailsWithSyllabus(id);
 
       setData(response.data);
       setPlayBackId(response.data.intro);
@@ -114,97 +110,82 @@ function VideoLectures() {
               </div>
 
               <div className={styles.videoLessonsAccordionContainer}>
-                {/* {data.map(data => (
-                <Accordion
-                  title="Lessons with video content
-"
-                  key={data.id}
-                >
-                  <div className={styles.syllabusContainer}>
-                    <div className={styles.syllabusItem}>
-                      <div className={styles.syllabusItemInnerContainer}>
-                        <div>
-                          <FileIcon />
+                {data.syllabus.map(data => (
+                  <Accordion title="Lessons with video content" key={data.id}>
+                    <div className={styles.syllabusContainer}>
+                      <div className={styles.syllabusItem}>
+                        <div className={styles.syllabusItemInnerContainer}>
+                          <div>
+                            <FileIcon />
+                          </div>
+                          <div>ლექცია 1</div>
                         </div>
-                        <div>ლექცია 1</div>
-                      </div>
 
-                      <div className={styles.syllabusInfoContainer}>
-                        <div className={styles.duration}>10:05</div>
-                        <div className={styles.isCompleted}>
-                          <CompleteCheckIcon />
+                        <div className={styles.syllabusInfoContainer}>
+                          <div className={styles.duration}>10:05</div>
+                          <div className={styles.isCompleted}>
+                            <CompleteCheckIcon />
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.syllabusItem}>
+                        <div className={styles.syllabusItemInnerContainer}>
+                          <div>
+                            <FileIcon />
+                          </div>
+                          <div>ლექცია 1</div>
+                        </div>
+
+                        <div className={styles.syllabusInfoContainer}>
+                          <div className={styles.duration}>10:05</div>
+                          <div className={styles.isCompleted}>
+                            <CompleteCheckIcon />
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.syllabusItem}>
+                        <div className={styles.syllabusItemInnerContainer}>
+                          <div>
+                            <FileIcon />
+                          </div>
+                          <div>ლექცია 1</div>
+                        </div>
+
+                        <div className={styles.syllabusInfoContainer}>
+                          <div className={styles.duration}>10:05</div>
+                          <div className={styles.isCompleted}>
+                            <CompleteCheckIcon />
+                          </div>
+                        </div>
+                      </div>
+                      <div className={styles.syllabusItem}>
+                        <div className={styles.syllabusItemInnerContainer}>
+                          <div>
+                            <FileIcon />
+                          </div>
+                          <div>ლექცია 1</div>
+                        </div>
+
+                        <div className={styles.syllabusInfoContainer}>
+                          <div className={styles.quizz}>
+                            <button
+                              className={styles.quizzBtn}
+                              onClick={() => setIsQuizzOpen(true)}
+                            >
+                              ქვიზი
+                            </button>
+                          </div>
+                          <div className={styles.duration}>10:05</div>
+                          <div className={styles.isCompleted}>
+                            <CompleteCheckIcon />
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className={styles.syllabusItem}>
-                      <div className={styles.syllabusItemInnerContainer}>
-                        <div>
-                          <FileIcon />
-                        </div>
-                        <div>ლექცია 1</div>
-                      </div>
-
-                      <div className={styles.syllabusInfoContainer}>
-                        <div className={styles.duration}>10:05</div>
-                        <div className={styles.isCompleted}>
-                          <CompleteCheckIcon />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.syllabusItem}>
-                      <div className={styles.syllabusItemInnerContainer}>
-                        <div>
-                          <FileIcon />
-                        </div>
-                        <div>ლექცია 1</div>
-                      </div>
-
-                      <div className={styles.syllabusInfoContainer}>
-                        <div className={styles.duration}>10:05</div>
-                        <div className={styles.isCompleted}>
-                          <CompleteCheckIcon />
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.syllabusItem}>
-                      <div className={styles.syllabusItemInnerContainer}>
-                        <div>
-                          <FileIcon />
-                        </div>
-                        <div>ლექცია 1</div>
-                      </div>
-
-                      <div className={styles.syllabusInfoContainer}>
-                        <div className={styles.quizz}>
-                          <button
-                            className={styles.quizzBtn}
-                            onClick={() => setIsQuizzOpen(true)}
-                          >
-                            ქვიზი
-                          </button>
-                        </div>
-                        <div className={styles.duration}>10:05</div>
-                        <div className={styles.isCompleted}>
-                          <CompleteCheckIcon />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </Accordion>
-              ))} */}
+                  </Accordion>
+                ))}
               </div>
             </div>
-            {/* <div className={styles.tabSelectorContainer}>
-            <TabSections
-              tabs={[
-                { id: 0, label: 'კურსის შესახებ' },
-                { id: 1, label: 'სილაბუსი' },
-                { id: 2, label: 'შეფასება' },
-                { id: 3, label: 'დაგვიკავშირდით' }
-              ]}
-              description={data.description}
-            />
-          </div> */}
           </div>
         )}
       </div>

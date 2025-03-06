@@ -17,3 +17,7 @@ export const getCourseReviews = async id => {
 export const checkAccess = async id => {
   return await RequestHelper.educity.get(`/courses/${id}/check-access`);
 };
+
+export const getCourseDetailsWithSyllabus = async id => {
+  return await RequestHelper.educity.get(`/courses/${id}/content`);
+};

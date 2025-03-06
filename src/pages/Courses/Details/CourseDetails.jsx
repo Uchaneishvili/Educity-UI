@@ -107,6 +107,7 @@ export function CourseDetails() {
           <Card
             showBuy={true}
             buttonName={buttonName()}
+            ButtonDisabled={Boolean(access && data.type !== 'remote')}
             thumbnail={data.thumbnail}
             title={data.title}
             discountedPrice={data.discountedPrice}

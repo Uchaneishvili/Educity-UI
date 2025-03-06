@@ -31,6 +31,7 @@ export function Card({
   thumbnail,
   intro,
   onClick,
+  ButtonDisabled,
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist);
   const navigate = useNavigate();
@@ -126,7 +127,9 @@ export function Card({
             </div>
 
             <div className={styles.detailsContainer}>
-              <Button onClick={onClick}> {buttonName}</Button>
+              <Button onClick={onClick} disabled={ButtonDisabled}>
+                {buttonName}
+              </Button>
             </div>
           </div>
         ) : (

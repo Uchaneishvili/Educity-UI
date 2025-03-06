@@ -144,7 +144,9 @@ function SideBar({
           </div>
 
           <div className={styles.logOutButton}>
-            <Button type="secondary">LOG OUT</Button>
+            <Button type="secondary" onClick={() => authService.logout()}>
+              LOG OUT
+            </Button>
           </div>
         </>
       )}

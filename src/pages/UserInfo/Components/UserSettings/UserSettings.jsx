@@ -6,6 +6,7 @@ import { useAuth } from '../../../../context/AuthContext';
 import { uploadFile } from '../../../../services/upload.service';
 import Select from '../../../../components/UI/Select/Select';
 import DatePicker from '../../../../components/UI/DatePicker/DatePicker';
+import { updateUser } from '../../../../services/user.service';
 function UserSettings() {
   const [data, setData] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -15,10 +16,32 @@ function UserSettings() {
     setData(user);
   }, [user]);
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    console.log(formData);
+    const values = {
+      ...Object.fromEntries(formData.entries()),
+      image: data.image,
+    };
+
+    try {
+      const response = await updateUser(data._id, values);
+      console.log('response', response);
+    } catch (err) {
+      console.log('Error while submitting form', err);
+    }
+  };
+
+  const changePassword = async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const values = { ...Object.fromEntries(formData.entries()) };
+    console.log('values', values);
+
+    try {
+    } catch (err) {
+      console.log('Error while changing password', err);
+    }
   };
 
   const handleImageUpload = async e => {
@@ -34,6 +57,7 @@ function UserSettings() {
         console.log('file', file);
         const response = await uploadFile(file);
         console.log('response', response);
+        setData({ ...data, image: response.data.url });
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +69,7 @@ function UserSettings() {
       <div className={styles.uploadPhotoContainer}>
         <div className={styles.uploadPhotoImgContainer}>
           <img
-            src={selectedImage || data?.photoURL || '/assets/userAvatar.png'}
+            src={selectedImage || data?.image || '/assets/userAvatar.png'}
             alt="user"
           />
           <label className={styles.uploadOverlay}>
@@ -83,9 +107,9 @@ function UserSettings() {
             <div className={styles.inputContainer}>
               <Input
                 type="text"
-                name="სახელი/გვარი"
+                name="fullName"
                 placeholder="სახელი/გვარი"
-                id="firstName"
+                id="fullName"
                 defaultValue={data?.fullName}
               />
             </div>
@@ -93,7 +117,7 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="email"
-              name="მეილი"
+              name="email"
               placeholder="მეილი"
               id="email"
               defaultValue={data?.email}
@@ -102,7 +126,7 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="text"
-              name="ნომერი"
+              name="phoneNumber"
               placeholder="ნომერი"
               id="phoneNumber"
               defaultValue={data?.phoneNumber}
@@ -111,7 +135,7 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Select
               id="city"
-              name="ქალაქი"
+              name="city"
               placeholder={'ქალაქი'}
               options={[
                 { id: 1, value: 'თბილისი' },
@@ -121,8 +145,8 @@ function UserSettings() {
           </div>
           <div className={styles.inputContainer}>
             <DatePicker
-              name="დაბადების თარიღი"
-              id={'dob'}
+              name="birthDate"
+              id={'birthDate'}
               placeholder={'დაბადების თარიღი'}
               defaultValue={data?.birthDate}
             />

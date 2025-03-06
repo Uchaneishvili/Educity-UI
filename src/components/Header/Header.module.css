@@ -24,6 +24,13 @@
   cursor: pointer;
 }
 
+.userLoggedIcon > img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .navList {
   list-style: none;
   display: flex;
@@ -196,6 +203,11 @@ li {
 
   .navList {
     display: none;
+  }
+
+  .userLoggedIcon > img {
+    width: 40px;
+    height: 40px;
   }
 
   .burgerMenu {

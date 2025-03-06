@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Header.module.css';
 import { Button } from '../UI/Button/Button';
-import { BurgerMenuIcon, UserIcon } from '../UI/icons';
+import { BurgerMenuIcon } from '../UI/icons';
 import { useNavigate } from 'react-router-dom';
 import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
@@ -35,7 +35,7 @@ export function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   useEffect(() => {
     const refreshDropdown = () => {
@@ -62,7 +62,7 @@ export function Header() {
             className={styles.userLoggedIcon}
             onClick={() => setShowUserMenu(!showUserMenu)}
           >
-            <UserIcon />
+            <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
           </div>
         </div>
       );

@@ -17,6 +17,11 @@
   border-top-right-radius: 16px;
 }
 
+.userPhoto > img {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+}
 .userInfo {
   display: flex;
   flex-direction: column;
@@ -60,15 +65,9 @@
 }
 
 @media (max-width: 1024px) {
-  .userPhoto {
-    min-width: 54px;
-    width: 54px;
-    min-height: 54px;
-    height: 54px;
-  }
-
   .userPhoto > img {
-    width: 100%;
+    width: 54px;
+    height: 54px;
   }
 
   .userName {

@@ -10,8 +10,10 @@ import Reviews from './components/Reviews/Reviews';
 import { Loader } from '../../components/UI/Loader/Loader';
 import { getWishlist } from '../../services/wishlist.service';
 import { useDebounce } from '../../hooks/useDebounce';
+import { useLocation } from 'react-router-dom';
 
 export function Courses() {
+  const location = useLocation();
   const [courses, setCourses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -25,6 +27,20 @@ export function Courses() {
 
   const [coursesLoading, setCoursesLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState([]);
+
+  useEffect(() => {
+    if (location.state?.category && categories.length > 0) {
+      // Find the category ID that matches the title from the state
+      const categoryFromState = categories.find(
+        cat => cat.name === location.state.category,
+      );
+
+      if (categoryFromState) {
+        console.log('***', categoryFromState);
+        setSelectedCategories([categoryFromState._id]);
+      }
+    }
+  }, [location.state, categories]);
 
   const loadData = useCallback(
     async (page = 1) => {
@@ -153,6 +169,7 @@ export function Courses() {
             <CategoriesList
               data={categories}
               onCategoryChange={handleCategoryChange}
+              initialSelected={selectedCategories}
             />
 
             <Reviews onReviewChange={handleReviewChange} />

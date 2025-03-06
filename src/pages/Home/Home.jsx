@@ -130,6 +130,12 @@ export function Home() {
                   icon={category.icon}
                   title={category.title}
                   coursesCount={category.coursesCount}
+                  onClick={() => {
+                    console.log('***', category);
+                    navigate('/courses', {
+                      state: { category: category.title },
+                    });
+                  }}
                 />
               ))}
               <div

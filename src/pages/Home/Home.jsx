@@ -29,52 +29,81 @@ import MarketingIcon from '../../components/UI/MarketingIcon';
 import BusinessIcon from '../../components/UI/BusinessIcon';
 import LanguageIcon from '../../components/UI/LanguageIcon';
 import ProgramsIcon from '../../components/UI/ProgramsIcon';
+import { useEffect, useCallback, useState } from 'react';
+import { getCategories } from '../../services/categories.service';
 
+const categories = [
+  {
+    icon: <FrontendDevelopmentIcon />,
+    title: 'პროგრამირება',
+    coursesCount: 0,
+  },
+  {
+    icon: <GraphicDesignIcon />,
+    title: 'ციფრული დიზაინი',
+    coursesCount: 0,
+  },
+  {
+    icon: <MarketingIcon />,
+    title: 'მარკეტინგი',
+    coursesCount: 0,
+  },
+  {
+    icon: <LanguageIcon />,
+    title: 'უცხო ენა',
+    coursesCount: 0,
+  },
+  {
+    icon: <EduSchoolIcon />,
+    title: 'ბუღალტერია',
+    coursesCount: 0,
+  },
+  {
+    icon: <DigitalMarketingIcon />,
+    title: 'ფოტოგრაფია & ვიდეო',
+    coursesCount: 0,
+  },
+  {
+    icon: <BusinessIcon />,
+    title: 'ბიზნესი',
+    coursesCount: 0,
+  },
+  {
+    icon: <ProgramsIcon />,
+    title: 'საოფისე პროგრამები',
+    coursesCount: 0,
+  },
+];
 export function Home() {
   const navigate = useNavigate();
+  const [categoriesWithCounts, setCategoriesWithCounts] = useState(categories);
 
-  const categories = [
-    {
-      icon: <FrontendDevelopmentIcon />,
-      title: 'პროგრამირება',
-      coursesCount: 38,
-    },
-    {
-      icon: <GraphicDesignIcon />,
-      title: 'ციფრული დიზაინი',
-      coursesCount: 38,
-    },
-    {
-      icon: <MarketingIcon />,
-      title: 'მარკეტინგი',
-      coursesCount: 38,
-    },
-    {
-      icon: <LanguageIcon />,
-      title: 'უცხო ენა',
-      coursesCount: 38,
-    },
-    {
-      icon: <EduSchoolIcon />,
-      title: 'ბუღალტერია',
-      coursesCount: 38,
-    },
-    {
-      icon: <DigitalMarketingIcon />,
-      title: 'ფოტოგრაფია & ვიდეო',
-      coursesCount: 38,
-    },
-    {
-      icon: <BusinessIcon />,
-      title: 'ბიზნესი',
-      coursesCount: 38,
-    },
-    {
-      icon: <ProgramsIcon />,
-      title: 'საოფისე პროგრამები',
-      coursesCount: 38,
-    },
-  ];
+  const loadCategories = useCallback(async () => {
+    try {
+      const { data } = await getCategories();
+
+      console.log('response', data);
+      const updatedCategories = categoriesWithCounts.map(category => {
+        const count = data.data.categories.filter(
+          course =>
+            course.category &&
+            course.category.toLowerCase() === category.title.toLowerCase(),
+        ).length;
+
+        return {
+          ...category,
+          coursesCount: count,
+        };
+      });
+      setCategoriesWithCounts(updatedCategories);
+    } catch (err) {
+      console.log('Error while loading categories', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadCategories();
+  }, []);
 
   return (
     <div className="mainContainer">
@@ -124,7 +153,7 @@ export function Home() {
             <div className={styles.categoriesContainer}>
               <div className={styles.ourCoursesTitleMobile}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
 
-              {categories.map((category, index) => (
+              {categoriesWithCounts.map((category, index) => (
                 <CategoryCard
                   key={index}
                   icon={category.icon}

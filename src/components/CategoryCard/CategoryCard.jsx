@@ -7,7 +7,7 @@ const CategoryCard = ({ icon, title, coursesCount, onClick }) => {
       <div className={styles.iconContainer}>{icon}</div>
       <div className={styles.content}>
         <h3 className={styles.title}>{title}</h3>
-        <p className={styles.courseCount}>{coursesCount} Courses</p>
+        <p className={styles.courseCount}>{coursesCount} კურსი</p>
       </div>
     </div>
   );

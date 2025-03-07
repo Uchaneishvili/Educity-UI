@@ -10,34 +10,39 @@ import { DropdownCourseIcon } from '../UI/icons';
 import React from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
+import { getMyCourses } from '../../services/courses.service';
+import { Loader } from '../UI/Loader/Loader';
 
 export function Header() {
-  const courses = [
-    {
-      id: 1,
-      name: '2025 UI/UX design with figma',
-    },
-    {
-      id: 2,
-      name: '2025 UI/UX design with figma',
-    },
-    {
-      id: 3,
-      name: '2025 UI/UX design with figma',
-    },
-    {
-      id: 4,
-      name: '2025 UI/UX design with figma',
-    },
-  ];
-
   const [sideBarActive, setSideBarActive] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [courses, setCourses] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isAuthenticated, user } = useAuth();
+
+  const getCourses = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await getMyCourses({ type: 'video-lectures' });
+
+      setCourses(data.data.courses);
+    } catch (err) {
+      console.log('Error while loading courses', err);
+      setIsLoading(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      getCourses();
+    }
+  }, [isDropdownOpen]);
 
   useEffect(() => {
     const refreshDropdown = () => {
@@ -172,23 +177,32 @@ export function Header() {
           </div>
 
           <div className={styles.dropdownCoursesContainer}>
-            {courses.map(course => (
-              <div key={course.id} className={styles.dropdownCourseContainer}>
-                <div className={styles.dropdownCourseIcon}>
-                  <DropdownCourseIcon />
-                </div>
-                <div className={styles.dropdownCourseInfo}>
-                  <div className={styles.dropdownCourseName}>{course.name}</div>
-                  <div className={styles.dropdownCourseProgress}>
-                    <div className={styles.dropdownCourseProgressTitle}>
-                      2/5 COMPLETED
-                    </div>
-                    <ProgressBar percentage={40} totalBars={5} />
+            {isLoading ? (
+              <Loader />
+            ) : (
+              courses.map(course => (
+                <div
+                  key={course.id}
+                  className={styles.dropdownCourseContainer}
+                  onClick={() => navigate(`/courses/${course._id}/videos`)}
+                >
+                  <div className={styles.dropdownCourseIcon}>
+                    <DropdownCourseIcon />
                   </div>
-                  <div className={styles.dropdownCourseTime}>5 mins ago</div>
+                  <div className={styles.dropdownCourseInfo}>
+                    <div className={styles.dropdownCourseName}>
+                      {course.title}
+                    </div>
+                    <div className={styles.dropdownCourseProgress}>
+                      <div className={styles.dropdownCourseProgressTitle}>
+                        2/5 COMPLETED
+                      </div>
+                      <ProgressBar percentage={40} totalBars={5} />
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </Dropdown>
       </div>

@@ -15,7 +15,9 @@
   flex-direction: column;
   gap: 25px;
 }
-
+.searchContainer {
+  width: 100%;
+}
 .content {
   display: grid;
   grid-template-columns: auto auto;
@@ -35,8 +37,22 @@
   align-items: center;
 }
 
-.searchContainer {
-  width: 25%;
+.sortContainer {
+  width: 160px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0px 10px;
+  font-weight: 400;
+  color: #00000099;
+  justify-content: flex-end;
+}
+
+.headerSortContainer {
+  display: flex;
+  align-items: center;
+  width: 45%;
 }
 
 .paginationContainer {
@@ -87,11 +103,23 @@
     gap: 25px;
   }
 
+  .headerSortContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
   .searchContainer {
     width: 100%;
   }
 
   .title {
     font-size: 18px;
+  }
+
+  .sortContainer {
+    width: 100%;
   }
 }

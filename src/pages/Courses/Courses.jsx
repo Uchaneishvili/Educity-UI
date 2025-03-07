@@ -11,6 +11,7 @@ import { Loader } from '../../components/UI/Loader/Loader';
 import { getWishlist } from '../../services/wishlist.service';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useLocation } from 'react-router-dom';
+import Sorting from '../../components/UI/Sorting/Sorting';
 
 export function Courses() {
   const location = useLocation();
@@ -158,6 +159,24 @@ export function Courses() {
     },
   ];
 
+  const sortingOptions = [
+    {
+      label: 'სორტირება',
+      value: '',
+    },
+    {
+      label: 'ფასი ზრდადობით',
+      value: 'priceAsc',
+    },
+    {
+      label: 'ფასი კლებადობით',
+      value: 'priceDesc',
+    },
+  ];
+
+  const handleSortChange = option => {
+    console.log('Selected sort option:', option);
+  };
   return (
     <div className="mainContainer">
       <div className={styles.container}>
@@ -178,8 +197,17 @@ export function Courses() {
         <div className={styles.contentContainer}>
           <div className={styles.headerContainer}>
             <div className={styles.title}>ჩვენი კურსები</div>
-            <div className={styles.searchContainer}>
-              <SearchInput onChange={handleSearch} />
+            <div className={styles.headerSortContainer}>
+              <div className={styles.searchContainer}>
+                <SearchInput onChange={handleSearch} />
+              </div>
+              <div className={styles.sortContainer}>
+                <Sorting
+                  options={sortingOptions}
+                  onSortChange={handleSortChange}
+                  defaultOption={sortingOptions[0]}
+                />
+              </div>
             </div>
           </div>
           {coursesLoading ? (

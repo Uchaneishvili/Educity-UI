@@ -112,11 +112,6 @@ function RegisterForm({ setActiveTab }) {
       />
       <ErrorMessage fieldName="confirmPassword" formErrors={formErrors} />
 
-      <ul className={styles.validationList}>
-        <li>მინ. 1 დიდი ასო A</li>
-        <li>მინ. 1 პატარა ასო a</li>
-      </ul>
-
       <div className={styles.termsAndConditionsContainer}>
         <div className={styles.acceptRulesContainer}>
           <Checkbox

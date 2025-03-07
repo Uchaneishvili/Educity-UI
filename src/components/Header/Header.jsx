@@ -165,7 +165,7 @@ export function Header() {
             <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>
             <div
               className={styles.dropdownHeaderBtn}
-              onClick={() => navigate('/me')}
+              onClick={() => navigate('/me/courses')}
             >
               ყველას ნახვა
             </div>

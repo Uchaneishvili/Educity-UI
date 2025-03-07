@@ -35,13 +35,13 @@ function PurchaseHistory() {
           {data.map(item => (
             <CardListItem
               key={item.id}
-              img={item.courseId.thumbnail}
-              reviewScore={item.courseId.rating}
-              reviewNumber={item.courseId.reviews_count}
-              name={item.courseId.title}
-              author={item.courseId.instructorName}
-              price={item.courseId.price}
-              oldPrice={item.courseId.old_price}
+              img={item.courseId?.thumbnail}
+              reviewScore={item.courseId?.rating}
+              reviewNumber={item.courseId?.reviews_count}
+              name={item.courseId?.title}
+              author={item.courseId?.instructorName}
+              price={item.courseId?.price}
+              oldPrice={item.courseId?.old_price}
               showPrice={true}
             />
           ))}

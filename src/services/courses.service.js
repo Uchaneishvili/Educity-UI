@@ -10,6 +10,11 @@ export const getCourses = async query => {
   });
 };
 
+export const getMyCourses = async query => {
+  const paginPath = FormatData.generatePaginationURLPath(query);
+  return await RequestHelper.educity.get(`/courses/my-courses${paginPath}`);
+};
+
 export const getCourseDetails = async id => {
   return await RequestHelper.educity.get(`/courses/${id}`);
 };

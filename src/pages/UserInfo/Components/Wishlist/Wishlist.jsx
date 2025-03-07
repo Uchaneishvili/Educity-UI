@@ -7,13 +7,15 @@ import { Loader } from '../../../../components/UI/Loader/Loader';
 function Wishlist() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
   const loadData = async () => {
     try {
       const response = await getWishlist();
       console.log(response);
       setData(response.data);
-
+      setTotalItems(response.data.totalCount);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -50,7 +52,7 @@ function Wishlist() {
       )}
 
       <div className={styles.paginationContainer}>
-        {/* {totalItems > pageSize && (
+        {totalItems > pageSize && (
           <Pagination
             totalItems={totalItems}
             pageSize={pageSize}
@@ -61,7 +63,7 @@ function Wishlist() {
               loadData(page);
             }}
           />
-        )}{' '} */}
+        )}
       </div>
     </div>
   );

@@ -84,15 +84,16 @@ export function Home() {
 
       setCategoriesWithCounts(prevCategories =>
         prevCategories.map(category => {
-          const count = data.data.categories.filter(
-            course =>
-              course.category &&
-              course.category.toLowerCase() === category.title.toLowerCase(),
-          ).length;
-
+          const matchingCategory = data.data.categories.find(
+            apiCategory =>
+              apiCategory.name &&
+              apiCategory.name.toLowerCase() === category.title.toLowerCase(),
+          );
           return {
             ...category,
-            coursesCount: count,
+            coursesCount: matchingCategory
+              ? matchingCategory.courseCount || 0
+              : 0,
           };
         }),
       );
@@ -104,8 +105,6 @@ export function Home() {
   useEffect(() => {
     loadCategories();
   }, [loadCategories]);
-
-  console.log('**', categoriesWithCounts);
 
   return (
     <div className="mainContainer">

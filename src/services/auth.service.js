@@ -183,6 +183,10 @@ class AuthService {
       };
     }
   }
+
+  async facebookLogin() {
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
+  }
 }
 
 export default AuthService;

@@ -1,29 +1,29 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import styles from './LoginForm.module.css'
-import { Button } from '../../../../components/UI/Button/Button'
-import Checkbox from '../../../../components/UI/Checkbox/Checkbox'
-import Input from '../../../../components/UI/Input/Input'
-import { useAuth } from '../../../../context/AuthContext'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styles from './LoginForm.module.css';
+import { Button } from '../../../../components/UI/Button/Button';
+import Checkbox from '../../../../components/UI/Checkbox/Checkbox';
+import Input from '../../../../components/UI/Input/Input';
+import { useAuth } from '../../../../context/AuthContext';
 
 function LoginForm({ onSuccess }) {
-  const [isChecked, setIsChecked] = useState(false)
-  const navigate = useNavigate()
-  const { login } = useAuth()
+  const [isChecked, setIsChecked] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const values = Object.fromEntries(formData.entries())
-    const data = { ...values, rememberMe: isChecked }
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const values = Object.fromEntries(formData.entries());
+    const data = { ...values, rememberMe: isChecked };
 
-    const result = await login(data)
+    const result = await login(data);
     if (result.success) {
-      onSuccess()
+      onSuccess();
     } else {
-      console.error('Login failed:', result.error)
+      console.error('Login failed:', result.error);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className={styles.inputContainer}>
@@ -40,7 +40,10 @@ function LoginForm({ onSuccess }) {
           <span className={styles.saveUser}> მომხმარებლის დამახსოვრება</span>
         </div>
 
-        <div className={styles.forgotPassword} onClick={() => navigate('/forget-pass')}>
+        <div
+          className={styles.forgotPassword}
+          onClick={() => navigate('/forget-pass')}
+        >
           დაგავიწყდათ პაროლი?
         </div>
       </div>
@@ -50,7 +53,7 @@ function LoginForm({ onSuccess }) {
         </Button>
       </div>
     </form>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

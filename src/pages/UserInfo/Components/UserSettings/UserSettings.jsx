@@ -7,10 +7,18 @@ import { uploadFile } from '../../../../services/upload.service';
 import Select from '../../../../components/UI/Select/Select';
 import DatePicker from '../../../../components/UI/DatePicker/DatePicker';
 import { updateUser } from '../../../../services/user.service';
+import AuthService from '../../../../services/auth.service';
+
+const authService = new AuthService();
 function UserSettings() {
   const [data, setData] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
   const { user } = useAuth();
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
 
   useEffect(() => {
     setData(user);
@@ -32,13 +40,17 @@ function UserSettings() {
     }
   };
 
-  const changePassword = async e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const values = { ...Object.fromEntries(formData.entries()) };
-    console.log('values', values);
+  const handlePasswordChange = e => {
+    setPasswordData({
+      ...passwordData,
+      [e.target.id]: e.target.value,
+    });
+  };
 
+  const changeUserPassword = async () => {
     try {
+      const response = await authService.changePassword(passwordData);
+      console.log('response', response);
     } catch (err) {
       console.log('Error while changing password', err);
     }
@@ -54,9 +66,7 @@ function UserSettings() {
       }
       setSelectedImage(URL.createObjectURL(file));
       try {
-        console.log('file', file);
         const response = await uploadFile(file);
-        console.log('response', response);
         setData({ ...data, image: response.data.url });
       } catch (error) {
         console.log(error);
@@ -158,32 +168,41 @@ function UserSettings() {
         </form>
 
         <div className={styles.formTitle}>Change password</div>
-        <form className={styles.formContainer}>
+        <div className={styles.formContainer}>
           <div className={styles.inputContainer}>
             <Input
-              name="Current Password"
+              type="password"
+              name="currentPassword"
               placeholder="Password"
               id="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChange}
             />
           </div>
           <div className={styles.inputContainer}>
             <Input
-              name="New Password"
+              type="password"
+              name="newPassword"
               placeholder="Password"
               id="newPassword"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChange}
             />
           </div>
           <div className={styles.inputContainer}>
             <Input
-              name="Confirm Password"
+              type="password"
+              name="confirmPassword"
               placeholder="Confirm new password"
               id="confirmPassword"
+              value={passwordData.confirmPassword}
+              onChange={handlePasswordChange}
             />
           </div>
-          <Button type="primary" width="223px">
+          <Button type="primary" width="223px" onClick={changeUserPassword}>
             პაროლის შეცვლა
           </Button>
-        </form>
+        </div>
       </div>
     </div>
   );

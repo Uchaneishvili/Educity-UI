@@ -166,7 +166,7 @@ class AuthService {
     try {
       const token = this.getToken();
 
-      const { data } = await this.api.post('/auth/reset-password', {
+      const { data } = await this.api.post('/auth/change-password', {
         ...passwordData,
         token: token,
       });

@@ -44,16 +44,6 @@ export function Header() {
     }
   }, [isDropdownOpen]);
 
-  useEffect(() => {
-    const refreshDropdown = () => {
-      if (isDropdownOpen) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    refreshDropdown();
-  }, [navigate]);
-
   const getActiveButtons = value => {
     return location.pathname === value ? styles.navListLiActive : '';
   };

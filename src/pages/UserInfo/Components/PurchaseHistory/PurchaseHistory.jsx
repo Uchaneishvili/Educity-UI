@@ -40,8 +40,8 @@ function PurchaseHistory() {
               reviewNumber={item.courseId?.reviews_count}
               name={item.courseId?.title}
               author={item.courseId?.instructorName}
+              discountedPrice={item.courseId?.discountedPrice}
               price={item.courseId?.price}
-              oldPrice={item.courseId?.old_price}
               showPrice={true}
             />
           ))}

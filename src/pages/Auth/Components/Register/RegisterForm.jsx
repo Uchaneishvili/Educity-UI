@@ -37,11 +37,15 @@ function RegisterForm({ setActiveTab }) {
 
   const validateForm = data => {
     let errors = {};
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
     if (!data.fullName) {
       errors.fullName = 'სახელი და გვარის შეყვანა აუცილებელია!';
     }
     if (!data.email.trim()) {
       errors.email = 'ელ.ფოსტის შეყვანა აუცილებელია!';
+    } else if (!emailRegex.test(data.email.trim())) {
+      errors.email = 'გთხოვთ შეიყვანეთ სწორი ელ.ფოსტა!';
     }
     if (!data.phoneNumber.trim()) {
       errors.phoneNumber = 'ტელეფონის ნომრის შეყვანა აუცილებელია!';

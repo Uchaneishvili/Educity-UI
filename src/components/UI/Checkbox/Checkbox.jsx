@@ -1,8 +1,18 @@
-import React from 'react'
-import styles from './Checkbox.module.css'
+import React from 'react';
+import styles from './Checkbox.module.css';
 
-const Checkbox = ({ checked, onChange, name, color = 'blue' }) => (
-  <label className={`${styles.iosCheckbox} ${styles[color]}`}>
+const Checkbox = ({
+  checked,
+  onChange,
+  name,
+  color = 'blue',
+  formErrors = {},
+}) => (
+  <label
+    className={`${styles.iosCheckbox} ${styles[color]} ${
+      formErrors[name] ? styles.error : ''
+    }`}
+  >
     <input name={name} type="checkbox" checked={checked} onChange={onChange} />
     <div className={styles.checkboxWrapper}>
       <div className={styles.checkboxBg}></div>
@@ -18,6 +28,6 @@ const Checkbox = ({ checked, onChange, name, color = 'blue' }) => (
       </svg>
     </div>
   </label>
-)
+);
 
-export default Checkbox
+export default Checkbox;

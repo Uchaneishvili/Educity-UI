@@ -10,6 +10,7 @@ import { updateUser } from '../../../../services/user.service';
 import AuthService from '../../../../services/auth.service';
 
 const authService = new AuthService();
+
 function UserSettings() {
   const [data, setData] = useState();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -19,6 +20,8 @@ function UserSettings() {
     newPassword: '',
     confirmPassword: '',
   });
+
+  const [formErrors, setFormErrors] = useState({});
 
   useEffect(() => {
     setData(user);
@@ -32,11 +35,20 @@ function UserSettings() {
       image: data.image,
     };
 
-    try {
-      const response = await updateUser(data._id, values);
-      console.log('response', response);
-    } catch (err) {
-      console.log('Error while submitting form', err);
+    const validationErrors = validateForm(values);
+    if (Object.keys(validationErrors).length === 0) {
+      try {
+        const response = await updateUser(data._id, values);
+        console.log('response', response);
+      } catch (err) {
+        setFormErrors({
+          ...formErrors,
+          general: 'წარმოიშვა შეცდომა მონაცემების შეცვლისას!',
+        });
+        console.log('Error while submitting form', err);
+      }
+    } else {
+      setFormErrors(validationErrors);
     }
   };
 
@@ -47,12 +59,22 @@ function UserSettings() {
     });
   };
 
-  const changeUserPassword = async () => {
-    try {
-      const response = await authService.changePassword(passwordData);
-      console.log('response', response);
-    } catch (err) {
-      console.log('Error while changing password', err);
+  const changeUserPassword = async e => {
+    e.preventDefault();
+    const passwordValidation = validatePassword(passwordData);
+    if (Object.keys(passwordValidation).length === 0) {
+      try {
+        const response = await authService.changePassword(passwordData);
+        console.log('response', response);
+      } catch (err) {
+        console.log('Error while changing password', err);
+        setFormErrors({
+          ...formErrors,
+          general: 'წარმოიშვა შეცდომა პაროლის შეცვლისას!',
+        });
+      }
+    } else {
+      setFormErrors(passwordValidation);
     }
   };
 
@@ -72,6 +94,59 @@ function UserSettings() {
         console.log(error);
       }
     }
+  };
+
+  const validateForm = data => {
+    let errors = {};
+
+    if (!data.fullName.trim()) {
+      errors.fullName = 'სახელი და გვარის შეყვანა აუცილებელია!';
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!data.email.trim()) {
+      errors.email = 'ელ.ფოსტის შეყვანა აუცილებელია!';
+    } else if (!emailRegex.test(data.email.trim())) {
+      errors.email = 'გთხოვთ შეიყვანეთ სწორი ელ.ფოსტა!';
+    }
+
+    if (!data.phoneNumber.trim()) {
+      errors.phoneNumber = 'ტელეფონის ნომრის შეყვანა აუცილებელია!';
+    }
+
+    return errors;
+  };
+
+  const validatePassword = passwordData => {
+    let errors = {};
+
+    if (!passwordData.currentPassword) {
+      errors.currentPassword = 'მიმდინარე პაროლის შეყვანა აუცილებელია!';
+    }
+
+    if (!passwordData.newPassword) {
+      errors.newPassword = 'ახალი პაროლის შეყვანა აუცილებელია!';
+    } else if (passwordData.newPassword.length < 6) {
+      errors.newPassword = 'ახალი პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს!';
+    } else if (passwordData.currentPassword === passwordData.newPassword) {
+      errors.newPassword = 'ახალი პაროლი არ უნდა ემთხვეოდეს ძველს!';
+    }
+
+    if (!passwordData.confirmPassword) {
+      errors.confirmPassword = 'განმეორებითი პაროლის შეყვანა აუცილებელია!';
+    } else if (passwordData.confirmPassword !== passwordData.newPassword) {
+      errors.confirmPassword = 'განმეორებითი პაროლი არასწორია!';
+    }
+
+    return errors;
+  };
+
+  const ErrorMessage = ({ fieldName, formErrors }) => {
+    return formErrors[fieldName] ? (
+      <span className={styles.errorMessage}>{formErrors[fieldName]}</span>
+    ) : (
+      ''
+    );
   };
 
   return (
@@ -107,12 +182,9 @@ function UserSettings() {
           Image size should be under 1MB and image ratio needs to be 1:1
         </div>
       </div>
+
       <div className={styles.formsContainer}>
-        <form
-          className={styles.formContainer}
-          onSubmit={handleSubmit}
-          defaultValue={data}
-        >
+        <form className={styles.formContainer} onSubmit={handleSubmit}>
           <div className={styles.twoInputContainer}>
             <div className={styles.inputContainer}>
               <Input
@@ -121,17 +193,21 @@ function UserSettings() {
                 placeholder="სახელი/გვარი"
                 id="fullName"
                 defaultValue={data?.fullName}
+                formErrors={formErrors}
               />
+              <ErrorMessage fieldName="fullName" formErrors={formErrors} />
             </div>
           </div>
           <div className={styles.inputContainer}>
             <Input
-              type="email"
+              type="text"
               name="email"
               placeholder="მეილი"
               id="email"
               defaultValue={data?.email}
+              formErrors={formErrors}
             />
+            <ErrorMessage fieldName="email" formErrors={formErrors} />
           </div>
           <div className={styles.inputContainer}>
             <Input
@@ -140,7 +216,9 @@ function UserSettings() {
               placeholder="ნომერი"
               id="phoneNumber"
               defaultValue={data?.phoneNumber}
+              formErrors={formErrors}
             />
+            <ErrorMessage fieldName="phoneNumber" formErrors={formErrors} />
           </div>
           <div className={styles.inputContainer}>
             <Select
@@ -162,13 +240,15 @@ function UserSettings() {
             />
           </div>
 
+          <ErrorMessage fieldName="general" formErrors={formErrors} />
+
           <Button type="primary" width="134px">
             შენახვა
           </Button>
         </form>
 
         <div className={styles.formTitle}>Change password</div>
-        <div className={styles.formContainer}>
+        <form className={styles.formContainer} onSubmit={changeUserPassword}>
           <div className={styles.inputContainer}>
             <Input
               type="password"
@@ -177,7 +257,9 @@ function UserSettings() {
               id="currentPassword"
               value={passwordData.currentPassword}
               onChange={handlePasswordChange}
+              formErrors={formErrors}
             />
+            <ErrorMessage fieldName="currentPassword" formErrors={formErrors} />
           </div>
           <div className={styles.inputContainer}>
             <Input
@@ -187,8 +269,11 @@ function UserSettings() {
               id="newPassword"
               value={passwordData.newPassword}
               onChange={handlePasswordChange}
+              formErrors={formErrors}
             />
+            <ErrorMessage fieldName="newPassword" formErrors={formErrors} />
           </div>
+
           <div className={styles.inputContainer}>
             <Input
               type="password"
@@ -197,12 +282,17 @@ function UserSettings() {
               id="confirmPassword"
               value={passwordData.confirmPassword}
               onChange={handlePasswordChange}
+              formErrors={formErrors}
             />
+            <ErrorMessage fieldName="confirmPassword" formErrors={formErrors} />
           </div>
-          <Button type="primary" width="223px" onClick={changeUserPassword}>
+
+          <ErrorMessage fieldName="general" formErrors={formErrors} />
+
+          <Button type="primary" width="223px">
             პაროლის შეცვლა
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );

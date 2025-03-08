@@ -9,11 +9,11 @@ function Wishlist() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const pageSize = 10;
+
   const loadData = async () => {
     try {
       const response = await getWishlist();
-      console.log(response);
       setData(response.data);
       setTotalItems(response.data.totalCount);
       setLoading(false);

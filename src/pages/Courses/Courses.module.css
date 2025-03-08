@@ -9,6 +9,14 @@
   width: 30%;
 }
 
+.filterHeaderContainer {
+  display: none;
+}
+
+.filterButtonContainer {
+  display: none;
+}
+
 .contentContainer {
   width: 70%;
   display: flex;
@@ -90,8 +98,67 @@
     align-items: center;
   }
 
+  .container {
+    flex-direction: column;
+  }
+
   .sidebarContainer {
-    display: none;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 1000;
+    box-shadow: 0px 4px 9px 0px #98a0b440;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+
+  .filterContainer {
+    max-width: 40%;
+  }
+
+  .filterHeaderContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .filterHeaderTitle {
+    color: #4b4b4b;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .filterHeaderButtons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .filterHeaderResetAll {
+    color: #3561fe;
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .filterHeaderCloseBtn {
+    width: 24px;
+    height: 24px;
+  }
+
+  .filterHeaderCloseBtn > svg {
+    width: 100%;
+    height: 100%;
+    fill: #4b4b4b;
+  }
+
+  .filterButtonContainer {
+    display: block;
+    margin-top: 30px;
   }
 
   .contentContainer {

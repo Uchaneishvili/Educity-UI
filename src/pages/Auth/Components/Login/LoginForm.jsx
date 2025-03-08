@@ -25,7 +25,7 @@ function LoginForm({ onSuccess }) {
       try {
         const result = await login(data);
         if (result.success) {
-          // onSuccess();
+          onSuccess();
         } else {
           setFormErrors({
             ...formErrors,

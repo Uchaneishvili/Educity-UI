@@ -44,14 +44,15 @@
   .searchContainer {
     flex-direction: row-reverse;
   }
+
   .filterIconWrapper {
     display: block;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none;
     color: #6b7280;
     right: 0px;
+    cursor: pointer;
   }
 
   .searchIconWrapper {

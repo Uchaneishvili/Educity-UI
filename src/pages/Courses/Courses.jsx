@@ -53,6 +53,18 @@ export function Courses() {
     }
   }, [location.state, categories]);
 
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      setIsFilterOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    isFilterOpen
+      ? (document.documentElement.style.overflow = 'hidden')
+      : (document.documentElement.style.overflow = 'auto');
+  }, [isFilterOpen]);
+
   const loadData = useCallback(
     async (page = 1) => {
       try {
@@ -249,7 +261,10 @@ export function Courses() {
             <div className={styles.title}>ჩვენი კურსები</div>
             <div className={styles.headerSortContainer}>
               <div className={styles.searchContainer}>
-                <SearchInput onChange={handleSearch} />
+                <SearchInput
+                  onChange={handleSearch}
+                  setIsFilterOpen={setIsFilterOpen}
+                />
               </div>
               <div className={styles.sortContainer}>
                 <Sorting

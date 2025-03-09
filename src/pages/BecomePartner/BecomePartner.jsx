@@ -9,6 +9,7 @@ import SocialMedia from '../../components/SocialMedia/SocialMedia';
 import Input from '../../components/UI/Input/Input';
 import Textarea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
+import emailjs from '@emailjs/browser';
 
 function BecomePartner() {
   const partners = [
@@ -35,6 +36,42 @@ function BecomePartner() {
   ];
 
   const [active, setActive] = useState(0);
+  const [name, setName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [company, setCompany] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const serviceId = process.env.REACT_APP_EMAIL_PARTNER_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAIL_PARTNER_TEMPLATE_ID;
+    const publicKey = process.env.REACT_APP_EMAIL_PUBLIC_KEY;
+
+    const templateParams = {
+      from_name: name,
+      from_lastName: lastName,
+      from_email: email,
+      from_phoneNumber: phoneNumber,
+      from_company: company,
+      message: message,
+    };
+
+    emailjs
+      .send(serviceId, templateId, templateParams, publicKey)
+      .then(response => {
+        console.log('Email has been sent!', response);
+        setName('');
+        setLastName('');
+        setEmail('');
+        setPhoneNumber('');
+        setCompany('');
+        setMessage('');
+      })
+      .catch(error => console.log(error));
+  };
 
   return (
     <div className="mainContainer">
@@ -127,27 +164,45 @@ function BecomePartner() {
                 </button>
               </div>
 
-              <div className={styles.becomePartnerFormDescription}>
-                ჩვენ გაწვდით საჭირო უნარებით აღჭურვილ კადრს, რომლებიც მზად არიან
-                დიდი მოტივაციით ჩაერთონ კომპანიის საქმიანობაში და შეიტანონ
-                წვლილი მის განვითარებაში. მიმართულებები: ვებ დეველოპერი, ბექ-ენდ
-                დეველოპერი, ციფრული პროდუქტების ტესტერი, გრაფიკული დიზაინერი,
-                UI/UX დიზაინერი, გაყიდვები მენეჯერი, სასტუმროს მენეჯერი.
-                ფრონტ-ენდ დეველოპერი.
-              </div>
+              {active === 0 && (
+                <div className={styles.becomePartnerFormDescription}>
+                  ჩვენ გაწვდით საჭირო უნარებით აღჭურვილ კადრს, რომლებიც მზად
+                  არიან დიდი მოტივაციით ჩაერთონ კომპანიის საქმიანობაში და
+                  შეიტანონ წვლილი მის განვითარებაში. მიმართულებები: ვებ
+                  დეველოპერი, ბექ-ენდ დეველოპერი, ციფრული პროდუქტების ტესტერი,
+                  გრაფიკული დიზაინერი, UI/UX დიზაინერი, გაყიდვები მენეჯერი,
+                  სასტუმროს მენეჯერი. ფრონტ-ენდ დეველოპერი.
+                </div>
+              )}
+
+              {active === 1 && (
+                <div className={styles.becomePartnerFormDescription}>
+                  კომპანიებს ვთავაზობთ კადრების გადამზადებას, კორპორატიულ
+                  ფასდაკლებებს, მომსახურებას ტექ ინდუსტრიაში, ვორქშოფებს და
+                  საერთო პროექტებს.
+                </div>
+              )}
+
+              {active === 2 && (
+                <div className={styles.becomePartnerFormDescription}>
+                  კორპორატიული სოციალური პასუხისმგებლობის ფარგლებში, შეგიძლით
+                  დაგვიკავშირდეთ და დააფინანსოთ განათლება იმ ადამიანებისთვის,
+                  ვისაც სჭირდება ახალი ცხოვრების დაწყება და კარიერის გაგრძელება
+                  ტექნოლოგიურ სფეროში
+                </div>
+              )}
             </div>
 
             <div>
               <div className={styles.becomePartnersInfo}>
                 <div className={styles.becomePartnerInfo}>
-                  <PhoneIcon /> 995 (032) 2 12 09 90
+                  <PhoneIcon /> +995 599 200 944
                 </div>
                 <div className={styles.becomePartnerInfo}>
-                  <MessageIcon /> customerservice@spacecargo.ge
+                  <MessageIcon /> info@educity.ge
                 </div>
                 <div className={styles.becomePartnerInfo}>
-                  <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ.
-                  ქუთათელაძის კვეთა
+                  <LocationIcon /> თბილისი, ვაჟა-ფშაველას 45
                 </div>
               </div>
 
@@ -155,7 +210,10 @@ function BecomePartner() {
             </div>
           </div>
 
-          <form className={styles.becomePartnerInputFormContainer}>
+          <form
+            className={styles.becomePartnerInputFormContainer}
+            onSubmit={handleSubmit}
+          >
             <div className={styles.twoInputsContainer}>
               <div className={styles.nameInputContainer}>
                 <Input
@@ -163,6 +221,8 @@ function BecomePartner() {
                   id="name"
                   name="სახელი"
                   placeholder="სახელი"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
                 />
               </div>
               <div className={styles.lastNameInputContainer}>
@@ -171,6 +231,8 @@ function BecomePartner() {
                   id="lastName"
                   name="გვარი"
                   placeholder="გვარი"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -181,6 +243,8 @@ function BecomePartner() {
                   id="email"
                   name="ელ-ფოსტა"
                   placeholder="ელ-ფოსტა"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
                 />
               </div>
               <div className={styles.phoneNumberInputContainer}>
@@ -189,6 +253,8 @@ function BecomePartner() {
                   id="phoneNumber"
                   name="ტელეფონის ნომერი"
                   placeholder="5XX XXX XXX"
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
                 />
               </div>
             </div>
@@ -196,8 +262,10 @@ function BecomePartner() {
               <Input
                 type="text"
                 id="title"
-                name="კომპანიის დასახელება"
-                placeholder="კომპანია"
+                name="კომპანია"
+                placeholder="კომპანიის დასახელება"
+                value={company}
+                onChange={e => setCompany(e.target.value)}
               />
             </div>
             <div>
@@ -205,11 +273,13 @@ function BecomePartner() {
                 id="message"
                 name="შეტყობინება"
                 placeholder="დაწერეთ თქვენი შეტყობინება.."
+                value={message}
+                onChange={e => setMessage(e.target.value)}
               />
             </div>
 
             <div className={styles.becomePartnerButtonContainer}>
-              <Button type="primary" children="გაგზავნა" />
+              <Button type="primary">გაგზავნა</Button>
             </div>
           </form>
         </div>

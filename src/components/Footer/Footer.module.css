@@ -80,7 +80,7 @@
 
 @media (max-width: 1024px) {
   .footer {
-    padding: 50px 10% 10px 10%;
+    padding: 50px 16px 10px 16px;
   }
 
   .footerInfoContainer {

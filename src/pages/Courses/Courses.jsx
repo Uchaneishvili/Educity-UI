@@ -53,6 +53,20 @@ export function Courses() {
     }
   }, [location.state, categories]);
 
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      setIsFilterOpen(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      isFilterOpen
+        ? (document.documentElement.style.overflow = 'hidden')
+        : (document.documentElement.style.overflow = 'auto');
+    }
+  }, [isFilterOpen]);
+
   const loadData = useCallback(
     async (page = 1) => {
       try {
@@ -117,7 +131,7 @@ export function Courses() {
     loadData,
   ]);
 
-  const getWishlistData = async () => {
+  const getWishlistData = useCallback(async () => {
     if (!isAuthenticated) return;
     try {
       const response = await getWishlist();
@@ -125,11 +139,11 @@ export function Courses() {
     } catch (err) {
       console.error(err, 'error while getting wishlist');
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     getWishlistData();
-  }, []);
+  }, [getWishlistData]);
 
   const handleCategoryChange = categories => {
     setSelectedCategories(categories);
@@ -164,7 +178,7 @@ export function Courses() {
   const data = [
     {
       name: 'აუდიტორიული',
-      _id: 'offline',
+      _id: 'on-site',
     },
     {
       name: 'ონლაინი',
@@ -222,7 +236,11 @@ export function Courses() {
           </div>
           <div className={styles.filterContainer}>
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
-            <CategoriesList data={data} onCategoryChange={handleFilterChange} />
+            <CategoriesList
+              data={data}
+              onCategoryChange={handleFilterChange}
+              initialSelected={selectedFilter}
+            />
             <div className={styles.filterTitle}>კატეგორიები</div>
             <CategoriesList
               data={categories}
@@ -247,7 +265,10 @@ export function Courses() {
             <div className={styles.title}>ჩვენი კურსები</div>
             <div className={styles.headerSortContainer}>
               <div className={styles.searchContainer}>
-                <SearchInput onChange={handleSearch} />
+                <SearchInput
+                  onChange={handleSearch}
+                  setIsFilterOpen={setIsFilterOpen}
+                />
               </div>
               <div className={styles.sortContainer}>
                 <Sorting

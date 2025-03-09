@@ -78,7 +78,7 @@ function VideoLectures() {
                     2/5 COMPLETED
                   </div>
                 </div>
-                <ProgressBar percentage={40} totalBars={5} />
+                <ProgressBar percentage={50} totalBars={5} />
               </div>
 
               <div className={styles.videoLessonsAccordionContainer}>

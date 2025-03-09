@@ -17,6 +17,7 @@ function RegisterForm({ setActiveTab }) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
+    delete values.checked;
 
     const validationErrors = validateForm(values);
 

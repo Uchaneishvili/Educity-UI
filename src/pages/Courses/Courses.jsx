@@ -131,7 +131,7 @@ export function Courses() {
     loadData,
   ]);
 
-  const getWishlistData = async () => {
+  const getWishlistData = useCallback(async () => {
     if (!isAuthenticated) return;
     try {
       const response = await getWishlist();
@@ -139,11 +139,11 @@ export function Courses() {
     } catch (err) {
       console.error(err, 'error while getting wishlist');
     }
-  };
+  }, [isAuthenticated]);
 
   useEffect(() => {
     getWishlistData();
-  }, []);
+  }, [getWishlistData]);
 
   const handleCategoryChange = categories => {
     setSelectedCategories(categories);
@@ -178,7 +178,7 @@ export function Courses() {
   const data = [
     {
       name: 'აუდიტორიული',
-      _id: 'offline',
+      _id: 'on-site',
     },
     {
       name: 'ონლაინი',
@@ -236,7 +236,11 @@ export function Courses() {
           </div>
           <div className={styles.filterContainer}>
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
-            <CategoriesList data={data} onCategoryChange={handleFilterChange} />
+            <CategoriesList
+              data={data}
+              onCategoryChange={handleFilterChange}
+              initialSelected={selectedFilter}
+            />
             <div className={styles.filterTitle}>კატეგორიები</div>
             <CategoriesList
               data={categories}

@@ -22,8 +22,8 @@ export function Contact() {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const serviceId = process.env.REACT_APP_EMAIL_SERVICE_ID;
-    const templateId = process.env.REACT_APP_EMAIL_TEMPLATE_ID;
+    const serviceId = process.env.REACT_APP_EMAIL_CONTACTS_SERVICE_ID;
+    const templateId = process.env.REACT_APP_EMAIL_CONTACTS_TEMPLATE_ID;
     const publicKey = process.env.REACT_APP_EMAIL_PUBLIC_KEY;
 
     const templateParams = {
@@ -59,14 +59,13 @@ export function Contact() {
 
               <div className={styles.contactsInfo}>
                 <div className={styles.contactInfo}>
-                  <PhoneIcon /> 995 (032) 2 12 09 90
+                  <PhoneIcon /> +995 599 200 944
                 </div>
                 <div className={styles.contactInfo}>
-                  <MessageIcon /> customerservice@spacecargo.ge
+                  <MessageIcon /> info@educity.ge
                 </div>
                 <div className={styles.contactInfo}>
-                  <LocationIcon /> თბილისი ალ. ყაზბეგის გამზ. 30ა / კ.
-                  ქუთათელაძის კვეთა
+                  <LocationIcon /> თბილისი, ვაჟა-ფშაველას 45
                 </div>
               </div>
             </div>
@@ -143,7 +142,7 @@ export function Contact() {
             </div>
 
             <div className={styles.contactsButtonContainer}>
-              <Button type="primary" children="გაგზავნა" />
+              <Button type="primary">გაგზავნა</Button>
             </div>
           </form>
         </div>

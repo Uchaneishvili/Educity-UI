@@ -12,6 +12,8 @@ import { getWishlist } from '../../services/wishlist.service';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useLocation } from 'react-router-dom';
 import Sorting from '../../components/UI/Sorting/Sorting';
+import { CloseIcon } from '../../components/UI/icons';
+import { Button } from '../../components/UI/Button/Button';
 
 export function Courses() {
   const location = useLocation();
@@ -28,6 +30,7 @@ export function Courses() {
 
   const [coursesLoading, setCoursesLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
   const [selectedSort, setSelectedSort] = useState({
     sortBy: '',
     value: '',
@@ -199,7 +202,22 @@ export function Courses() {
   return (
     <div className="mainContainer">
       <div className={styles.container}>
-        <div className={styles.sidebarContainer}>
+        <div
+          className={styles.sidebarContainer}
+          style={{ display: isFilterOpen ? 'block' : 'none' }}
+        >
+          <div className={styles.filterHeaderContainer}>
+            <div className={styles.filterHeaderTitle}>ფილტრაცია</div>
+            <div className={styles.filterHeaderButtons}>
+              <div className={styles.filterHeaderResetAll}>Reset all</div>
+              <div
+                className={styles.filterHeaderCloseBtn}
+                onClick={() => setIsFilterOpen(false)}
+              >
+                <CloseIcon />
+              </div>
+            </div>
+          </div>
           <div className={styles.filterContainer}>
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
             <CategoriesList data={data} onCategoryChange={handleFilterChange} />
@@ -211,6 +229,15 @@ export function Courses() {
             />
 
             <Reviews onReviewChange={handleReviewChange} />
+          </div>
+          <div className={styles.filterButtonContainer}>
+            <Button
+              type="primary"
+              width="100%"
+              onClick={() => setIsFilterOpen(false)}
+            >
+              გაფილტვრა
+            </Button>
           </div>
         </div>
         <div className={styles.contentContainer}>

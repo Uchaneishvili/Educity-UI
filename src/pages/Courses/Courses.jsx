@@ -60,9 +60,11 @@ export function Courses() {
   }, []);
 
   useEffect(() => {
-    isFilterOpen
-      ? (document.documentElement.style.overflow = 'hidden')
-      : (document.documentElement.style.overflow = 'auto');
+    if (window.innerWidth <= 1024) {
+      isFilterOpen
+        ? (document.documentElement.style.overflow = 'hidden')
+        : (document.documentElement.style.overflow = 'auto');
+    }
   }, [isFilterOpen]);
 
   const loadData = useCallback(

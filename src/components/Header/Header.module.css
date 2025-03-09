@@ -248,15 +248,15 @@ li {
 
 .userMenuDropdown {
   padding: 8px 0;
-  min-width: 200px;
+  min-width: 100%;
   border-radius: 24px;
   overflow: hidden;
 }
 
 .userMenuDropdownItem {
-  padding: 12px 16px;
+  padding: 1vw;
   color: #1d2026;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
   white-space: nowrap;
@@ -272,6 +272,6 @@ li {
 .desktopOnly {
   display: block;
   width: auto;
-  min-width: 200px;
+  min-width: 15vw;
   right: 0;
 }

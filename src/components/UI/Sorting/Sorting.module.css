@@ -1,0 +1,62 @@
+.sortingContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.sortingButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 160px;
+  justify-content: flex-end;
+  border: none;
+  color: #1d2026;
+  background-color: transparent;
+}
+
+.optionsContainer {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #d3dce6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.option {
+  width: 100%;
+  text-align: left;
+  padding: 12px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1d2026;
+  transition: background-color 0.2s ease;
+}
+
+.option:hover {
+  background-color: #f3f4f6;
+}
+
+.option.selected {
+  background-color: #ecf0ff;
+  color: #3561fe;
+}
+@media screen and (max-width: 1024px) {
+  .sortingContainer {
+    width: 100%;
+  }
+  .sortingButton {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 10px;
+    justify-content: space-between;
+  }
+}

@@ -31,9 +31,13 @@ label {
   outline: none;
 }
 
+.inputError {
+  border: 1px solid rgb(255, 44, 44);
+}
+
 .iconButton {
   position: absolute;
-  right: 10px;
+  right: 16px;
   background: none;
   border: none;
   cursor: pointer;

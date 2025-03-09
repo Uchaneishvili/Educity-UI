@@ -11,6 +11,9 @@ import { Loader } from '../../components/UI/Loader/Loader';
 import { getWishlist } from '../../services/wishlist.service';
 import { useDebounce } from '../../hooks/useDebounce';
 import { useLocation } from 'react-router-dom';
+import Sorting from '../../components/UI/Sorting/Sorting';
+import { CloseIcon } from '../../components/UI/icons';
+import { Button } from '../../components/UI/Button/Button';
 
 export function Courses() {
   const location = useLocation();
@@ -27,6 +30,11 @@ export function Courses() {
 
   const [coursesLoading, setCoursesLoading] = useState(true);
   const [selectedFilter, setSelectedFilter] = useState([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(true);
+  const [selectedSort, setSelectedSort] = useState({
+    sortBy: '',
+    value: '',
+  });
 
   useEffect(() => {
     if (location.state?.category && categories.length > 0) {
@@ -47,6 +55,8 @@ export function Courses() {
       try {
         setCoursesLoading(true);
 
+        console.log('selectedSort', selectedSort);
+
         const query = {
           page,
           pageSize,
@@ -56,6 +66,8 @@ export function Courses() {
             courseType: selectedFilter,
           },
           customSearch: searchQuery ? { search: searchQuery } : undefined,
+          sortBy: selectedSort.sortBy,
+          sortOrder: selectedSort.value,
         };
 
         const response = await getCourses(query);
@@ -74,6 +86,7 @@ export function Courses() {
       selectedReviews,
       searchQuery,
       selectedFilter,
+      selectedSort,
     ],
   );
   useEffect(() => {
@@ -94,7 +107,14 @@ export function Courses() {
 
   useEffect(() => {
     loadData(currentPage);
-  }, [selectedCategories, selectedReviews, currentPage, searchQuery, loadData]);
+  }, [
+    selectedCategories,
+    selectedReviews,
+    currentPage,
+    searchQuery,
+    selectedSort,
+    loadData,
+  ]);
 
   const getWishlistData = async () => {
     try {
@@ -158,10 +178,46 @@ export function Courses() {
     },
   ];
 
+  const sortingOptions = [
+    {
+      label: 'სორტირება',
+      value: '',
+    },
+    {
+      label: 'ფასი ზრდადობით',
+      sortBy: 'price',
+      value: 'asc',
+    },
+    {
+      label: 'ფასი კლებადობით',
+      sortBy: 'price',
+      value: 'desc',
+    },
+  ];
+
+  const handleSortChange = option => {
+    setSelectedSort(option);
+    setCurrentPage(1);
+  };
   return (
     <div className="mainContainer">
       <div className={styles.container}>
-        <div className={styles.sidebarContainer}>
+        <div
+          className={styles.sidebarContainer}
+          style={{ display: isFilterOpen ? 'block' : 'none' }}
+        >
+          <div className={styles.filterHeaderContainer}>
+            <div className={styles.filterHeaderTitle}>ფილტრაცია</div>
+            <div className={styles.filterHeaderButtons}>
+              <div className={styles.filterHeaderResetAll}>Reset all</div>
+              <div
+                className={styles.filterHeaderCloseBtn}
+                onClick={() => setIsFilterOpen(false)}
+              >
+                <CloseIcon />
+              </div>
+            </div>
+          </div>
           <div className={styles.filterContainer}>
             <div className={styles.filterTitle}>მეცადინეობის ტიპი</div>
             <CategoriesList data={data} onCategoryChange={handleFilterChange} />
@@ -174,12 +230,30 @@ export function Courses() {
 
             <Reviews onReviewChange={handleReviewChange} />
           </div>
+          <div className={styles.filterButtonContainer}>
+            <Button
+              type="primary"
+              width="100%"
+              onClick={() => setIsFilterOpen(false)}
+            >
+              გაფილტვრა
+            </Button>
+          </div>
         </div>
         <div className={styles.contentContainer}>
           <div className={styles.headerContainer}>
             <div className={styles.title}>ჩვენი კურსები</div>
-            <div className={styles.searchContainer}>
-              <SearchInput onChange={handleSearch} />
+            <div className={styles.headerSortContainer}>
+              <div className={styles.searchContainer}>
+                <SearchInput onChange={handleSearch} />
+              </div>
+              <div className={styles.sortContainer}>
+                <Sorting
+                  options={sortingOptions}
+                  onSortChange={handleSortChange}
+                  defaultOption={sortingOptions[0]}
+                />
+              </div>
             </div>
           </div>
           {coursesLoading ? (

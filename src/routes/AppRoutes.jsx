@@ -14,6 +14,7 @@ import { ErrorPage } from '../pages/ErrorPage/ErrorPage';
 import VideoLectures from '../pages/VideoLectures/VideoLectures';
 import ProtectedRoute from './ProtectedRoute';
 import Checkout from '../pages/Checkout/Checkout';
+import FacebookCallback from '../pages/Auth/Components/FacebookCallback/FacebookCallback';
 
 export const AppRoutes = () => {
   return (
@@ -68,6 +69,7 @@ export const AppRoutes = () => {
         <Route path="/become-partner" element={<BecomePartner />} />
         <Route path="/courses/:id/videos" element={<VideoLectures />} />
         <Route path="/checkout/:id" element={<Checkout />} />
+        <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 

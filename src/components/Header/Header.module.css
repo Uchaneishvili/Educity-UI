@@ -4,7 +4,7 @@
   right: 0;
   z-index: 1000;
   background-color: #eff2fa;
-  padding: 0px 10%;
+  padding: 0px 5vw;
 }
 
 .container {
@@ -35,7 +35,7 @@
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 2vw;
   margin: 0;
   padding: 0;
 }
@@ -45,6 +45,10 @@
   font-size: 16px;
   transition: color 0.3s ease;
   cursor: pointer;
+}
+
+.navListLiActive {
+  color: #4169e1;
 }
 
 .navList li:hover {

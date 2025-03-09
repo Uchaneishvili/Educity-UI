@@ -33,6 +33,11 @@
   transition: all 0.2s ease;
 }
 
+.error {
+  border: 1px solid rgb(255, 44, 44);
+  border-radius: 4px;
+}
+
 .checkboxIcon {
   position: absolute;
   inset: 0;

@@ -1,34 +1,41 @@
-import React, { useState, useEffect } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import styles from './Auth.module.css'
-import TabSelector from '../../components/UI/TabSelector/TabSelector'
-import LoginForm from './Components/Login/LoginForm'
-import RegisterForm from './Components/Register/RegisterForm'
-import { OrDivider } from '../../components/UI/OrDivider/OrDivider'
-import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons'
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from './Auth.module.css';
+import TabSelector from '../../components/UI/TabSelector/TabSelector';
+import LoginForm from './Components/Login/LoginForm';
+import RegisterForm from './Components/Register/RegisterForm';
+import { OrDivider } from '../../components/UI/OrDivider/OrDivider';
+import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons';
+import AuthService from '../../services/auth.service';
 
 export function Auth() {
-  const location = useLocation()
-  const navigate = useNavigate()
-  const [activeTab, setActiveTab] = useState(0)
+  const authService = new AuthService();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleFacebookLogin = () => {
+    authService.facebookLogin();
+  };
 
   useEffect(() => {
     if (location.pathname === '/register') {
-      setActiveTab(1)
+      setActiveTab(1);
     } else if (location.pathname === '/login') {
-      setActiveTab(0)
+      setActiveTab(0);
     }
-  }, [location.pathname])
+  }, [location.pathname]);
 
-  const handleTabChange = (tabId) => {
-    setActiveTab(tabId)
-    navigate(tabId === 0 ? '/login' : '/register')
-  }
+  const handleTabChange = tabId => {
+    setActiveTab(tabId);
+    navigate(tabId === 0 ? '/login' : '/register');
+  };
 
   const handleLoginSuccess = () => {
-    const redirectPath = location.state?.from || '/' // Redirect to the original path or home
-    navigate(redirectPath)
-  }
+    const redirectPath = location.state?.from || '/'; // Redirect to the original path or home
+    navigate(redirectPath);
+  };
 
   return (
     <div className={styles.container}>
@@ -38,8 +45,8 @@ export function Auth() {
             <div className={styles.welcomeContainer}>
               <div className={styles.title}>მოგესალმებით</div>
               <div className={styles.description}>
-                გთხოვთ გაიაროთ ავტორიზაცია, თუ არ გაქვთ ანგარიში გაიარეთ რეგისრაცია, რათა ისარგებლოთ
-                ჩვენი სერვისებით
+                გთხოვთ გაიაროთ ავტორიზაცია, თუ არ გაქვთ ანგარიში გაიარეთ
+                რეგისრაცია, რათა ისარგებლოთ ჩვენი სერვისებით
               </div>
             </div>
 
@@ -47,7 +54,7 @@ export function Auth() {
               <TabSelector
                 tabs={[
                   { id: 0, label: 'ავტორიზაცია' },
-                  { id: 1, label: 'რეგისტრაცია' }
+                  { id: 1, label: 'რეგისტრაცია' },
                 ]}
                 onTabChange={handleTabChange}
                 activeTab={activeTab}
@@ -63,7 +70,7 @@ export function Auth() {
             <OrDivider />
 
             <div className={styles.socialContainer}>
-              <div className={styles.socialItem}>
+              <div className={styles.socialItem} onClick={handleFacebookLogin}>
                 <FacebookAuthIcon />
               </div>
               <div className={styles.socialItem}>
@@ -77,5 +84,5 @@ export function Auth() {
         </div>
       </div>
     </div>
-  )
+  );
 }

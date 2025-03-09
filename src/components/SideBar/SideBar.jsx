@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../UI/Button/Button';
 import { CloseIcon, UserIcon } from '../UI/icons';
 import AuthService from '../../services/auth.service';
-
+import { useAuth } from '../../context/AuthContext';
 const authService = new AuthService();
 
 function SideBar({
@@ -16,6 +16,7 @@ function SideBar({
 }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const refreshSideBar = () => {
@@ -144,7 +145,7 @@ function SideBar({
           </div>
 
           <div className={styles.logOutButton}>
-            <Button type="secondary" onClick={() => authService.logout()}>
+            <Button type="secondary" onClick={() => logout()}>
               LOG OUT
             </Button>
           </div>

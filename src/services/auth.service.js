@@ -163,7 +163,7 @@ class AuthService {
     }
   }
 
-  async changePassword(passwordData) {
+  async resetPassword(passwordData) {
     try {
       const token = this.getToken();
 
@@ -183,6 +183,29 @@ class AuthService {
         error: error.response?.data?.message || error.message,
       };
     }
+  }
+
+  async changePassword(passwordData) {
+    try {
+      const { data } = await this.api.post('/auth/change-password', {
+        ...passwordData,
+      });
+      return {
+        success: true,
+        data,
+        message: data.message || 'Password changed successfully',
+      };
+    } catch (error) {
+      console.error('Password change error:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message,
+      };
+    }
+  }
+
+  async facebookLogin() {
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
   }
 }
 

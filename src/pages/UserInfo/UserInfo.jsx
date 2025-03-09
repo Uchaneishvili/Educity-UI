@@ -101,7 +101,6 @@ function UserInfo() {
         {page === 'dashboard' && (
           <>
             <Dashboard />
-            <CoursesTab />
           </>
         )}
         {page === 'courses' && <CoursesTab hideTitle={true} />}

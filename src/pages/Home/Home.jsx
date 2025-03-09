@@ -82,19 +82,21 @@ export function Home() {
     try {
       const { data } = await getCategories();
 
-      const updatedCategories = categoriesWithCounts.map(category => {
-        const count = data.data.categories.filter(
-          course =>
-            course.category &&
-            course.category.toLowerCase() === category.title.toLowerCase(),
-        ).length;
-
-        return {
-          ...category,
-          coursesCount: count,
-        };
-      });
-      setCategoriesWithCounts(updatedCategories);
+      setCategoriesWithCounts(prevCategories =>
+        prevCategories.map(category => {
+          const matchingCategory = data.data.categories.find(
+            apiCategory =>
+              apiCategory.name &&
+              apiCategory.name.toLowerCase() === category.title.toLowerCase(),
+          );
+          return {
+            ...category,
+            coursesCount: matchingCategory
+              ? matchingCategory.courseCount || 0
+              : 0,
+          };
+        }),
+      );
     } catch (err) {
       console.log('Error while loading categories', err);
     }
@@ -102,7 +104,7 @@ export function Home() {
 
   useEffect(() => {
     loadCategories();
-  }, []);
+  }, [loadCategories]);
 
   return (
     <div className="mainContainer">

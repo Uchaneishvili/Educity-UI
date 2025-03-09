@@ -72,6 +72,12 @@
   gap: 20px;
 }
 
+.errorMessage {
+  font-size: 14px;
+  color: rgb(255, 44, 44);
+  margin-top: 2px;
+}
+
 .twoInputContainer {
   display: flex;
   align-items: flex-end;

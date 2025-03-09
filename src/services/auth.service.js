@@ -206,6 +206,10 @@ class AuthService {
   async facebookLogin() {
     window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
   }
+
+  async googleLogin() {
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
+  }
 }
 
 export default AuthService;

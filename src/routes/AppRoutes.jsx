@@ -15,6 +15,7 @@ import VideoLectures from '../pages/VideoLectures/VideoLectures';
 import ProtectedRoute from './ProtectedRoute';
 import Checkout from '../pages/Checkout/Checkout';
 import FacebookCallback from '../pages/Auth/Components/FacebookCallback/FacebookCallback';
+import GoogleCallback from '../pages/Auth/Components/GoogleCallback/GoogleCallback';
 
 export const AppRoutes = () => {
   return (
@@ -70,6 +71,7 @@ export const AppRoutes = () => {
         <Route path="/courses/:id/videos" element={<VideoLectures />} />
         <Route path="/checkout/:id" element={<Checkout />} />
         <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 

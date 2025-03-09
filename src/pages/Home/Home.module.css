@@ -457,9 +457,14 @@
   }
 
   .courseGraduateInnerContainer {
+    align-items: flex-start;
     flex-direction: column-reverse;
     padding: 40px 7%;
     gap: 10%;
+  }
+
+  .courseGraduateInnerContainer > div:last-child {
+    margin: 0;
   }
 
   .courseGraduatePersonContainer > img {

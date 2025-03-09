@@ -22,7 +22,7 @@ export function Header() {
   const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();
 
   const getCourses = async () => {
     try {
@@ -59,11 +59,102 @@ export function Header() {
             ჩემი კურსები
           </Button>
 
-          <div
-            className={styles.userLoggedIcon}
-            onClick={() => setShowUserMenu(!showUserMenu)}
-          >
-            <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
+          <div className={styles.userDropdownWrapper}>
+            <div
+              className={styles.userLoggedIcon}
+              onClick={() => setShowUserMenu(!showUserMenu)}
+            >
+              <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
+            </div>
+
+            <Dropdown isOpen={isDropdownOpen} width="430px">
+              <div className={styles.dropdownHeaderContainer}>
+                <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>
+                <div
+                  className={styles.dropdownHeaderBtn}
+                  onClick={() => navigate('/me/courses')}
+                >
+                  ყველას ნახვა
+                </div>
+              </div>
+
+              <div className={styles.dropdownCoursesContainer}>
+                {isLoading ? (
+                  <Loader />
+                ) : (
+                  courses.map(course => (
+                    <div
+                      key={course.id}
+                      className={styles.dropdownCourseContainer}
+                      onClick={() => navigate(`/courses/${course._id}/videos`)}
+                    >
+                      <div className={styles.dropdownCourseIcon}>
+                        <DropdownCourseIcon />
+                      </div>
+                      <div className={styles.dropdownCourseInfo}>
+                        <div className={styles.dropdownCourseName}>
+                          {course.title}
+                        </div>
+                        <div className={styles.dropdownCourseProgress}>
+                          <div className={styles.dropdownCourseProgressTitle}>
+                            2/5 COMPLETED
+                          </div>
+                          <ProgressBar percentage={40} totalBars={5} />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </Dropdown>
+
+            <Dropdown
+              isOpen={showUserMenu}
+              width="200px"
+              className={styles.desktopOnly}
+            >
+              <div className={styles.userMenuDropdown}>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => navigate('/me')}
+                >
+                  პროფილი
+                </div>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => navigate('/me/courses')}
+                >
+                  კურსები
+                </div>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => navigate('/me/wishlist')}
+                >
+                  ფავორიტები
+                </div>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => navigate('/me/purchase-history')}
+                >
+                  გადახდების ისტორია
+                </div>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => navigate('/me/settings')}
+                >
+                  პარამეტრები
+                </div>
+                <div
+                  className={styles.userMenuDropdownItem}
+                  onClick={() => {
+                    logout();
+                    navigate('/');
+                  }}
+                >
+                  გასვლა
+                </div>
+              </div>
+            </Dropdown>
           </div>
         </div>
       );
@@ -155,46 +246,6 @@ export function Header() {
         </nav>
 
         {renderAuthButtons()}
-        <Dropdown isOpen={isDropdownOpen} width="430px">
-          <div className={styles.dropdownHeaderContainer}>
-            <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>
-            <div
-              className={styles.dropdownHeaderBtn}
-              onClick={() => navigate('/me/courses')}
-            >
-              ყველას ნახვა
-            </div>
-          </div>
-
-          <div className={styles.dropdownCoursesContainer}>
-            {isLoading ? (
-              <Loader />
-            ) : (
-              courses.map(course => (
-                <div
-                  key={course.id}
-                  className={styles.dropdownCourseContainer}
-                  onClick={() => navigate(`/courses/${course._id}/videos`)}
-                >
-                  <div className={styles.dropdownCourseIcon}>
-                    <DropdownCourseIcon />
-                  </div>
-                  <div className={styles.dropdownCourseInfo}>
-                    <div className={styles.dropdownCourseName}>
-                      {course.title}
-                    </div>
-                    <div className={styles.dropdownCourseProgress}>
-                      <div className={styles.dropdownCourseProgressTitle}>
-                        2/5 COMPLETED
-                      </div>
-                      <ProgressBar percentage={40} totalBars={5} />
-                    </div>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-        </Dropdown>
       </div>
     </header>
   );

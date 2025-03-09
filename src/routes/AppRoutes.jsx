@@ -69,8 +69,22 @@ export const AppRoutes = () => {
         />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
-        <Route path="/courses/:id/videos" element={<VideoLectures />} />
-        <Route path="/checkout/:id" element={<Checkout />} />
+        <Route
+          path="/courses/:id/videos"
+          element={
+            <ProtectedRoute>
+              <VideoLectures />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/:id"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="*" element={<ErrorPage />} />

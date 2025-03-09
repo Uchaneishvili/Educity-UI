@@ -75,7 +75,7 @@ function SideBar({
       link: '/me/wishlist',
     },
     {
-      name: 'შეძენილი კურსები',
+      name: 'გადახდების ისტორია',
       link: '/me/purchase-history',
     },
     {
@@ -145,7 +145,13 @@ function SideBar({
           </div>
 
           <div className={styles.logOutButton}>
-            <Button type="secondary" onClick={() => logout()}>
+            <Button
+              type="secondary"
+              onClick={() => {
+                logout();
+                navigate('/');
+              }}
+            >
               LOG OUT
             </Button>
           </div>

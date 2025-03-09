@@ -9,6 +9,13 @@
   background-color: #ffffff;
   box-shadow: 34px 0px 60px 0px #00000014;
   transition: all 1s ease-in-out;
+  display: none; /* Hide by default on desktop */
+}
+
+@media (max-width: 1024px) {
+  .sideBarContainer {
+    display: flex; /* Show on mobile */
+  }
 }
 
 .sideBarInnerContainer {

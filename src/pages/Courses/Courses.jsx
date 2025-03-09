@@ -14,6 +14,7 @@ import { useLocation } from 'react-router-dom';
 import Sorting from '../../components/UI/Sorting/Sorting';
 import { CloseIcon } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
+import { useAuth } from '../../context/AuthContext';
 
 export function Courses() {
   const location = useLocation();
@@ -36,6 +37,8 @@ export function Courses() {
     value: '',
   });
 
+  const { isAuthenticated } = useAuth();
+
   useEffect(() => {
     if (location.state?.category && categories.length > 0) {
       // Find the category ID that matches the title from the state
@@ -54,8 +57,6 @@ export function Courses() {
     async (page = 1) => {
       try {
         setCoursesLoading(true);
-
-        console.log('selectedSort', selectedSort);
 
         const query = {
           page,
@@ -117,6 +118,7 @@ export function Courses() {
   ]);
 
   const getWishlistData = async () => {
+    if (!isAuthenticated) return;
     try {
       const response = await getWishlist();
       setWishlist(response.data);
@@ -271,7 +273,7 @@ export function Courses() {
                     thumbnail={course.thumbnail}
                     title={course.title}
                     totalDuration={course.totalDuration}
-                    enrolledStudentsQuantity={course.enrolledStudentsQuantity}
+                    enrolledStudentsQuantity={course.enrollmentsCount}
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}

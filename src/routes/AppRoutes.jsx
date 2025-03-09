@@ -15,6 +15,8 @@ import VideoLectures from '../pages/VideoLectures/VideoLectures';
 import ProtectedRoute from './ProtectedRoute';
 import Checkout from '../pages/Checkout/Checkout';
 import FacebookCallback from '../pages/Auth/Components/FacebookCallback/FacebookCallback';
+import GoogleCallback from '../pages/Auth/Components/GoogleCallback/GoogleCallback';
+import RecoveryPass from '../pages/RecoveryPass/RecoveryPass';
 
 export const AppRoutes = () => {
   return (
@@ -67,15 +69,31 @@ export const AppRoutes = () => {
         />
         <Route path="/subscriptions" element={<SubscriptionPack />} />
         <Route path="/become-partner" element={<BecomePartner />} />
-        <Route path="/courses/:id/videos" element={<VideoLectures />} />
-        <Route path="/checkout/:id" element={<Checkout />} />
+        <Route
+          path="/courses/:id/videos"
+          element={
+            <ProtectedRoute>
+              <VideoLectures />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/:id"
+          element={
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
+        <Route path="/auth/google/callback" element={<GoogleCallback />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 
       <Route path="/login" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/forget-pass" element={<ForgetPass />} />
+      <Route path="/recovery-pass" element={<RecoveryPass />} />
     </Routes>
   );
 };

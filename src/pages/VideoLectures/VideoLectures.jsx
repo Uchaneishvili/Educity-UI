@@ -4,13 +4,7 @@ import styles from './VideoLectures.module.css';
 import { ArrowBackIcon } from '../../components/UI/icons';
 import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar';
 import Modal from '../../components/UI/Modal/Modal';
-import {
-  CloseIcon,
-  ReviewModalColoredStar,
-  ReviewModalUncoloredStar,
-  SubmitBtnArrow,
-} from '../../components/UI/icons';
-import TextArea from '../../components/UI/Textarea/Textarea';
+import { CloseIcon, SubmitBtnArrow } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
 import { addReviewToCourse } from '../../services/review.service';
@@ -34,26 +28,10 @@ function VideoLectures() {
     },
   ];
 
-  const [isReviewOpen, setIsReviewOpen] = useState(false);
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
-  const [starsAmount, setStarsAmount] = useState(0);
-  const [comment, setComment] = useState('');
   const [data, setData] = useState();
   const [playBackId, setPlayBackId] = useState();
   const [loading, setLoading] = useState(true);
-
-  const addReview = async () => {
-    try {
-      await addReviewToCourse(id, {
-        rating: starsAmount,
-        comment: comment,
-      });
-
-      setIsReviewOpen(false);
-    } catch (error) {
-      console.error('Error adding review:', error);
-    }
-  };
 
   const loadData = useCallback(async () => {
     try {
@@ -99,12 +77,6 @@ function VideoLectures() {
                   <div className={styles.videoLessonsCompletionTitle}>
                     2/5 COMPLETED
                   </div>
-                  <button
-                    className={styles.videoLessonsReviewBtn}
-                    onClick={() => setIsReviewOpen(true)}
-                  >
-                    შეფასების დაწერა
-                  </button>
                 </div>
                 <ProgressBar percentage={40} totalBars={5} />
               </div>
@@ -189,52 +161,6 @@ function VideoLectures() {
           </div>
         )}
       </div>
-
-      <Modal isOpen={isReviewOpen} width="650px">
-        <div className={styles.reviewModalHeaderContainer}>
-          <div className={styles.reviewModalHeaderTitle}>Write a Review</div>
-          <div
-            className={styles.reviewModalCloseIcon}
-            onClick={() => setIsReviewOpen(false)}
-          >
-            <CloseIcon />
-          </div>
-        </div>
-        <div className={styles.reviewModalMainContainer}>
-          <div className={styles.reviewModalMainTitle}>
-            <div className={styles.reviewModalAmount}>{starsAmount}</div>
-            <div className={styles.reviewModalRate}>(Good/Amazing)</div>
-          </div>
-          <div className={styles.reviewModalStars}>
-            {[...Array(5)].map((_, index) => (
-              <div key={index} onClick={() => setStarsAmount(index + 1)}>
-                {index < starsAmount ? (
-                  <ReviewModalColoredStar />
-                ) : (
-                  <ReviewModalUncoloredStar />
-                )}
-              </div>
-            ))}
-          </div>
-
-          <form className={styles.reviewModalFeedbackForm}>
-            <TextArea
-              id="reviewModalFeedback"
-              name="Feedback"
-              placeholder="Write down your feedback here..."
-              onChange={e => setComment(e.target.value)}
-            />
-
-            <div className={styles.reviewModalFeedbackButtons}>
-              <button className={styles.cancelButton}>Cancel</button>
-
-              <Button type="primary" shadow={false} onClick={addReview}>
-                Submit Review <SubmitBtnArrow />
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Modal>
 
       <Modal isOpen={isQuizzOpen} width="650px">
         <div className={styles.quizzModalHeaderContainer}>

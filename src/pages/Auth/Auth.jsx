@@ -19,6 +19,10 @@ export function Auth() {
     authService.facebookLogin();
   };
 
+  const handleGoogleLogin = () => {
+    authService.googleLogin();
+  };
+
   useEffect(() => {
     if (location.pathname === '/register') {
       setActiveTab(1);
@@ -73,7 +77,7 @@ export function Auth() {
               <div className={styles.socialItem} onClick={handleFacebookLogin}>
                 <FacebookAuthIcon />
               </div>
-              <div className={styles.socialItem}>
+              <div className={styles.socialItem} onClick={handleGoogleLogin}>
                 <GoogleAuthIcon />
               </div>
             </div>

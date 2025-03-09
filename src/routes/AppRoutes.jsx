@@ -16,6 +16,7 @@ import ProtectedRoute from './ProtectedRoute';
 import Checkout from '../pages/Checkout/Checkout';
 import FacebookCallback from '../pages/Auth/Components/FacebookCallback/FacebookCallback';
 import GoogleCallback from '../pages/Auth/Components/GoogleCallback/GoogleCallback';
+import RecoveryPass from '../pages/RecoveryPass/RecoveryPass';
 
 export const AppRoutes = () => {
   return (
@@ -78,6 +79,7 @@ export const AppRoutes = () => {
       <Route path="/login" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/forget-pass" element={<ForgetPass />} />
+      <Route path="/recovery-pass" element={<RecoveryPass />} />
     </Routes>
   );
 };

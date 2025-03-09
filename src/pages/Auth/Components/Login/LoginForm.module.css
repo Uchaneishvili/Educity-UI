@@ -4,6 +4,11 @@
   gap: 12px;
 }
 
+.inputContainer > span {
+  font-size: 14px;
+  color: rgb(255, 44, 44);
+}
+
 .saveUser {
   color: #575e73;
   font-size: 14px;

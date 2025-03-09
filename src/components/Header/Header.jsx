@@ -67,7 +67,11 @@ export function Header() {
               <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
             </div>
 
-            <Dropdown isOpen={isDropdownOpen} width="430px">
+            <Dropdown
+              isOpen={isDropdownOpen}
+              width="430px"
+              onClose={() => setIsDropdownOpen(false)}
+            >
               <div className={styles.dropdownHeaderContainer}>
                 <div className={styles.dropdownHeaderTitle}>ჩემი კურსები</div>
                 <div
@@ -112,6 +116,7 @@ export function Header() {
               isOpen={showUserMenu}
               width="200px"
               className={styles.desktopOnly}
+              onClose={() => setShowUserMenu(false)}
             >
               <div className={styles.userMenuDropdown}>
                 <div

@@ -72,8 +72,6 @@ export function Courses() {
       try {
         setCoursesLoading(true);
 
-        console.log('selectedSort', selectedSort);
-
         const query = {
           page,
           pageSize,

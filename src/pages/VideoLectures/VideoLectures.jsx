@@ -12,10 +12,12 @@ import { Loader } from '../../components/UI/Loader/Loader';
 import { FileIcon, CompleteCheckIcon } from '../../components/UI/icons';
 import { Accordion } from '../../components/UI/Accordion/Accordion';
 import { completeSyllabusLevel } from '../../services/progress.service';
+import { getUserProgressByCourseId } from '../../services/progress.service';
 
 function VideoLectures() {
   const { id } = useParams();
   const [video, setVideo] = useState();
+  const [progress, setProgress] = useState();
   const quizzQuestions = [
     {
       id: 1,
@@ -32,6 +34,7 @@ function VideoLectures() {
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [selectedSylId, setSelectedSylId] = useState();
 
   const loadData = useCallback(async () => {
     try {
@@ -49,6 +52,21 @@ function VideoLectures() {
     }
   }, [id]);
 
+  const loadProgress = useCallback(async () => {
+    try {
+      const response = await getUserProgressByCourseId(id);
+      setProgress(response.data);
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error loading progress:', error);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    loadProgress();
+  }, [loadProgress]);
+
   useEffect(() => {
     loadData();
   }, [loadData]);
@@ -57,7 +75,7 @@ function VideoLectures() {
     try {
       await completeSyllabusLevel({
         courseId: id,
-        levelId: data.syllabus[0].id,
+        syllabusId: selectedSylId,
       });
     } catch (error) {
       console.error('Error completing syllabus level:', error);
@@ -90,10 +108,13 @@ function VideoLectures() {
               <div className={styles.videoLessonsCompletionContainer}>
                 <div className={styles.videoLessonsCompletionInnerContainer}>
                   <div className={styles.videoLessonsCompletionTitle}>
-                    2/5 COMPLETED
+                    {progress?.completedCount || '0/5'} COMPLETED
                   </div>
                 </div>
-                <ProgressBar percentage={50} totalBars={5} />
+                <ProgressBar
+                  percentage={progress?.progressPercentage || 0}
+                  totalBars={5}
+                />
               </div>
 
               <div className={styles.videoLessonsAccordionContainer}>
@@ -123,7 +144,10 @@ function VideoLectures() {
                               <div className={styles.videoButton}>
                                 <button
                                   className={styles.quizzBtn}
-                                  onClick={() => setVideo(level.videoUrl)}
+                                  onClick={() => {
+                                    setVideo(level.videoUrl);
+                                    setSelectedSylId(data._id);
+                                  }}
                                 >
                                   ვიდეო
                                 </button>

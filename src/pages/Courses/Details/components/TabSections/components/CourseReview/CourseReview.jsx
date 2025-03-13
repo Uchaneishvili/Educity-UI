@@ -85,7 +85,8 @@ function CourseReview() {
     },
   ];
 
-  const addReview = async () => {
+  const addReview = async e => {
+    e.preventDefault(); // Prevent default form submission
     try {
       await addReviewToCourse(id, {
         rating: starsAmount,
@@ -195,7 +196,13 @@ function CourseReview() {
             />
 
             <div className={styles.reviewModalFeedbackButtons}>
-              <button className={styles.cancelButton}>Cancel</button>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={() => setIsReviewOpen(false)}
+              >
+                Cancel
+              </button>
 
               <Button type="primary" shadow={false} onClick={addReview}>
                 Submit Review <SubmitBtnArrow />

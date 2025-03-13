@@ -7,14 +7,15 @@ import Modal from '../../components/UI/Modal/Modal';
 import { CloseIcon, SubmitBtnArrow } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
-import { addReviewToCourse } from '../../services/review.service';
 import { getCourseDetailsWithSyllabus } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
 import { FileIcon, CompleteCheckIcon } from '../../components/UI/icons';
 import { Accordion } from '../../components/UI/Accordion/Accordion';
+import { completeSyllabusLevel } from '../../services/progress.service';
+
 function VideoLectures() {
   const { id } = useParams();
-
+  const [video, setVideo] = useState();
   const quizzQuestions = [
     {
       id: 1,
@@ -30,7 +31,6 @@ function VideoLectures() {
 
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [data, setData] = useState();
-  const [playBackId, setPlayBackId] = useState();
   const [loading, setLoading] = useState(true);
 
   const loadData = useCallback(async () => {
@@ -38,7 +38,10 @@ function VideoLectures() {
       const response = await getCourseDetailsWithSyllabus(id);
 
       setData(response.data);
-      setPlayBackId(response.data.intro);
+
+      console.log(response.data);
+
+      setVideo(response.data.intro);
       setLoading(false);
     } catch (error) {
       console.error('Error loading data:', error);
@@ -49,6 +52,17 @@ function VideoLectures() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  const onCompleteVideo = async () => {
+    try {
+      await completeSyllabusLevel({
+        courseId: id,
+        levelId: data.syllabus[0].id,
+      });
+    } catch (error) {
+      console.error('Error completing syllabus level:', error);
+    }
+  };
 
   return (
     <>
@@ -66,9 +80,10 @@ function VideoLectures() {
 
             <div className={styles.videoContainer}>
               <Video
-                playbackId={playBackId}
+                playbackId={video}
                 thumbnail={data.thumbnail}
                 size={'80%'}
+                onEnded={onCompleteVideo}
               />
             </div>
             <div className={styles.videoLessonsContainer}>
@@ -83,76 +98,44 @@ function VideoLectures() {
 
               <div className={styles.videoLessonsAccordionContainer}>
                 {data.syllabus.map(data => (
-                  <Accordion title="Lessons with video content" key={data.id}>
+                  <Accordion title={data.title} key={data.id}>
                     <div className={styles.syllabusContainer}>
-                      <div className={styles.syllabusItem}>
-                        <div className={styles.syllabusItemInnerContainer}>
-                          <div>
-                            <FileIcon />
+                      {data.levels.map(level => (
+                        <div className={styles.syllabusItem}>
+                          <div className={styles.syllabusItemInnerContainer}>
+                            <div>
+                              <FileIcon />
+                            </div>
+                            <div>{level.title}</div>
                           </div>
-                          <div>ლექცია 1</div>
-                        </div>
 
-                        <div className={styles.syllabusInfoContainer}>
-                          <div className={styles.duration}>10:05</div>
-                          <div className={styles.isCompleted}>
-                            <CompleteCheckIcon />
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.syllabusItem}>
-                        <div className={styles.syllabusItemInnerContainer}>
-                          <div>
-                            <FileIcon />
-                          </div>
-                          <div>ლექცია 1</div>
-                        </div>
+                          <div className={styles.syllabusInfoContainer}>
+                            <div className={styles.quizz}>
+                              <button
+                                className={styles.quizzBtn}
+                                onClick={() => setIsQuizzOpen(true)}
+                              >
+                                ქვიზი
+                              </button>
+                            </div>
 
-                        <div className={styles.syllabusInfoContainer}>
-                          <div className={styles.duration}>10:05</div>
-                          <div className={styles.isCompleted}>
-                            <CompleteCheckIcon />
-                          </div>
-                        </div>
-                      </div>
-                      <div className={styles.syllabusItem}>
-                        <div className={styles.syllabusItemInnerContainer}>
-                          <div>
-                            <FileIcon />
-                          </div>
-                          <div>ლექცია 1</div>
-                        </div>
+                            {level.videoUrl && (
+                              <div className={styles.videoButton}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  onClick={() => setVideo(level.videoUrl)}
+                                >
+                                  ვიდეო
+                                </button>
+                              </div>
+                            )}
 
-                        <div className={styles.syllabusInfoContainer}>
-                          <div className={styles.duration}>10:05</div>
-                          <div className={styles.isCompleted}>
-                            <CompleteCheckIcon />
+                            <div className={styles.isCompleted}>
+                              <CompleteCheckIcon />
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div className={styles.syllabusItem}>
-                        <div className={styles.syllabusItemInnerContainer}>
-                          <div>
-                            <FileIcon />
-                          </div>
-                          <div>ლექცია 1</div>
-                        </div>
-
-                        <div className={styles.syllabusInfoContainer}>
-                          <div className={styles.quizz}>
-                            <button
-                              className={styles.quizzBtn}
-                              onClick={() => setIsQuizzOpen(true)}
-                            >
-                              ქვიზი
-                            </button>
-                          </div>
-                          <div className={styles.duration}>10:05</div>
-                          <div className={styles.isCompleted}>
-                            <CompleteCheckIcon />
-                          </div>
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </Accordion>
                 ))}

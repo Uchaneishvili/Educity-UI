@@ -10,9 +10,9 @@ import { DropdownCourseIcon } from '../UI/icons';
 import React from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
-import { getMyCourses } from '../../services/courses.service';
 import { Loader } from '../UI/Loader/Loader';
 import { getUserProgresses } from '../../services/progress.service';
+import { EducityLogo } from '../UI/icons';
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -208,7 +208,7 @@ export function Header() {
       <div className={styles.container}>
         <div>
           <div className={styles.logo} onClick={() => navigate('/')}>
-            <img src="/assets/logo.png" alt="logo" />
+            <EducityLogo />
           </div>
         </div>
 

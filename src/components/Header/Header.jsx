@@ -12,6 +12,7 @@ import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
 import { getMyCourses } from '../../services/courses.service';
 import { Loader } from '../UI/Loader/Loader';
+import { getUserProgresses } from '../../services/progress.service';
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -27,9 +28,9 @@ export function Header() {
   const getCourses = async () => {
     try {
       setIsLoading(true);
-      const { data } = await getMyCourses({ type: 'video-lectures' });
+      const { data } = await getUserProgresses();
 
-      setCourses(data.data.courses);
+      setCourses(data);
     } catch (err) {
       console.log('Error while loading courses', err);
       setIsLoading(false);
@@ -88,9 +89,11 @@ export function Header() {
                 ) : (
                   courses.map(course => (
                     <div
-                      key={course.id}
+                      key={course.courseId}
                       className={styles.dropdownCourseContainer}
-                      onClick={() => navigate(`/courses/${course._id}/videos`)}
+                      onClick={() =>
+                        navigate(`/courses/${course.courseId}/videos`)
+                      }
                     >
                       <div className={styles.dropdownCourseIcon}>
                         <DropdownCourseIcon />
@@ -101,9 +104,12 @@ export function Header() {
                         </div>
                         <div className={styles.dropdownCourseProgress}>
                           <div className={styles.dropdownCourseProgressTitle}>
-                            2/5 COMPLETED
+                            {course.completedCount || '0/5'} COMPLETED
                           </div>
-                          <ProgressBar percentage={40} totalBars={5} />
+                          <ProgressBar
+                            percentage={course.progressPercentage || 0}
+                            totalBars={5}
+                          />
                         </div>
                       </div>
                     </div>
@@ -202,7 +208,7 @@ export function Header() {
       <div className={styles.container}>
         <div>
           <div className={styles.logo} onClick={() => navigate('/')}>
-            Educity
+            <img src="/assets/logo.png" alt="logo" />
           </div>
         </div>
 

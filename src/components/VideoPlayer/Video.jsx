@@ -1,7 +1,7 @@
 import MuxPlayer from '@mux/mux-player-react';
 import styles from './Video.module.css';
 
-export function Video({ playbackId, thumbnail, size }) {
+export function Video({ playbackId, thumbnail, size, onEnded }) {
   return (
     <div
       className={styles.videoContainer}
@@ -16,9 +16,7 @@ export function Video({ playbackId, thumbnail, size }) {
         autoPlay={false}
         muted={false}
         poster={thumbnail}
-        onEnded={() => {
-          console.log('ended');
-        }}
+        onEnded={() => onEnded()}
       />
     </div>
   );

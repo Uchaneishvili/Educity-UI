@@ -190,7 +190,7 @@ function VideoLectures() {
 
         <div className={styles.quizzModalQuestionsContainer}>
           {quiz?.map((quizz, index) => (
-            <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
+            <div key={index} className={styles.quizzModalQuestionContainer}>
               <div className={styles.quizzModalQuestionHeader}>
                 <div className={styles.quizzModalQuestionNumber}>
                   {index + 1}

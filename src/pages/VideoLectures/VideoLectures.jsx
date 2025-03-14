@@ -25,15 +25,11 @@ function VideoLectures() {
   const [loading, setLoading] = useState(true);
   const [selectedSylId, setSelectedSylId] = useState();
 
-  console.log(quiz);
-
   const loadData = useCallback(async () => {
     try {
       const response = await getCourseDetailsWithSyllabus(id);
 
       setData(response.data);
-
-      console.log(response.data);
 
       setVideo(response.data.intro);
       setLoading(false);
@@ -129,6 +125,7 @@ function VideoLectures() {
                                   console.log('level.quiz', level.quiz);
 
                                   setIsQuizzOpen(true);
+
                                   setQuiz(level.quiz);
                                 }}
                               >
@@ -192,11 +189,11 @@ function VideoLectures() {
         </div>
 
         <div className={styles.quizzModalQuestionsContainer}>
-          {quiz?.map(quizz => (
+          {quiz?.map((quizz, index) => (
             <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
               <div className={styles.quizzModalQuestionHeader}>
                 <div className={styles.quizzModalQuestionNumber}>
-                  {quizz.ordinal}
+                  {index + 1}
                 </div>
                 <div className={styles.quizzModalQuestionText}>
                   {quizz.question}
@@ -207,7 +204,7 @@ function VideoLectures() {
                   <div key={index} className={styles.quizzModalQuestionAnswer}>
                     <input type="radio" />
                     <div className={styles.quizzModalQuestionAnswerText}>
-                      {answer}
+                      {answer.text}
                     </div>
                   </div>
                 ))}

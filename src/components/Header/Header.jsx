@@ -89,9 +89,11 @@ export function Header() {
                 ) : (
                   courses.map(course => (
                     <div
-                      key={course.id}
+                      key={course.courseId}
                       className={styles.dropdownCourseContainer}
-                      onClick={() => navigate(`/courses/${course._id}/videos`)}
+                      onClick={() =>
+                        navigate(`/courses/${course.courseId}/videos`)
+                      }
                     >
                       <div className={styles.dropdownCourseIcon}>
                         <DropdownCourseIcon />
@@ -206,7 +208,7 @@ export function Header() {
       <div className={styles.container}>
         <div>
           <div className={styles.logo} onClick={() => navigate('/')}>
-            Educity
+            <img src="/assets/logo.png" alt="logo" />
           </div>
         </div>
 

@@ -18,23 +18,14 @@ function VideoLectures() {
   const { id } = useParams();
   const [video, setVideo] = useState();
   const [progress, setProgress] = useState();
-  const quizzQuestions = [
-    {
-      id: 1,
-      question: 'Lorem ipsum dolor sit amet consectetur?',
-      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
-    },
-    {
-      id: 2,
-      question: 'Lorem ipsum dolor sit amet consectetur?',
-      answers: ['Lorem ipsum dolor', 'Lorem ipsum dolor', 'Lorem ipsum dolor'],
-    },
-  ];
+  const [quiz, setQuiz] = useState([]);
 
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [selectedSylId, setSelectedSylId] = useState();
+
+  console.log(quiz);
 
   const loadData = useCallback(async () => {
     try {
@@ -134,7 +125,12 @@ function VideoLectures() {
                             <div className={styles.quizz}>
                               <button
                                 className={styles.quizzBtn}
-                                onClick={() => setIsQuizzOpen(true)}
+                                onClick={() => {
+                                  console.log('level.quiz', level.quiz);
+
+                                  setIsQuizzOpen(true);
+                                  setQuiz(level.quiz);
+                                }}
                               >
                                 ქვიზი
                               </button>
@@ -150,6 +146,19 @@ function VideoLectures() {
                                   }}
                                 >
                                   ვიდეო
+                                </button>
+                              </div>
+                            )}
+
+                            {level.contentUrl && (
+                              <div className={styles.videoButton}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  onClick={() => {
+                                    window.open(level.contentUrl, '_blank');
+                                  }}
+                                >
+                                  მასალები
                                 </button>
                               </div>
                             )}
@@ -174,18 +183,20 @@ function VideoLectures() {
           <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
           <div
             className={styles.quizzModalCloseIcon}
-            onClick={() => setIsQuizzOpen(false)}
+            onClick={() => {
+              setIsQuizzOpen(false);
+            }}
           >
             <CloseIcon />
           </div>
         </div>
 
         <div className={styles.quizzModalQuestionsContainer}>
-          {quizzQuestions.map(quizz => (
+          {quiz?.map(quizz => (
             <div key={quizz.id} className={styles.quizzModalQuestionContainer}>
               <div className={styles.quizzModalQuestionHeader}>
                 <div className={styles.quizzModalQuestionNumber}>
-                  {quizz.id}
+                  {quizz.ordinal}
                 </div>
                 <div className={styles.quizzModalQuestionText}>
                   {quizz.question}

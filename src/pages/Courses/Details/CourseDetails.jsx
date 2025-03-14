@@ -15,13 +15,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import { Loader } from '../../../components/UI/Loader/Loader';
 import { Error } from '../../../components/Error/Error';
+import { useAuth } from '../../../context/AuthContext';
 export function CourseDetails() {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [access, setAccess] = useState(false);
   const navigate = useNavigate();
-
+  const { isAuthenticated } = useAuth();
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
@@ -44,8 +45,11 @@ export function CourseDetails() {
   }, [id]);
 
   useEffect(() => {
-    checkingUserAccess();
-  }, [checkingUserAccess]);
+    if (isAuthenticated) {
+      console.log('isAuthenticated', isAuthenticated);
+      checkingUserAccess();
+    }
+  }, [checkingUserAccess, isAuthenticated]);
 
   useEffect(() => {
     loadData();

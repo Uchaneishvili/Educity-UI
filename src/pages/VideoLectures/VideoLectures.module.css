@@ -93,6 +93,18 @@
   overflow: hidden;
 }
 
+.certificateBtn {
+  width: 180px;
+  height: fit-content;
+  background-color: #3561fe29;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #3561fe;
+  font-size: 16px;
+  line-height: 24px;
+  padding: 4px 0;
+}
 .videoLessonsAccordionTab {
   width: 100%;
   padding: 16px 20px;

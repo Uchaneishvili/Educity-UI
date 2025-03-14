@@ -23,8 +23,8 @@ function VideoLectures() {
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
-  const [selectedSylId, setSelectedSylId] = useState();
-
+  const [selectedLevelId, setSelectedLevelId] = useState();
+  const [syllabus, setSyllabus] = useState();
   const loadData = useCallback(async () => {
     try {
       const response = await getCourseDetailsWithSyllabus(id);
@@ -61,8 +61,9 @@ function VideoLectures() {
   const onCompleteVideo = async () => {
     try {
       await completeSyllabusLevel({
+        syllabusId: syllabus,
+        levelId: selectedLevelId,
         courseId: id,
-        syllabusId: selectedSylId,
       });
     } catch (error) {
       console.error('Error completing syllabus level:', error);
@@ -108,7 +109,7 @@ function VideoLectures() {
                 {data.syllabus.map(data => (
                   <Accordion title={data.title} key={data.id}>
                     <div className={styles.syllabusContainer}>
-                      {data.levels.map(level => (
+                      {data.levels.map((level, index) => (
                         <div className={styles.syllabusItem}>
                           <div className={styles.syllabusItemInnerContainer}>
                             <div>
@@ -118,20 +119,22 @@ function VideoLectures() {
                           </div>
 
                           <div className={styles.syllabusInfoContainer}>
-                            <div className={styles.quizz}>
-                              <button
-                                className={styles.quizzBtn}
-                                onClick={() => {
-                                  console.log('level.quiz', level.quiz);
+                            {level.quiz.length > 0 && (
+                              <div className={styles.quizz}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  onClick={() => {
+                                    console.log('level.quiz', level.quiz);
 
-                                  setIsQuizzOpen(true);
+                                    setIsQuizzOpen(true);
 
-                                  setQuiz(level.quiz);
-                                }}
-                              >
-                                ქვიზი
-                              </button>
-                            </div>
+                                    setQuiz(level.quiz);
+                                  }}
+                                >
+                                  ქვიზი
+                                </button>
+                              </div>
+                            )}
 
                             {level.videoUrl && (
                               <div className={styles.videoButton}>
@@ -139,7 +142,8 @@ function VideoLectures() {
                                   className={styles.quizzBtn}
                                   onClick={() => {
                                     setVideo(level.videoUrl);
-                                    setSelectedSylId(data._id);
+                                    setSelectedLevelId(level._id);
+                                    setSyllabus(data._id);
                                   }}
                                 >
                                   ვიდეო

@@ -5,7 +5,7 @@
   z-index: 1000;
 }
 
-/* Facebook chat widget overrides */
+/* Facebook ჩატის ვიჯეტის გადაფარვა */
 :global(.fb_dialog) {
   right: 18pt !important;
   bottom: 18pt !important;

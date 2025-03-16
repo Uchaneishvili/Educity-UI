@@ -240,7 +240,6 @@ function VideoLectures() {
             <div className={styles.quizResultScore}>
               Score: {quizResult.correctAnswers}/{quizResult.totalAnswers}
             </div>
-            {/* <div className={styles.quizzModalButtons}> */}
           </div>
         ) : (
           <>

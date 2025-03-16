@@ -13,7 +13,7 @@ import { FileIcon, CompleteCheckIcon } from '../../components/UI/icons';
 import { Accordion } from '../../components/UI/Accordion/Accordion';
 import { completeSyllabusLevel } from '../../services/progress.service';
 import { getUserProgressByCourseId } from '../../services/progress.service';
-
+import { submitQuizAnswers } from '../../services/quizzes.service';
 function VideoLectures() {
   const { id } = useParams();
   const [video, setVideo] = useState();
@@ -25,6 +25,8 @@ function VideoLectures() {
   const [loading, setLoading] = useState(true);
   const [selectedLevelId, setSelectedLevelId] = useState();
   const [syllabus, setSyllabus] = useState();
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+
   const loadData = useCallback(async () => {
     try {
       const response = await getCourseDetailsWithSyllabus(id);
@@ -68,6 +70,40 @@ function VideoLectures() {
     } catch (error) {
       console.error('Error completing syllabus level:', error);
     }
+  };
+
+  const handleAnswerSelect = (questionIndex, answerId) => {
+    setSelectedAnswers(prev => ({
+      ...prev,
+      [questionIndex]: answerId,
+    }));
+  };
+
+  const onSubmitQuizAnswers = async () => {
+    try {
+      const answers = Object.values(selectedAnswers);
+
+      const payload = {
+        answers: answers,
+      };
+
+      const response = await submitQuizAnswers(payload);
+
+      if (response.status === 201) {
+        setIsQuizzOpen(false);
+        setSelectedAnswers({});
+        loadProgress();
+      }
+
+      console.log('response', response);
+    } catch (error) {
+      console.error('Error submitting quiz answers:', error);
+    }
+  };
+
+  const handleCancelQuiz = () => {
+    setIsQuizzOpen(false);
+    setSelectedAnswers({});
   };
 
   return (
@@ -184,9 +220,7 @@ function VideoLectures() {
           <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
           <div
             className={styles.quizzModalCloseIcon}
-            onClick={() => {
-              setIsQuizzOpen(false);
-            }}
+            onClick={handleCancelQuiz}
           >
             <CloseIcon />
           </div>
@@ -204,9 +238,17 @@ function VideoLectures() {
                 </div>
               </div>
               <div className={styles.quizzModalQuestionAnswers}>
-                {quizz.answers.map((answer, index) => (
-                  <div key={index} className={styles.quizzModalQuestionAnswer}>
-                    <input type="radio" />
+                {quizz.answers.map((answer, answerIndex) => (
+                  <div
+                    key={answerIndex}
+                    className={styles.quizzModalQuestionAnswer}
+                  >
+                    <input
+                      type="radio"
+                      name={`question-${index}`}
+                      checked={selectedAnswers[index] === answer._id}
+                      onChange={() => handleAnswerSelect(index, answer._id)}
+                    />
                     <div className={styles.quizzModalQuestionAnswerText}>
                       {answer.text}
                     </div>
@@ -218,9 +260,11 @@ function VideoLectures() {
         </div>
 
         <div className={styles.quizzModalButtons}>
-          <button className={styles.cancelButton}>Cancel</button>
+          <button className={styles.cancelButton} onClick={handleCancelQuiz}>
+            Cancel
+          </button>
 
-          <Button type="primary">
+          <Button type="primary" onClick={onSubmitQuizAnswers}>
             Submit <SubmitBtnArrow />
           </Button>
         </div>

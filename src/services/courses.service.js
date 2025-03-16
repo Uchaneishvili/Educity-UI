@@ -3,13 +3,8 @@ import RequestHelper from '../apis/RequestHelper';
 
 export const getCourses = async query => {
   const paginPath = FormatData.generatePaginationURLPath(query);
-  return await RequestHelper.educity.get(`/courses${paginPath}`, {
-    // params: {
-    // isPublished: true,
-    // },
-  });
+  return await RequestHelper.educity.get(`/courses${paginPath}`);
 };
-
 export const getMyCourses = async query => {
   const paginPath = FormatData.generatePaginationURLPath(query);
   return await RequestHelper.educity.get(`/courses/my-courses${paginPath}`);

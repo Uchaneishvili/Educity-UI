@@ -80,6 +80,9 @@ export function Courses() {
             categoryId: selectedCategories,
             courseType: selectedFilter,
           },
+          staticFilter: {
+            isPublished: false,
+          },
           customSearch: searchQuery ? { search: searchQuery } : undefined,
           sortBy: selectedSort.sortBy,
           sortOrder: selectedSort.value,

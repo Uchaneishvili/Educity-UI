@@ -31,6 +31,16 @@
   overflow: hidden;
 }
 
+.videoLessonsInnerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.certificateButtonContainer {
+  width: 20%;
+}
+
 .videoContainer > video {
   max-height: 672px;
   height: 100%;
@@ -380,6 +390,16 @@
 }
 
 @media (max-width: 1024px) {
+  .videoLessonsInnerContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 30px;
+    justify-content: space-between;
+  }
+
+  .certificateButtonContainer {
+    width: 100%;
+  }
   video {
     width: 100vw;
   }

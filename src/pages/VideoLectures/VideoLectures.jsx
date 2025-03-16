@@ -130,16 +130,23 @@ function VideoLectures() {
               />
             </div>
             <div className={styles.videoLessonsContainer}>
-              <div className={styles.videoLessonsCompletionContainer}>
-                <div className={styles.videoLessonsCompletionInnerContainer}>
-                  <div className={styles.videoLessonsCompletionTitle}>
-                    {progress?.completedCount || '0/5'} COMPLETED
+              <div className={styles.videoLessonsInnerContainer}>
+                <div className={styles.videoLessonsCompletionContainer}>
+                  <div className={styles.videoLessonsCompletionInnerContainer}>
+                    <div className={styles.videoLessonsCompletionTitle}>
+                      {progress?.completedCount || '0/5'} COMPLETED
+                    </div>
                   </div>
+                  <ProgressBar
+                    percentage={progress?.progressPercentage || 0}
+                    totalBars={5}
+                  />
                 </div>
-                <ProgressBar
-                  percentage={progress?.progressPercentage || 0}
-                  totalBars={5}
-                />
+                <div className={styles.certificateButtonContainer}>
+                  <Button type="secondary" width={'100%'}>
+                    სერტიფიკატის მიღება
+                  </Button>
+                </div>
               </div>
 
               <div className={styles.videoLessonsAccordionContainer}>

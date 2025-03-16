@@ -222,16 +222,17 @@
 }
 
 .quizzModalHeaderContainer {
+  background-color: #0a033c;
+  color: white;
   padding: 16px 20px;
-  box-shadow: 0px -1px 0px 0px #e9eaf0 inset;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .quizzModalHeaderTitle {
-  color: #1d2026;
-  line-height: 22px;
+  color: white;
+  font-weight: 600;
 }
 
 .quizzModalCloseIcon {
@@ -242,7 +243,7 @@
 .quizzModalCloseIcon > svg {
   width: 100%;
   height: 100%;
-  fill: #8c94a3;
+  fill: white;
   cursor: pointer;
 }
 
@@ -332,7 +333,7 @@
 }
 
 .quizzModalButtons {
-  padding: 24px;
+  padding: 16px 24px;
   display: flex;
   justify-content: space-between;
 }
@@ -348,6 +349,34 @@
 
 .cancelButton:hover {
   opacity: 0.7;
+}
+
+.quizResultContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.quizResultTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0a033c;
+  margin-bottom: 16px;
+}
+
+.quizResultScore {
+  font-size: 18px;
+  color: #1d2026;
+  margin-bottom: 8px;
+}
+
+.quizResultPercentage {
+  font-size: 36px;
+  font-weight: 700;
+  color: #3561fe;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 1024px) {

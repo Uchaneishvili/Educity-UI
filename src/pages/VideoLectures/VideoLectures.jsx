@@ -26,6 +26,7 @@ function VideoLectures() {
   const [selectedLevelId, setSelectedLevelId] = useState();
   const [syllabus, setSyllabus] = useState();
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [quizResult, setQuizResult] = useState(null);
 
   const loadData = useCallback(async () => {
     try {
@@ -90,8 +91,7 @@ function VideoLectures() {
       const response = await submitQuizAnswers(payload);
 
       if (response.status === 201) {
-        setIsQuizzOpen(false);
-        setSelectedAnswers({});
+        setQuizResult(response.data);
         loadProgress();
       }
 
@@ -104,6 +104,7 @@ function VideoLectures() {
   const handleCancelQuiz = () => {
     setIsQuizzOpen(false);
     setSelectedAnswers({});
+    setQuizResult(null);
   };
 
   return (
@@ -217,7 +218,9 @@ function VideoLectures() {
 
       <Modal isOpen={isQuizzOpen} width="650px">
         <div className={styles.quizzModalHeaderContainer}>
-          <div className={styles.quizzModalHeaderTitle}>ქვიზი</div>
+          <div className={styles.quizzModalHeaderTitle}>
+            {quizResult ? 'Quiz Results' : 'ქვიზი'}
+          </div>
           <div
             className={styles.quizzModalCloseIcon}
             onClick={handleCancelQuiz}
@@ -226,48 +229,68 @@ function VideoLectures() {
           </div>
         </div>
 
-        <div className={styles.quizzModalQuestionsContainer}>
-          {quiz?.map((quizz, index) => (
-            <div key={index} className={styles.quizzModalQuestionContainer}>
-              <div className={styles.quizzModalQuestionHeader}>
-                <div className={styles.quizzModalQuestionNumber}>
-                  {index + 1}
-                </div>
-                <div className={styles.quizzModalQuestionText}>
-                  {quizz.question}
-                </div>
-              </div>
-              <div className={styles.quizzModalQuestionAnswers}>
-                {quizz.answers.map((answer, answerIndex) => (
-                  <div
-                    key={answerIndex}
-                    className={styles.quizzModalQuestionAnswer}
-                  >
-                    <input
-                      type="radio"
-                      name={`question-${index}`}
-                      checked={selectedAnswers[index] === answer._id}
-                      onChange={() => handleAnswerSelect(index, answer._id)}
-                    />
-                    <div className={styles.quizzModalQuestionAnswerText}>
-                      {answer.text}
+        {quizResult ? (
+          <div className={styles.quizResultContainer}>
+            <div className={styles.quizResultPercentage}>
+              {Math.round(
+                (quizResult.correctAnswers / quizResult.totalAnswers) * 100,
+              )}
+              %
+            </div>
+            <div className={styles.quizResultScore}>
+              Score: {quizResult.correctAnswers}/{quizResult.totalAnswers}
+            </div>
+            {/* <div className={styles.quizzModalButtons}> */}
+          </div>
+        ) : (
+          <>
+            <div className={styles.quizzModalQuestionsContainer}>
+              {quiz?.map((quizz, index) => (
+                <div key={index} className={styles.quizzModalQuestionContainer}>
+                  <div className={styles.quizzModalQuestionHeader}>
+                    <div className={styles.quizzModalQuestionNumber}>
+                      {index + 1}
+                    </div>
+                    <div className={styles.quizzModalQuestionText}>
+                      {quizz.question}
                     </div>
                   </div>
-                ))}
-              </div>
+                  <div className={styles.quizzModalQuestionAnswers}>
+                    {quizz.answers.map((answer, answerIndex) => (
+                      <div
+                        key={answerIndex}
+                        className={styles.quizzModalQuestionAnswer}
+                      >
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          checked={selectedAnswers[index] === answer._id}
+                          onChange={() => handleAnswerSelect(index, answer._id)}
+                        />
+                        <div className={styles.quizzModalQuestionAnswerText}>
+                          {answer.text}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className={styles.quizzModalButtons}>
-          <button className={styles.cancelButton} onClick={handleCancelQuiz}>
-            Cancel
-          </button>
+            <div className={styles.quizzModalButtons}>
+              <button
+                className={styles.cancelButton}
+                onClick={handleCancelQuiz}
+              >
+                Cancel
+              </button>
 
-          <Button type="primary" onClick={onSubmitQuizAnswers}>
-            Submit <SubmitBtnArrow />
-          </Button>
-        </div>
+              <Button type="primary" onClick={onSubmitQuizAnswers}>
+                Submit <SubmitBtnArrow />
+              </Button>
+            </div>
+          </>
+        )}
       </Modal>
     </>
   );

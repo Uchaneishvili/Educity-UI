@@ -14,6 +14,7 @@ import { Accordion } from '../../components/UI/Accordion/Accordion';
 import { completeSyllabusLevel } from '../../services/progress.service';
 import { getUserProgressByCourseId } from '../../services/progress.service';
 import { submitQuizAnswers } from '../../services/quizzes.service';
+import { getCertificateById } from '../../services/certificate.service';
 function VideoLectures() {
   const { id } = useParams();
   const [video, setVideo] = useState();
@@ -107,6 +108,14 @@ function VideoLectures() {
     setQuizResult(null);
   };
 
+  const getCertificate = async () => {
+    try {
+      const response = await getCertificateById(id);
+      window.open(response.data.downloadUrl, '_blank');
+    } catch (error) {
+      console.error('Error getting certificate:', error);
+    }
+  };
   return (
     <>
       <div className="mainContainer">
@@ -143,7 +152,11 @@ function VideoLectures() {
                   />
                 </div>
                 <div className={styles.certificateButtonContainer}>
-                  <Button type="secondary" width={'100%'}>
+                  <Button
+                    type="secondary"
+                    width={'100%'}
+                    onClick={getCertificate}
+                  >
                     სერტიფიკატის მიღება
                   </Button>
                 </div>

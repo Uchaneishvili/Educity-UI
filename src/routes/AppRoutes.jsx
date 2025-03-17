@@ -17,6 +17,7 @@ import Checkout from '../pages/Checkout/Checkout';
 import FacebookCallback from '../pages/Auth/Components/FacebookCallback/FacebookCallback';
 import GoogleCallback from '../pages/Auth/Components/GoogleCallback/GoogleCallback';
 import RecoveryPass from '../pages/RecoveryPass/RecoveryPass';
+import TermsAndConditions from '../pages/TermsAndConditions/TermsAndConditions';
 
 export const AppRoutes = () => {
   return (
@@ -87,6 +88,7 @@ export const AppRoutes = () => {
         />
         <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
         <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
 

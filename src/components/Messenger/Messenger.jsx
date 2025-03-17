@@ -1,36 +1,41 @@
-import React, { useEffect } from 'react'
-import styles from './Messenger.module.css'
+import React, { useState, useEffect } from 'react';
+import styles from './Messenger.module.css';
 
 export function Messenger() {
-  useEffect(() => {
-    // Load Facebook SDK
-    window.fbAsyncInit = function () {
-      window.FB.init({
-        xfbml: true,
-        version: 'v18.0'
-      })
-    }
+  const [showBubble, setShowBubble] = useState(true);
 
-    // Load the SDK asynchronously
-    ;(function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0]
-      if (d.getElementById(id)) return
-      js = d.createElement(s)
-      js.id = id
-      js.src = 'https://connect.facebook.net/ka_GE/sdk/xfbml.customerchat.js'
-      fjs.parentNode.insertBefore(js, fjs)
-    })(document, 'script', 'facebook-jssdk')
-  }, [])
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowBubble(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className={styles.messengerContainer}>
-      <div id="fb-root"></div>
-      <div
-        className="fb-customerchat"
-        attribution="biz_inbox"
-        page_id="100088498458265" // Replace with your Facebook Page ID
-      ></div>
+      <a
+        href={`https://m.me/552099707988229`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.messengerButton}
+        aria-label="Chat on Messenger"
+        onClick={() => setShowBubble(false)}
+      >
+        <img
+          src="/assets/messenger-icon.png"
+          alt="Chat on Messenger"
+          className={styles.messengerIcon}
+        />
+      </a>
+
+      {showBubble && (
+        <div className={styles.messageBubble}>
+          <div className={styles.bubbleContent}>
+            გამარჯობა! დაგვიკავშირდით Messenger-ზე
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }

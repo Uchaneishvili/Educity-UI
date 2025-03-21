@@ -16,6 +16,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Loader } from '../../../components/UI/Loader/Loader';
 import { Error } from '../../../components/Error/Error';
 import { useAuth } from '../../../context/AuthContext';
+import FormatData from '../../../utils/FormatData';
 export function CourseDetails() {
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -82,9 +83,7 @@ export function CourseDetails() {
       <div className={`${styles.container} mainContainer`}>
         <div className={styles.innerContainer}>
           <div className={styles.lecturerContainer}>
-            <div className={styles.categoryButton}>
-              {data.category?.name || 'დიზაინი'}
-            </div>
+            <div className={styles.categoryButton}>{data.categoryId?.name}</div>
             ლექტორი: {data.instructorName}
           </div>
 
@@ -98,7 +97,8 @@ export function CourseDetails() {
               <StudentIcon /> {data.enrollmentsCount || ''} სტუდენტი
             </div>
             <div className={styles.level}>
-              <LevelIcon /> {data.difficultyLevel || ''}
+              <LevelIcon />{' '}
+              {FormatData.getDifficultyInGeorgian(data.difficultyLevel)}
             </div>
             <div className={styles.lecturesQuantity}>
               <LectureIcon /> {data.lecturesCount || ''} ლექცია

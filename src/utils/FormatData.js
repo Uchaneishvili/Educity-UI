@@ -45,4 +45,13 @@ export default class FormatData {
       ? `${query.pathPrefix || ''}?${queryString}`
       : query.pathPrefix || '';
   }
+
+  static getDifficultyInGeorgian = level => {
+    const mapping = {
+      beginner: 'დამწყები',
+      intermediate: 'საშუალო',
+      advanced: 'მაღალი',
+    };
+    return mapping[level] || level || '';
+  };
 }

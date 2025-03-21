@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './RecoveryPass.module.css';
 import Input from '../../components/UI/Input/Input';
 import { Button } from '../../components/UI/Button/Button';
 import AuthService from '../../services/auth.service';
-
-const authService = new AuthService();
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const RecoveryPass = () => {
+  const authService = new AuthService();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [token, setToken] = useState('');
   const [passwordData, setPasswordData] = useState({
-    newPassword: '',
-    repeatPassword: '',
+    password: '',
+    confirmPassword: '',
   });
   const [formErrors, setFormErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    // Get token from URL or localStorage
+    const params = new URLSearchParams(location.search);
+    const urlToken = params.get('token');
+    const storedToken = localStorage.getItem('reset_token');
+
+    if (urlToken) {
+      setToken(urlToken);
+    } else if (storedToken) {
+      setToken(storedToken);
+    } else {
+      // No token found, redirect to forget password page
+      navigate('/forget-pass');
+    }
+  }, [location, navigate]);
 
   const handlePasswordChange = e => {
     const { name, value } = e.target;
@@ -24,14 +44,31 @@ const RecoveryPass = () => {
   const changeUserPassword = async e => {
     e.preventDefault();
     const passwordValidation = validatePassword(passwordData);
+
     if (Object.keys(passwordValidation).length === 0) {
       try {
-        const response = await authService.changePassword(passwordData);
-        console.log('response', response);
+        const response = await authService.resetPassword({
+          password: passwordData.password,
+          confirmPassword: passwordData.confirmPassword,
+          token: token,
+        });
+
+        if (response.success) {
+          setSuccessMessage('პაროლი წარმატებით შეიცვალა');
+          // Clear the reset token
+          localStorage.removeItem('reset_token');
+          // Redirect to login after 2 seconds
+          setTimeout(() => {
+            navigate('/login');
+          }, 2000);
+        } else {
+          setFormErrors({
+            general: response.error || 'წარმოიშვა შეცდომა პაროლის აღდგენისას!',
+          });
+        }
       } catch (err) {
         console.log('Error while changing password', err);
         setFormErrors({
-          ...formErrors,
           general: 'წარმოიშვა შეცდომა პაროლის აღდგენისას!',
         });
       }
@@ -43,16 +80,16 @@ const RecoveryPass = () => {
   const validatePassword = passwordData => {
     let errors = {};
 
-    if (!passwordData.newPassword) {
-      errors.newPassword = 'ახალი პაროლის შეყვანა აუცილებელია!';
-    } else if (passwordData.newPassword.length < 6) {
-      errors.newPassword = 'ახალი პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს!';
+    if (!passwordData.password) {
+      errors.password = 'ახალი პაროლის შეყვანა აუცილებელია!';
+    } else if (passwordData.password.length < 6) {
+      errors.password = 'ახალი პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს!';
     }
 
-    if (!passwordData.repeatPassword) {
-      errors.repeatPassword = 'განმეორებითი პაროლის შეყვანა აუცილებელია!';
-    } else if (passwordData.repeatPassword !== passwordData.newPassword) {
-      errors.repeatPassword = 'განმეორებითი პაროლი არასწორია!';
+    if (!passwordData.confirmPassword) {
+      errors.confirmPassword = 'განმეორებითი პაროლის შეყვანა აუცილებელია!';
+    } else if (passwordData.confirmPassword !== passwordData.password) {
+      errors.confirmPassword = 'განმეორებითი პაროლი არასწორია!';
     }
 
     return errors;
@@ -74,8 +111,7 @@ const RecoveryPass = () => {
             <div className={styles.welcomeContainer}>
               <div className={styles.title}>პაროლის აღდგენა</div>
               <div className={styles.description}>
-                გთხოვთ გაიაროთ ავტორიზაცია, თუ არ გაქვთ ანგარიში გაიარეთ
-                რეგისრაცია, რათა ისარგებლოთ ჩვენი სერვისებით
+                გთხოვთ შეიყვანოთ ახალი პაროლი
               </div>
             </div>
 
@@ -83,29 +119,35 @@ const RecoveryPass = () => {
               <div>
                 <Input
                   type="password"
-                  name="newPassword"
+                  name="password"
                   placeholder={'ახალი პაროლი'}
-                  value={passwordData.newPassword}
+                  value={passwordData.password}
                   onChange={handlePasswordChange}
                   formErrors={formErrors}
                 />
-                <ErrorMessage fieldName="newPassword" formErrors={formErrors} />
+                <ErrorMessage fieldName="password" formErrors={formErrors} />
               </div>
 
               <div>
                 <Input
                   type="password"
-                  name="repeatPassword"
+                  name="confirmPassword"
                   placeholder="გაიმეორე პაროლი"
-                  value={passwordData.repeatPassword}
+                  value={passwordData.confirmPassword}
                   onChange={handlePasswordChange}
                   formErrors={formErrors}
                 />
                 <ErrorMessage
-                  fieldName="repeatPassword"
+                  fieldName="confirmPassword"
                   formErrors={formErrors}
                 />
               </div>
+
+              {successMessage && (
+                <div className={styles.successMessage}>{successMessage}</div>
+              )}
+
+              <ErrorMessage fieldName="general" formErrors={formErrors} />
 
               <div className={styles.recoveryBtnContainer}>
                 <Button width="70%" type="primary">

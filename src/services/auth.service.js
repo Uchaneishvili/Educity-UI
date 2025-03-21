@@ -165,11 +165,10 @@ class AuthService {
 
   async resetPassword(passwordData) {
     try {
-      const token = this.getToken();
-
       const { data } = await this.api.post('/auth/reset-password', {
-        ...passwordData,
-        token: token,
+        password: passwordData.password,
+        confirmPassword: passwordData.confirmPassword,
+        token: passwordData.token,
       });
       return {
         success: true,
@@ -177,7 +176,24 @@ class AuthService {
         message: data.message || 'Password changed successfully',
       };
     } catch (error) {
-      console.error('Password change error:', error);
+      console.error('Password reset error:', error);
+      return {
+        success: false,
+        error: error.response?.data?.message || error.message,
+      };
+    }
+  }
+
+  async forgotPassword(email) {
+    try {
+      const { data } = await this.api.post('/auth/forgot-password', { email });
+      return {
+        success: true,
+        data,
+        message: data.message || 'Password reset email sent',
+      };
+    } catch (error) {
+      console.error('Password reset error:', error);
       return {
         success: false,
         error: error.response?.data?.message || error.message,

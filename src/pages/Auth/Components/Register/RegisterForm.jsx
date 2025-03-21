@@ -94,8 +94,31 @@ function RegisterForm({ setActiveTab }) {
         name="city"
         placeholder={'ქალაქი'}
         options={[
-          { id: 1, value: 'თბილისი' },
-          { id: 2, value: 'ბათუმი' },
+          { id: 'tbilisi', value: 'თბილისი' },
+          { id: 'batumi', value: 'ბათუმი' },
+          { id: 'kutaisi', value: 'ქუთაისი' },
+          { id: 'rustavi', value: 'რუსთავი' },
+          { id: 'gori', value: 'გორი' },
+          { id: 'zugdidi', value: 'ზუგდიდი' },
+          { id: 'poti', value: 'ფოთი' },
+          { id: 'telavi', value: 'თელავი' },
+          { id: 'akhaltsikhe', value: 'ახალციხე' },
+          { id: 'borjomi', value: 'ბორჯომი' },
+          { id: 'mtskheta', value: 'მცხეთა' },
+          { id: 'kobuleti', value: 'ქობულეთი' },
+          { id: 'khashuri', value: 'ხაშური' },
+          { id: 'samtredia', value: 'სამტრედია' },
+          { id: 'senaki', value: 'სენაკი' },
+          { id: 'akhalkalaki', value: 'ახალქალაქი' },
+          { id: 'tskhaltubo', value: 'წყალტუბო' },
+          { id: 'chiatura', value: 'ჭიათურა' },
+          { id: 'ozurgeti', value: 'ოზურგეთი' },
+          { id: 'kaspi', value: 'კასპი' },
+          { id: 'sachkhere', value: 'საჩხერე' },
+          { id: 'lagodekhi', value: 'ლაგოდეხი' },
+          { id: 'signagi', value: 'სიღნაღი' },
+          { id: 'ambrolauri', value: 'ამბროლაური' },
+          { id: 'marneuli', value: 'მარნეული' },
         ]}
       />
 

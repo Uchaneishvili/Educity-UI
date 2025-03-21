@@ -15,7 +15,7 @@ export function Messenger() {
   return (
     <div className={styles.messengerContainer}>
       <a
-        href={`https://m.me/552099707988229`}
+        href={`https://m.me/103745982593375`}
         target="_blank"
         rel="noopener noreferrer"
         className={styles.messengerButton}

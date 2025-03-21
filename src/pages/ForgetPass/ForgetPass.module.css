@@ -15,6 +15,20 @@
   max-height: 100vh;
 }
 
+.successMessage {
+  color: #008000;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.errorMessage {
+  color: #ff0000;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+}
+
 .contentContainer {
   display: flex;
   justify-content: center;

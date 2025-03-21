@@ -17,6 +17,7 @@ import FacebookCallback from '../pages/Auth/Components/FacebookCallback/Facebook
 import GoogleCallback from '../pages/Auth/Components/GoogleCallback/GoogleCallback';
 import RecoveryPass from '../pages/RecoveryPass/RecoveryPass';
 import TermsAndConditions from '../pages/TermsAndConditions/TermsAndConditions';
+import TokenProtectedRoute from './TokenProtectedRoute';
 
 export const AppRoutes = () => {
   return (
@@ -94,6 +95,14 @@ export const AppRoutes = () => {
       <Route path="/login" element={<Auth />} />
       <Route path="/register" element={<Auth />} />
       <Route path="/forget-pass" element={<ForgetPass />} />
+      <Route
+        path="/reset-password"
+        element={
+          <TokenProtectedRoute>
+            <RecoveryPass />
+          </TokenProtectedRoute>
+        }
+      />
       <Route path="/recovery-pass" element={<RecoveryPass />} />
     </Routes>
   );

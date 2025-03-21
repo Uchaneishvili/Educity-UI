@@ -1,0 +1,65 @@
+.container {
+  width: 100%;
+  padding-top: 40px;
+}
+
+.rulesTitle {
+  color: #000000;
+  font-size: 36px;
+  line-height: 120%;
+}
+
+.rulesContainer {
+  margin-top: 30px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #eaeaea;
+  border-radius: 20px;
+}
+
+.rulesInnerTitle {
+  color: #000000;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+}
+
+.rulesParagraphTitle {
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.arrow {
+  width: 12px;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.arrow > svg {
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .rulesTitle {
+    color: #000000;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .rulesInnerTitle {
+    font-size: 17px !important;
+  }
+
+  .rulesContainer div {
+    font-size: 14px;
+  }
+}

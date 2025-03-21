@@ -1,0 +1,40 @@
+.marqueeContainer {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marqueeContent {
+  display: flex;
+  white-space: nowrap;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.animate {
+  opacity: 1;
+  animation: marquee var(--scroll-speed) linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ensure items are properly spaced */
+.marqueeContent > * {
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .marqueeContent > * {
+    margin-right: 10px;
+  }
+}

@@ -10,6 +10,7 @@ import Input from '../../components/UI/Input/Input';
 import Textarea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
 import emailjs from '@emailjs/browser';
+import MarqueeEffect from '../../components/MarqueeEffect/MarqueeEffect';
 
 function BecomePartner() {
   const partners = [
@@ -115,28 +116,15 @@ function BecomePartner() {
           <div className={styles.partnerCompaniesTitle}>
             პარტნიორი კომპანიები
           </div>
+
           <div className={styles.partnerCompanies}>
-            {Array.from({ length: 3 }, (_, rowIndex) => (
-              <div
-                className={styles.partnerCompaniesLogosContainer}
-                key={rowIndex}
-              >
-                {partners.map((partner, index) => {
-                  const wrappedIndex = (index + rowIndex) % partners.length;
-                  return (
-                    <div
-                      className={styles.partnerCompanyLogoContainer}
-                      key={index}
-                    >
-                      <img
-                        src={partners[wrappedIndex].logo}
-                        alt={partners[wrappedIndex].name}
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
+            <MarqueeEffect speed={30} shouldAnimate={true}>
+              {partners.map((partner, index) => (
+                <div className={styles.partnerCompanyLogoContainer} key={index}>
+                  <img src={partner.logo} alt={partner.name} />
+                </div>
+              ))}
+            </MarqueeEffect>
           </div>
         </div>
 

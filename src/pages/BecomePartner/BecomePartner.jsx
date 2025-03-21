@@ -14,24 +14,40 @@ import emailjs from '@emailjs/browser';
 function BecomePartner() {
   const partners = [
     {
-      name: '1',
-      logo: '/assets/userAvatar.png',
+      name: 'Tbilisi Meria',
+      logo: '/assets/partners/meriaTbilisi.jpg',
     },
     {
-      name: '2',
-      logo: '/assets/userAvatar.png',
+      name: 'Black Sea Arena',
+      logo: '/assets/partners/blackSeaArena.png',
     },
     {
-      name: '3',
-      logo: '/assets/userAvatar.png',
+      name: 'Elit Electronics',
+      logo: '/assets/partners/elitElectronics.jpg',
     },
     {
-      name: '4',
-      logo: '/assets/userAvatar.png',
+      name: 'Iberia Star Group',
+      logo: '/assets/partners/iberiaStarGroup.png',
     },
     {
-      name: '5',
-      logo: '/assets/userAvatar.png',
+      name: 'Ideal',
+      logo: '/assets/partners/ideal.jpg',
+    },
+    {
+      name: 'Kutaisi Inn',
+      logo: '/assets/partners/KutaisiInn.jpg',
+    },
+    {
+      name: 'Mc Drive',
+      logo: '/assets/partners/mcDrive.jpg',
+    },
+    {
+      name: 'Unison',
+      logo: '/assets/partners/unison.jpg',
+    },
+    {
+      name: 'Upway',
+      logo: '/assets/partners/Upway.jpg',
     },
   ];
 

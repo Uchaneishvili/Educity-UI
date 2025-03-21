@@ -241,12 +241,12 @@ export function Header() {
             >
               გახდი პარტნიორი
             </li>
-            <li
+            {/* <li
               onClick={() => navigate('/subscriptions')}
               className={getActiveButtons('/subscriptions')}
             >
               პაკეტები
-            </li>
+            </li> */}
           </ul>
           <div
             className={styles.burgerMenu}

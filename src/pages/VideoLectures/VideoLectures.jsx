@@ -152,13 +152,12 @@ function VideoLectures() {
                   />
                 </div>
                 <div className={styles.certificateButtonContainer}>
-                  <Button
-                    type="secondary"
-                    width={'100%'}
+                  <button
+                    className={styles.certificateButton}
                     onClick={getCertificate}
                   >
                     სერტიფიკატის მიღება
-                  </Button>
+                  </button>
                 </div>
               </div>
 

@@ -48,12 +48,12 @@ export function Footer() {
           >
             გახდი პარტნიორი
           </div>
-          <div
+          {/* <div
             className={styles.footerSectionText}
             onClick={() => navigate('/subscriptions')}
           >
             პაკეტები
-          </div>
+          </div> */}
         </div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>

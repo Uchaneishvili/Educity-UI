@@ -8,7 +8,6 @@ import { MainLayout } from '../layouts/MainLayout';
 import { CourseDetails } from '../pages/Courses/Details/CourseDetails';
 import ForgetPass from '../pages/ForgetPass/ForgetPass';
 import UserInfo from '../pages/UserInfo/UserInfo';
-import SubscriptionPack from '../pages/SubscriptionPack/SubscriptionPack';
 import BecomePartner from '../pages/BecomePartner/BecomePartner';
 import { ErrorPage } from '../pages/ErrorPage/ErrorPage';
 import VideoLectures from '../pages/VideoLectures/VideoLectures';
@@ -68,7 +67,7 @@ export const AppRoutes = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/subscriptions" element={<SubscriptionPack />} />
+        {/* <Route path="/subscriptions" element={<SubscriptionPack />} /> */}
         <Route path="/become-partner" element={<BecomePartner />} />
         <Route
           path="/courses/:id/videos"

@@ -67,25 +67,19 @@ export function Card({
               <div className={styles.info}>
                 {totalDuration && (
                   <div className={styles.durationInfo}>
-                    <span>
-                      <ClockIcon />
-                    </span>
+                    <ClockIcon />
                     {totalDuration}
                   </div>
                 )}
                 {enrolledStudentsQuantity && (
                   <div className={styles.studentsInfo}>
-                    <span>
-                      <StudentIcon />
-                    </span>
+                    <StudentIcon />
                     {enrolledStudentsQuantity} სტუდენტი
                   </div>
                 )}
                 {totalReviews && (
                   <div className={styles.reviewInfo}>
-                    <span>
-                      <NarrowColoredStar />
-                    </span>
+                    <NarrowColoredStar />
                     {totalReviews}
                   </div>
                 )}

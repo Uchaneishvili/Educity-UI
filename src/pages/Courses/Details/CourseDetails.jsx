@@ -95,7 +95,7 @@ export function CourseDetails() {
               <ClockIcon /> {data.totalDuration || ''}
             </div>
             <div className={styles.studentsQuantity}>
-              <StudentIcon /> {data.enrolledStudentsCount || ''} სტუდენტი
+              <StudentIcon /> {data.enrollmentsCount || ''} სტუდენტი
             </div>
             <div className={styles.level}>
               <LevelIcon /> {data.difficultyLevel || ''}

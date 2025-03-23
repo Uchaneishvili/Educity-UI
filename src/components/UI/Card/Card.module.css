@@ -137,7 +137,7 @@
 
 @media (max-width: 1024px) {
   .container {
-    width: 358px;
+    width: 90%;
   }
   .cardImageWeb {
     display: block;

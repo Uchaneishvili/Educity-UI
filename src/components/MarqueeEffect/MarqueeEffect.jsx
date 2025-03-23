@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import styles from './MarqueeEffect.module.css';
 
 const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
@@ -6,12 +6,19 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
   const contentRef = useRef(null);
   const [totalWidth, setTotalWidth] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const childrenArray = React.Children.toArray(children);
 
-  useEffect(() => {
-    setIsVisible(false);
+  const childrenArray = useMemo(
+    () => React.Children.toArray(children),
+    [children],
+  );
 
-    const calculateTotalWidth = () => {
+  const displayChildren = useMemo(
+    () => [...childrenArray, ...childrenArray],
+    [childrenArray],
+  );
+
+  const calculateTotalWidth = useMemo(
+    () => () => {
       if (contentRef.current) {
         const childElements = contentRef.current.children;
         let width = 0;
@@ -28,13 +35,17 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
         return width;
       }
       return 0;
-    };
+    },
+    [],
+  );
+
+  useEffect(() => {
+    setIsVisible(false);
 
     const handleResize = () => {
       const currentIsMobile = window.innerWidth < 768;
       setIsMobile(currentIsMobile);
 
-      // Wait for the DOM to update with the children
       setTimeout(() => {
         const width = calculateTotalWidth();
         setTotalWidth(width);
@@ -42,17 +53,15 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
       }, 50);
     };
 
-    // Initial calculation
     const timer = setTimeout(handleResize, 100);
 
-    // Add resize listener for responsive behavior
     window.addEventListener('resize', handleResize);
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener('resize', handleResize);
     };
-  }, [shouldAnimate, children, childrenArray.length]);
+  }, [shouldAnimate, calculateTotalWidth]);
 
   if (!shouldAnimate) {
     return children;
@@ -60,10 +69,8 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
 
   const mobileSpeedFactor = isMobile ? 0.1 : 1; // 30% faster on mobile
   const calculatedSpeed = totalWidth
-    ? Math.max(totalWidth / 35, speed) * mobileSpeedFactor
+    ? Math.max(totalWidth / 50, speed) * mobileSpeedFactor
     : speed;
-
-  const displayChildren = [...childrenArray, ...childrenArray];
 
   return (
     <div className={styles.marqueeContainer}>
@@ -78,9 +85,10 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
         }}
       >
         {displayChildren}
+        {displayChildren}x
       </div>
     </div>
   );
 };
 
-export default MarqueeEffect;
+export default React.memo(MarqueeEffect);

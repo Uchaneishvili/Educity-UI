@@ -67,7 +67,7 @@ const MarqueeEffect = ({ children, speed = 40, shouldAnimate }) => {
     return children;
   }
 
-  const mobileSpeedFactor = isMobile ? 0.1 : 1; // 30% faster on mobile
+  const mobileSpeedFactor = isMobile ? 0.1 : 1; // 30% faster on  mobile
   const calculatedSpeed = totalWidth
     ? Math.max(totalWidth / 50, speed) * mobileSpeedFactor
     : speed;

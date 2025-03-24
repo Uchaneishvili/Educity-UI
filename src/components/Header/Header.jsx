@@ -125,12 +125,12 @@ export function Header() {
               onClose={() => setShowUserMenu(false)}
             >
               <div className={styles.userMenuDropdown}>
-                <div
+                {/* <div
                   className={styles.userMenuDropdownItem}
                   onClick={() => navigate('/me')}
                 >
                   პროფილი
-                </div>
+                </div> */}
                 <div
                   className={styles.userMenuDropdownItem}
                   onClick={() => navigate('/me/courses')}

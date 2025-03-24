@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styles from './SideBar.module.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '../UI/Button/Button';
-import { CloseIcon, UserIcon } from '../UI/icons';
+import { CloseIcon } from '../UI/icons';
 import AuthService from '../../services/auth.service';
 import { useAuth } from '../../context/AuthContext';
 const authService = new AuthService();
@@ -16,7 +16,7 @@ function SideBar({
 }) {
   const location = useLocation();
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   useEffect(() => {
     const refreshSideBar = () => {
@@ -62,10 +62,10 @@ function SideBar({
   ];
 
   const userMenuLinks = [
-    {
-      name: 'პროფილი',
-      link: '/me',
-    },
+    // {
+    //   name: 'პროფილი',
+    //   link: '/me',
+    // },
     {
       name: 'კურსები',
       link: '/me/courses',
@@ -125,9 +125,9 @@ function SideBar({
           {isAuthenticated() && (
             <div className={styles.authenticatedUserContainer}>
               <div className={styles.userIcon}>
-                <UserIcon />
+                <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
               </div>
-              <div className={styles.userName}>Sophia Rose</div>
+              <div className={styles.userName}>{user?.fullName}</div>
             </div>
           )}
           <div className={styles.sideBarLinksContainer}>

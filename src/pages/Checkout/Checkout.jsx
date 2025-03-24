@@ -30,7 +30,7 @@ function Checkout() {
       const response = await purchaseCourse(id);
 
       if (response.status === 201) {
-        navigate(response.data.checkoutUrl);
+        window.location.href = response.data.checkoutUrl;
       }
     } catch (err) {
       console.log('error while paying for course', err);

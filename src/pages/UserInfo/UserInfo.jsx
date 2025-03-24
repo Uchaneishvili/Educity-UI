@@ -40,7 +40,7 @@ function UserInfo() {
             </div>
           </div>
           <div className={styles.userNavigation}>
-            <button
+            {/* <button
               className={`${styles.userNavigationButton} ${
                 page === 'dashboard' && styles.active
               }`}
@@ -50,7 +50,7 @@ function UserInfo() {
               }}
             >
               DASHBOARD
-            </button>
+            </button> */}
             <button
               className={`${styles.userNavigationButton} ${
                 page === 'courses' && styles.active

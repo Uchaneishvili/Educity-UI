@@ -16,7 +16,6 @@ function Checkout() {
     try {
       setLoading(true);
       const response = await getCourseDetails(id);
-      console.log('response', response);
       setData(response.data);
     } catch (err) {
       console.log(err);
@@ -30,10 +29,8 @@ function Checkout() {
     try {
       const response = await purchaseCourse(id);
 
-      console.log('Response', response);
-
       if (response.status === 201) {
-        navigate('/');
+        navigate(response.data.checkoutUrl);
       }
     } catch (err) {
       console.log('error while paying for course', err);

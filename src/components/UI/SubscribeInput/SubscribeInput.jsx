@@ -10,6 +10,7 @@ export function SubscribeInput({ inputPlaceholder, buttonName }) {
       setEmail('');
     } catch (error) {
       console.log(error);
+      setEmail('');
     }
   };
 

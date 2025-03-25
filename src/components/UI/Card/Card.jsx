@@ -15,7 +15,7 @@ import {
   removeFromWishlist,
 } from '../../../services/wishlist.service';
 import { Video } from '../../VideoPlayer/Video';
-import GTMHelper from '../../utils/GTMHelper';
+import GTMHelper from '../../../utils/GTMHelper';
 
 export function Card({
   id,
@@ -125,7 +125,7 @@ export function Card({
             <div className={styles.detailsContainer}>
               <Button
                 onClick={() => {
-                  GTMHelper.event('buy', {
+                  GTMHelper.event('add_to_cart', {
                     items: [
                       {
                         item_id: id,

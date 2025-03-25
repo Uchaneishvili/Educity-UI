@@ -15,6 +15,8 @@ import { useAuth } from '../../../../../../../context/AuthContext';
 import { getReviewsById } from '../../../../../../../services/review.service';
 import { Loader } from '../../../../../../../components/UI/Loader/Loader';
 import FormatData from '../../../../../../../utils/FormatData';
+import { trackEvent } from '../../../../../../../utils/ClarityTracking';
+
 function CourseReview() {
   const { id } = useParams();
   const [isReviewOpen, setIsReviewOpen] = useState(false);
@@ -29,15 +31,16 @@ function CourseReview() {
   const pageSize = 10;
 
   const addReview = async e => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
     try {
+      trackEvent('review_submitted', `${id}_${starsAmount}`);
       await addReviewToCourse(id, {
         rating: starsAmount,
         comment: comment,
       });
 
       setIsReviewOpen(false);
-      loadReviews(currentPage); // Reload reviews after adding a new one
+      loadReviews(currentPage);
     } catch (error) {
       console.error('Error adding review:', error);
     }

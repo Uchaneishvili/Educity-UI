@@ -31,6 +31,7 @@ import LanguageIcon from '../../components/UI/LanguageIcon';
 import ProgramsIcon from '../../components/UI/ProgramsIcon';
 import { useEffect, useCallback, useState } from 'react';
 import { getCategories } from '../../services/categories.service';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 const categories = [
   {
@@ -161,7 +162,7 @@ export function Home() {
                   title={category.title}
                   coursesCount={category.coursesCount}
                   onClick={() => {
-                    console.log('***', category);
+                    trackEvent('category_click', category.title);
                     navigate('/courses', {
                       state: { category: category.title },
                     });

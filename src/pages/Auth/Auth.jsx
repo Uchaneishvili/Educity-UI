@@ -7,6 +7,7 @@ import RegisterForm from './Components/Register/RegisterForm';
 import { OrDivider } from '../../components/UI/OrDivider/OrDivider';
 import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons';
 import AuthService from '../../services/auth.service';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 export function Auth() {
   const authService = new AuthService();
@@ -39,6 +40,28 @@ export function Auth() {
   const handleLoginSuccess = () => {
     const redirectPath = location.state?.from || '/'; // Redirect to the original path or home
     navigate(redirectPath);
+  };
+
+  const handleLogin = async credentials => {
+    try {
+      trackEvent('login_attempt');
+      // Your login logic
+      trackEvent('login_success');
+    } catch (error) {
+      trackEvent('login_failure');
+      // Error handling
+    }
+  };
+
+  const handleRegister = async userData => {
+    try {
+      trackEvent('register_attempt');
+      // Your registration logic
+      trackEvent('register_success');
+    } catch (error) {
+      trackEvent('register_failure');
+      // Error handling
+    }
   };
 
   return (

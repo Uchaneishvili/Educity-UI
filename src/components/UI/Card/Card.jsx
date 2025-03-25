@@ -15,6 +15,8 @@ import {
   removeFromWishlist,
 } from '../../../services/wishlist.service';
 import { Video } from '../../VideoPlayer/Video';
+import { trackEvent } from '../../../utils/ClarityTracking';
+
 export function Card({
   id,
   title,
@@ -47,8 +49,14 @@ export function Card({
       console.error(err, 'error while adding to wishlist');
     }
   };
+
+  const handleCardClick = () => {
+    trackEvent('course_card_click', title || id);
+    if (onClick) onClick();
+  };
+
   return (
-    <div className={`${styles.container}`}>
+    <div className={`${styles.container}`} onClick={handleCardClick}>
       <div className={styles.imageContainer}>
         {intro ? (
           <div className={styles.cardImageWeb}>

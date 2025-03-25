@@ -10,6 +10,7 @@ import Input from '../../components/UI/Input/Input';
 import Textarea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
 import emailjs from '@emailjs/browser';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 export function Contact() {
   const [name, setName] = useState('');
@@ -21,6 +22,7 @@ export function Contact() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    trackEvent('contact_form_submit');
 
     const serviceId = process.env.REACT_APP_EMAIL_CONTACTS_SERVICE_ID;
     const templateId = process.env.REACT_APP_EMAIL_CONTACTS_TEMPLATE_ID;

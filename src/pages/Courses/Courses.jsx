@@ -15,6 +15,7 @@ import Sorting from '../../components/UI/Sorting/Sorting';
 import { CloseIcon } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { useAuth } from '../../context/AuthContext';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 export function Courses() {
   const location = useLocation();
@@ -148,6 +149,7 @@ export function Courses() {
   }, [getWishlistData]);
 
   const handleCategoryChange = categories => {
+    trackEvent('category_filter', categories.join(','));
     setSelectedCategories(categories);
   };
 
@@ -156,11 +158,13 @@ export function Courses() {
   };
 
   const handleReviewChange = reviews => {
+    trackEvent('review_filter', reviews.join(','));
     setSelectedReviews(reviews);
     setCurrentPage(1);
   };
 
   const debouncedSearch = useDebounce(value => {
+    trackEvent('course_search', value);
     setSearchQuery(value);
     setCurrentPage(1);
   }, 500);

@@ -6,6 +6,7 @@ import { Button } from '../../components/UI/Button/Button';
 import { getCourseDetails } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
 import { purchaseCourse } from '../../services/purchase.service';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 function Checkout() {
   const navigate = useNavigate();
@@ -27,9 +28,11 @@ function Checkout() {
 
   const payForCourse = async () => {
     try {
+      trackEvent('course_purchase_initiated', data?.title || id);
       const response = await purchaseCourse(id);
 
       if (response.status === 201) {
+        trackEvent('course_purchase_redirect', data?.title || id);
         window.location.href = response.data.checkoutUrl;
       }
     } catch (err) {

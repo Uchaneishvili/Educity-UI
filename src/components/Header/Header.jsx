@@ -13,6 +13,7 @@ import IconUser from '../UI/IconUser';
 import { Loader } from '../UI/Loader/Loader';
 import { getUserProgresses } from '../../services/progress.service';
 import { EducityLogo } from '../UI/icons';
+import { trackEvent } from '../../utils/ClarityTracking';
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -214,29 +215,47 @@ export function Header() {
 
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li onClick={() => navigate('/')} className={getActiveButtons('/')}>
+            <li
+              onClick={() => {
+                trackEvent('nav_click', 'home');
+                navigate('/');
+              }}
+              className={getActiveButtons('/')}
+            >
               მთავარი
             </li>
             <li
-              onClick={() => navigate('/courses')}
+              onClick={() => {
+                trackEvent('nav_click', 'courses');
+                navigate('/courses');
+              }}
               className={getActiveButtons('/courses')}
             >
               კურსები
             </li>
             <li
-              onClick={() => navigate('/aboutus')}
+              onClick={() => {
+                trackEvent('nav_click', 'aboutus');
+                navigate('/aboutus');
+              }}
               className={getActiveButtons('/aboutus')}
             >
               ჩვენს შესახებ
             </li>
             <li
-              onClick={() => navigate('/contacts')}
+              onClick={() => {
+                trackEvent('nav_click', 'contacts');
+                navigate('/contacts');
+              }}
               className={getActiveButtons('/contacts')}
             >
               კონტაქტი
             </li>
             <li
-              onClick={() => navigate('/become-partner')}
+              onClick={() => {
+                trackEvent('nav_click', 'become-partner');
+                navigate('/become-partner');
+              }}
               className={getActiveButtons('/become-partner')}
             >
               გახდი პარტნიორი

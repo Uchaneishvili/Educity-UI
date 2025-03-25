@@ -15,6 +15,8 @@ import { completeSyllabusLevel } from '../../services/progress.service';
 import { getUserProgressByCourseId } from '../../services/progress.service';
 import { submitQuizAnswers } from '../../services/quizzes.service';
 import { getCertificateById } from '../../services/certificate.service';
+import { trackEvent } from '../../utils/ClarityTracking';
+
 function VideoLectures() {
   const { id } = useParams();
   const [video, setVideo] = useState();
@@ -64,6 +66,10 @@ function VideoLectures() {
 
   const onCompleteVideo = async () => {
     try {
+      trackEvent(
+        'video_completed',
+        `${data?.title || ''}_${selectedLevelId || ''}`,
+      );
       await completeSyllabusLevel({
         syllabusId: syllabus,
         levelId: selectedLevelId,

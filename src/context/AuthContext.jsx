@@ -76,51 +76,53 @@ export const AuthProvider = ({ children }) => {
   const login = async credentials => {
     console.log('Login called with:', credentials);
 
-    // If credentials is already a result object (from social login)
+    // Special case for social login where we already have a token
     if (credentials.access_token) {
-      console.log('Social login with access token');
-      // Save token to localStorage directly
-      saveToLocalStorage('token', credentials.access_token);
+      console.log('Processing social login with token');
       authService.setToken(credentials.access_token);
 
       if (credentials.refresh_token) {
-        saveToLocalStorage('refreshToken', credentials.refresh_token);
-        RequestHelper.setRefreshToken(credentials.refresh_token);
+        localStorage.setItem('refreshToken', credentials.refresh_token);
       }
 
-      // If user data is provided directly
+      // If user data is provided directly with the token
       if (credentials.user) {
-        console.log('User data provided directly:', credentials.user);
+        console.log('Using provided user data:', credentials.user);
         setUser(credentials.user);
-        saveToLocalStorage('user', credentials.user);
+        localStorage.setItem('user', JSON.stringify(credentials.user));
         return { success: true };
       } else {
-        // Otherwise fetch user data
-        console.log('Fetching user data with token');
-        const userData = await authService.getCurrentUser();
-        console.log('User data fetched:', userData);
-        setUser(userData);
-        saveToLocalStorage('user', userData);
-        return { success: true };
+        // Fetch user info with the token
+        try {
+          console.log('Fetching user data with token');
+          const userData = await authService.getCurrentUser();
+          console.log('User data fetched:', userData);
+          setUser(userData);
+          localStorage.setItem('user', JSON.stringify(userData));
+          return { success: true };
+        } catch (error) {
+          console.error('Failed to fetch user data:', error);
+          return { success: false, message: 'Failed to fetch user data' };
+        }
       }
     }
 
-    // Regular login with credentials
-    console.log('Regular login with credentials');
+    // Regular username/password login
+    console.log('Performing regular login');
     const result = await authService.login(credentials);
     console.log('Login result:', result);
 
     if (result.success) {
-      // Make sure the token is saved to localStorage
-      if (result.data && result.data.access_token) {
-        saveToLocalStorage('token', result.data.access_token);
+      try {
+        const userData = await authService.getCurrentUser();
+        console.log('User data after login:', userData);
+        setUser(userData);
+        localStorage.setItem('user', JSON.stringify(userData));
+      } catch (error) {
+        console.error('Failed to fetch user after login:', error);
       }
-
-      const userData = await authService.getCurrentUser();
-      console.log('User data after login:', userData);
-      setUser(userData);
-      saveToLocalStorage('user', userData);
     }
+
     return result;
   };
 

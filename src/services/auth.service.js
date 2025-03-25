@@ -52,20 +52,17 @@ class AuthService {
   }
 
   getToken() {
-    const token = localStorage.getItem(this.config.tokenKey);
-    return token;
+    return localStorage.getItem('token');
   }
 
   setToken(token) {
-    if (!token) {
-      console.warn('Attempting to set null/undefined token');
-      return;
-    }
-    localStorage.setItem(this.config.tokenKey, token);
+    localStorage.setItem('token', token);
+    this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }
 
   removeToken() {
-    localStorage.removeItem(this.config.tokenKey);
+    localStorage.removeItem('token');
+    delete this.api.defaults.headers.common['Authorization'];
   }
 
   handleUnauthorized() {
@@ -84,35 +81,24 @@ class AuthService {
         credentials,
       );
 
-      console.log('*****', data);
-
-      if (!data.access_token) {
-        console.error('No token received in login response');
-        return {
-          success: false,
-          error: 'No authentication token received',
-        };
+      if (data && data.access_token) {
+        this.setToken(data.access_token);
+        return { success: true, data };
       }
 
-      this.setToken(data.access_token);
-      if (data.refresh_token) {
-        RequestHelper.setRefreshToken(data.refresh_token);
-      }
-      localStorage.setItem(this.config.userKey, JSON.stringify(data.user));
-
-      return { success: true, data };
+      return { success: false, message: 'Authentication failed' };
     } catch (error) {
-      console.error('Login error:', error);
       return {
         success: false,
-        error: error.response?.data?.message || error.message,
+        message: error.response?.data?.message || 'Authentication failed',
       };
     }
   }
 
   async logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.removeToken();
-    localStorage.removeItem(this.config.userKey);
   }
 
   async getCurrentUser() {

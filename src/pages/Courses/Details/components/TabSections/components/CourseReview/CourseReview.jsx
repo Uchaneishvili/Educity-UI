@@ -14,7 +14,7 @@ import { addReviewToCourse } from '../../../../../../../services/review.service'
 import { useAuth } from '../../../../../../../context/AuthContext';
 import { getReviewsById } from '../../../../../../../services/review.service';
 import { Loader } from '../../../../../../../components/UI/Loader/Loader';
-import { FormatData } from '../../../../../../../utils/FormatData';
+import FormatData from '../../../../../../../utils/FormatData';
 function CourseReview() {
   const { id } = useParams();
   const [isReviewOpen, setIsReviewOpen] = useState(false);

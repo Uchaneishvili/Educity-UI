@@ -61,8 +61,8 @@ function Checkout() {
               <div className={styles.shoppingCardContainer}>
                 <CardListItem
                   img={data.thumbnail}
-                  reviewScore="4.6"
-                  reviewNumber="456,230"
+                  reviewScore={data.averageRating}
+                  reviewNumber={data.totalReviews}
                   name={data.title}
                   author={data.instructorName}
                   showBuy={true}

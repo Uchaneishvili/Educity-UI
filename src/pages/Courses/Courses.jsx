@@ -47,7 +47,6 @@ export function Courses() {
       );
 
       if (categoryFromState) {
-        console.log('***', categoryFromState);
         setSelectedCategories([categoryFromState._id]);
       }
     }

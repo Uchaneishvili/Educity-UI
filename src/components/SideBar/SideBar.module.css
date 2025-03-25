@@ -95,6 +95,7 @@
   align-content: center;
 }
 
+.userIcon > img,
 .userIcon > svg {
   width: 68px;
   height: 68px;

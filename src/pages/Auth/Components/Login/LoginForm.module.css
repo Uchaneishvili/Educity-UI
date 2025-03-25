@@ -33,6 +33,11 @@
   padding: 16px 0px;
 }
 
+.loginBtnContainer > button {
+  width: auto !important;
+  min-width: 40%;
+}
+
 .saveUserContainer {
   display: flex;
   flex-direction: row;

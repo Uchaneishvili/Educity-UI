@@ -23,13 +23,16 @@ function CardListItem({
         </div>
         <div className={styles.cardListTextsContainer}>
           <div className={styles.cardListTextsInnerContainer}>
-            <div className={styles.cardListReviewContainer}>
-              <ColoredStar />
-              <div className={styles.cardListReviewScore}>{reviewScore}</div>
-              <div className={styles.cardListReviewNumber}>
-                ({reviewNumber} Review)
+            {reviewNumber > 0 && (
+              <div className={styles.cardListReviewContainer}>
+                <ColoredStar />
+                <div className={styles.cardListReviewScore}>{reviewScore}</div>
+                <div className={styles.cardListReviewNumber}>
+                  ({reviewNumber} შეფასება)
+                </div>
               </div>
-            </div>
+            )}
+
             <div className={styles.cardListName}>{name}</div>
           </div>
           <div className={styles.cardListAuthor}>

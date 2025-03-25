@@ -225,6 +225,7 @@ class AuthService {
   }
 
   async googleLogin() {
+    console.log('*****', `${process.env.REACT_APP_API_URL}auth/google`);
     window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
   }
 }

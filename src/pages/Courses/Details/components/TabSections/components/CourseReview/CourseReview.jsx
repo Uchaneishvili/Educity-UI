@@ -14,6 +14,7 @@ import { addReviewToCourse } from '../../../../../../../services/review.service'
 import { useAuth } from '../../../../../../../context/AuthContext';
 import { getReviewsById } from '../../../../../../../services/review.service';
 import { Loader } from '../../../../../../../components/UI/Loader/Loader';
+import { FormatData } from '../../../../../../../utils/FormatData';
 function CourseReview() {
   const { id } = useParams();
   const [isReviewOpen, setIsReviewOpen] = useState(false);
@@ -144,7 +145,7 @@ function CourseReview() {
                       {d.userId.fullName}
                     </div>
                     <div className={styles.reviewPersonCommentDate}>
-                      {d.createdAt}
+                      {FormatData.formatDateTime(d.createdAt)}
                     </div>
                   </div>
                   <div className={styles.reviewPersonComment}>{d.comment}</div>

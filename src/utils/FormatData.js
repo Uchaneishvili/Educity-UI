@@ -1,4 +1,16 @@
 export default class FormatData {
+  static formatDateTime(val) {
+    if (val) {
+      return new Intl.DateTimeFormat('en-GB', {
+        year: 'numeric',
+        month: 'numeric',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(new Date(val));
+    }
+    return '';
+  }
   static generatePaginationURLPath(query = {}) {
     const params = new URLSearchParams();
 

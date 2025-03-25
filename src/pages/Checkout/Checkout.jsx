@@ -6,31 +6,17 @@ import { Button } from '../../components/UI/Button/Button';
 import { getCourseDetails } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
 import { purchaseCourse } from '../../services/purchase.service';
-import GTMHelper from '../../utils/GTMHelper';
 
 function Checkout() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
-
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getCourseDetails(id);
       setData(response.data);
-
-      // Track checkout view
-      GTMHelper.event('begin_checkout', {
-        items: [
-          {
-            item_id: response.data._id,
-            item_name: response.data.title,
-            price: response.data.discountedPrice || response.data.price,
-            currency: 'GEL',
-          },
-        ],
-      });
     } catch (err) {
       console.log(err);
       setLoading(false);
@@ -41,42 +27,13 @@ function Checkout() {
 
   const payForCourse = async () => {
     try {
-      // Track payment initiation
-      GTMHelper.event('add_payment_info', {
-        items: [
-          {
-            item_id: data._id,
-            item_name: data.title,
-            price: data.discountedPrice || data.price,
-            currency: 'GEL',
-          },
-        ],
-      });
-
       const response = await purchaseCourse(id);
 
       if (response.status === 201) {
-        // Track successful checkout redirect
-        GTMHelper.event('checkout_progress', {
-          step: 1,
-          items: [
-            {
-              item_id: data._id,
-              item_name: data.title,
-              price: data.discountedPrice || data.price,
-              currency: 'GEL',
-            },
-          ],
-        });
         window.location.href = response.data.checkoutUrl;
       }
     } catch (err) {
       console.log('error while paying for course', err);
-      // Track checkout error
-      GTMHelper.event('checkout_error', {
-        error_message: err.message,
-        course_id: id,
-      });
     }
   };
 

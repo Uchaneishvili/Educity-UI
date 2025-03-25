@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
 import { Loader } from '../../../../components/UI/Loader/Loader';
-import GTMHelper from '../../../../utils/GTMHelper';
 
 function GoogleCallback() {
   const { login } = useAuth();
@@ -28,22 +27,13 @@ function GoogleCallback() {
           };
 
           await login(result.data);
-          GTMHelper.event('login_success', {
-            method: 'google',
-            user_id: result.data.user?.id,
-          });
           navigate('/');
         } else {
           // If no token in URL, redirect to login
-          GTMHelper.event('login_failed', { method: 'google' });
           navigate('/login');
         }
       } catch (error) {
         console.error('Google auth callback error:', error);
-        GTMHelper.event('login_error', {
-          method: 'google',
-          error_message: error.message,
-        });
         navigate('/login');
       }
     };

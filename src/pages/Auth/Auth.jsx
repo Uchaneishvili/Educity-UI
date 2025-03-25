@@ -7,7 +7,6 @@ import RegisterForm from './Components/Register/RegisterForm';
 import { OrDivider } from '../../components/UI/OrDivider/OrDivider';
 import { FacebookAuthIcon, GoogleAuthIcon } from '../../components/UI/icons';
 import AuthService from '../../services/auth.service';
-import GTMHelper from '../../utils/GTMHelper';
 
 export function Auth() {
   const authService = new AuthService();
@@ -17,12 +16,10 @@ export function Auth() {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleFacebookLogin = () => {
-    GTMHelper.event('login_attempt', { method: 'facebook' });
     authService.facebookLogin();
   };
 
   const handleGoogleLogin = () => {
-    GTMHelper.event('login_attempt', { method: 'google' });
     authService.googleLogin();
   };
 
@@ -40,8 +37,7 @@ export function Auth() {
   };
 
   const handleLoginSuccess = () => {
-    GTMHelper.event('login_success', { method: 'email' });
-    const redirectPath = location.state?.from || '/';
+    const redirectPath = location.state?.from || '/'; // Redirect to the original path or home
     navigate(redirectPath);
   };
 

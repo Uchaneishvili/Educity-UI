@@ -17,8 +17,6 @@ import { Loader } from '../../../components/UI/Loader/Loader';
 import { Error } from '../../../components/Error/Error';
 import { useAuth } from '../../../context/AuthContext';
 import FormatData from '../../../utils/FormatData';
-import GTMHelper from '../../../utils/GTMHelper';
-
 export function CourseDetails() {
   const { id } = useParams();
   const [data, setData] = useState(null);
@@ -31,21 +29,6 @@ export function CourseDetails() {
       setLoading(true);
       const res = await getCourseDetails(id);
       setData(res.data);
-
-      // Track course view event
-      GTMHelper.event('view_item', {
-        items: [
-          {
-            item_id: res.data._id,
-            item_name: res.data.title,
-            price: res.data.price,
-            discount: res.data.discountedPrice
-              ? res.data.price - res.data.discountedPrice
-              : 0,
-            item_category: res.data.categoryName,
-          },
-        ],
-      });
     } catch (error) {
       console.error('Error loading course details:', error);
     } finally {
@@ -95,34 +78,6 @@ export function CourseDetails() {
     }
   };
 
-  const handleCourseAction = () => {
-    const isOnline = data.type === 'video-lecture';
-    if (access) {
-      if (isOnline) {
-        GTMHelper.event('start_course', {
-          course_id: id,
-          course_name: data.title,
-        });
-        navigate(`/courses/${id}/videos`);
-      }
-    } else {
-      if (isOnline) {
-        GTMHelper.event('begin_checkout', {
-          course_id: id,
-          course_name: data.title,
-          price: data.discountedPrice || data.price,
-        });
-        navigate(`/checkout/${id}`);
-      } else {
-        GTMHelper.event('register_for_course', {
-          course_id: id,
-          course_name: data.title,
-        });
-        navigate(`/register/${id}`);
-      }
-    }
-  };
-
   return (
     <>
       <div className={`${styles.container} mainContainer`}>
@@ -162,7 +117,20 @@ export function CourseDetails() {
             discountedPrice={data.discountedPrice}
             price={data.price}
             intro={data.intro}
-            onClick={handleCourseAction}
+            onClick={() => {
+              const isOnline = data.type === 'video-lecture';
+              if (access) {
+                if (isOnline) {
+                  navigate(`/courses/${id}/videos`);
+                }
+              } else {
+                if (isOnline) {
+                  navigate(`/checkout/${id}`);
+                } else {
+                  navigate(`/register/${id}`);
+                }
+              }
+            }}
           />
         </div>
         <div className={styles.tabSelectorContainer}>

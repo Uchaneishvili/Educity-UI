@@ -13,7 +13,6 @@ import IconUser from '../UI/IconUser';
 import { Loader } from '../UI/Loader/Loader';
 import { getUserProgresses } from '../../services/progress.service';
 import { EducityLogo } from '../UI/icons';
-import GTMHelper from '../../utils/GTMHelper';
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -159,7 +158,6 @@ export function Header() {
                 <div
                   className={styles.userMenuDropdownItem}
                   onClick={() => {
-                    GTMHelper.event('user_logout');
                     logout();
                     navigate('/');
                   }}
@@ -216,51 +214,29 @@ export function Header() {
 
         <nav className={styles.nav}>
           <ul className={styles.navList}>
-            <li
-              onClick={() => {
-                GTMHelper.event('navigation_click', { destination: 'home' });
-                navigate('/');
-              }}
-              className={getActiveButtons('/')}
-            >
+            <li onClick={() => navigate('/')} className={getActiveButtons('/')}>
               მთავარი
             </li>
             <li
-              onClick={() => {
-                GTMHelper.event('navigation_click', { destination: 'courses' });
-                navigate('/courses');
-              }}
+              onClick={() => navigate('/courses')}
               className={getActiveButtons('/courses')}
             >
               კურსები
             </li>
             <li
-              onClick={() => {
-                GTMHelper.event('navigation_click', { destination: 'aboutus' });
-                navigate('/aboutus');
-              }}
+              onClick={() => navigate('/aboutus')}
               className={getActiveButtons('/aboutus')}
             >
               ჩვენს შესახებ
             </li>
             <li
-              onClick={() => {
-                GTMHelper.event('navigation_click', {
-                  destination: 'contacts',
-                });
-                navigate('/contacts');
-              }}
+              onClick={() => navigate('/contacts')}
               className={getActiveButtons('/contacts')}
             >
               კონტაქტი
             </li>
             <li
-              onClick={() => {
-                GTMHelper.event('navigation_click', {
-                  destination: 'become-partner',
-                });
-                navigate('/become-partner');
-              }}
+              onClick={() => navigate('/become-partner')}
               className={getActiveButtons('/become-partner')}
             >
               გახდი პარტნიორი

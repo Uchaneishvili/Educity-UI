@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../../../context/AuthContext';
 import { Loader } from '../../../../components/UI/Loader/Loader';
-import GTMHelper from '../../../../utils/GTMHelper';
 
 function FacebookCallback() {
   const { login } = useAuth();
@@ -28,23 +27,13 @@ function FacebookCallback() {
           };
 
           await login(result.data);
-          GTMHelper.event('login_success', {
-            method: 'facebook',
-            user_id: result.data.user?.id,
-          });
           navigate('/');
         } else {
-          GTMHelper.event('login_failed', { method: 'facebook' });
-
           // If no token in URL, redirect to login
           navigate('/login');
         }
       } catch (error) {
         console.error('Facebook auth callback error:', error);
-        GTMHelper.event('login_error', {
-          method: 'facebook',
-          error_message: error.message,
-        });
         navigate('/login');
       }
     };

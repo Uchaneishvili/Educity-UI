@@ -15,8 +15,6 @@ import {
   removeFromWishlist,
 } from '../../../services/wishlist.service';
 import { Video } from '../../VideoPlayer/Video';
-import GTMHelper from '../../../utils/GTMHelper';
-
 export function Card({
   id,
   title,
@@ -123,21 +121,7 @@ export function Card({
             </div>
 
             <div className={styles.detailsContainer}>
-              <Button
-                onClick={() => {
-                  GTMHelper.event('add_to_cart', {
-                    items: [
-                      {
-                        item_id: id,
-                        item_name: title,
-                        price: discountedPrice || price,
-                      },
-                    ],
-                  });
-                  onClick();
-                }}
-                disabled={ButtonDisabled}
-              >
+              <Button onClick={onClick} disabled={ButtonDisabled}>
                 {buttonName}
               </Button>
             </div>
@@ -155,18 +139,7 @@ export function Card({
             <div className={styles.detailsContainer}>
               <div
                 className={styles.details}
-                onClick={() => {
-                  GTMHelper.event('select_item', {
-                    items: [
-                      {
-                        item_id: id,
-                        item_name: title,
-                        price: discountedPrice || price,
-                      },
-                    ],
-                  });
-                  navigate(`/courses/${id}`);
-                }}
+                onClick={() => navigate(`/courses/${id}`)}
               >
                 დეტალები
               </div>

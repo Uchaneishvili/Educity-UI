@@ -10,7 +10,6 @@ import Input from '../../components/UI/Input/Input';
 import Textarea from '../../components/UI/Textarea/Textarea';
 import { Button } from '../../components/UI/Button/Button';
 import emailjs from '@emailjs/browser';
-import GTMHelper from '../../utils/GTMHelper';
 
 export function Contact() {
   const [name, setName] = useState('');
@@ -22,10 +21,6 @@ export function Contact() {
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    GTMHelper.event('contact_form_submit', {
-      form_name: 'contact',
-    });
 
     const serviceId = process.env.REACT_APP_EMAIL_CONTACTS_SERVICE_ID;
     const templateId = process.env.REACT_APP_EMAIL_CONTACTS_TEMPLATE_ID;

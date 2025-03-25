@@ -54,6 +54,12 @@ export function Footer() {
           >
             პაკეტები
           </div> */}
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate('/terms-and-conditions')}
+          >
+            წესები და პირობები
+          </div>
         </div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>
@@ -77,15 +83,7 @@ export function Footer() {
 
       <div className={styles.footerMediaContainer}>
         <div className={styles.footerMediaInnerContainer}>
-          <div className={styles.footerPrivacyTexts}>
-            <div
-              className={styles.footerPrivacyPolicy}
-              onClick={() => navigate('/terms-and-conditions')}
-            >
-              წესები და პირობები
-            </div>
-            <div className={styles.footerRightsText}>© 2025 Educity </div>
-          </div>
+          <div className={styles.footerRightsText}>© 2025 Educity </div>
           <SocialMedia />
         </div>
       </div>

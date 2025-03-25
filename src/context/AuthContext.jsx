@@ -15,10 +15,27 @@ export const AuthProvider = ({ children }) => {
       const token = authService.getToken();
       if (token) {
         try {
-          const userData = await authService.getCurrentUser();
-          setUser(userData);
+          // Try to load user from local storage first
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            try {
+              setUser(JSON.parse(storedUser));
+            } catch (parseError) {
+              console.error('Error parsing stored user data:', parseError);
+              // If parsing fails, fetch from API
+              const userData = await authService.getCurrentUser();
+              setUser(userData);
+              localStorage.setItem('user', JSON.stringify(userData || {}));
+            }
+          } else {
+            // If no stored user, fetch from API
+            const userData = await authService.getCurrentUser();
+            setUser(userData);
+            localStorage.setItem('user', JSON.stringify(userData || {}));
+          }
         } catch (error) {
-          console.error('Error parsing user data from token:', error);
+          console.error('Error loading user data:', error);
+          localStorage.removeItem('user');
           authService.logout(); // Clear invalid token
         }
       }
@@ -31,6 +48,9 @@ export const AuthProvider = ({ children }) => {
     // If credentials is already a result object (from social login)
     if (credentials.access_token) {
       authService.setToken(credentials.access_token);
+      // Also store user data in local storage
+      localStorage.setItem('user', JSON.stringify(credentials.user || {}));
+
       if (credentials.refresh_token) {
         RequestHelper.setRefreshToken(credentials.refresh_token);
       }
@@ -43,6 +63,8 @@ export const AuthProvider = ({ children }) => {
         // Otherwise fetch user data
         const userData = await authService.getCurrentUser();
         setUser(userData);
+        // Store fetched user data in local storage
+        localStorage.setItem('user', JSON.stringify(userData || {}));
         return { success: true };
       }
     }
@@ -52,12 +74,16 @@ export const AuthProvider = ({ children }) => {
     if (result.success) {
       const userData = await authService.getCurrentUser();
       setUser(userData);
+      // Store user data in local storage after regular login
+      localStorage.setItem('user', JSON.stringify(userData || {}));
     }
     return result;
   };
 
   const logout = () => {
     authService.logout();
+    // Clear user data from local storage on logout
+    localStorage.removeItem('user');
     setUser(null);
   };
 

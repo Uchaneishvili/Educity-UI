@@ -84,6 +84,8 @@ class AuthService {
         credentials,
       );
 
+      console.log('*****', data);
+
       if (!data.access_token) {
         console.error('No token received in login response');
         return {

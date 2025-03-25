@@ -17,19 +17,23 @@ function GoogleCallback() {
         const userData = params.get('user');
 
         if (token) {
+          console.log('Google callback received token');
           // If token is directly provided in URL
-          const result = {
-            success: true,
-            data: {
-              access_token: token,
-              user: userData ? JSON.parse(decodeURIComponent(userData)) : null,
-            },
-          };
+          const parsedUser = userData
+            ? JSON.parse(decodeURIComponent(userData))
+            : null;
+          console.log('Parsed user data:', parsedUser);
 
-          await login(result.data);
+          // Make sure we provide the exact structure expected by the login function
+          await login({
+            access_token: token,
+            user: parsedUser,
+          });
+
+          console.log('Login successful, navigating to home');
           navigate('/');
         } else {
-          // If no token in URL, redirect to login
+          console.log('No token in URL, redirecting to login');
           navigate('/login');
         }
       } catch (error) {

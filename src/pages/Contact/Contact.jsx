@@ -73,10 +73,7 @@ export function Contact() {
             <SocialMedia />
           </div>
 
-          <form
-            className={styles.contactsFormContainer}
-            onSubmit={handleSubmit}
-          >
+          <form className={styles.contactsFormContainer}>
             <div className={styles.twoInputsContainer}>
               <div className={styles.nameInputContainer}>
                 <Input
@@ -142,7 +139,9 @@ export function Contact() {
             </div>
 
             <div className={styles.contactsButtonContainer}>
-              <Button type="primary">გაგზავნა</Button>
+              <Button type="primary" onClick={handleSubmit}>
+                გაგზავნა
+              </Button>
             </div>
           </form>
         </div>

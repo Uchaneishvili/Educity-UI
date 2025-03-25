@@ -77,7 +77,15 @@ export function Footer() {
 
       <div className={styles.footerMediaContainer}>
         <div className={styles.footerMediaInnerContainer}>
-          <div className={styles.footerRightsText}>© 2025 Educity </div>
+          <div className={styles.footerPrivacyTexts}>
+            <div
+              className={styles.footerPrivacyPolicy}
+              onClick={() => navigate('/terms-and-conditions')}
+            >
+              წესები და პირობები
+            </div>
+            <div className={styles.footerRightsText}>© 2025 Educity </div>
+          </div>
           <SocialMedia />
         </div>
       </div>

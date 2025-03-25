@@ -59,6 +59,7 @@ function BecomePartner() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [company, setCompany] = useState('');
   const [message, setMessage] = useState('');
+  const [submitMessage, setSubmitMessage] = useState({});
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -76,18 +77,42 @@ function BecomePartner() {
       message: message,
     };
 
-    emailjs
-      .send(serviceId, templateId, templateParams, publicKey)
-      .then(response => {
-        console.log('Email has been sent!', response);
-        setName('');
-        setLastName('');
-        setEmail('');
-        setPhoneNumber('');
-        setCompany('');
-        setMessage('');
-      })
-      .catch(error => console.log(error));
+    if (
+      name !== '' &&
+      lastName !== '' &&
+      email !== '' &&
+      phoneNumber !== '' &&
+      company !== '' &&
+      message !== ''
+    ) {
+      emailjs
+        .send(serviceId, templateId, templateParams, publicKey)
+        .then(response => {
+          console.log('Email has been sent!', response);
+          setName('');
+          setLastName('');
+          setEmail('');
+          setPhoneNumber('');
+          setCompany('');
+          setMessage('');
+          setSubmitMessage({
+            type: 'success',
+            message: 'შეტყობინება წარმატებით გაიგზავნა!',
+          });
+        })
+        .catch(error => {
+          console.log(error);
+          setSubmitMessage({
+            type: 'error',
+            message: 'შეტყობინების გაგზავნა ვერ მოხერხდა, სცადეთ თავიდან!',
+          });
+        });
+    } else {
+      setSubmitMessage({
+        type: 'error',
+        message: 'შეავსეთ ყველა ველი შეტყობინების გასაგზავნად!',
+      });
+    }
   };
 
   return (
@@ -281,6 +306,15 @@ function BecomePartner() {
                 onChange={e => setMessage(e.target.value)}
               />
             </div>
+
+            {submitMessage.type === 'success' && (
+              <div className={styles.successMessage}>
+                {submitMessage.message}
+              </div>
+            )}
+            {submitMessage.type === 'error' && (
+              <div className={styles.errorMessage}>{submitMessage.message}</div>
+            )}
 
             <div className={styles.becomePartnerButtonContainer}>
               <Button type="primary">გაგზავნა</Button>

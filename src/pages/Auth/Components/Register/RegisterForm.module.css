@@ -33,6 +33,11 @@
   padding: 16px 0px;
 }
 
+.registerBtnContainer > button {
+  width: auto !important;
+  min-width: 40%;
+}
+
 .acceptRulesContainer {
   display: flex;
   display: flex;

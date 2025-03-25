@@ -4,8 +4,8 @@ import AuthService from '../services/auth.service';
 const authService = new AuthService();
 
 export default class RequestHelper {
-  // static EDUCITY_BASE_URL = process.env.REACT_APP_API_URL;
-  static EDUCITY_BASE_URL = 'https://api.educity.ge/api/v1';
+  static EDUCITY_BASE_URL = process.env.REACT_APP_API_URL;
+  // static EDUCITY_BASE_URL = 'https://api.educity.ge/api/v1';
   static _educity = null;
 
   static resetAxiosInstances() {

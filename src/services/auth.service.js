@@ -84,6 +84,8 @@ class AuthService {
         credentials,
       );
 
+      console.log('*****', data);
+
       if (!data.access_token) {
         console.error('No token received in login response');
         return {
@@ -221,12 +223,12 @@ class AuthService {
   }
 
   async facebookLogin() {
-    window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
+    window.location.href = `https://api.educity.ge/api/v1/auth/facebook`;
   }
 
   async googleLogin() {
-    console.log('*****', `${process.env.REACT_APP_API_URL}auth/google`);
-    window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
+    console.log('*****', `https://api.educity.ge/api/v1/auth/google`);
+    window.location.href = `https://api.educity.ge/api/v1/auth/google`;
   }
 }
 

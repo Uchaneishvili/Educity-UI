@@ -15,6 +15,7 @@ import Sorting from '../../components/UI/Sorting/Sorting';
 import { CloseIcon } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { useAuth } from '../../context/AuthContext';
+import GTMHelper from '../../utils/GTMHelper';
 
 export function Courses() {
   const location = useLocation();
@@ -88,6 +89,26 @@ export function Courses() {
         };
 
         const response = await getCourses(query);
+
+        // Track course list view with filters
+        GTMHelper.event('view_item_list', {
+          item_list_id: 'courses',
+          item_list_name: 'Course Catalog',
+          items: response.data.data.courses.map((course, index) => ({
+            item_id: course._id,
+            item_name: course.title,
+            price: course.discountedPrice || course.price,
+            index: index,
+            item_list_name: 'Course Catalog',
+          })),
+          filters: {
+            categories:
+              selectedCategories.length > 0 ? selectedCategories : undefined,
+            ratings: selectedReviews.length > 0 ? selectedReviews : undefined,
+            search: searchQuery || undefined,
+            sort: selectedSort.sortBy || undefined,
+          },
+        });
 
         setCourses(response.data.data.courses);
         setTotalItems(response.data.data.totalCount);

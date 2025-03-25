@@ -7,6 +7,8 @@ import PurchaseHistory from './Components/PurchaseHistory/PurchaseHistory';
 import UserSettings from './Components/UserSettings/UserSettings';
 import { useAuth } from '../../context/AuthContext';
 import { useLocation, useNavigate } from 'react-router-dom';
+import GTMHelper from '../../utils/GTMHelper';
+
 function UserInfo() {
   const [page, setPage] = useState('dashboard');
   const location = useLocation();
@@ -16,16 +18,21 @@ function UserInfo() {
   useEffect(() => {
     if (location.pathname === '/me') {
       setPage('dashboard');
+      GTMHelper.event('view_dashboard', { user_id: user?.id });
     } else if (location.pathname === '/me/courses') {
       setPage('courses');
+      GTMHelper.event('view_my_courses', { user_id: user?.id });
     } else if (location.pathname === '/me/wishlist') {
       setPage('wishlist');
+      GTMHelper.event('view_wishlist', { user_id: user?.id });
     } else if (location.pathname === '/me/purchase-history') {
       setPage('purchaseHistory');
+      GTMHelper.event('view_purchase_history', { user_id: user?.id });
     } else if (location.pathname === '/me/settings') {
       setPage('settings');
+      GTMHelper.event('view_settings', { user_id: user?.id });
     }
-  }, [location.pathname]);
+  }, [location.pathname, user?.id]);
 
   return (
     <div className="mainContainer">

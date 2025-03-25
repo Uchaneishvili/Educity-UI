@@ -52,10 +52,23 @@ class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.log('No token found in localStorage by AuthService');
+    }
+    return token;
   }
 
   setToken(token) {
+    if (!token) {
+      console.error('Attempted to set empty token');
+      return;
+    }
+
+    console.log(
+      'Setting token in AuthService:',
+      token.substring(0, 10) + '...',
+    );
     localStorage.setItem('token', token);
     this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
   }

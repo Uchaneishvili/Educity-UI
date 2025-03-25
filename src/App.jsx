@@ -19,8 +19,12 @@ function AppContent() {
       const token = params.get('token');
       const userData = params.get('user');
 
-      if (token) {
+      // Only handle tokens on paths other than the callback paths
+      const path = window.location.pathname;
+      if (!path.includes('/callback') && token) {
         try {
+          console.log('App.jsx handling token from URL');
+
           // Clear the URL without refreshing the page
           window.history.replaceState(
             {},
@@ -28,12 +32,22 @@ function AppContent() {
             window.location.pathname,
           );
 
+          // Save token directly to localStorage
+          localStorage.setItem('token', token);
+
           // Process the token
+          const parsedUser = userData
+            ? JSON.parse(decodeURIComponent(userData))
+            : null;
+          if (parsedUser) {
+            localStorage.setItem('user', JSON.stringify(parsedUser));
+          }
+
           const result = {
             success: true,
             data: {
               access_token: token,
-              user: userData ? JSON.parse(decodeURIComponent(userData)) : null,
+              user: parsedUser,
             },
           };
 

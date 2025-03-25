@@ -133,7 +133,10 @@ function CourseReview() {
             {data.map(d => (
               <div className={styles.reviewPersonContainer} key={d._id}>
                 <div className={styles.reviewPersonPhotoContainer}>
-                  <img src={d.userId.image} alt="personAvatar" />
+                  <img
+                    src={d.userId.image || '/assets/userAvatar.png'}
+                    alt="personAvatar"
+                  />
                 </div>
                 <div className={styles.reviewPersonCommentContainer}>
                   <div className={styles.reviewPersonCommentInfo}>

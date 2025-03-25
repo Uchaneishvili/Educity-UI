@@ -19,6 +19,9 @@ function AppContent() {
       const token = params.get('token');
       const userData = params.get('user');
 
+      console.log('token', token);
+      console.log('userData', userData);
+
       // Only handle tokens on paths other than the callback paths
       const path = window.location.pathname;
       if (!path.includes('/callback') && token) {
@@ -33,14 +36,14 @@ function AppContent() {
           );
 
           // Save token directly to localStorage
-          localStorage.setItem('token', token);
+          localStorage.setItem('access_token', token);
 
           // Process the token
           const parsedUser = userData
             ? JSON.parse(decodeURIComponent(userData))
             : null;
           if (parsedUser) {
-            localStorage.setItem('user', JSON.stringify(parsedUser));
+            localStorage.setItem('userData', JSON.stringify(parsedUser));
           }
 
           const result = {

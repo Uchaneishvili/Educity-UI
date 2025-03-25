@@ -3,8 +3,8 @@ import RequestHelper from '../apis/RequestHelper';
 
 class AuthService {
   constructor(options = {}) {
-    // const baseURL = process.env.REACT_APP_API_URL;
-    const baseURL = 'https://api.educity.ge/api/v1';
+    const baseURL = process.env.REACT_APP_API_URL;
+    // const baseURL = 'https://api.educity.ge/api/v1';
 
     const defaultOptions = {
       tokenKey: 'access_token',
@@ -222,12 +222,11 @@ class AuthService {
   }
 
   async facebookLogin() {
-    window.location.href = `https://api.educity.ge/api/v1/auth/facebook`;
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
   }
 
   async googleLogin() {
-    console.log('*****', `https://api.educity.ge/api/v1/auth/google`);
-    window.location.href = `https://api.educity.ge/api/v1/auth/google`;
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
   }
 }
 

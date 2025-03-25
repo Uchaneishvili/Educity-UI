@@ -18,10 +18,10 @@ function GoogleCallback() {
 
         console.log('Google callback running, URL params:', location.search);
         console.log('Token found in URL:', token);
-
+        console.log('(*(', token);
         if (token) {
           // Store token directly in localStorage first
-          localStorage.setItem('token', token);
+          localStorage.setItem('access_token', token);
           console.log('Token saved to localStorage');
 
           let parsedUser = null;

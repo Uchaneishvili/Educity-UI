@@ -14,26 +14,21 @@ function GoogleCallback() {
         // Extract token from URL if it's in the query parameters
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
-        const userData = params.get('user');
 
         if (token) {
-          console.log('Google callback received token');
-          // If token is directly provided in URL
-          const parsedUser = userData
-            ? JSON.parse(decodeURIComponent(userData))
-            : null;
-          console.log('Parsed user data:', parsedUser);
+          // Store token directly in localStorage first
+          localStorage.setItem('access_token', token);
+          const result = {
+            success: true,
+            data: {
+              access_token: token,
+            },
+          };
 
-          // Make sure we provide the exact structure expected by the login function
-          await login({
-            access_token: token,
-            user: parsedUser,
-          });
-
-          console.log('Login successful, navigating to home');
+          await login(result.data);
           navigate('/');
         } else {
-          console.log('No token in URL, redirecting to login');
+          console.warn('No token found in URL params');
           navigate('/login');
         }
       } catch (error) {

@@ -87,7 +87,7 @@ export const AppRoutes = () => {
           }
         />
         <Route path="/auth/facebook/callback" element={<FacebookCallback />} />
-        <Route path="/auth/google/callback" element={<GoogleCallback />} />
+        {/* <Route path="/auth/google/callback" element={<GoogleCallback />} /> */}
         <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>

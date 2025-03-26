@@ -50,7 +50,6 @@ function CourseReview() {
     async (page = 0) => {
       try {
         setLoading(true);
-        console.log('***', id);
         const query = {
           staticFilter: {
             courseId: id,
@@ -60,12 +59,9 @@ function CourseReview() {
         };
 
         const { data } = await getReviewsById(query);
-        console.log('response', data);
         setData(data.data.reviews);
         setTotalItems(data.data.totalCount);
         setRatingStats(data.data.ratingStats);
-
-        console.log('ratingStats', data.data.ratingStats);
       } catch (error) {
         console.error('Error loading reviews:', error);
         setLoading(false);

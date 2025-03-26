@@ -19,7 +19,6 @@ export default class FormatData {
     if (query.pageSize) params.append('pageSize', query.pageSize);
 
     // Add sorting params
-    console.log('sort', query);
     if (query.sortBy && query.sortOrder) {
       params.append('sortBy', query.sortBy);
       params.append('sortOrder', query.sortOrder);

@@ -52,20 +52,23 @@ class AuthService {
   }
 
   getToken() {
-    const token = localStorage.getItem(this.config.tokenKey);
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      console.log('No token found in localStorage by AuthService');
+    }
     return token;
   }
 
   setToken(token) {
-    if (!token) {
-      console.warn('Attempting to set null/undefined token');
-      return;
-    }
-    localStorage.setItem(this.config.tokenKey, token);
+    localStorage.setItem('access_token', token);
+    // Update your axios instance headers here if needed
+    RequestHelper.resetAxiosInstances();
   }
 
   removeToken() {
-    localStorage.removeItem(this.config.tokenKey);
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userData');
+    delete this.api.defaults.headers.common['Authorization'];
   }
 
   handleUnauthorized() {
@@ -84,44 +87,38 @@ class AuthService {
         credentials,
       );
 
-      console.log('*****', data);
-
-      if (!data.access_token) {
-        console.error('No token received in login response');
-        return {
-          success: false,
-          error: 'No authentication token received',
-        };
+      if (data && data.access_token) {
+        this.setToken(data.access_token);
+        return { success: true, data };
       }
 
-      this.setToken(data.access_token);
-      if (data.refresh_token) {
-        RequestHelper.setRefreshToken(data.refresh_token);
-      }
-      localStorage.setItem(this.config.userKey, JSON.stringify(data.user));
-
-      return { success: true, data };
+      return { success: false, message: 'Authentication failed' };
     } catch (error) {
-      console.error('Login error:', error);
       return {
         success: false,
-        error: error.response?.data?.message || error.message,
+        message: error.response?.data?.message || 'Authentication failed',
       };
     }
   }
 
   async logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userData');
     this.removeToken();
-    localStorage.removeItem(this.config.userKey);
   }
 
   async getCurrentUser() {
     try {
-      const { data } = await this.api.get(this.config.currentUserEndpoint);
-      return data;
+      const response = await RequestHelper.educity.get('/auth/me');
+      return response.data;
     } catch (error) {
-      console.error('Error fetching current user:', error);
-      return null;
+      console.error('Get current user error details:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers,
+        config: error.config,
+      });
     }
   }
 
@@ -223,12 +220,13 @@ class AuthService {
   }
 
   async facebookLogin() {
+    // window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
     window.location.href = `https://api.educity.ge/api/v1/auth/facebook`;
   }
 
   async googleLogin() {
-    console.log('*****', `https://api.educity.ge/api/v1/auth/google`);
     window.location.href = `https://api.educity.ge/api/v1/auth/google`;
+    // window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
   }
 }
 

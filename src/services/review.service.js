@@ -7,6 +7,5 @@ export const addReviewToCourse = async (id, data) => {
 
 export const getReviewsById = async query => {
   const paginPath = FormatData.generatePaginationURLPath(query);
-  console.log('sss', query);
   return await RequestHelper.educity.get(`/courses/reviews${paginPath}`);
 };

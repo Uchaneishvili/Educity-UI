@@ -5,8 +5,6 @@ import { ArrowDownIcon, ArrowUpIcon } from '../icons';
 export function Accordion({ title, children, defaultOpen = false }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  console.log(children.props.children.length);
-
   return (
     <div className={styles.accordionItem}>
       <div

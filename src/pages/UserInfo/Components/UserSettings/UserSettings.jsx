@@ -39,7 +39,6 @@ function UserSettings() {
     if (Object.keys(validationErrors).length === 0) {
       try {
         const response = await updateUser(data._id, values);
-        console.log('response', response);
       } catch (err) {
         setFormErrors({
           ...formErrors,
@@ -65,7 +64,6 @@ function UserSettings() {
     if (Object.keys(passwordValidation).length === 0) {
       try {
         const response = await authService.changePassword(passwordData);
-        console.log('response', response);
       } catch (err) {
         console.log('Error while changing password', err);
         setFormErrors({

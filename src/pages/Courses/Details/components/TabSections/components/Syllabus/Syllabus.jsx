@@ -1,42 +1,44 @@
-import React, { useCallback, useEffect, useState } from 'react'
-import styles from './Syllabus.module.css'
-import { Accordion } from '../../../../../../../components/UI/Accordion/Accordion'
-import { FileIcon, CompleteCheckIcon } from '../../../../../../../components/UI/icons'
-import { getSyllabusByCourseId } from '../../../../../../../services/syllabus.service'
-import { useParams } from 'react-router-dom'
-import { Loader } from '../../../../../../../components/UI/Loader/Loader'
+import React, { useCallback, useEffect, useState } from 'react';
+import styles from './Syllabus.module.css';
+import { Accordion } from '../../../../../../../components/UI/Accordion/Accordion';
+import {
+  FileIcon,
+  CompleteCheckIcon,
+} from '../../../../../../../components/UI/icons';
+import { getSyllabusByCourseId } from '../../../../../../../services/syllabus.service';
+import { useParams } from 'react-router-dom';
+import { Loader } from '../../../../../../../components/UI/Loader/Loader';
 function Syllabus() {
-  const [syllabusData, setSyllabusData] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const { id } = useParams()
+  const [syllabusData, setSyllabusData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const { id } = useParams();
 
   const loadSyllabusData = useCallback(async () => {
     try {
-      setIsLoading(true)
-      const { data } = await getSyllabusByCourseId(id)
-      setSyllabusData(data.data.syllabus)
+      setIsLoading(true);
+      const { data } = await getSyllabusByCourseId(id);
+      setSyllabusData(data.data.syllabus);
     } catch {
-      console.log('error while loading syllabus data')
+      console.log('error while loading syllabus data');
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }, [id])
+  }, [id]);
 
   useEffect(() => {
-    loadSyllabusData()
-  }, [loadSyllabusData])
+    loadSyllabusData();
+  }, [loadSyllabusData]);
 
   if (isLoading) {
-    return <Loader />
+    return <Loader />;
   }
 
-  console.log('FFS', syllabusData)
   return (
     <>
-      {syllabusData.map((syllabus) => (
+      {syllabusData.map(syllabus => (
         <Accordion title={syllabus.title} key={syllabus._id}>
           <div className={styles.syllabusContainer}>
-            {syllabus.levels.map((level) => (
+            {syllabus.levels.map(level => (
               <div className={styles.syllabusItem}>
                 <div className={styles.syllabusItemInnerContainer}>
                   <div>
@@ -68,7 +70,7 @@ function Syllabus() {
         </Accordion>
       ))}
     </>
-  )
+  );
 }
 
-export default Syllabus
+export default Syllabus;

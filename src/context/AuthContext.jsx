@@ -20,7 +20,7 @@ const saveToLocalStorage = (key, value) => {
 const getFromLocalStorage = key => {
   try {
     const item = localStorage.getItem(key);
-    return item ? (key === 'user' ? JSON.parse(item) : item) : null;
+    return item ? (key === 'userData' ? JSON.parse(item) : item) : null;
   } catch (error) {
     console.error(`Error getting ${key} from localStorage:`, error);
     return null;
@@ -35,7 +35,7 @@ export const AuthProvider = ({ children }) => {
     // Initialize user from token if it exists
     const initializeUser = async () => {
       // First try to get token from localStorage directly
-      const token = getFromLocalStorage('token');
+      const token = getFromLocalStorage('access_token');
 
       if (token) {
         // Make sure the token is set in the auth service too
@@ -43,24 +43,21 @@ export const AuthProvider = ({ children }) => {
 
         try {
           // Try to get user from localStorage first
-          const storedUser = getFromLocalStorage('user');
+          const storedUser = getFromLocalStorage('userData');
 
           if (storedUser) {
-            console.log('User loaded from localStorage:', storedUser);
             setUser(storedUser);
           } else {
-            // If no user in localStorage, fetch from API
-            console.log('Fetching user from API with token');
             const userData = await authService.getCurrentUser();
-            console.log('User data fetched:', userData);
             setUser(userData);
-            saveToLocalStorage('user', userData);
+            saveToLocalStorage('userData', userData);
           }
         } catch (error) {
           console.error('Error initializing user:', error);
           // Clear invalid data
-          localStorage.removeItem('token');
-          localStorage.removeItem('user');
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('userData');
           authService.logout();
         }
       } else {
@@ -74,68 +71,55 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async credentials => {
-    console.log('Login called with:', credentials);
-
-    // If credentials is already a result object (from social login)
+    // If we have an access_token, it's a social login
     if (credentials.access_token) {
-      console.log('Social login with access token');
-      // Save token to localStorage directly
-      saveToLocalStorage('token', credentials.access_token);
-      authService.setToken(credentials.access_token);
+      try {
+        // Store the token
+        localStorage.setItem('access_token', credentials.access_token);
 
-      if (credentials.refresh_token) {
-        saveToLocalStorage('refreshToken', credentials.refresh_token);
-        RequestHelper.setRefreshToken(credentials.refresh_token);
-      }
+        // Set up axios with the new token
+        authService.setToken(credentials.access_token);
 
-      // If user data is provided directly
-      if (credentials.user) {
-        console.log('User data provided directly:', credentials.user);
-        setUser(credentials.user);
-        saveToLocalStorage('user', credentials.user);
-        return { success: true };
-      } else {
-        // Otherwise fetch user data
-        console.log('Fetching user data with token');
+        // Fetch user data using the token
         const userData = await authService.getCurrentUser();
-        console.log('User data fetched:', userData);
+
+        // Store user data
         setUser(userData);
-        saveToLocalStorage('user', userData);
+        localStorage.setItem('userData', JSON.stringify(userData));
+
         return { success: true };
+      } catch (error) {
+        console.error('Social login error:', error);
+        return { success: false, error: 'Failed to process social login' };
       }
     }
 
-    // Regular login with credentials
-    console.log('Regular login with credentials');
     const result = await authService.login(credentials);
-    console.log('Login result:', result);
 
     if (result.success) {
-      // Make sure the token is saved to localStorage
-      if (result.data && result.data.access_token) {
-        saveToLocalStorage('token', result.data.access_token);
+      try {
+        const userData = await authService.getCurrentUser();
+        setUser(userData);
+        localStorage.setItem('userData', JSON.stringify(userData));
+      } catch (error) {
+        console.error('Failed to fetch user after login:', error);
       }
-
-      const userData = await authService.getCurrentUser();
-      console.log('User data after login:', userData);
-      setUser(userData);
-      saveToLocalStorage('user', userData);
     }
+
     return result;
   };
 
   const logout = () => {
-    console.log('Logging out, clearing storage');
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    localStorage.removeItem('user');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('userData');
     authService.logout();
     setUser(null);
   };
 
   const updateUser = userData => {
     setUser(userData);
-    saveToLocalStorage('user', userData);
+    saveToLocalStorage('userData', userData);
   };
 
   const value = {
@@ -143,7 +127,7 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     updateUser,
-    isAuthenticated: !!getFromLocalStorage('token'),
+    isAuthenticated: !!getFromLocalStorage('access_token'),
     loading,
   };
 

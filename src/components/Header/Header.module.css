@@ -237,6 +237,7 @@ li {
 
   .container > div:first-child {
     order: 2;
+    width: 120px;
   }
 
   .container > div:last-child {
@@ -267,8 +268,15 @@ li {
   }
 
   .userIcon {
+    width: 35px;
+    height: 35px;
     display: block;
     order: 2;
+  }
+
+  .userIcon > svg {
+    width: 100%;
+    height: 100%;
   }
 
   .userDropdownWrapper {

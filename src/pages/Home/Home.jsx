@@ -124,9 +124,10 @@ export function Home() {
               ისწავლე, განვითარდი და მიაღწიე ჩვენთან ერთად!
             </div>
             <div className={styles.description}>
-              დაეუფლე ციფრულ ტექნოლოგიებს 0-დან, ისარგებლე დაფინანსებული
-              კურსებით და რაც მთავარია, ისწავლე ნებისმიერი ადგილიდან. ჩვენთან
-              მიიღებ სრულყოფილ განათლებას და დასაქმების შანსს.
+              დაეუფლე ციფრულ ტექნოლოგიებს 0-დან, ისარგებლე პრაქტიკული და
+              თანამედროვე კურსებით და რაც მთავარია, ისწავლე ნებისმიერი
+              ადგილიდან. ჩვენთან მიიღებ სრულყოფილ განათლებას და დასაქმების
+              შანსს.
             </div>
             <div className={styles.registrationButton}>
               <Button type="primary">კურსზე რეგისტრაცია</Button>
@@ -139,9 +140,9 @@ export function Home() {
         <div className={` ${styles.categoriesSectionContainer}`}>
           <div className={styles.ourCoursesHeaderContainer}>
             <div className={styles.ourCoursesHeader}>
-              <div className={styles.ourCoursesTitle}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
+              <div className={styles.ourCoursesTitle}>ჩვენი კურსები</div>
               <div className={styles.ourCoursesDescription}>
-                Explore our Popular Categories
+                დაათვალიერე ჩვენი პოპულარული კატეგორიები.
               </div>
             </div>
             <div
@@ -153,7 +154,7 @@ export function Home() {
           </div>
           <div className={styles.innerContainer}>
             <div className={styles.categoriesContainer}>
-              <div className={styles.ourCoursesTitleMobile}>ᲩᲕᲔᲜᲘ ᲙᲣᲠᲡᲔᲑᲘ</div>
+              <div className={styles.ourCoursesTitleMobile}>ჩვენი კურსები</div>
 
               {categoriesWithCounts.map((category, index) => (
                 <CategoryCard
@@ -225,9 +226,9 @@ export function Home() {
                 რას ამბობენ კურსდამთავრებულები?
               </div>
               <div className={styles.courseGraduateDescription}>
-                Lorem ipsum dolor sit amet consectetur. Id id sed est magnis
-                est. Egestas purus at egestas nulla tellus. Egestas proin erat
-                fusce turpis. Eu viverra mauris tellus aliquam.
+                ჩვენთვის ყველაზე მნიშვნელოვანია ჩვენი სტუდენტების გამოცდილება!
+                გაეცანით კურსდამთავრებულების შეფასებებს და გაიგეთ, როგორ შეცვალა
+                სწავლამ მათი კარიერა.
               </div>
               <div className={styles.courseGraduateButtonContainer}>
                 <button className={styles.courseGraduateButton}>
@@ -252,14 +253,15 @@ export function Home() {
           </div>
           <div className={styles.subscribeInfoContainer}>
             <div className={styles.subscribeTitle}>
-              SUBSCRIBE FOR GET UPDATE EVERY NEW COURSES
+              გამოიწერე რომ გაიგო სიახლეები ახალი კურსების შესახებ
             </div>
             <div className={styles.subscribeDescription}>
-              20k+ students daily learn with Eduvi. Subscribe for new courses.
+              1000+ students daily learn with Educity. Subscribe for new
+              courses.
             </div>
             <SubscribeInput
-              inputPlaceholder="enter your email"
-              buttonName="Subscribe"
+              inputPlaceholder="შეიყვანეთ ელ.ფოსტა"
+              buttonName="გამოწერა"
             />
           </div>
           <div className={styles.subscribePhotosContainer}>

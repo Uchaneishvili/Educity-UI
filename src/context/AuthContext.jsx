@@ -74,56 +74,31 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async credentials => {
-    console.log('Login called with:', credentials);
-
-    // Special case for social login where we already have a token
+    // If we have an access_token, it's a social login
     if (credentials.access_token) {
-      console.log('Processing social login with token');
-      authService.setToken(credentials.access_token);
-
-      if (credentials.refresh_token) {
-        localStorage.setItem('refreshToken', credentials.refresh_token);
-      }
-
-      // If user data is provided directly with the token
-      if (credentials.user) {
-        console.log('Using provided user data:', credentials.user);
-        setUser(credentials.user);
-        localStorage.setItem('user', JSON.stringify(credentials.user));
-        return { success: true };
-      } else {
-        // Fetch user info with the token
-        try {
-          console.log('Fetching user data with token');
-          const userData = await authService.getCurrentUser();
-          console.log('User data fetched:', userData);
-          setUser(userData);
-          localStorage.setItem('user', JSON.stringify(userData));
-          return { success: true };
-        } catch (error) {
-          console.error('Failed to fetch user data:', error);
-          return { success: false, message: 'Failed to fetch user data' };
-        }
-      }
-    }
-
-    // Regular username/password login
-    console.log('Performing regular login');
-    const result = await authService.login(credentials);
-    console.log('Login result:', result);
-
-    if (result.success) {
       try {
+        // Store the token
+        localStorage.setItem('access_token', credentials.access_token);
+
+        // Set up axios with the new token
+        authService.setToken(credentials.access_token);
+
+        // Fetch user data using the token
         const userData = await authService.getCurrentUser();
-        console.log('User data after login:', userData);
+
+        // Store user data
         setUser(userData);
         localStorage.setItem('user', JSON.stringify(userData));
+
+        return { success: true };
       } catch (error) {
-        console.error('Failed to fetch user after login:', error);
+        console.error('Social login error:', error);
+        return { success: false, error: 'Failed to process social login' };
       }
     }
 
-    return result;
+    // Regular login logic...
+    // ... rest of your existing login code ...
   };
 
   const logout = () => {

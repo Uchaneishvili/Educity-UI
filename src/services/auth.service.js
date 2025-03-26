@@ -60,17 +60,9 @@ class AuthService {
   }
 
   setToken(token) {
-    if (!token) {
-      console.error('Attempted to set empty token');
-      return;
-    }
-
-    console.log(
-      'Setting token in AuthService:',
-      token.substring(0, 10) + '...',
-    );
-    localStorage.setItem('token', token);
-    this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    localStorage.setItem('access_token', token);
+    // Update your axios instance headers here if needed
+    RequestHelper.resetAxiosInstances();
   }
 
   removeToken() {
@@ -116,11 +108,10 @@ class AuthService {
 
   async getCurrentUser() {
     try {
-      const { data } = await this.api.get(this.config.currentUserEndpoint);
-      return data;
+      const response = await RequestHelper.educity.get('/users/me');
+      return response.data;
     } catch (error) {
-      console.error('Error fetching current user:', error);
-      return null;
+      throw error;
     }
   }
 

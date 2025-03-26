@@ -113,7 +113,7 @@ class AuthService {
     try {
       console.log('Requesting user data with token:', this.getToken());
 
-      const response = await RequestHelper.educity.get('/auth /me');
+      const response = await RequestHelper.educity.get('/auth/me');
       return response.data;
     } catch (error) {
       console.error('Get current user error details:', {

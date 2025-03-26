@@ -18,6 +18,7 @@
 
 .imageWrapper {
   width: 280px;
+  height: 400px;
   position: absolute;
   top: 0;
   left: 30%;
@@ -26,7 +27,7 @@
 
 .imageWrapper img {
   width: 100%;
-  height: auto;
+  height: 100%;
   border-radius: 16px;
 }
 
@@ -37,13 +38,16 @@
   top: 50%;
   display: flex;
   background: white;
-  border-radius: 14px;
+  border-top-right-radius: 14px;
+  border-bottom-right-radius: 14px;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   z-index: 2;
 }
 
 .blueStripe {
-  width: 4px;
+  width: 9px;
   background-color: #3561fe;
   border-top-left-radius: 14px;
   border-bottom-left-radius: 14px;
@@ -80,7 +84,7 @@
   background-color: #ffffff;
   box-shadow: 0px 2.75px 41.29px #292c7c26;
   border-radius: 50%;
-  width: 50px !important;
+  width: 55px !important;
   height: 55px !important;
   top: 35% !important;
   display: flex;
@@ -103,8 +107,8 @@
   :global(.swiper-button-prev),
   :global(.swiper-button-next) {
     top: 35% !important;
-    width: 40px !important;
-    height: 40px !important;
+    width: 50px !important;
+    height: 50px !important;
   }
 
   :global(.swiper-button-prev) {
@@ -119,6 +123,14 @@
     left: 0;
     top: 0;
     z-index: 1;
+    width: 250px;
+    height: 350px;
+  }
+
+  .imageWrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
   }
 
   .testimonialContent {
@@ -137,5 +149,15 @@
 
   .testimonialText {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 400px) {
+  .swiper {
+    margin-bottom: 20px !important;
+  }
+
+  :global(.swiper-button-next) {
+    left: 200px !important;
   }
 }

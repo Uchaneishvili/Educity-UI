@@ -49,8 +49,6 @@ function VideoLectures() {
     try {
       const response = await getUserProgressByCourseId(id);
       setProgress(response.data);
-
-      console.log(response.data);
     } catch (error) {
       console.error('Error loading progress:', error);
     }
@@ -101,8 +99,6 @@ function VideoLectures() {
         setQuizResult(response.data);
         loadProgress();
       }
-
-      console.log('response', response);
     } catch (error) {
       console.error('Error submitting quiz answers:', error);
     }
@@ -186,8 +182,6 @@ function VideoLectures() {
                                 <button
                                   className={styles.quizzBtn}
                                   onClick={() => {
-                                    console.log('level.quiz', level.quiz);
-
                                     setIsQuizzOpen(true);
 
                                     setQuiz(level.quiz);

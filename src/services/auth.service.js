@@ -53,7 +53,6 @@ class AuthService {
 
   getToken() {
     const token = localStorage.getItem('access_token');
-    console.log('token', token);
     if (!token) {
       console.log('No token found in localStorage by AuthService');
     }
@@ -83,7 +82,6 @@ class AuthService {
 
   async login(credentials) {
     try {
-      console.log('credentials', credentials);
       const { data } = await this.api.post(
         this.config.loginEndpoint,
         credentials,

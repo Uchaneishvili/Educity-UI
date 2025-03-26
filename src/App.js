@@ -20,7 +20,6 @@ function AppContent() {
         );
 
         RequestHelper.resetAxiosInstances();
-        window.location.reload();
       }
     };
 

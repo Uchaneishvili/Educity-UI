@@ -3,8 +3,8 @@ import RequestHelper from '../apis/RequestHelper';
 
 class AuthService {
   constructor(options = {}) {
-    const baseURL = process.env.REACT_APP_API_URL;
-    // const baseURL = 'https://api.educity.ge/api/v1';
+    // const baseURL = process.env.REACT_APP_API_URL;
+    const baseURL = 'https://api.educity.ge/api/v1';
 
     const defaultOptions = {
       tokenKey: 'access_token',

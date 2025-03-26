@@ -113,7 +113,7 @@ class AuthService {
     try {
       console.log('Requesting user data with token:', this.getToken());
 
-      const response = await RequestHelper.educity.get('/users/me');
+      const response = await RequestHelper.educity.get('/auth /me');
       return response.data;
     } catch (error) {
       console.error('Get current user error details:', {
@@ -224,13 +224,13 @@ class AuthService {
   }
 
   async facebookLogin() {
-    // window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
-    window.location.href = `https://api.educity.ge/api/v1/auth/facebook`;
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/facebook`;
+    // window.location.href = `https://api.educity.ge/api/v1/auth/facebook`;
   }
 
   async googleLogin() {
-    window.location.href = `https://api.educity.ge/api/v1/auth/google`;
-    // window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
+    // window.location.href = `https://api.educity.ge/api/v1/auth/google`;
+    window.location.href = `${process.env.REACT_APP_API_URL}auth/google`;
   }
 }
 

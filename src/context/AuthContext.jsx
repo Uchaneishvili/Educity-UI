@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         // Make sure the token is set in the auth service too
         authService.setToken(token);
+        console.log('token Giga', token);
 
         try {
           // Try to get user from localStorage first

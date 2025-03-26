@@ -14,29 +14,14 @@ function GoogleCallback() {
         // Extract token from URL if it's in the query parameters
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
-        const userData = params.get('user');
 
         if (token) {
           // Store token directly in localStorage first
           localStorage.setItem('access_token', token);
-
-          let parsedUser = null;
-          if (userData) {
-            try {
-              parsedUser = JSON.parse(decodeURIComponent(userData));
-              // Store user data as well
-              localStorage.setItem('userData', JSON.stringify(parsedUser));
-            } catch (e) {
-              console.error('Failed to parse user data:', e);
-            }
-          }
-
-          // Now call login with the token
           const result = {
             success: true,
             data: {
               access_token: token,
-              user: parsedUser,
             },
           };
 

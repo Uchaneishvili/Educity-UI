@@ -52,7 +52,8 @@ class AuthService {
   }
 
   getToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access_token');
+    console.log('token', token);
     if (!token) {
       console.log('No token found in localStorage by AuthService');
     }
@@ -66,7 +67,8 @@ class AuthService {
   }
 
   removeToken() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('userData');
     delete this.api.defaults.headers.common['Authorization'];
   }
 
@@ -81,6 +83,7 @@ class AuthService {
 
   async login(credentials) {
     try {
+      console.log('credentials', credentials);
       const { data } = await this.api.post(
         this.config.loginEndpoint,
         credentials,
@@ -108,10 +111,18 @@ class AuthService {
 
   async getCurrentUser() {
     try {
+      console.log('Requesting user data with token:', this.getToken());
+
       const response = await RequestHelper.educity.get('/users/me');
       return response.data;
     } catch (error) {
-      throw error;
+      console.error('Get current user error details:', {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+        headers: error.response?.headers,
+        config: error.config,
+      });
     }
   }
 

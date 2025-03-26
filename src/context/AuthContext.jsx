@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
           } else {
             // If no user in localStorage, fetch from API
             console.log('Fetching user from API with token');
+            console.log('token', token);
             const userData = await authService.getCurrentUser();
             console.log('User data fetched:', userData);
             setUser(userData);
@@ -78,6 +79,7 @@ export const AuthProvider = ({ children }) => {
     // If we have an access_token, it's a social login
     if (credentials.access_token) {
       try {
+        console.log('credentials', credentials);
         // Store the token
         localStorage.setItem('access_token', credentials.access_token);
 
@@ -99,6 +101,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     const result = await authService.login(credentials);
+    console.log('result', result);
 
     if (result.success) {
       try {

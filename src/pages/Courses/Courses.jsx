@@ -306,7 +306,7 @@ export function Courses() {
                     price={course.price}
                     showWishlist={true}
                     isInWishlist={wishlist.some(
-                      item => item._id === course._id,
+                      item => item.courseId._id === course._id,
                     )}
                     discountedPrice={course.discountedPrice}
                   />

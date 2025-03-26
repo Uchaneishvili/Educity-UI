@@ -54,6 +54,12 @@ export function Footer() {
           >
             პაკეტები
           </div> */}
+          <div
+            className={styles.footerSectionText}
+            onClick={() => navigate('/terms-and-conditions')}
+          >
+            წესები და პირობები
+          </div>
         </div>
         <div className={styles.footerSectionContainer}>
           <div className={styles.footerSectionTitle}>კონტაქტი</div>

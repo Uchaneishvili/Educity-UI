@@ -36,13 +36,13 @@ function Wishlist() {
         data.map(item => {
           return (
             <CardListItem
-              img={item.thumbnail}
-              reviewScore={item.averageRating}
-              reviewNumber={item.enrolledStudentsQuantity}
-              name={item.title}
-              author="ვაკო ვაკო"
-              price={item.price}
-              oldPrice={item.discountedPrice}
+              img={item.courseId.thumbnail}
+              reviewScore={item.courseId.averageRating}
+              reviewNumber={item.courseId.enrolledStudentsQuantity}
+              name={item.courseId.title}
+              author={item.courseId.instructorName}
+              price={item.courseId.price}
+              oldPrice={item.courseId.discountedPrice}
               showBuy={true}
               showPrice={true}
             />

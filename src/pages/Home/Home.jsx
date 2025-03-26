@@ -231,7 +231,10 @@ export function Home() {
                 სწავლამ მათი კარიერა.
               </div>
               <div className={styles.courseGraduateButtonContainer}>
-                <button className={styles.courseGraduateButton}>
+                <button
+                  className={styles.courseGraduateButton}
+                  onClick={() => navigate('contacts')}
+                >
                   <div className={styles.courseGraduateButtonTitle}>
                     დაგვიტოვე კომენტარი
                   </div>

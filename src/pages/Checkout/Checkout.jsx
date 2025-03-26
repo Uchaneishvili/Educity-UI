@@ -44,7 +44,6 @@ function Checkout() {
     loadData();
   }, [loadData]);
 
-  console.log('88', data);
   return (
     <div className="mainContainer">
       <div className={styles.container}>

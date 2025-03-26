@@ -53,6 +53,7 @@ function CourseReview() {
         const query = {
           staticFilter: {
             courseId: id,
+            isPublished: true,
           },
           page,
           pageSize,

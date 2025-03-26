@@ -81,7 +81,7 @@ export function Courses() {
             courseType: selectedFilter,
           },
           staticFilter: {
-            isPublished: false,
+            isPublished: true,
           },
           customSearch: searchQuery ? { search: searchQuery } : undefined,
           sortBy: selectedSort.sortBy,

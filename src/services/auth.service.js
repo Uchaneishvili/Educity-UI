@@ -111,8 +111,6 @@ class AuthService {
 
   async getCurrentUser() {
     try {
-      console.log('Requesting user data with token:', this.getToken());
-
       const response = await RequestHelper.educity.get('/auth/me');
       return response.data;
     } catch (error) {

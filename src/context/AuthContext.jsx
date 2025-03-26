@@ -40,21 +40,15 @@ export const AuthProvider = ({ children }) => {
       if (token) {
         // Make sure the token is set in the auth service too
         authService.setToken(token);
-        console.log('token Giga', token);
 
         try {
           // Try to get user from localStorage first
           const storedUser = getFromLocalStorage('userData');
 
           if (storedUser) {
-            console.log('User loaded from localStorage:', storedUser);
             setUser(storedUser);
           } else {
-            // If no user in localStorage, fetch from API
-            console.log('Fetching user from API with token');
-            console.log('token', token);
             const userData = await authService.getCurrentUser();
-            console.log('User data fetched:', userData);
             setUser(userData);
             saveToLocalStorage('userData', userData);
           }
@@ -80,7 +74,6 @@ export const AuthProvider = ({ children }) => {
     // If we have an access_token, it's a social login
     if (credentials.access_token) {
       try {
-        console.log('credentials', credentials);
         // Store the token
         localStorage.setItem('access_token', credentials.access_token);
 
@@ -102,12 +95,10 @@ export const AuthProvider = ({ children }) => {
     }
 
     const result = await authService.login(credentials);
-    console.log('result', result);
 
     if (result.success) {
       try {
         const userData = await authService.getCurrentUser();
-        console.log('User data after login:', userData);
         setUser(userData);
         localStorage.setItem('userData', JSON.stringify(userData));
       } catch (error) {
@@ -119,7 +110,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    console.log('Logging out, clearing storage');
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('userData');

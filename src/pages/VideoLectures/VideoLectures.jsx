@@ -153,14 +153,17 @@ function VideoLectures() {
                     totalBars={5}
                   />
                 </div>
-                <div className={styles.certificateButtonContainer}>
-                  <button
-                    className={styles.certificateButton}
-                    onClick={getCertificate}
-                  >
-                    სერტიფიკატის მიღება
-                  </button>
-                </div>
+
+                {progress?.completedCount === 5 && (
+                  <div className={styles.certificateButtonContainer}>
+                    <button
+                      className={styles.certificateButton}
+                      onClick={getCertificate}
+                    >
+                      სერთიფიკატის მიღება
+                    </button>
+                  </div>
+                )}
               </div>
 
               <div className={styles.videoLessonsAccordionContainer}>

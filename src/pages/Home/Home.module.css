@@ -347,26 +347,6 @@
   margin-bottom: 40px;
 }
 
-.chatIconContainer {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-  margin-bottom: 23px;
-}
-
-.chatIcon {
-  width: 91px;
-  height: 91px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #3561fe;
-  border-radius: 50%;
-  box-shadow: 0px 7px 22px 0px #3561feb0, 0px 2px 32px 0px #3561fe29;
-  cursor: pointer;
-}
-
 .allCategories:hover {
   color: #3561fe5c;
 }

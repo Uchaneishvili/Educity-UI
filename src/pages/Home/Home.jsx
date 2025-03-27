@@ -260,8 +260,7 @@ export function Home() {
               გამოიწერე რომ გაიგო სიახლეები ახალი კურსების შესახებ
             </div>
             <div className={styles.subscribeDescription}>
-              1000+ students daily learn with Educity. Subscribe for new
-              courses.
+              უკვე 1000+ სტუდენტი სწავლობს ედუსითიში
             </div>
             <SubscribeInput
               inputPlaceholder="შეიყვანეთ ელ.ფოსტა"
@@ -274,12 +273,6 @@ export function Home() {
             <SubscribePhoto6 />
           </div>
         </div>
-
-        {/* <div className={styles.chatIconContainer}>
-        <div className={styles.chatIcon}>
-          <OnlineChatIcon />
-        </div>
-      </div> */}
       </div>
     </div>
   );

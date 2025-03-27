@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import styles from './RegisterForm.module.css';
 import Checkbox from '../../../../components/UI/Checkbox/Checkbox';
 import { Button } from '../../../../components/UI/Button/Button';
@@ -36,36 +36,38 @@ function RegisterForm({ setActiveTab }) {
     }
   };
 
-  const validateForm = data => {
-    let errors = {};
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const validateForm = useMemo(() => {
+    return data => {
+      let errors = {};
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (!data.fullName) {
-      errors.fullName = 'სახელი და გვარის შეყვანა აუცილებელია!';
-    }
-    if (!data.email.trim()) {
-      errors.email = 'ელ.ფოსტის შეყვანა აუცილებელია!';
-    } else if (!emailRegex.test(data.email.trim())) {
-      errors.email = 'გთხოვთ შეიყვანეთ სწორი ელ.ფოსტა!';
-    }
-    if (!data.phoneNumber.trim()) {
-      errors.phoneNumber = 'ტელეფონის ნომრის შეყვანა აუცილებელია!';
-    }
-    if (!data.password) {
-      errors.password = 'პაროლის შეყვანა აუცილებელია!';
-    } else if (data.password.length < 6) {
-      errors.password = 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს!';
-    }
-    if (!data.confirmPassword) {
-      errors.confirmPassword = 'განმეორებითი პაროლის შეყვანა აუცილებელია!';
-    } else if (data.confirmPassword !== data.password) {
-      errors.confirmPassword = 'განმეორებითი პაროლი არასწორია!';
-    }
-    if (!isChecked) {
-      errors.checked = 'გთხოვთ დაეთანხმოთ წესებს და პირობებს!';
-    }
-    return errors;
-  };
+      if (!data.fullName) {
+        errors.fullName = 'სახელი და გვარის შეყვანა აუცილებელია!';
+      }
+      if (!data.email.trim()) {
+        errors.email = 'ელ.ფოსტის შეყვანა აუცილებელია!';
+      } else if (!emailRegex.test(data.email.trim())) {
+        errors.email = 'გთხოვთ შეიყვანეთ სწორი ელ.ფოსტა!';
+      }
+      if (!data.phoneNumber.trim()) {
+        errors.phoneNumber = 'ტელეფონის ნომრის შეყვანა აუცილებელია!';
+      }
+      if (!data.password) {
+        errors.password = 'პაროლის შეყვანა აუცილებელია!';
+      } else if (data.password.length < 6) {
+        errors.password = 'პაროლი უნდა შეიცავდეს მინიმუმ 6 სიმბოლოს!';
+      }
+      if (!data.confirmPassword) {
+        errors.confirmPassword = 'განმეორებითი პაროლის შეყვანა აუცილებელია!';
+      } else if (data.confirmPassword !== data.password) {
+        errors.confirmPassword = 'განმეორებითი პაროლი არასწორია!';
+      }
+      if (!isChecked) {
+        errors.checked = 'გთხოვთ დაეთანხმოთ წესებს და პირობებს!';
+      }
+      return errors;
+    };
+  }, [isChecked]);
 
   const ErrorMessage = ({ fieldName, formErrors }) => {
     return formErrors[fieldName] ? <span>{formErrors[fieldName]}</span> : '';

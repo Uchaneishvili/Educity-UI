@@ -19,7 +19,7 @@ function CardListItem({
     <div className={styles.container}>
       <div className={styles.cardListDescriptionContainer}>
         <div className={styles.cardListImgContainer}>
-          <img src={img} alt="cardListBanner" />
+          <img src={img} alt="cardListBanner" loading="lazy" />
         </div>
         <div className={styles.cardListTextsContainer}>
           <div className={styles.cardListTextsInnerContainer}>

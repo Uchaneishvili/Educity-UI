@@ -52,7 +52,7 @@ export function CourseGraduateSwiper() {
           <div className={styles.testimonialCard}>
             <div className={styles.testimonialLayout}>
               <div className={styles.imageWrapper}>
-                <img src={testimonial.image} alt="testimonial" />
+                <img src={testimonial.image} loading="lazy" alt="testimonial" />
               </div>
               <div className={styles.testimonialContent}>
                 <div className={styles.blueStripe}></div>

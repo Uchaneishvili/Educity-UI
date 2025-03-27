@@ -125,7 +125,11 @@ function SideBar({
           {isAuthenticated() && (
             <div className={styles.authenticatedUserContainer}>
               <div className={styles.userIcon}>
-                <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
+                <img
+                  src={user?.image || '/assets/userAvatar.png'}
+                  loading="lazy"
+                  alt="user"
+                />
               </div>
               <div className={styles.userName}>{user?.fullName}</div>
             </div>

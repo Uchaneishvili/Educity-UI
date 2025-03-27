@@ -154,6 +154,7 @@ function UserSettings() {
           <img
             src={selectedImage || data?.image || '/assets/userAvatar.png'}
             alt="user"
+            loading="lazy"
           />
           <label className={styles.uploadOverlay}>
             <input

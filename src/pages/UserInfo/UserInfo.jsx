@@ -33,7 +33,11 @@ function UserInfo() {
         <div className={styles.userNavigationContainer}>
           <div className={styles.userProfile}>
             <div className={styles.userPhoto}>
-              <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
+              <img
+                src={user?.image || '/assets/userAvatar.png'}
+                alt="user"
+                loading="lazy"
+              />
             </div>
             <div className={styles.userInfo}>
               <div className={styles.userName}>{user?.fullName}</div>

@@ -44,6 +44,7 @@ export function AboutUs() {
             <img
               src="/assets/aboutUsDescBanner.png"
               alt="educity team banner"
+              loading="lazy"
             />
           </div>
         </div>
@@ -60,7 +61,11 @@ export function AboutUs() {
 
         <div className={styles.aboutUsGoalContainer}>
           <div className={styles.aboutUsGoalBannerContainer}>
-            <img src="/assets/aboutUsGoalBanner.png" alt="educity team" />
+            <img
+              src="/assets/aboutUsGoalBanner.png"
+              alt="educity team"
+              loading="lazy"
+            />
           </div>
 
           <div className={styles.aboutUsGoalTextsContainer}>

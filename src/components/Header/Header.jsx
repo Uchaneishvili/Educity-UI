@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import styles from './Header.module.css';
 import { Button } from '../UI/Button/Button';
 import { BurgerMenuIcon } from '../UI/icons';
@@ -7,13 +7,15 @@ import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
 import Dropdown from '../UI/Dropdown/Dropdown';
 import { DropdownCourseIcon } from '../UI/icons';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
 import { Loader } from '../UI/Loader/Loader';
 import { getUserProgresses } from '../../services/progress.service';
 import { EducityLogo } from '../UI/icons';
 import { trackEvent } from '../../utils/ClarityTracking';
+
+const Header = React.lazy(() => import('./Header'));
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);
@@ -50,6 +52,14 @@ export function Header() {
     return location.pathname === value ? styles.navListLiActive : '';
   };
 
+  const handleNavClick = useCallback(
+    (path, eventName) => {
+      trackEvent('nav_click', eventName);
+      navigate(path);
+    },
+    [navigate],
+  );
+
   const renderAuthButtons = () => {
     if (isAuthenticated) {
       return (
@@ -66,7 +76,11 @@ export function Header() {
               className={styles.userLoggedIcon}
               onClick={() => setShowUserMenu(!showUserMenu)}
             >
-              <img src={user?.image || '/assets/userAvatar.png'} alt="user" />
+              <img
+                src={user?.image || '/assets/userAvatar.png'}
+                loading="lazy"
+                alt="user"
+              />
             </div>
 
             <Dropdown
@@ -216,46 +230,33 @@ export function Header() {
         <nav className={styles.nav}>
           <ul className={styles.navList}>
             <li
-              onClick={() => {
-                trackEvent('nav_click', 'home');
-                navigate('/');
-              }}
+              onClick={() => handleNavClick('/', 'home')}
               className={getActiveButtons('/')}
             >
               მთავარი
             </li>
             <li
-              onClick={() => {
-                trackEvent('nav_click', 'courses');
-                navigate('/courses');
-              }}
+              onClick={() => handleNavClick('/courses', 'courses')}
               className={getActiveButtons('/courses')}
             >
               კურსები
             </li>
             <li
-              onClick={() => {
-                trackEvent('nav_click', 'aboutus');
-                navigate('/aboutus');
-              }}
+              onClick={() => handleNavClick('/aboutus', 'aboutus')}
               className={getActiveButtons('/aboutus')}
             >
               ჩვენს შესახებ
             </li>
             <li
-              onClick={() => {
-                trackEvent('nav_click', 'contacts');
-                navigate('/contacts');
-              }}
+              onClick={() => handleNavClick('/contacts', 'contacts')}
               className={getActiveButtons('/contacts')}
             >
               კონტაქტი
             </li>
             <li
-              onClick={() => {
-                trackEvent('nav_click', 'become-partner');
-                navigate('/become-partner');
-              }}
+              onClick={() =>
+                handleNavClick('/become-partner', 'become-partner')
+              }
               className={getActiveButtons('/become-partner')}
             >
               გახდი პარტნიორი

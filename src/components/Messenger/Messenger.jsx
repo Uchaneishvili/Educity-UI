@@ -25,6 +25,7 @@ export function Messenger() {
         <img
           src="/assets/messenger-icon.png"
           alt="Chat on Messenger"
+          loading="lazy"
           className={styles.messengerIcon}
         />
       </a>

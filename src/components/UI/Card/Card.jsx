@@ -63,7 +63,12 @@ export function Card({
             <Video playbackId={intro} thumbnail={thumbnail} />
           </div>
         ) : (
-          <img className={styles.cardImageWeb} alt={title} src={thumbnail} />
+          <img
+            className={styles.cardImageWeb}
+            loading="lazy"
+            alt={title}
+            src={thumbnail}
+          />
         )}
       </div>
       <div className={styles.innerContainer}>

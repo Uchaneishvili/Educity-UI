@@ -133,6 +133,7 @@ function BecomePartner() {
             <img
               src="/assets/becomePartnerBanner.png"
               alt="team working in office"
+              loading="lazy"
             />
           </div>
         </div>
@@ -146,7 +147,7 @@ function BecomePartner() {
             <MarqueeEffect speed={30} shouldAnimate={true}>
               {partners.map((partner, index) => (
                 <div className={styles.partnerCompanyLogoContainer} key={index}>
-                  <img src={partner.logo} alt={partner.name} />
+                  <img src={partner.logo} alt={partner.name} loading="lazy" />
                 </div>
               ))}
             </MarqueeEffect>

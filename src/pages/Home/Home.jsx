@@ -215,6 +215,7 @@ export function Home() {
               <img
                 src="/assets/videoLessonsBanner.png"
                 alt="videoLessonsTeam"
+                loading="lazy"
               />
             </div>
           </div>

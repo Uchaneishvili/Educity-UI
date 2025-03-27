@@ -137,6 +137,7 @@ function CourseReview() {
                   <img
                     src={d.userId.image || '/assets/userAvatar.png'}
                     alt="personAvatar"
+                    loading="lazy"
                   />
                 </div>
                 <div className={styles.reviewPersonCommentContainer}>

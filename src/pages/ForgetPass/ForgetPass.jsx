@@ -68,7 +68,7 @@ function ForgetPass() {
           </div>
         </div>
         <div className={styles.imageContainer}>
-          <img src="./assets/loginBanner.png" alt="banner" />
+          <img src="./assets/loginBanner.png" alt="banner" loading="lazy" />
         </div>
       </div>
     </div>

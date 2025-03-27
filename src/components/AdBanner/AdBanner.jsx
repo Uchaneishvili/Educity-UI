@@ -6,7 +6,7 @@ const AdBanner = ({ imageUrl, linkUrl }) => {
   return (
     <div className={styles.adBanner}>
       <a href={linkUrl} target="_blank" rel="noopener noreferrer">
-        <img src={imageUrl} alt="Advertisement" />
+        <img src={imageUrl} alt="Advertisement" loading="lazy" />
       </a>
     </div>
   );

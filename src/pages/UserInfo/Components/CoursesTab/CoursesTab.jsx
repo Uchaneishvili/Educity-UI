@@ -15,7 +15,6 @@ function CoursesTab({ hideTitle }) {
     try {
       const res = await getMyCourses();
 
-      console.log('res', res.data.data.courses);
       setData(res.data.data.courses);
       setTotalItems(res.data.data.totalCount);
     } catch (err) {

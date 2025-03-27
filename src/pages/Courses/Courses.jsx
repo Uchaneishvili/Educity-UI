@@ -138,7 +138,6 @@ export function Courses() {
     if (!isAuthenticated) return;
     try {
       const response = await getWishlist();
-      console.log('response', response.data);
       setWishlist(response.data);
     } catch (err) {
       console.error(err, 'error while getting wishlist');

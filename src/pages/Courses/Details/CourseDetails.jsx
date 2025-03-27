@@ -47,7 +47,6 @@ export function CourseDetails() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log('isAuthenticated', isAuthenticated);
       checkingUserAccess();
     }
   }, [checkingUserAccess, isAuthenticated]);

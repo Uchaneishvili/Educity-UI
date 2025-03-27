@@ -60,8 +60,6 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem('userData');
           authService.logout();
         }
-      } else {
-        console.log('No token found in localStorage');
       }
 
       setLoading(false);

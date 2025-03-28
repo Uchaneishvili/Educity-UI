@@ -9,6 +9,7 @@ const Input = ({
   value,
   defaultValue,
   onChange,
+  onFocus,
   formErrors = {},
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -100,6 +101,7 @@ const Input = ({
           }`}
           value={value !== undefined ? value : inputValue}
           onChange={handleChange}
+          onFocus={onFocus}
         />
         {renderInputIcon()}
       </div>

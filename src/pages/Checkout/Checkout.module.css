@@ -110,6 +110,12 @@
   line-height: 32px;
 }
 
+.checkoutErrorMessage {
+  font-size: 14px;
+  color: rgb(255, 44, 44);
+  margin: 5px 0;
+}
+
 .checkoutButtonContainer {
   margin-top: 24px;
 }

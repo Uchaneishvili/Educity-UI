@@ -13,6 +13,8 @@ function Checkout() {
   const { id } = useParams();
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
@@ -34,6 +36,10 @@ function Checkout() {
       if (response.status === 201) {
         trackEvent('course_purchase_redirect', data?.title || id);
         window.location.href = response.data.checkoutUrl;
+      }
+
+      if (response.status === 400) {
+        setErrorMessage('თქვენ უკვე გაქვთ შეძენილი ეს კურსი!');
       }
     } catch (err) {
       console.log('error while paying for course', err);
@@ -85,6 +91,8 @@ function Checkout() {
                 </div>
               </div>
 
+              <div className={styles.checkoutErrorMessage}>{errorMessage}</div>
+
               <div className={styles.checkoutButtonContainer}>
                 <Button
                   type="primary"
@@ -99,7 +107,7 @@ function Checkout() {
             </div>
           </div>
         ) : (
-          <div>No course data available</div>
+          <div>კურსები ვერ მოიძებნა!</div>
         )}
       </div>
     </div>

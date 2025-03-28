@@ -12,9 +12,11 @@ const authService = new AuthService();
 function RegisterForm({ setActiveTab }) {
   const [formErrors, setFormErrors] = useState({});
   const [isChecked, setIsChecked] = useState(false);
+  const [inputDescShown, setInputDescShown] = useState(false);
 
   const handleSubmit = async e => {
     e.preventDefault();
+    setInputDescShown(false);
     const formData = new FormData(e.target);
     const values = Object.fromEntries(formData.entries());
     delete values.checked;
@@ -40,10 +42,14 @@ function RegisterForm({ setActiveTab }) {
     return data => {
       let errors = {};
       const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      const georgianRegex = /^[\u10A0-\u10FF\s]+$/;
 
       if (!data.fullName) {
         errors.fullName = 'სახელი და გვარის შეყვანა აუცილებელია!';
+      } else if (!georgianRegex.test(data.fullName)) {
+        errors.fullName = 'სახელი და გვარი უნდა შეიცავდეს ქართულ ასოებს!';
       }
+
       if (!data.email.trim()) {
         errors.email = 'ელ.ფოსტის შეყვანა აუცილებელია!';
       } else if (!emailRegex.test(data.email.trim())) {
@@ -78,8 +84,14 @@ function RegisterForm({ setActiveTab }) {
       <Input
         name="fullName"
         placeholder={'სახელი/გვარი'}
+        onFocus={() => setInputDescShown(true)}
         formErrors={formErrors}
       />
+      {inputDescShown && (
+        <div className={styles.inputDescriptionMessage}>
+          მითითებული ინფორმაცია გამოჩნდება სერთიფიკატზე
+        </div>
+      )}
       <ErrorMessage fieldName="fullName" formErrors={formErrors} />
 
       <Input name="email" placeholder={'ელ.ფოსტა'} formErrors={formErrors} />

@@ -9,6 +9,11 @@
   color: rgb(255, 44, 44);
 }
 
+.inputDescriptionMessage {
+  color: rgb(139, 139, 139);
+  font-size: 14px;
+}
+
 .acceptRules {
   color: #575e73;
   font-size: 14px;

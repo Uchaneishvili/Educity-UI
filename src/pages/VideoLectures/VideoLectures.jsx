@@ -154,7 +154,7 @@ function VideoLectures() {
                   />
                 </div>
 
-                {progress?.completedCount === 5 && (
+                {progress?.progressPercentage === 100 && (
                   <div className={styles.certificateButtonContainer}>
                     <button
                       className={styles.certificateButton}

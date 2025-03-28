@@ -7,15 +7,13 @@ import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
 import Dropdown from '../UI/Dropdown/Dropdown';
 import { DropdownCourseIcon } from '../UI/icons';
-import React, { Suspense } from 'react';
+import React from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
 import { Loader } from '../UI/Loader/Loader';
 import { getUserProgresses } from '../../services/progress.service';
 import { EducityLogo } from '../UI/icons';
 import { trackEvent } from '../../utils/ClarityTracking';
-
-const Header = React.lazy(() => import('./Header'));
 
 export function Header() {
   const [sideBarActive, setSideBarActive] = useState(false);

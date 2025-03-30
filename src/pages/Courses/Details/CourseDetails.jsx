@@ -99,9 +99,9 @@ export function CourseDetails() {
               <LevelIcon />{' '}
               {FormatData.getDifficultyInGeorgian(data.difficultyLevel)}
             </div>
-            <div className={styles.lecturesQuantity}>
+            {/* <div className={styles.lecturesQuantity}>
               <LectureIcon /> {data.lecturesCount || ''} ლექცია
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

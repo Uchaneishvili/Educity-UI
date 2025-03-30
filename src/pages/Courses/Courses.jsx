@@ -16,6 +16,7 @@ import { CloseIcon } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { useAuth } from '../../context/AuthContext';
 import { trackEvent } from '../../utils/ClarityTracking';
+import { authService } from '../../services/auth.service';
 
 export function Courses() {
   const location = useLocation();
@@ -145,8 +146,14 @@ export function Courses() {
     } catch (err) {
       if (err.response?.status === 401) {
         setWishlist([]);
+        try {
+          await authService.refreshToken();
+        } catch (refreshError) {
+          setWishlist([]);
+        }
+      } else {
+        console.error(err, 'error while getting wishlist');
       }
-      console.error(err, 'error while getting wishlist');
     }
   }, [isAuthenticated]);
 
@@ -316,6 +323,13 @@ export function Courses() {
                       isAuthenticated &&
                       wishlist.some(item => item.courseId._id === course._id)
                     }
+                    onWishlistError={() => {
+                      setWishlist(prevWishlist =>
+                        prevWishlist.filter(
+                          item => item.courseId._id !== course._id,
+                        ),
+                      );
+                    }}
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

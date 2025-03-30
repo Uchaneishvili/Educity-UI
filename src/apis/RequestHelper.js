@@ -117,7 +117,7 @@ export default class RequestHelper {
       const response = await axios.post(
         `${this.EDUCITY_BASE_URL}/auth/refresh-token`,
         {
-          refresh_token: refreshToken,
+          refreshToken: refreshToken,
         },
       );
 

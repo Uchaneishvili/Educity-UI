@@ -130,7 +130,9 @@ export function Home() {
               შანსს.
             </div>
             <div className={styles.registrationButton}>
-              <Button type="primary">კურსზე რეგისტრაცია</Button>
+              <Button type="primary" onClick={() => navigate('/courses')}>
+                კურსზე რეგისტრაცია
+              </Button>
             </div>
           </div>
           <div className={styles.bannerSide}>

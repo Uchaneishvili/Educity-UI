@@ -28,6 +28,10 @@
   height: 54px;
 }
 
+.userLoggedIcon {
+  cursor: pointer;
+}
+
 .userLoggedIcon > img {
   width: 54px;
   height: 54px;

@@ -135,18 +135,19 @@ export function Courses() {
   ]);
 
   const getWishlistData = useCallback(async () => {
-    if (!isAuthenticated) return;
     try {
       const response = await getWishlist();
       setWishlist(response.data);
     } catch (err) {
       console.error(err, 'error while getting wishlist');
     }
-  }, [isAuthenticated]);
+  }, []);
 
   useEffect(() => {
-    getWishlistData();
-  }, [getWishlistData]);
+    if (isAuthenticated) {
+      getWishlistData();
+    }
+  }, [getWishlistData, isAuthenticated]);
 
   const handleCategoryChange = categories => {
     trackEvent('category_filter', categories.join(','));

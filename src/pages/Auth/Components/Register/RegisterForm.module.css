@@ -79,4 +79,8 @@
   .registerBtnContainer {
     width: 100%;
   }
+
+  .inputDescriptionMessage {
+    font-size: 10px;
+  }
 }

@@ -89,6 +89,7 @@ class AuthService {
 
       if (data && data.access_token) {
         this.setToken(data.access_token);
+        RequestHelper.setRefreshToken(data.refresh_token);
         return { success: true, data };
       }
 

@@ -144,24 +144,13 @@ export function Courses() {
       const response = await getWishlist();
       setWishlist(response.data);
     } catch (err) {
-      if (err.response?.status === 401) {
-        setWishlist([]);
-        try {
-          await authService.refreshToken();
-        } catch (refreshError) {
-          setWishlist([]);
-        }
-      } else {
-        console.error(err, 'error while getting wishlist');
-      }
+      console.error(err, 'error while getting wishlist');
     }
   }, [isAuthenticated]);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      getWishlistData();
-    }
-  }, [getWishlistData, isAuthenticated]);
+    getWishlistData();
+  }, [getWishlistData]);
 
   const handleCategoryChange = categories => {
     trackEvent('category_filter', categories.join(','));

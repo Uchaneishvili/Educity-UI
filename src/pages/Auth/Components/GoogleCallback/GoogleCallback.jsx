@@ -16,6 +16,9 @@ function GoogleCallback() {
         const token = params.get('token');
         const refreshToken = params.get('refreshToken');
 
+        console.log('params', params);
+
+        console.log('refreshToken', refreshToken);
         if (token) {
           // Store token directly in localStorage first
           localStorage.setItem('access_token', token);

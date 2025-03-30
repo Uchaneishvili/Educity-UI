@@ -14,7 +14,7 @@ function FacebookCallback() {
         // Extract token from URL if it's in the query parameters
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
-        const userData = params.get('user');
+        // const userData = params.get('user');
 
         if (token) {
           // If token is directly provided in URL
@@ -22,7 +22,7 @@ function FacebookCallback() {
             success: true,
             data: {
               access_token: token,
-              user: userData ? JSON.parse(decodeURIComponent(userData)) : null,
+              // user: userData ? JSON.parse(decodeURIComponent(userData)) : null,
             },
           };
 

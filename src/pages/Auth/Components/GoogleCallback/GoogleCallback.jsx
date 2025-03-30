@@ -14,6 +14,7 @@ function GoogleCallback() {
         // Extract token from URL if it's in the query parameters
         const params = new URLSearchParams(location.search);
         const token = params.get('token');
+        const refreshToken = params.get('refresh_token');
 
         if (token) {
           // Store token directly in localStorage first
@@ -22,6 +23,7 @@ function GoogleCallback() {
             success: true,
             data: {
               access_token: token,
+              refresh_token: refreshToken,
             },
           };
 

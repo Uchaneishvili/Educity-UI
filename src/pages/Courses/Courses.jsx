@@ -136,12 +136,19 @@ export function Courses() {
 
   const getWishlistData = useCallback(async () => {
     try {
+      if (!isAuthenticated) {
+        setWishlist([]);
+        return;
+      }
       const response = await getWishlist();
       setWishlist(response.data);
     } catch (err) {
+      if (err.response?.status === 401) {
+        setWishlist([]);
+      }
       console.error(err, 'error while getting wishlist');
     }
-  }, []);
+  }, [isAuthenticated]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -304,10 +311,11 @@ export function Courses() {
                     enrolledStudentsQuantity={course.enrollmentsCount}
                     totalReviews={course.averageRating}
                     price={course.price}
-                    showWishlist={true}
-                    isInWishlist={wishlist.some(
-                      item => item.courseId._id === course._id,
-                    )}
+                    showWishlist={isAuthenticated}
+                    isInWishlist={
+                      isAuthenticated &&
+                      wishlist.some(item => item.courseId._id === course._id)
+                    }
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

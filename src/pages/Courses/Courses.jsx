@@ -307,18 +307,10 @@ export function Courses() {
                     enrolledStudentsQuantity={course.enrollmentsCount}
                     totalReviews={course.averageRating}
                     price={course.price}
-                    showWishlist={isAuthenticated}
-                    isInWishlist={
-                      isAuthenticated &&
-                      wishlist.some(item => item.courseId._id === course._id)
-                    }
-                    onWishlistError={() => {
-                      setWishlist(prevWishlist =>
-                        prevWishlist.filter(
-                          item => item.courseId._id !== course._id,
-                        ),
-                      );
-                    }}
+                    showWishlist={true}
+                    isInWishlist={wishlist.some(
+                      item => item.courseId._id === course._id,
+                    )}
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

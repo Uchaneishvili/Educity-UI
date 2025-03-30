@@ -10,9 +10,11 @@ function AppContent() {
     const handleTokenInUrl = () => {
       const params = new URLSearchParams(window.location.search);
       const token = params.get('token');
+      const refreshToken = params.get('refreshToken');
 
       if (token) {
         localStorage.setItem('access_token', token);
+        localStorage.setItem('refresh_token', refreshToken);
         window.history.replaceState(
           {},
           document.title,

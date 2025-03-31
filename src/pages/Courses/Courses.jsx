@@ -308,9 +308,13 @@ export function Courses() {
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}
-                    isInWishlist={wishlist.some(
-                      item => item.courseId._id === course._id,
-                    )}
+                    isInWishlist={
+                      wishlist?.length
+                        ? wishlist.some(
+                            item => item.courseId._id === course._id,
+                          )
+                        : false
+                    }
                     discountedPrice={course.discountedPrice}
                   />
                 ))}

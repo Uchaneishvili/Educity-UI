@@ -13,6 +13,7 @@ function Syllabus() {
   const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams();
 
+  //
   const loadSyllabusData = useCallback(async () => {
     try {
       setIsLoading(true);

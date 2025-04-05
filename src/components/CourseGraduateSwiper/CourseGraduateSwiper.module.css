@@ -55,6 +55,10 @@
 }
 
 .contentWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 170px;
   padding: 24px;
   flex: 1;
 }
@@ -104,6 +108,7 @@
 :global(.swiper-button-next) {
   right: 20% !important;
 }
+
 @media (max-width: 1024px) {
   :global(.swiper-button-prev),
   :global(.swiper-button-next) {
@@ -144,6 +149,10 @@
     padding: 0px;
   }
 
+  .contentWrapper {
+    height: 130px;
+  }
+
   .name {
     font-size: 12px;
   }
@@ -160,5 +169,9 @@
 
   :global(.swiper-button-next) {
     left: 200px !important;
+  }
+
+  .contentWrapper {
+    height: auto;
   }
 }

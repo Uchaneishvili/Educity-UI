@@ -64,7 +64,7 @@ function UserInfo() {
                 navigate('/me/courses');
               }}
             >
-              COURSES
+              კურსები
             </button>
             <button
               className={`${styles.userNavigationButton} ${
@@ -75,7 +75,7 @@ function UserInfo() {
                 navigate('/me/wishlist');
               }}
             >
-              WISHLIST
+              ფავორიტები
             </button>
             <button
               className={`${styles.userNavigationButton} ${
@@ -86,7 +86,7 @@ function UserInfo() {
                 navigate('/me/purchase-history');
               }}
             >
-              PURCHASE HISTORY
+              შეძენის ისტორია
             </button>
             <button
               className={`${styles.userNavigationButton} ${
@@ -97,7 +97,7 @@ function UserInfo() {
                 navigate('/me/settings');
               }}
             >
-              SETTINGS
+              პარამეტრები
             </button>
           </div>
         </div>

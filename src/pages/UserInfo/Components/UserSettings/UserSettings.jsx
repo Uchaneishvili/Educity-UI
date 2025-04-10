@@ -178,7 +178,8 @@ function UserSettings() {
           </label>
         </div>
         <div className={styles.uploadPhotoText}>
-          Image size should be under 1MB and image ratio needs to be 1:1
+          ფოტოს ზომა სავალდებულოა, რომ იყოს 1 MB-ზე ნაკლები, ხოლო გამოსახულება
+          საჭიროა იყოს 1:1
         </div>
       </div>
 
@@ -188,7 +189,7 @@ function UserSettings() {
             <div className={styles.inputContainer}>
               <Input
                 type="text"
-                name="fullName"
+                name="სახელი/გვარი"
                 placeholder="სახელი/გვარი"
                 id="fullName"
                 defaultValue={data?.fullName}
@@ -200,8 +201,8 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="text"
-              name="email"
-              placeholder="მეილი"
+              name="ელ.ფოსტა"
+              placeholder="ელ.ფოსტა"
               id="email"
               defaultValue={data?.email}
               formErrors={formErrors}
@@ -211,8 +212,8 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="text"
-              name="phoneNumber"
-              placeholder="ნომერი"
+              name="საკონტაქტო ნომერი"
+              placeholder="საკონტაქტო ნომერი"
               id="phoneNumber"
               defaultValue={data?.phoneNumber}
               formErrors={formErrors}
@@ -222,7 +223,7 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Select
               id="city"
-              name="city"
+              name="ქალაქი"
               placeholder={'ქალაქი'}
               options={[
                 { id: 1, value: 'თბილისი' },
@@ -232,7 +233,7 @@ function UserSettings() {
           </div>
           <div className={styles.inputContainer}>
             <DatePicker
-              name="birthDate"
+              name="დაბადების თარიღი"
               id={'birthDate'}
               placeholder={'დაბადების თარიღი'}
               defaultValue={data?.birthDate}
@@ -246,13 +247,13 @@ function UserSettings() {
           </Button>
         </form>
 
-        <div className={styles.formTitle}>Change password</div>
+        <div className={styles.formTitle}>პაროლის შეცვლა</div>
         <form className={styles.formContainer} onSubmit={changeUserPassword}>
           <div className={styles.inputContainer}>
             <Input
               type="password"
-              name="currentPassword"
-              placeholder="Password"
+              name="მიმდინარე პაროლი"
+              placeholder="მიმდინარე პაროლი"
               id="currentPassword"
               value={passwordData.currentPassword}
               onChange={handlePasswordChange}
@@ -263,8 +264,8 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="password"
-              name="newPassword"
-              placeholder="Password"
+              name="ახალი პაროლი"
+              placeholder="ახალი პაროლი"
               id="newPassword"
               value={passwordData.newPassword}
               onChange={handlePasswordChange}
@@ -276,8 +277,8 @@ function UserSettings() {
           <div className={styles.inputContainer}>
             <Input
               type="password"
-              name="confirmPassword"
-              placeholder="Confirm new password"
+              name="ახალი პაროლის გამეორება"
+              placeholder="ახალი პაროლი"
               id="confirmPassword"
               value={passwordData.confirmPassword}
               onChange={handlePasswordChange}

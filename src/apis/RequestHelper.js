@@ -4,8 +4,9 @@ import AuthService from '../services/auth.service';
 const authService = new AuthService();
 
 export default class RequestHelper {
-  // static EDUCITY_BASE_URL = process.env.REACT_APP_API_URL;
-  static EDUCITY_BASE_URL = 'https://api.educity.ge/api/v1';
+  // Prefer env-provided API URL; fall back to relative path for dev with proxy
+  static EDUCITY_BASE_URL =
+    process.env.REACT_APP_API_URL || '/api/v1';
   static _educity = null;
 
   static resetAxiosInstances() {
@@ -19,7 +20,6 @@ export default class RequestHelper {
         headers: {
           'Content-Type': 'application/json',
           Authorization: this.getAuthorization(),
-          'Timezone-Offset': new Date().getTimezoneOffset(),
         },
       });
       this.setInterceptor(this._educity);

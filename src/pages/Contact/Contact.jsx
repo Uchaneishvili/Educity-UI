@@ -25,9 +25,9 @@ export function Contact() {
     e.preventDefault();
     trackEvent('contact_form_submit');
 
-    const serviceId = process.env.REACT_APP_EMAIL_CONTACTS_SERVICE_ID;
-    const templateId = process.env.REACT_APP_EMAIL_CONTACTS_TEMPLATE_ID;
-    const publicKey = process.env.REACT_APP_EMAIL_PUBLIC_KEY;
+    const serviceId = 'service_4ct7rla';
+    const templateId = 'template_7hsk19s';
+    const publicKey = 'uMG5l0YSDPwZGbQPj';
 
     const templateParams = {
       from_name: name,

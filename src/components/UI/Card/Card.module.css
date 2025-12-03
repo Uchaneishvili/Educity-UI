@@ -15,6 +15,10 @@
   flex-direction: column;
   gap: 20px;
   padding: 1vw;
+  padding-top: 2vw;
+  margin-top: -25px;
+  border: 1px solid #d3dce6;
+  border-radius: 15px;
 }
 
 .imageContainer {

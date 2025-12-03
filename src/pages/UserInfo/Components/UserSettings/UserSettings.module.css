@@ -101,6 +101,11 @@
   margin-bottom: 24px;
 }
 
+.successMessage {
+  margin-top: 16px;
+  color: green;
+}
+
 @media (max-width: 1024px) {
   .container {
     flex-direction: column;

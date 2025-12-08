@@ -377,6 +377,11 @@
   margin-bottom: 24px;
 }
 
+.quizResultMessage {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
 .certificateButton {
   width: 100%;
   padding: 12px 24px;

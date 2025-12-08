@@ -6,7 +6,7 @@ import {
   CompleteCheckIcon,
 } from '../../../../../../../components/UI/icons';
 import { getSyllabusByCourseId } from '../../../../../../../services/syllabus.service';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Loader } from '../../../../../../../components/UI/Loader/Loader';
 function Syllabus() {
   const [syllabusData, setSyllabusData] = useState([]);

@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Card.module.css';
 import { Divider } from '../icons';
 import {
@@ -84,18 +83,17 @@ export function Card({
                     {totalDuration}
                   </div>
                 )}
-                {enrolledStudentsQuantity && (
-                  <div className={styles.studentsInfo}>
-                    <StudentIcon />
-                    {enrolledStudentsQuantity} სტუდენტი
-                  </div>
-                )}
-                {totalReviews && (
-                  <div className={styles.reviewInfo}>
-                    <NarrowColoredStar />
-                    {totalReviews}
-                  </div>
-                )}
+                <div className={styles.studentsInfo}>
+                  <StudentIcon />
+                  {enrolledStudentsQuantity
+                    ? enrolledStudentsQuantity
+                    : '0'}{' '}
+                  სტუდენტი
+                </div>
+                <div className={styles.reviewInfo}>
+                  <NarrowColoredStar />
+                  {totalReviews}
+                </div>
               </div>
             )}
           </div>

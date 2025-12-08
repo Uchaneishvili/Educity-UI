@@ -1,15 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styles from './VideoLectures.module.css';
 import { ArrowBackIcon } from '../../components/UI/icons';
 import { ProgressBar } from '../../components/UI/ProgressBar/ProgressBar';
 import Modal from '../../components/UI/Modal/Modal';
-import { CloseIcon, SubmitBtnArrow } from '../../components/UI/icons';
+import {
+  CloseIcon,
+  SubmitBtnArrow,
+  CompleteCheckIcon,
+  FileIcon,
+} from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { Video } from '../../components/VideoPlayer/Video';
 import { getCourseDetailsWithSyllabus } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
-import { FileIcon, CompleteCheckIcon } from '../../components/UI/icons';
 import { Accordion } from '../../components/UI/Accordion/Accordion';
 import { completeSyllabusLevel } from '../../services/progress.service';
 import { getUserProgressByCourseId } from '../../services/progress.service';
@@ -19,6 +23,7 @@ import { trackEvent } from '../../utils/ClarityTracking';
 
 function VideoLectures() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [video, setVideo] = useState();
   const [progress, setProgress] = useState();
   const [quiz, setQuiz] = useState([]);
@@ -30,13 +35,14 @@ function VideoLectures() {
   const [syllabus, setSyllabus] = useState();
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [quizResult, setQuizResult] = useState(null);
+  const [quizContext, setQuizContext] = useState(null);
+
+  const QUIZ_PASS_THRESHOLD = 0.7; // 70% minimum score
 
   const loadData = useCallback(async () => {
     try {
       const response = await getCourseDetailsWithSyllabus(id);
-
       setData(response.data);
-
       setVideo(response.data.intro);
       setLoading(false);
     } catch (error) {
@@ -50,32 +56,57 @@ function VideoLectures() {
       const response = await getUserProgressByCourseId(id);
       setProgress(response.data);
     } catch (error) {
-      console.error('Error loading progress:', error);
+      if (error.response?.status === 404) {
+        // If 404, estimate total levels from loaded course data for initial progress display
+        const totalLevels =
+          data?.syllabus.reduce(
+            (acc, current) => acc + current.levels.length,
+            0,
+          ) || 0;
+        setProgress({
+          completedCount: `0/${totalLevels}`,
+          progressPercentage: 0,
+        });
+      } else {
+        console.error(error);
+      }
     }
-  }, [id]);
-
-  useEffect(() => {
-    loadProgress();
-  }, [loadProgress]);
+  }, [id, data]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
+  useEffect(() => {
+    if (data) {
+      loadProgress();
+    }
+  }, [data, loadProgress]);
+
   const onCompleteVideo = async () => {
+    if (!selectedLevelId || !syllabus) return;
+
     try {
       trackEvent(
         'video_completed',
         `${data?.title || ''}_${selectedLevelId || ''}`,
       );
+
       await completeSyllabusLevel({
         syllabusId: syllabus,
         levelId: selectedLevelId,
         courseId: id,
+        completionType: 'video',
+        isPassed: true,
       });
+      loadProgress();
     } catch (error) {
       console.error('Error completing syllabus level:', error);
     }
+  };
+
+  const handleGoBack = () => {
+    navigate(-1);
   };
 
   const handleAnswerSelect = (questionIndex, answerId) => {
@@ -88,15 +119,27 @@ function VideoLectures() {
   const onSubmitQuizAnswers = async () => {
     try {
       const answers = Object.values(selectedAnswers);
-
-      const payload = {
-        answers: answers,
-      };
+      const payload = { answers: answers };
 
       const response = await submitQuizAnswers(payload);
 
       if (response.status === 201) {
-        setQuizResult(response.data);
+        const result = response.data;
+        setQuizResult(result);
+
+        const score = result.correctAnswers / result.totalAnswers;
+        const isPassed = score >= QUIZ_PASS_THRESHOLD;
+
+        if (quizContext) {
+          await completeSyllabusLevel({
+            syllabusId: quizContext.syllabusId,
+            levelId: quizContext.levelId,
+            courseId: id,
+            completionType: 'quiz',
+            isPassed: isPassed,
+          });
+        }
+
         loadProgress();
       }
     } catch (error) {
@@ -108,9 +151,11 @@ function VideoLectures() {
     setIsQuizzOpen(false);
     setSelectedAnswers({});
     setQuizResult(null);
+    setQuizContext(null);
   };
 
   const getCertificate = async () => {
+    if (progress?.progressPercentage !== 100) return;
     try {
       const response = await getCertificateById(id);
       window.open(response.data.downloadUrl, '_blank');
@@ -118,6 +163,72 @@ function VideoLectures() {
       console.error('Error getting certificate:', error);
     }
   };
+
+  const isLevelCompleted = (syllabusId, levelId) => {
+    if (
+      !progress ||
+      !progress.syllabusProgress ||
+      progress.syllabusProgress.length === 0
+    ) {
+      return false;
+    }
+
+    const targetSyllabusId = String(syllabusId);
+    const targetLevelId = String(levelId);
+
+    const syllabusProgress = progress.syllabusProgress.find(
+      sp => String(sp.syllabusId) === targetSyllabusId,
+    );
+
+    if (
+      !syllabusProgress ||
+      !syllabusProgress.levels ||
+      syllabusProgress.levels.length === 0
+    ) {
+      return false;
+    }
+
+    const levelProgress = syllabusProgress.levels.find(
+      lp => String(lp.levelId) === targetLevelId,
+    );
+
+    return levelProgress?.completed === true;
+  };
+
+  const isLevelVideoCompleted = (syllabusId, levelId) => {
+    if (
+      !progress ||
+      !progress.syllabusProgress ||
+      progress.syllabusProgress.length === 0
+    ) {
+      return false;
+    }
+
+    const targetSyllabusId = String(syllabusId);
+    const targetLevelId = String(levelId);
+
+    const syllabusProgress = progress.syllabusProgress.find(
+      sp => String(sp.syllabusId) === targetSyllabusId,
+    );
+
+    if (
+      !syllabusProgress ||
+      !syllabusProgress.levels ||
+      syllabusProgress.levels.length === 0
+    ) {
+      return false;
+    }
+
+    const levelProgress = syllabusProgress.levels.find(
+      lp => String(lp.levelId) === targetLevelId,
+    );
+
+    return levelProgress?.videoCompleted === true;
+  };
+
+  const totalLevelsFromProgress =
+    progress?.completedCount?.split('/')[1] || '0';
+
   return (
     <>
       <div className="mainContainer">
@@ -126,11 +237,17 @@ function VideoLectures() {
         ) : (
           <div className={styles.container}>
             <div className={styles.videoLecturesTitleContainer}>
-              <div className={styles.videoLecturesTitleButton}>
+              <div
+                className={styles.videoLecturesTitleButton}
+                onClick={handleGoBack}
+                style={{ cursor: 'pointer' }}
+              >
                 <ArrowBackIcon />
               </div>
               <div className={styles.videoLecturesTitle}>{data?.title}</div>
             </div>
+
+            <hr />
 
             <div className={styles.videoContainer}>
               <Video
@@ -145,12 +262,14 @@ function VideoLectures() {
                 <div className={styles.videoLessonsCompletionContainer}>
                   <div className={styles.videoLessonsCompletionInnerContainer}>
                     <div className={styles.videoLessonsCompletionTitle}>
-                      {progress?.completedCount || '0/5'} COMPLETED
+                      {progress?.completedCount ||
+                        `0/${totalLevelsFromProgress}`}{' '}
+                      COMPLETED
                     </div>
                   </div>
                   <ProgressBar
                     percentage={progress?.progressPercentage || 0}
-                    totalBars={5}
+                    totalBars={100}
                   />
                 </div>
 
@@ -166,12 +285,17 @@ function VideoLectures() {
                 )}
               </div>
 
+              <hr />
+
               <div className={styles.videoLessonsAccordionContainer}>
-                {data.syllabus.map(data => (
-                  <Accordion title={data.title} key={data.id}>
+                {data.syllabus.map((syllabusData, index) => (
+                  <Accordion
+                    title={syllabusData.title}
+                    key={syllabusData._id || index}
+                  >
                     <div className={styles.syllabusContainer}>
-                      {data.levels.map((level, index) => (
-                        <div className={styles.syllabusItem}>
+                      {syllabusData.levels.map((level, levelIndex) => (
+                        <div className={styles.syllabusItem} key={levelIndex}>
                           <div className={styles.syllabusItemInnerContainer}>
                             <div>
                               <FileIcon />
@@ -184,11 +308,34 @@ function VideoLectures() {
                               <div className={styles.quizz}>
                                 <button
                                   className={styles.quizzBtn}
+                                  disabled={
+                                    !isLevelVideoCompleted(
+                                      syllabusData._id,
+                                      level._id,
+                                    )
+                                  }
                                   onClick={() => {
                                     setIsQuizzOpen(true);
-
                                     setQuiz(level.quiz);
+                                    setQuizContext({
+                                      syllabusId: syllabusData._id,
+                                      levelId: level._id,
+                                    });
+                                    setQuizResult(null);
+                                    setSelectedAnswers({});
                                   }}
+                                  style={
+                                    !isLevelVideoCompleted(
+                                      syllabusData._id,
+                                      level._id,
+                                    )
+                                      ? {
+                                          opacity: 0.7,
+                                          cursor: 'not-allowed',
+                                          pointerEvents: 'none',
+                                        }
+                                      : {}
+                                  }
                                 >
                                   ქვიზი
                                 </button>
@@ -202,7 +349,7 @@ function VideoLectures() {
                                   onClick={() => {
                                     setVideo(level.videoUrl);
                                     setSelectedLevelId(level._id);
-                                    setSyllabus(data._id);
+                                    setSyllabus(syllabusData._id);
                                   }}
                                 >
                                   ვიდეო
@@ -223,9 +370,12 @@ function VideoLectures() {
                               </div>
                             )}
 
-                            <div className={styles.isCompleted}>
-                              <CompleteCheckIcon />
-                            </div>
+                            {/* Show completion icon only if both video and quiz are done/passed */}
+                            {isLevelCompleted(syllabusData._id, level._id) && (
+                              <div className={styles.isCompleted}>
+                                <CompleteCheckIcon />
+                              </div>
+                            )}
                           </div>
                         </div>
                       ))}
@@ -260,8 +410,34 @@ function VideoLectures() {
               %
             </div>
             <div className={styles.quizResultScore}>
-              Score: {quizResult.correctAnswers}/{quizResult.totalAnswers}
+              Score: {quizResult.correctAnswers} / {quizResult.totalAnswers}
             </div>
+            {/* Display message based on pass threshold */}
+            <div className={styles.quizResultMessage}>
+              {quizResult.correctAnswers / quizResult.totalAnswers >=
+              QUIZ_PASS_THRESHOLD
+                ? 'გილოცავთ! თქვენ წარმატებით გაიარეთ ქვიზი.'
+                : 'არასაკმარისი ქულა. გთხოვთ, გაიმეოროთ მცდელობა.'}
+            </div>
+
+            {quizResult.correctAnswers / quizResult.totalAnswers >=
+            QUIZ_PASS_THRESHOLD ? (
+              <Button
+                type="primary"
+                onClick={handleCancelQuiz}
+                style={{ marginTop: '20px' }}
+              >
+                დახურვა
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                onClick={() => setQuizResult(null)}
+                style={{ marginTop: '20px' }}
+              >
+                ახალი მცდელობა
+              </Button>
+            )}
           </div>
         ) : (
           <>
@@ -306,7 +482,11 @@ function VideoLectures() {
                 Cancel
               </button>
 
-              <Button type="primary" onClick={onSubmitQuizAnswers}>
+              <Button
+                type="primary"
+                onClick={onSubmitQuizAnswers}
+                disabled={Object.keys(selectedAnswers).length !== quiz.length}
+              >
                 Submit <SubmitBtnArrow />
               </Button>
             </div>

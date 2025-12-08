@@ -7,7 +7,6 @@ import SideBar from '../SideBar/SideBar';
 import { useAuth } from '../../context/AuthContext';
 import Dropdown from '../UI/Dropdown/Dropdown';
 import { DropdownCourseIcon } from '../UI/icons';
-import React from 'react';
 import { ProgressBar } from '../UI/ProgressBar/ProgressBar';
 import IconUser from '../UI/IconUser';
 import { Loader } from '../UI/Loader/Loader';
@@ -34,7 +33,6 @@ export function Header() {
       setCourses(data);
     } catch (err) {
       console.log('Error while loading courses', err);
-      setIsLoading(false);
     } finally {
       setIsLoading(false);
     }
@@ -44,6 +42,7 @@ export function Header() {
     if (isDropdownOpen) {
       getCourses();
     }
+    console.log(courses);
   }, [isDropdownOpen]);
 
   const getActiveButtons = value => {

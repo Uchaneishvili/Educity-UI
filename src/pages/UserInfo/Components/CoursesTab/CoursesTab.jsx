@@ -1,30 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './CoursesTab.module.css';
 import Pagination from '../../../../components/UI/Pagination/Pagination';
 import { Card } from '../../../../components/UI/Card/Card';
 import { getMyCourses } from '../../../../services/courses.service';
 import { useAuth } from '../../../../context/AuthContext';
+import { Loader } from '../../../../components/UI/Loader/Loader';
 
 function CoursesTab({ hideTitle }) {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
   const [totalItems, setTotalItems] = useState(0);
   const pageSize = 10;
   const [currentPage, setCurrentPage] = useState(1);
+
   const loadData = async () => {
     try {
+      setLoading(true);
       const res = await getMyCourses();
 
       setData(res.data.data.courses);
       setTotalItems(res.data.data.totalCount);
     } catch (err) {
       console.log('Error in loadData', err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     loadData();
   }, []);
+
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.coursesContainer}>
@@ -43,7 +51,7 @@ function CoursesTab({ hideTitle }) {
             thumbnail={course.thumbnail}
             title={course.title}
             totalDuration={course.totalDuration}
-            enrolledStudentsQuantity={course.enrolledStudentsQuantity}
+            enrolledStudentsQuantity={course.enrollmentsCount}
             totalReviews={course.averageRating}
             price={course.price}
             discountedPrice={course.discountedPrice}

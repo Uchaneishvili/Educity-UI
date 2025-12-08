@@ -97,6 +97,7 @@ function VideoLectures() {
         levelId: selectedLevelId,
         courseId: id,
         completionType: 'video',
+        isPassed: true,
       });
       loadProgress();
     } catch (error) {

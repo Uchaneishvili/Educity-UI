@@ -471,6 +471,11 @@
     border: 0;
   }
 
+  .quizzBtn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
   .duration,
   .syllabusItemInnerContainer {
     font-size: 12px;

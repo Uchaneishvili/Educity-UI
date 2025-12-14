@@ -1,12 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './Checkout.module.css';
 import CardListItem from '../../components/UI/CardListItem/CardListItem';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '../../components/UI/Button/Button';
 import { getCourseDetails } from '../../services/courses.service';
 import { Loader } from '../../components/UI/Loader/Loader';
-import { purchaseCourse } from '../../services/purchase.service';
+import {
+  applyPromoCourse,
+  purchaseCourse,
+} from '../../services/purchase.service';
 import { trackEvent } from '../../utils/ClarityTracking';
+import Input from '../../components/UI/Input/Input';
 
 function Checkout() {
   const navigate = useNavigate();
@@ -14,24 +18,44 @@ function Checkout() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [promoCode, setPromoCode] = useState('');
+  const [isApplyingPromo, setIsApplyingPromo] = useState(false);
+  const [finalPrice, setFinalPrice] = useState(0);
 
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
       const response = await getCourseDetails(id);
       setData(response.data);
+
+      setFinalPrice(response.data.discountedPrice || response.data.price);
     } catch (err) {
       console.log(err);
-      setLoading(false);
     } finally {
       setLoading(false);
     }
   }, [id]);
 
+  const applyPromo = async () => {
+    if (!promoCode) return;
+    setIsApplyingPromo(true);
+    try {
+      const response = await applyPromoCourse(id, promoCode, finalPrice);
+
+      setFinalPrice(response.data.discountedPrice);
+      setErrorMessage('');
+    } catch (err) {
+      setErrorMessage(err.response?.data?.message || 'Invalid promo code');
+      setFinalPrice(data.discountedPrice || data.price);
+    } finally {
+      setIsApplyingPromo(false);
+    }
+  };
+
   const payForCourse = async () => {
     try {
       trackEvent('course_purchase_initiated', data?.title || id);
-      const response = await purchaseCourse(id);
+      const response = await purchaseCourse(id, promoCode);
 
       if (response.status === 201) {
         trackEvent('course_purchase_redirect', data?.title || id);
@@ -49,6 +73,10 @@ function Checkout() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  if (loading) return <Loader />;
+
+  if (!data) return <div>კურსები ვერ მოიძებნა!</div>;
 
   return (
     <div className="mainContainer">
@@ -82,13 +110,26 @@ function Checkout() {
             <div className={styles.shoppingPricesContainer}>
               <div className={styles.orderSummaryContainer}>
                 <div className={styles.orderSummaryTitle}>Order Summary</div>
+                <Input
+                  type="text"
+                  id="promocode"
+                  placeholder="პრომოკოდი"
+                  value={promoCode}
+                  onChange={e => setPromoCode(e.target.value)}
+                />
+                <Button
+                  type="secondary"
+                  width="100%"
+                  onClick={applyPromo}
+                  disabled={isApplyingPromo}
+                >
+                  პრომოკოდის დადასტურება
+                </Button>
               </div>
 
               <div className={styles.checkoutTotalPriceContainer}>
                 <div>Total:</div>
-                <div>
-                  {data.discountedPrice ? data.discountedPrice : data.price} ₾
-                </div>
+                <div>{finalPrice} ₾</div>
               </div>
 
               <div className={styles.checkoutErrorMessage}>{errorMessage}</div>

@@ -15,6 +15,7 @@ import {
 } from '../../../services/wishlist.service';
 import { Video } from '../../VideoPlayer/Video';
 import { trackEvent } from '../../../utils/ClarityTracking';
+import { useEffect } from 'react';
 
 export function Card({
   id,
@@ -36,6 +37,10 @@ export function Card({
 }) {
   const [isActiveRef, setIsActive] = useRefState(isInWishlist);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setIsActive(isInWishlist);
+  }, [isInWishlist]);
 
   const handleWishlistClick = async () => {
     try {

@@ -16,7 +16,6 @@ import { CloseIcon } from '../../components/UI/icons';
 import { Button } from '../../components/UI/Button/Button';
 import { useAuth } from '../../context/AuthContext';
 import { trackEvent } from '../../utils/ClarityTracking';
-import { authService } from '../../services/auth.service';
 
 export function Courses() {
   const location = useLocation();

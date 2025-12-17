@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import styles from './Wishlist.module.css';
 import CardListItem from '../../../../components/UI/CardListItem/CardListItem';
 import Pagination from '../../../../components/UI/Pagination/Pagination';
-import { getWishlist } from '../../../../services/wishlist.service';
+import {
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
+} from '../../../../services/wishlist.service';
 import { Loader } from '../../../../components/UI/Loader/Loader';
 function Wishlist() {
   const [data, setData] = useState([]);
@@ -28,6 +32,19 @@ function Wishlist() {
     loadData();
   }, []);
 
+  const handleWishlist = async courseId => {
+    try {
+      if (data) {
+        await removeFromWishlist(courseId._id);
+        setData(prev => prev.filter(item => item.courseId !== courseId));
+      } else {
+        await addToWishlist(courseId._id);
+      }
+    } catch (err) {
+      console.log(err, 'Error toggle wishlist');
+    }
+  };
+
   return (
     <div className={styles.container}>
       {loading ? (
@@ -36,6 +53,8 @@ function Wishlist() {
         data.map(item => {
           return (
             <CardListItem
+              handleWishlist={() => handleWishlist(item.courseId)}
+              isWishlist={item.courseId._id}
               img={item.courseId.thumbnail}
               reviewScore={item.courseId.averageRating}
               reviewNumber={item.courseId.enrolledStudentsQuantity}

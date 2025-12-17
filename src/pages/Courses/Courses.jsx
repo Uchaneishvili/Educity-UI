@@ -200,7 +200,7 @@ export function Courses() {
     },
     {
       name: 'ვიდეო ლექცია',
-      _id: 'videoLecture',
+      _id: 'video-lecture',
     },
   ];
 

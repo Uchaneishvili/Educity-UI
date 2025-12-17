@@ -29,6 +29,8 @@ export function CourseDetails() {
       setLoading(true);
       const res = await getCourseDetails(id);
       setData(res.data);
+
+      console.log(data)
     } catch (error) {
       console.error('Error loading course details:', error);
     } finally {
@@ -54,6 +56,7 @@ export function CourseDetails() {
   useEffect(() => {
     loadData();
   }, [loadData]);
+  
 
   if (loading) {
     return (
@@ -66,6 +69,7 @@ export function CourseDetails() {
   if (!data) {
     return <Error />;
   }
+
 
   const buttonName = () => {
     const isOnline = data.type === 'video-lecture';
@@ -111,6 +115,7 @@ export function CourseDetails() {
             showBuy={true}
             buttonName={buttonName()}
             ButtonDisabled={Boolean(access && data.type !== 'video-lecture')}
+            courseType={data.type}
             thumbnail={data.thumbnail}
             title={data.title}
             discountedPrice={data.discountedPrice}

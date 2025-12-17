@@ -4,6 +4,8 @@ import { ColoredStar, WishlistIcon } from '../../UI/icons';
 import { Button } from '../Button/Button';
 
 function CardListItem({
+  handleWishlist,
+  isWishlist,
   img,
   reviewScore,
   reviewNumber,
@@ -62,8 +64,11 @@ function CardListItem({
             )}
 
             <div className={styles.cardWishListButtonContainer}>
-              <button className={styles.cardWishListButton}>
-                <WishlistIcon isActive={true} />
+              <button
+                className={styles.cardWishListButton}
+                onClick={handleWishlist}
+              >
+                <WishlistIcon isActive={isWishlist ? true : false} />
               </button>
             </div>
           </div>

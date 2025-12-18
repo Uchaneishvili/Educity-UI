@@ -11,16 +11,25 @@ import {
 } from '../../services/purchase.service';
 import { trackEvent } from '../../utils/ClarityTracking';
 import Input from '../../components/UI/Input/Input';
+import {
+  addToWishlist,
+  getWishlist,
+  removeFromWishlist,
+} from '../../services/wishlist.service';
+import { useAuth } from '../../context/AuthContext';
 
 function Checkout() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState();
+  const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [promoCode, setPromoCode] = useState('');
   const [isApplyingPromo, setIsApplyingPromo] = useState(false);
   const [finalPrice, setFinalPrice] = useState(0);
+
+  const { isAuthenticated } = useAuth();
 
   const loadData = useCallback(async () => {
     try {
@@ -35,6 +44,43 @@ function Checkout() {
       setLoading(false);
     }
   }, [id]);
+
+  const getWishlistData = useCallback(async () => {
+    try {
+      if (!isAuthenticated) {
+        setWishlist([]);
+        return;
+      }
+      const response = await getWishlist();
+      setWishlist(response.data);
+    } catch (err) {
+      console.error(err, 'error while getting wishlist');
+    }
+  }, [isAuthenticated]);
+
+  const handleWishlist = async course => {
+    try {
+      const isInWishlist = wishlist.some(
+        item => item.courseId._id === course._id,
+      );
+
+      if (isInWishlist) {
+        await removeFromWishlist(course._id);
+        await getWishlistData();
+
+        setWishlist(prev =>
+          prev.filter(item => item.courseId._id !== course._id),
+        );
+      } else {
+        const response = await addToWishlist(course._id);
+        await getWishlistData();
+
+        setWishlist(prev => [...prev, response.data]);
+      }
+    } catch (err) {
+      console.log(err, 'Error toggle wishlist');
+    }
+  };
 
   const applyPromo = async () => {
     if (!promoCode) return;
@@ -74,6 +120,10 @@ function Checkout() {
     loadData();
   }, [loadData]);
 
+  useEffect(() => {
+    getWishlistData();
+  }, [getWishlistData]);
+
   if (loading) return <Loader />;
 
   if (!data) return <div>კურსები ვერ მოიძებნა!</div>;
@@ -96,6 +146,10 @@ function Checkout() {
 
               <div className={styles.shoppingCardContainer}>
                 <CardListItem
+                  handleWishlist={() => handleWishlist(data)}
+                  isWishlist={wishlist.some(
+                    item => item.courseId._id === data._id,
+                  )}
                   img={data.thumbnail}
                   reviewScore={data.averageRating}
                   reviewNumber={data.totalReviews}

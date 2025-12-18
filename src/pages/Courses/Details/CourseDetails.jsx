@@ -2,8 +2,8 @@ import styles from './CourseDetails.module.css';
 import {
   ClockIcon,
   StudentIcon,
-  LectureIcon,
   LevelIcon,
+  LectureTypeIcon,
 } from '../../../components/UI/icons';
 import { Card } from '../../../components/UI/Card/Card';
 import TabSections from './components/TabSections/TabSections';
@@ -30,7 +30,7 @@ export function CourseDetails() {
       const res = await getCourseDetails(id);
       setData(res.data);
 
-      console.log(data)
+      console.log(data);
     } catch (error) {
       console.error('Error loading course details:', error);
     } finally {
@@ -56,7 +56,6 @@ export function CourseDetails() {
   useEffect(() => {
     loadData();
   }, [loadData]);
-  
 
   if (loading) {
     return (
@@ -69,7 +68,6 @@ export function CourseDetails() {
   if (!data) {
     return <Error />;
   }
-
 
   const buttonName = () => {
     const isOnline = data.type === 'video-lecture';
@@ -100,8 +98,15 @@ export function CourseDetails() {
               <StudentIcon /> {data.enrollmentsCount || ''} სტუდენტი
             </div>
             <div className={styles.level}>
-              <LevelIcon />{' '}
-              {FormatData.getDifficultyInGeorgian(data.difficultyLevel)}
+              <LevelIcon />
+              <div>
+                {FormatData.getDifficultyInGeorgian(data.difficultyLevel)}{' '}
+                სირთულე
+              </div>
+            </div>
+            <div className={styles.lectureType}>
+              <LectureTypeIcon />{' '}
+              {FormatData.getLectureTypeInGeorgian(data.type)}
             </div>
             {/* <div className={styles.lecturesQuantity}>
               <LectureIcon /> {data.lecturesCount || ''} ლექცია
@@ -120,7 +125,7 @@ export function CourseDetails() {
             title={data.title}
             discountedPrice={data.discountedPrice}
             price={data.price}
-            intro={data.intro}
+            intro={data.intro && data.intro}
             onClick={() => {
               const isOnline = data.type === 'video-lecture';
               if (access) {

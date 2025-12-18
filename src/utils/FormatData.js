@@ -65,4 +65,14 @@ export default class FormatData {
     };
     return mapping[level] || level || '';
   };
+
+  static getLectureTypeInGeorgian = lectureType => {
+    const mapping = {
+      'on-site': 'აუდიტორიული',
+      online: 'ონლაინი',
+      hybrid: 'შერეული ფორმატი',
+      'video-lecture': 'ვიდეო ლექცია',
+    };
+    return mapping[lectureType] || lectureType || '';
+  };
 }

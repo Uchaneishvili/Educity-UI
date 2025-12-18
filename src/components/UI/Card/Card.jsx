@@ -16,6 +16,7 @@ import {
 import { Video } from '../../VideoPlayer/Video';
 import { trackEvent } from '../../../utils/ClarityTracking';
 import { useEffect } from 'react';
+import FormatData from '../../../utils/FormatData';
 
 export function Card({
   id,
@@ -57,7 +58,6 @@ export function Card({
 
   const handleCardClick = () => {
     trackEvent('course_card_click', title || id);
-    if (onClick) onClick();
   };
 
   return (
@@ -79,12 +79,14 @@ export function Card({
       <div className={styles.innerContainer}>
         <div className={styles.contentContainer}>
           <div className={styles.content}>
-            {title && <div className={styles.title}>{title}</div>}
+            <div>
+              {title && <div className={styles.title}>{title}</div>}
+              <div className={styles.lectureType}>
+                {FormatData.getLectureTypeInGeorgian(lectureType)}
+              </div>
+            </div>
 
-            {(totalDuration ||
-              enrolledStudentsQuantity ||
-              lectureType ||
-              totalReviews) && (
+            {(totalDuration || enrolledStudentsQuantity || totalReviews) && (
               <div className={styles.info}>
                 {totalDuration && (
                   <div className={styles.durationInfo}>
@@ -99,14 +101,9 @@ export function Card({
                     : '0'}{' '}
                   სტუდენტი
                 </div>
-                {lectureType && (
-                  <div>
-                    <StudentIcon /> {lectureType}
-                  </div>
-                )}
                 <div className={styles.reviewInfo}>
                   <NarrowColoredStar />
-                  {totalReviews}
+                  {totalReviews ? totalReviews + ' შეფასება' : 'შეფასება'}
                 </div>
               </div>
             )}

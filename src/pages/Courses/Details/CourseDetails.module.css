@@ -40,15 +40,21 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  gap: 16px;
+  gap: 32px;
   color: #ffffff99;
   font-size: 16px;
+}
+
+.level {
+  display: flex;
+  gap: 8px !important;
 }
 
 .duration,
 .studentsQuantity,
 .level,
-.lecturesQuantity {
+.lecturesQuantity,
+.lectureType {
   display: flex;
   align-items: center;
   gap: 5px;

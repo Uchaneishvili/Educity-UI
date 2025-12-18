@@ -50,9 +50,11 @@ function CoursesTab({ hideTitle }) {
             id={course._id}
             thumbnail={course.thumbnail}
             title={course.title}
+            lectureType={course.type}
             totalDuration={course.totalDuration}
             enrolledStudentsQuantity={course.enrollmentsCount}
             totalReviews={course.averageRating}
+            showDivider={true}
             price={course.price}
             discountedPrice={course.discountedPrice}
           />

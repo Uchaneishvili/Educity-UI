@@ -304,9 +304,11 @@ export function Courses() {
                     title={course.title}
                     totalDuration={course.totalDuration}
                     enrolledStudentsQuantity={course.enrollmentsCount}
+                    lectureType={course.type}
                     totalReviews={course.averageRating}
                     price={course.price}
                     showWishlist={true}
+                    showDivider={true}
                     isInWishlist={
                       wishlist?.length
                         ? wishlist.some(

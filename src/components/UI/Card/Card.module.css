@@ -14,11 +14,10 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 1vw;
-  padding-top: 2vw;
-  margin-top: -25px;
+  padding: 20px;
   border: 1px solid #d3dce6;
-  border-radius: 15px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .imageContainer {
@@ -34,9 +33,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 15px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.cardImageWeb > * {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 .contentContainer {
@@ -64,6 +69,11 @@
 .title {
   font-weight: 700;
   font-size: 20px;
+}
+
+.lectureType {
+  color: #00000099;
+  margin-top: 4px;
 }
 
 .durationInfo,

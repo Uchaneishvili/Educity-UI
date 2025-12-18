@@ -22,6 +22,7 @@ export function Card({
   title,
   totalDuration,
   enrolledStudentsQuantity,
+  lectureType,
   totalReviews,
   showWishlist,
   showDivider,
@@ -80,7 +81,10 @@ export function Card({
           <div className={styles.content}>
             {title && <div className={styles.title}>{title}</div>}
 
-            {(totalDuration || enrolledStudentsQuantity || totalReviews) && (
+            {(totalDuration ||
+              enrolledStudentsQuantity ||
+              lectureType ||
+              totalReviews) && (
               <div className={styles.info}>
                 {totalDuration && (
                   <div className={styles.durationInfo}>
@@ -95,6 +99,11 @@ export function Card({
                     : '0'}{' '}
                   სტუდენტი
                 </div>
+                {lectureType && (
+                  <div>
+                    <StudentIcon /> {lectureType}
+                  </div>
+                )}
                 <div className={styles.reviewInfo}>
                   <NarrowColoredStar />
                   {totalReviews}

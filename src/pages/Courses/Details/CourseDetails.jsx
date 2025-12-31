@@ -128,15 +128,22 @@ export function CourseDetails() {
             intro={data.intro && data.intro}
             onClick={() => {
               const isOnline = data.type === 'video-lecture';
+
               if (access) {
                 if (isOnline) {
                   navigate(`/courses/${id}/videos`);
                 }
               } else {
-                if (isOnline) {
-                  navigate(`/checkout/${id}`);
+                if (!isAuthenticated) {
+                  navigate('/login', {
+                    state: { from: `/courses/${id}` },
+                  });
                 } else {
-                  navigate(`/register/${id}`);
+                  if (isOnline) {
+                    navigate(`/checkout/${id}`);
+                  } else {
+                    navigate(`/register/${id}`);
+                  }
                 }
               }
             }}

@@ -7,7 +7,13 @@ import Syllabus from './components/Syllabus/Syllabus';
 import CourseReview from './components/CourseReview/CourseReview';
 import CourseContact from './components/CourseContact/CourseContact';
 
-const TabSections = ({ tabs, description, syllabus }) => {
+const TabSections = ({
+  tabs,
+  description,
+  syllabus,
+  courseType,
+  hasAccess,
+}) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -43,7 +49,13 @@ const TabSections = ({ tabs, description, syllabus }) => {
       <div className={styles.content}>
         {activeTab === 0 && <AboutCourse description={description} />}
 
-        {activeTab === 1 && <Syllabus syllabus={syllabus} />}
+        {activeTab === 1 && (
+          <Syllabus
+            syllabus={syllabus}
+            courseType={courseType}
+            hasAccess={hasAccess}
+          />
+        )}
 
         {activeTab === 2 && <CourseReview />}
 

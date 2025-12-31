@@ -183,7 +183,7 @@ export function Home() {
         </div>
         <div className={styles.videoLessonsSectionContainer}>
           <div className={styles.videoLessonsTitle}>
-            მაღალი ხარისხის ვიდეო გაკვეთილები
+            მაღალი ხარისხის სასწავლო პროგრამები
           </div>
 
           <div className={styles.videoLessonsInnerContainer}>
@@ -193,7 +193,7 @@ export function Home() {
                   <VideoPauseIcon />
                 </div>
                 <div className={styles.videoLessonsButtonText}>
-                  ჩაწერილი ვიდეო ლექციები
+                  ონლაინ სწავლების ფორმატი
                 </div>
               </div>
               <div className={styles.videoLessonsButtonContainer}>
@@ -201,7 +201,7 @@ export function Home() {
                   <VideoLiveIcon />
                 </div>
                 <div className={styles.videoLessonsButtonText}>
-                  LIVE გაკვეთილები
+                  აუდიტორიული სწავლების ფორმატი
                 </div>
               </div>
               <div className={styles.videoLessonsButtonContainer}>
@@ -209,7 +209,7 @@ export function Home() {
                   <VideoSoundIcon />
                 </div>
                 <div className={styles.videoLessonsButtonText}>
-                  მუდმივი წვდომა ვიდეო ლექციებზე
+                  ჩაწერილი ვიდეო ლექციები
                 </div>
               </div>
             </div>

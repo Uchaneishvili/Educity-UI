@@ -157,6 +157,8 @@ export function CourseDetails() {
               { id: 2, label: 'შეფასება' },
             ]}
             description={data.description}
+            courseType={data.type}
+            hasAccess={access}
           />
         </div>
       </div>

@@ -57,7 +57,7 @@ function Wishlist() {
               isWishlist={item.courseId._id}
               img={item.courseId.thumbnail}
               reviewScore={item.courseId.averageRating}
-              reviewNumber={item.courseId.enrolledStudentsQuantity}
+              reviewNumber={item.courseId.enrollmentsCount}
               name={item.courseId.title}
               author={item.courseId.instructorName}
               price={item.courseId.price}

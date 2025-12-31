@@ -65,7 +65,11 @@ export function Card({
       <div className={styles.imageContainer}>
         {intro ? (
           <div className={styles.cardImageWeb}>
-            <Video playbackId={intro} thumbnail={thumbnail} />
+            <Video
+              playbackId={intro}
+              thumbnail={thumbnail}
+              onEnded={() => console.log('Video ended')}
+            />
           </div>
         ) : (
           <img

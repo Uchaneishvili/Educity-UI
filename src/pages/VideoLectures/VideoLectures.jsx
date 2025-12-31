@@ -38,7 +38,7 @@ function VideoLectures() {
   const [isQuizzOpen, setIsQuizzOpen] = useState(false);
   const videoCompletedRef = useRef(false);
 
-  const QUIZ_PASS_THRESHOLD = 0.7;
+  const QUIZ_PASS_THRESHOLD = 0.8; // 80% required to pass
 
   const loadData = useCallback(async () => {
     try {
@@ -85,80 +85,104 @@ function VideoLectures() {
   }, [data, loadProgress]);
 
   const onCompleteVideo = async () => {
+    // Prevent multiple calls for the same video during current watch
     if (videoCompletedRef.current) return;
-    videoCompletedRef.current = true;
 
     if (!selectedLevelId || !syllabus) return;
 
-    // Optimistic update for video completion
+    const alreadyCompleted = isLevelVideoCompleted(syllabus, selectedLevelId);
+    if (alreadyCompleted) {
+      videoCompletedRef.current = true;
+      return;
+    }
+
+    videoCompletedRef.current = true;
+
+    const syllabusIdStr = String(syllabus);
+    const levelIdStr = String(selectedLevelId);
+
     setProgress(prev => {
       if (!prev) return prev;
       const updated = {
         ...prev,
         syllabusProgress: [...(prev.syllabusProgress || [])],
       };
+
       let sp = updated.syllabusProgress.find(
-        sp => String(sp.syllabusId) === String(syllabus),
+        sp => String(sp.syllabusId) === syllabusIdStr,
       );
       if (!sp) {
-        sp = { syllabusId: syllabus, levels: [] };
+        sp = { syllabusId: syllabusIdStr, levels: [] };
         updated.syllabusProgress.push(sp);
+      } else {
+        sp = { ...sp, levels: [...sp.levels] };
+        const index = updated.syllabusProgress.findIndex(
+          s => String(s.syllabusId) === syllabusIdStr,
+        );
+        updated.syllabusProgress[index] = sp;
       }
-      let lp = sp.levels.find(
-        lp => String(lp.levelId) === String(selectedLevelId),
-      );
+
+      let lp = sp.levels.find(lp => String(lp.levelId) === levelIdStr);
+
+      const currentLevel = data?.syllabus
+        ?.find(s => String(s._id) === syllabusIdStr)
+        ?.levels?.find(l => String(l._id) === levelIdStr);
+      const hasQuiz = currentLevel?.quiz && currentLevel.quiz.length > 0;
+
       if (!lp) {
         lp = {
-          levelId: selectedLevelId,
+          levelId: levelIdStr,
           videoCompleted: true,
-          completed: false,
           quizPassed: false,
+          completed: !hasQuiz,
         };
         sp.levels.push(lp);
       } else {
-        lp.videoCompleted = true;
+        const lpIndex = sp.levels.findIndex(
+          l => String(l.levelId) === levelIdStr,
+        );
+        sp.levels[lpIndex] = {
+          ...lp,
+          videoCompleted: true,
+          completed: !hasQuiz || (hasQuiz && lp.quizPassed === true),
+        };
       }
-      lp.completed = lp.videoCompleted && lp.quizPassed; // mark completed if quiz was already passed
+
+      const totalLevels =
+        data?.syllabus?.reduce((acc, s) => acc + (s.levels?.length || 0), 0) ||
+        0;
+      const completedLevels = updated.syllabusProgress.reduce((acc, sp) => {
+        return (
+          acc + (sp.levels?.filter(lp => lp.completed === true).length || 0)
+        );
+      }, 0);
+      updated.completedCount = `${completedLevels}/${totalLevels}`;
+      updated.progressPercentage =
+        totalLevels > 0 ? Math.round((completedLevels / totalLevels) * 100) : 0;
+
       return updated;
     });
 
-    // Send to backend
-    await completeSyllabusLevel({
-      syllabusId: syllabus,
-      levelId: selectedLevelId,
-      courseId: id,
-      completionType: 'video',
-      isPassed: true,
-    });
-
-    // Fetch updated progress from backend and merge
-    const backendProgress = await getUserProgressByCourseId(id);
-    setProgress(prev => {
-      if (!prev) return backendProgress.data;
-      const merged = { ...backendProgress.data };
-      merged.syllabusProgress = merged.syllabusProgress.map(sp => {
-        const localSp = prev.syllabusProgress?.find(
-          lsp => String(lsp.syllabusId) === String(sp.syllabusId),
-        );
-        if (!localSp) return sp;
-        sp.levels = sp.levels.map(lp => {
-          const localLp = localSp.levels?.find(
-            llp => String(llp.levelId) === String(lp.levelId),
-          );
-          if (!localLp) return lp;
-          return {
-            ...lp,
-            videoCompleted: lp.videoCompleted || localLp.videoCompleted,
-            quizPassed: lp.quizPassed || localLp.quizPassed,
-            completed:
-              (lp.videoCompleted || localLp.videoCompleted) &&
-              (lp.quizPassed || localLp.quizPassed),
-          };
-        });
-        return sp;
+    try {
+      await completeSyllabusLevel({
+        syllabusId: syllabus,
+        levelId: selectedLevelId,
+        courseId: id,
+        completionType: 'video',
+        isPassed: true,
       });
-      return merged;
-    });
+    } catch (error) {
+      console.error('Error completing video:', error);
+      videoCompletedRef.current = false; // Reset on error so user can try again
+      try {
+        const backendProgress = await getUserProgressByCourseId(id);
+        if (backendProgress?.data) {
+          setProgress({ ...backendProgress.data });
+        }
+      } catch (reloadError) {
+        console.error('Error reloading progress:', reloadError);
+      }
+    }
   };
 
   const handleGoBack = () => navigate(-1);
@@ -168,36 +192,19 @@ function VideoLectures() {
   };
 
   const onSubmitQuizAnswers = async () => {
+    if (!quizContext) return;
+
     const answers = Object.values(selectedAnswers);
-    const response = await submitQuizAnswers({ answers });
 
-    if (response.status === 201) {
-      const result = response.data;
-      setQuizResult(result);
+    try {
+      const response = await submitQuizAnswers({ answers });
 
-      const score = result.correctAnswers / result.totalAnswers;
-      const isPassed = score >= QUIZ_PASS_THRESHOLD;
+      if (response.status === 201) {
+        const result = response.data;
+        setQuizResult(result);
 
-      if (quizContext) {
-        // Optimistic update
-        setProgress(prev => {
-          if (!prev) return prev;
-          const updated = {
-            ...prev,
-            syllabusProgress: [...(prev.syllabusProgress || [])],
-          };
-          const sp = updated.syllabusProgress.find(
-            sp => String(sp.syllabusId) === String(quizContext.syllabusId),
-          );
-          if (!sp) return updated;
-          const lp = sp.levels.find(
-            lp => String(lp.levelId) === String(quizContext.levelId),
-          );
-          if (!lp) return updated;
-          lp.quizPassed = isPassed;
-          lp.completed = lp.videoCompleted && lp.quizPassed;
-          return updated;
-        });
+        const score = result.correctAnswers / result.totalAnswers;
+        const isPassed = score >= QUIZ_PASS_THRESHOLD;
 
         // Send to backend
         await completeSyllabusLevel({
@@ -208,35 +215,18 @@ function VideoLectures() {
           isPassed,
         });
 
-        // Merge backend progress
+        // Fetch updated progress from backend
         const backendProgress = await getUserProgressByCourseId(id);
-        setProgress(prev => {
-          if (!prev) return backendProgress.data;
-          const merged = { ...backendProgress.data };
-          merged.syllabusProgress = merged.syllabusProgress.map(sp => {
-            const localSp = prev.syllabusProgress?.find(
-              lsp => String(lsp.syllabusId) === String(sp.syllabusId),
-            );
-            if (!localSp) return sp;
-            sp.levels = sp.levels.map(lp => {
-              const localLp = localSp.levels?.find(
-                llp => String(llp.levelId) === String(lp.levelId),
-              );
-              if (!localLp) return lp;
-              return {
-                ...lp,
-                videoCompleted: lp.videoCompleted || localLp.videoCompleted,
-                quizPassed: lp.quizPassed || localLp.quizPassed,
-                completed:
-                  (lp.videoCompleted || localLp.videoCompleted) &&
-                  (lp.quizPassed || localLp.quizPassed),
-              };
-            });
-            return sp;
-          });
-          return merged;
-        });
+        setProgress({ ...backendProgress.data });
+
+        if (isPassed) {
+          setTimeout(() => {
+            handleCancelQuiz();
+          }, 2000);
+        }
       }
+    } catch (error) {
+      console.error('Error submitting quiz:', error);
     }
   };
 
@@ -244,7 +234,11 @@ function VideoLectures() {
     setIsQuizzOpen(false);
     setSelectedAnswers({});
     setQuizResult(null);
-    setQuizContext(null);
+  };
+
+  const handleRetryQuiz = () => {
+    setQuizResult(null);
+    setSelectedAnswers({});
   };
 
   const getCertificate = async () => {
@@ -321,6 +315,7 @@ function VideoLectures() {
               thumbnail={data?.thumbnail || ''}
               size="80%"
               onEnded={onCompleteVideo}
+              key={`${selectedLevelId}-${syllabus}`}
             />
           </div>
 
@@ -353,104 +348,111 @@ function VideoLectures() {
 
             <hr />
 
-            <div className={styles.videoLessonsAccordionContainer}>
+            <div
+              className={styles.videoLessonsAccordionContainer}
+              key={progress?.progressPercentage ?? 'loading'} // Force re-render when progress changes
+            >
               {(data?.syllabus || []).map((syllabusData, index) => (
                 <Accordion
                   title={syllabusData.title}
                   key={syllabusData._id || index}
                 >
                   <div className={styles.syllabusContainer}>
-                    {(syllabusData.levels || []).map((level, levelIndex) => (
-                      <div className={styles.syllabusItem} key={levelIndex}>
-                        <div className={styles.syllabusItemInnerContainer}>
-                          <FileIcon />
-                          <div>{level.title}</div>
+                    {(syllabusData.levels || []).map((level, levelIndex) => {
+                      const videoCompleted = isLevelVideoCompleted(
+                        syllabusData._id,
+                        level._id,
+                      );
+                      const quizCompleted = isLevelQuizCompleted(
+                        syllabusData._id,
+                        level._id,
+                      );
+                      const levelCompleted = isLevelCompleted(
+                        syllabusData._id,
+                        level._id,
+                      );
+
+                      return (
+                        <div
+                          className={styles.syllabusItem}
+                          key={`${level._id}-${videoCompleted}-${quizCompleted}`}
+                        >
+                          <div className={styles.syllabusItemInnerContainer}>
+                            <FileIcon />
+                            <div>{level.title}</div>
+                          </div>
+
+                          <div className={styles.syllabusInfoContainer}>
+                            {(level.quiz || []).length > 0 && (
+                              <div className={styles.quizz}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  disabled={quizCompleted || !videoCompleted}
+                                  onClick={() => {
+                                    setIsQuizzOpen(true);
+                                    setQuiz(level.quiz);
+                                    setQuizContext({
+                                      syllabusId: syllabusData._id,
+                                      levelId: level._id,
+                                    });
+                                    setQuizResult(null);
+                                    setSelectedAnswers({});
+                                  }}
+                                  style={
+                                    quizCompleted || !videoCompleted
+                                      ? {
+                                          opacity: 0.7,
+                                          cursor: 'not-allowed',
+                                          pointerEvents: 'none',
+                                        }
+                                      : {}
+                                  }
+                                >
+                                  ქვიზი
+                                </button>
+                              </div>
+                            )}
+
+                            {level.videoUrl && (
+                              <div className={styles.videoButton}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  onClick={() => {
+                                    if (selectedLevelId !== level._id) {
+                                      videoCompletedRef.current = false;
+                                    }
+                                    setVideo(level.videoUrl);
+                                    setSelectedLevelId(level._id);
+                                    setSyllabus(syllabusData._id);
+                                  }}
+                                >
+                                  ვიდეო
+                                </button>
+                              </div>
+                            )}
+
+                            {level.contentUrl && (
+                              <div className={styles.videoButton}>
+                                <button
+                                  className={styles.quizzBtn}
+                                  onClick={() =>
+                                    window.open(level.contentUrl, '_blank')
+                                  }
+                                >
+                                  მასალები
+                                </button>
+                              </div>
+                            )}
+
+                            {levelCompleted && (
+                              <div className={styles.isCompleted}>
+                                <CompleteCheckIcon />
+                              </div>
+                            )}
+                          </div>
                         </div>
-
-                        <div className={styles.syllabusInfoContainer}>
-                          {(level.quiz || []).length > 0 && (
-                            <div className={styles.quizz}>
-                              <button
-                                className={styles.quizzBtn}
-                                disabled={
-                                  isLevelQuizCompleted(
-                                    syllabusData._id,
-                                    level._id,
-                                  ) || // permanently disable if quiz passed
-                                  !isLevelVideoCompleted(
-                                    syllabusData._id,
-                                    level._id,
-                                  ) // require video first
-                                }
-                                onClick={() => {
-                                  setIsQuizzOpen(true);
-                                  setQuiz(level.quiz);
-                                  setQuizContext({
-                                    syllabusId: syllabusData._id,
-                                    levelId: level._id,
-                                  });
-                                  setQuizResult(null);
-                                  setSelectedAnswers({});
-                                }}
-                                style={
-                                  isLevelQuizCompleted(
-                                    syllabusData._id,
-                                    level._id,
-                                  ) ||
-                                  !isLevelVideoCompleted(
-                                    syllabusData._id,
-                                    level._id,
-                                  )
-                                    ? {
-                                        opacity: 0.7,
-                                        cursor: 'not-allowed',
-                                        pointerEvents: 'none',
-                                      }
-                                    : {}
-                                }
-                              >
-                                ქვიზი
-                              </button>
-                            </div>
-                          )}
-
-                          {level.videoUrl && (
-                            <div className={styles.videoButton}>
-                              <button
-                                className={styles.quizzBtn}
-                                onClick={() => {
-                                  videoCompletedRef.current = false;
-                                  setVideo(level.videoUrl);
-                                  setSelectedLevelId(level._id);
-                                  setSyllabus(syllabusData._id);
-                                }}
-                              >
-                                ვიდეო
-                              </button>
-                            </div>
-                          )}
-
-                          {level.contentUrl && (
-                            <div className={styles.videoButton}>
-                              <button
-                                className={styles.quizzBtn}
-                                onClick={() =>
-                                  window.open(level.contentUrl, '_blank')
-                                }
-                              >
-                                მასალები
-                              </button>
-                            </div>
-                          )}
-
-                          {isLevelCompleted(syllabusData._id, level._id) && (
-                            <div className={styles.isCompleted}>
-                              <CompleteCheckIcon />
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </Accordion>
               ))}
@@ -487,14 +489,22 @@ function VideoLectures() {
               {quizResult.correctAnswers / quizResult.totalAnswers >=
               QUIZ_PASS_THRESHOLD
                 ? 'გილოცავთ! თქვენ წარმატებით გაიარეთ ქვიზი.'
-                : 'არასაკმარისი ქულა. გთხოვთ, გაიმეოროთ მცდელობა.'}
+                : 'არასაკმარისი ქულა. გთხოვთ, თავიდან სცადოთ! (მინიმუმ 80% საჭიროა)'}
             </div>
             <Button
               type="primary"
-              onClick={handleCancelQuiz}
+              onClick={
+                quizResult.correctAnswers / quizResult.totalAnswers >=
+                QUIZ_PASS_THRESHOLD
+                  ? handleCancelQuiz
+                  : handleRetryQuiz
+              }
               style={{ marginTop: '20px' }}
             >
-              დახურვა
+              {quizResult.correctAnswers / quizResult.totalAnswers >=
+              QUIZ_PASS_THRESHOLD
+                ? 'დახურვა'
+                : 'თავიდან ცდა'}
             </Button>
           </div>
         ) : (
@@ -545,7 +555,7 @@ function VideoLectures() {
                 disabled={
                   Object.keys(selectedAnswers).length !== (quiz?.length || 0) ||
                   (quizContext &&
-                    isLevelCompleted(
+                    isLevelQuizCompleted(
                       quizContext.syllabusId,
                       quizContext.levelId,
                     ))

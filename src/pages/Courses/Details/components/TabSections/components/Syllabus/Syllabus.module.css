@@ -30,3 +30,36 @@
   cursor: pointer;
   border: 0;
 }
+
+.videoModalContainer {
+  padding: 20px;
+}
+
+.videoModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.videoModalHeader h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoModalContent {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
